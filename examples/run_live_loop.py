@@ -92,6 +92,8 @@ def parse_args():
     parser.add_argument("--interval-sec", type=int, default=60)
     parser.add_argument("--telegram-report", action="store_true")
     parser.add_argument("--report-times", default="09:10,21:10")
+    parser.add_argument("--report-every-hour", action="store_true")
+    parser.add_argument("--report-minute", type=int, default=10)
     parser.add_argument("--report-title", default="Market State Check")
     parser.add_argument("--once", action="store_true")
     return parser.parse_args()
@@ -103,9 +105,14 @@ def maybe_send_report(args, report_send_times, sent_report_keys):
 
     now_kst = datetime.now(KST)
     current_hhmm = now_kst.strftime("%H:%M")
+    current_hour_key = now_kst.strftime("%Y-%m-%d-%H")
     send_key = now_kst.strftime("%Y-%m-%d") + "-" + current_hhmm
 
-    if current_hhmm not in report_send_times:
+    if args.report_every_hour:
+        if now_kst.minute < args.report_minute:
+            return
+        send_key = current_hour_key
+    elif current_hhmm not in report_send_times:
         return
 
     if send_key in sent_report_keys:
