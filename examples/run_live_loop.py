@@ -114,6 +114,7 @@ def parse_args():
     parser.add_argument("--report-every-hour", action="store_true")
     parser.add_argument("--report-minute", type=int, default=10)
     parser.add_argument("--report-title", default="Market State Check")
+    parser.add_argument("--report-detail", choices=["compact", "full"], default="compact")
     parser.add_argument("--no-state-log", action="store_true")
     parser.add_argument("--no-trade-log", action="store_true")
     parser.add_argument("--once", action="store_true")
@@ -140,7 +141,7 @@ def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot
         return
 
     if latest_snapshot:
-        message = build_live_status_report(latest_snapshot, recent_trade_events, args.report_title)
+        message = build_live_status_report(latest_snapshot, recent_trade_events, args.report_title, args.report_detail)
     else:
         message = build_status_report(title=args.report_title)
 
@@ -156,7 +157,7 @@ def maybe_send_trade_event(args, trade_event):
     send_status_report(format_trade_event_message(trade_event))
 
 
-def build_live_status_report(snapshot, recent_trade_events, title):
+def build_live_status_report(snapshot, recent_trade_events, title, report_detail="compact"):
     result = snapshot["result"]
     range_info = result.get("range") or {}
     failures = result.get("failure_counts") or {}
@@ -174,9 +175,10 @@ def build_live_status_report(snapshot, recent_trade_events, title):
         f"activity_score: {result.get('activity_score')}",
         f"atr: {fmt(result.get('atr'))}",
         "",
-        f"range_high: {fmt(range_info.get('high'))}",
-        f"range_low: {fmt(range_info.get('low'))}",
-        f"range_width_pct: {fmt(range_info.get('width_pct'))}",
+        "range_15d:",
+        f"- high: {fmt(range_info.get('high'))}",
+        f"- low: {fmt(range_info.get('low'))}",
+        f"- width_pct: {fmt(range_info.get('width_pct'))}",
         "",
         f"upper_breakout_failure: {failures.get('upper_breakout_failure', 0)}",
         f"lower_breakdown_failure: {failures.get('lower_breakdown_failure', 0)}",
@@ -187,10 +189,11 @@ def build_live_status_report(snapshot, recent_trade_events, title):
         lines.append("recent_trade_events:")
         lines.extend(format_trade_event_line(event) for event in recent_trade_events[-5:])
 
-    reasons = result.get("reasons", [])[-5:]
+    all_reasons = result.get("reasons", [])
+    reasons = all_reasons if report_detail == "full" else all_reasons[-5:]
     if reasons:
         lines.append("")
-        lines.append("recent_reasons:")
+        lines.append("score_reasons:" if report_detail == "full" else "recent_reasons:")
         lines.extend(f"- {reason}" for reason in reasons)
 
     return "\n".join(lines)
