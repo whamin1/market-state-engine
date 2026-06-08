@@ -6,8 +6,9 @@ from pathlib import Path
 class PaperTrader:
     def __init__(self, config, trade_log_path="work/logs/trade_log.jsonl"):
         self.config = config
-        self.trade_log_path = Path(trade_log_path)
-        self.trade_log_path.parent.mkdir(parents=True, exist_ok=True)
+        self.trade_log_path = Path(trade_log_path) if trade_log_path else None
+        if self.trade_log_path:
+            self.trade_log_path.parent.mkdir(parents=True, exist_ok=True)
         self.position = None
 
     def update(self, result, current_candle, current_time=None, symbol=None):
@@ -209,5 +210,8 @@ class PaperTrader:
         return (entry_price - exit_price) / entry_price * 100
 
     def _write_event(self, event):
+        if self.trade_log_path is None:
+            return
+
         with open(self.trade_log_path, "a", encoding="utf-8") as file:
             file.write(json.dumps(event, ensure_ascii=False) + "\n")

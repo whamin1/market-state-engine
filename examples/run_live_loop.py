@@ -20,16 +20,18 @@ def main():
     args = parse_args()
 
     engine = MarketStateEngine()
-    logger = MarketStateLogger()
-    trader = PaperTrader(engine.config)
+    logger = None if args.no_state_log else MarketStateLogger()
+    trader = PaperTrader(engine.config, trade_log_path=None if args.no_trade_log else "work/logs/trade_log.jsonl")
     fetcher = BinanceFuturesFetcher()
     daily_cache = DailyCandleCache(args.symbol)
     report_send_times = parse_send_times(args.report_times)
     sent_report_keys = set()
+    recent_trade_events = []
+    latest_snapshot = None
 
     while True:
         try:
-            run_once(
+            latest_snapshot, trade_event = run_once(
                 symbol=args.symbol,
                 liquda_dir=args.liquda_dir,
                 engine=engine,
@@ -38,7 +40,12 @@ def main():
                 fetcher=fetcher,
                 daily_cache=daily_cache,
             )
-            maybe_send_report(args, report_send_times, sent_report_keys)
+            if trade_event:
+                recent_trade_events.append(trade_event)
+                recent_trade_events = recent_trade_events[-10:]
+                maybe_send_trade_event(args, trade_event)
+
+            maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events)
         except Exception as exc:
             print(f"live loop error: {exc}")
 
@@ -67,8 +74,18 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         liquidation_data=liquidation_data,
     )
 
-    logger.log(result, symbol=symbol, current_candle=current_candle, current_time=current_time)
+    if logger:
+        logger.log(result, symbol=symbol, current_candle=current_candle, current_time=current_time)
+
     trade_event = trader.update(result, current_candle=current_candle, current_time=current_time, symbol=symbol)
+
+    snapshot = {
+        "time": current_time,
+        "symbol": symbol,
+        "price": current_candle["close"],
+        "result": result,
+        "trade_event": trade_event,
+    }
 
     print(
         {
@@ -83,6 +100,7 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
             "trade_event": trade_event,
         }
     )
+    return snapshot, trade_event
 
 
 def parse_args():
@@ -91,15 +109,18 @@ def parse_args():
     parser.add_argument("--liquda-dir", default="liquda")
     parser.add_argument("--interval-sec", type=int, default=60)
     parser.add_argument("--telegram-report", action="store_true")
+    parser.add_argument("--telegram-trades", action="store_true")
     parser.add_argument("--report-times", default="09:10,21:10")
     parser.add_argument("--report-every-hour", action="store_true")
     parser.add_argument("--report-minute", type=int, default=10)
     parser.add_argument("--report-title", default="Market State Check")
+    parser.add_argument("--no-state-log", action="store_true")
+    parser.add_argument("--no-trade-log", action="store_true")
     parser.add_argument("--once", action="store_true")
     return parser.parse_args()
 
 
-def maybe_send_report(args, report_send_times, sent_report_keys):
+def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events):
     if not args.telegram_report:
         return
 
@@ -118,10 +139,87 @@ def maybe_send_report(args, report_send_times, sent_report_keys):
     if send_key in sent_report_keys:
         return
 
-    message = build_status_report(title=args.report_title)
+    if latest_snapshot:
+        message = build_live_status_report(latest_snapshot, recent_trade_events, args.report_title)
+    else:
+        message = build_status_report(title=args.report_title)
+
     print(message)
     send_status_report(message)
     sent_report_keys.add(send_key)
+
+
+def maybe_send_trade_event(args, trade_event):
+    if not args.telegram_trades:
+        return
+
+    send_status_report(format_trade_event_message(trade_event))
+
+
+def build_live_status_report(snapshot, recent_trade_events, title):
+    result = snapshot["result"]
+    range_info = result.get("range") or {}
+    failures = result.get("failure_counts") or {}
+
+    lines = [
+        title,
+        f"time: {snapshot['time']}",
+        f"symbol: {snapshot['symbol']}",
+        f"price: {snapshot['price']}",
+        "",
+        f"state: {result.get('state')}",
+        f"signal: {result.get('signal')}",
+        f"long_score: {result.get('long_score')}",
+        f"short_score: {result.get('short_score')}",
+        f"activity_score: {result.get('activity_score')}",
+        f"atr: {fmt(result.get('atr'))}",
+        "",
+        f"range_high: {fmt(range_info.get('high'))}",
+        f"range_low: {fmt(range_info.get('low'))}",
+        f"range_width_pct: {fmt(range_info.get('width_pct'))}",
+        "",
+        f"upper_breakout_failure: {failures.get('upper_breakout_failure', 0)}",
+        f"lower_breakdown_failure: {failures.get('lower_breakdown_failure', 0)}",
+    ]
+
+    if recent_trade_events:
+        lines.append("")
+        lines.append("recent_trade_events:")
+        lines.extend(format_trade_event_line(event) for event in recent_trade_events[-5:])
+
+    reasons = result.get("reasons", [])[-5:]
+    if reasons:
+        lines.append("")
+        lines.append("recent_reasons:")
+        lines.extend(f"- {reason}" for reason in reasons)
+
+    return "\n".join(lines)
+
+
+def format_trade_event_message(event):
+    return "\n".join(["Trade Event", format_trade_event_line(event)])
+
+
+def format_trade_event_line(event):
+    event_type = event.get("type")
+    side = event.get("side")
+
+    if event_type == "OPEN":
+        return f"- OPEN {side} entry={event.get('entry_price')} stop={fmt(event.get('stop_price'))}"
+    if event_type == "ADD":
+        return f"- ADD {side} price={event.get('price')} total_size={event.get('total_size')}"
+    if event_type == "CLOSE":
+        return f"- CLOSE {side} exit={event.get('exit_price')} pnl={fmt(event.get('pnl_pct'))}% reason={event.get('exit_reason')}"
+
+    return f"- {event_type} {side}"
+
+
+def fmt(value):
+    if value is None:
+        return "None"
+    if isinstance(value, float):
+        return f"{value:.2f}"
+    return value
 
 
 def parse_send_times(value):
