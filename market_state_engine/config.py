@@ -9,9 +9,12 @@ class MarketStateConfig:
 
     range_days: int = 15
     range_min_width_pct: float = 4.0
-    range_near_pct: float = 3.0
+    range_near_pct: float = 2.0
     range_breakout_pct: float = 1.0
     range_breakout_score: int = 3
+    range_position_bins: int = 20
+    range_edge_bins_no_score: int = 2
+    range_position_max_score: int = 4
 
     atr_period: int = 14
     atr_stop_multiplier: float = 1.5

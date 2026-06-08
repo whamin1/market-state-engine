@@ -313,6 +313,12 @@ class MarketStateEngine:
             zero_short_score = True
             reasons.append("range near low: SHORT score forced to 0")
 
+        position_result = self._calc_range_position_score(current_price, range_low, range_high)
+        long_score += position_result["long_score"]
+        short_score += position_result["short_score"]
+        if position_result["reason"]:
+            reasons.append(position_result["reason"])
+
         if not reasons:
             reasons.append("range 0: normal range conditions")
 
@@ -326,9 +332,63 @@ class MarketStateEngine:
                 "high": range_high,
                 "low": range_low,
                 "width_pct": range_width_pct,
+                "position_bin": position_result["position_bin"],
             },
             "reasons": reasons,
         }
+
+    def _calc_range_position_score(self, current_price, range_low, range_high):
+        if current_price < range_low or current_price > range_high:
+            return {"long_score": 0, "short_score": 0, "position_bin": None, "reason": None}
+
+        range_size = range_high - range_low
+        if range_size <= 0:
+            return {"long_score": 0, "short_score": 0, "position_bin": None, "reason": None}
+
+        bins = self.config.range_position_bins
+        position_ratio = (current_price - range_low) / range_size
+        position_bin = int(position_ratio * bins) + 1
+        position_bin = min(max(position_bin, 1), bins)
+
+        edge_bins = self.config.range_edge_bins_no_score
+        lower_score_bins = list(range(edge_bins + 1, bins // 2))
+        upper_score_bins = list(range((bins // 2) + 2, bins - edge_bins + 1))
+
+        if position_bin in lower_score_bins:
+            distance_from_center = (bins // 2) - position_bin
+            max_distance = (bins // 2) - (edge_bins + 1)
+            score = self._scale_range_position_score(distance_from_center, max_distance)
+            return {
+                "long_score": score,
+                "short_score": 0,
+                "position_bin": position_bin,
+                "reason": f"range position bin {position_bin}/{bins} LONG +{score}",
+            }
+
+        if position_bin in upper_score_bins:
+            distance_from_center = position_bin - ((bins // 2) + 1)
+            max_distance = (bins - edge_bins) - ((bins // 2) + 1)
+            score = self._scale_range_position_score(distance_from_center, max_distance)
+            return {
+                "long_score": 0,
+                "short_score": score,
+                "position_bin": position_bin,
+                "reason": f"range position bin {position_bin}/{bins} SHORT +{score}",
+            }
+
+        return {
+            "long_score": 0,
+            "short_score": 0,
+            "position_bin": position_bin,
+            "reason": f"range position bin {position_bin}/{bins} score 0",
+        }
+
+    def _scale_range_position_score(self, distance_from_center, max_distance):
+        if max_distance <= 0:
+            return 0
+
+        score = round(distance_from_center / max_distance * self.config.range_position_max_score)
+        return min(max(score, 1), self.config.range_position_max_score)
 
     def _empty_range_result(self, reason):
         return {
