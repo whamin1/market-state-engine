@@ -27,3 +27,5 @@ class MarketStateConfig:
     add_entry_score_increase: int = 5
     max_add_entries: int = 1
     add_entry_size: float = 0.5
+
+    paper_start_balance: float = 100.0
