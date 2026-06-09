@@ -78,6 +78,8 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         logger.log(result, symbol=symbol, current_candle=current_candle, current_time=current_time)
 
     trade_event = trader.update(result, current_candle=current_candle, current_time=current_time, symbol=symbol)
+    position_snapshot = trader.get_position_snapshot(current_candle["close"])
+    account_snapshot = trader.get_account_snapshot(current_candle["close"])
 
     snapshot = {
         "time": current_time,
@@ -85,6 +87,8 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         "price": current_candle["close"],
         "result": result,
         "trade_event": trade_event,
+        "position": position_snapshot,
+        "account": account_snapshot,
     }
 
     print(
@@ -161,19 +165,45 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
     result = snapshot["result"]
     range_info = result.get("range") or {}
     failures = result.get("failure_counts") or {}
+    position = snapshot.get("position") or {}
+    account = snapshot.get("account") or {}
+    decision = build_decision_snapshot(result, snapshot.get("trade_event"), position)
+    time_utc = parse_datetime(snapshot["time"])
+    time_kst = time_utc.astimezone(KST)
 
     lines = [
         title,
-        f"time: {snapshot['time']}",
+        "mode: PAPER",
+        f"time_kst: {time_kst.strftime('%Y-%m-%d %H:%M:%S')} KST",
+        "",
         f"symbol: {snapshot['symbol']}",
         f"price: {snapshot['price']}",
         "",
-        f"state: {result.get('state')}",
-        f"signal: {result.get('signal')}",
-        f"long_score: {result.get('long_score')}",
-        f"short_score: {result.get('short_score')}",
-        f"activity_score: {result.get('activity_score')}",
-        f"atr: {fmt(result.get('atr'))}",
+        "position:",
+        f"- status: {position.get('status')}",
+        f"- side: {position.get('side')}",
+        f"- entry: {fmt(position.get('entry'))}",
+        f"- stop: {fmt(position.get('stop'))}",
+        f"- holding_time: {format_holding_time(position.get('entry_time'), time_utc)}",
+        f"- unrealized_pnl_pct: {fmt_pct(position.get('unrealized_pnl_pct'))}",
+        "",
+        "decision:",
+        f"- state: {decision['state']}",
+        f"- new_signal: {decision['new_signal']}",
+        f"- order_action: {decision['order_action']}",
+        f"- reason: {decision['reason']}",
+        "",
+        "scores:",
+        f"- long_score: {result.get('long_score')}",
+        f"- short_score: {result.get('short_score')}",
+        f"- activity_score: {result.get('activity_score')}",
+        f"- atr: {fmt(result.get('atr'))}",
+        "",
+        "paper_account:",
+        f"- start_balance: {fmt(account.get('start_balance'))}",
+        f"- realized_pnl: {fmt(account.get('realized_pnl'))}",
+        f"- unrealized_pnl: {fmt(account.get('unrealized_pnl'))}",
+        f"- equity: {fmt(account.get('equity'))}",
         "",
         "range_15d:",
         f"- high: {fmt(range_info.get('high'))}",
@@ -189,12 +219,8 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
         lines.append("recent_trade_events:")
         lines.extend(format_trade_event_line(event) for event in recent_trade_events[-5:])
 
-    all_reasons = result.get("reasons", [])
-    reasons = all_reasons if report_detail == "full" else all_reasons[-5:]
-    if reasons:
-        lines.append("")
-        lines.append("score_reasons:" if report_detail == "full" else "recent_reasons:")
-        lines.extend(f"- {reason}" for reason in reasons)
+    lines.append("")
+    lines.extend(build_score_reason_summary(result.get("reasons", []), report_detail))
 
     return "\n".join(lines)
 
@@ -223,6 +249,134 @@ def fmt(value):
     if isinstance(value, float):
         return f"{value:.2f}"
     return value
+
+
+def fmt_pct(value):
+    if value is None:
+        return "None"
+    return f"{value:.2f}%"
+
+
+def format_holding_time(entry_time, current_time):
+    if not entry_time:
+        return "None"
+
+    entry_dt = parse_datetime(entry_time)
+    elapsed = current_time - entry_dt
+    total_minutes = max(int(elapsed.total_seconds() // 60), 0)
+    hours = total_minutes // 60
+    minutes = total_minutes % 60
+    return f"{hours}h {minutes}m"
+
+
+def parse_datetime(value):
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def build_decision_snapshot(result, trade_event, position):
+    if trade_event:
+        return {
+            "state": result.get("state"),
+            "new_signal": result.get("signal"),
+            "order_action": trade_event.get("type"),
+            "reason": format_trade_event_line(trade_event).lstrip("- "),
+        }
+
+    if position.get("status") == "OPEN":
+        return {
+            "state": result.get("state"),
+            "new_signal": result.get("signal"),
+            "order_action": "NONE",
+            "reason": f"already in paper {position.get('side')} position",
+        }
+
+    return {
+        "state": result.get("state"),
+        "new_signal": result.get("signal"),
+        "order_action": "NONE",
+        "reason": "no valid paper trade action",
+    }
+
+
+def build_score_reason_summary(reasons, report_detail):
+    grouped = {
+        "LONG": [],
+        "SHORT": [],
+        "ACTIVITY": [],
+        "BLOCK": [],
+    }
+
+    for reason in reasons:
+        score = extract_reason_score(reason)
+        label = simplify_reason_label(reason)
+
+        if "LONG" in reason and score is not None:
+            grouped["LONG"].append((label, score))
+        elif "SHORT" in reason and score is not None:
+            grouped["SHORT"].append((label, score))
+        elif reason.startswith("atr_score") and score is not None:
+            grouped["ACTIVITY"].append((label, score))
+        elif "forced to 0" in reason or "HOLD" in reason or "skipped" in reason:
+            grouped["BLOCK"].append((label, None))
+
+    lines = ["score_summary:"]
+    for section in ("LONG", "SHORT", "ACTIVITY"):
+        items = grouped[section]
+        if not items:
+            continue
+        total = sum(score for _, score in items)
+        lines.append(f"{section}: +{total}")
+        for label, score in items:
+            lines.append(f"- {label}: +{score}")
+
+    if report_detail == "full" and grouped["BLOCK"]:
+        lines.append("NOTES:")
+        for label, _ in grouped["BLOCK"][-5:]:
+            lines.append(f"- {label}")
+
+    if len(lines) == 1:
+        lines.append("- no score contribution")
+
+    return lines
+
+
+def simplify_reason_label(reason):
+    if reason.startswith("price_position"):
+        return reason.replace("price_position ", "price ")
+    if reason.startswith("body_score"):
+        return "body"
+    if reason.startswith("volume_score"):
+        return "volume"
+    if reason.startswith("trend_continuity"):
+        return "trend"
+    if reason.startswith("range upper breakout"):
+        return "range breakout"
+    if reason.startswith("range lower breakdown"):
+        return "range breakdown"
+    if reason.startswith("range position"):
+        return reason.split(" LONG ")[0].split(" SHORT ")[0].replace("range position ", "range ")
+    if reason.startswith("atr_score"):
+        return "atr"
+    if reason.startswith("liquidation_score short_liq"):
+        return "short liquidation"
+    if reason.startswith("liquidation_score long_liq"):
+        return "long liquidation"
+    return reason
+
+
+def extract_reason_score(reason):
+    marker = "+"
+    if marker not in reason:
+        return None
+
+    tail = reason.split(marker)[-1].split()[0]
+    try:
+        return int(tail)
+    except ValueError:
+        return None
 
 
 def parse_send_times(value):

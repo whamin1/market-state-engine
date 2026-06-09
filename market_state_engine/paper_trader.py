@@ -10,6 +10,7 @@ class PaperTrader:
         if self.trade_log_path:
             self.trade_log_path.parent.mkdir(parents=True, exist_ok=True)
         self.position = None
+        self.realized_pnl = 0.0
 
     def update(self, result, current_candle, current_time=None, symbol=None):
         current_price = current_candle["close"]
@@ -128,6 +129,8 @@ class PaperTrader:
         position = self.position
         close_size = position["remaining_size"] if close_size is None else close_size
         pnl_pct = self._calculate_pnl_pct(position["side"], position["entry_price"], exit_price)
+        realized_pnl_amount = self.config.paper_start_balance * close_size * pnl_pct / 100
+        self.realized_pnl += realized_pnl_amount
 
         event = {
             "type": "CLOSE",
@@ -139,6 +142,8 @@ class PaperTrader:
             "exit_time": current_time,
             "exit_price": exit_price,
             "pnl_pct": pnl_pct,
+            "realized_pnl_amount": realized_pnl_amount,
+            "paper_balance_after": self.config.paper_start_balance + self.realized_pnl,
             "close_size": close_size,
             "remaining_size_after": max(position["remaining_size"] - close_size, 0.0),
             "exit_reason": exit_reason,
@@ -208,6 +213,51 @@ class PaperTrader:
         if side == "LONG":
             return (exit_price - entry_price) / entry_price * 100
         return (entry_price - exit_price) / entry_price * 100
+
+    def get_position_snapshot(self, current_price):
+        if self.position is None:
+            return {
+                "status": "FLAT",
+                "side": None,
+                "entry": None,
+                "stop": None,
+                "unrealized_pnl_pct": 0.0,
+            }
+
+        stop_price = self.position.get("trailing_stop_price") or self.position.get("stop_price")
+        return {
+            "status": "OPEN",
+            "side": self.position["side"],
+            "entry": self.position["entry_price"],
+            "entry_time": self.position["entry_time"],
+            "stop": stop_price,
+            "remaining_size": self.position["remaining_size"],
+            "total_size": self.position["total_size"],
+            "unrealized_pnl_pct": self._calculate_pnl_pct(
+                self.position["side"],
+                self.position["entry_price"],
+                current_price,
+            ),
+        }
+
+    def get_account_snapshot(self, current_price):
+        position = self.get_position_snapshot(current_price)
+        unrealized_pnl = 0.0
+
+        if self.position is not None:
+            unrealized_pnl = (
+                self.config.paper_start_balance
+                * self.position["remaining_size"]
+                * position["unrealized_pnl_pct"]
+                / 100
+            )
+
+        return {
+            "start_balance": self.config.paper_start_balance,
+            "realized_pnl": self.realized_pnl,
+            "unrealized_pnl": unrealized_pnl,
+            "equity": self.config.paper_start_balance + self.realized_pnl + unrealized_pnl,
+        }
 
     def _write_event(self, event):
         if self.trade_log_path is None:
