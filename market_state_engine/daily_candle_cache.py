@@ -34,28 +34,35 @@ class DailyCandleCache:
         return list(self.completed_daily_candles)
 
     def save_atomic(self, candles):
-        tmp_path = self.csv_path.with_suffix(self.csv_path.suffix + ".tmp")
+        self.csv_path.parent.mkdir(parents=True, exist_ok=True)
+        tmp_path = self.csv_path.with_name(
+            f"{self.csv_path.name}.{os.getpid()}.{datetime.now(timezone.utc).timestamp():.6f}.tmp"
+        )
 
-        with open(tmp_path, "w", newline="", encoding="utf-8") as file:
-            writer = csv.DictWriter(file, fieldnames=["timestamp", "open", "high", "low", "close", "volume"])
-            writer.writeheader()
-            for candle in candles:
-                writer.writerow(
-                    {
-                        "timestamp": candle["timestamp"],
-                        "open": candle["open"],
-                        "high": candle["high"],
-                        "low": candle["low"],
-                        "close": candle["close"],
-                        "volume": candle["volume"],
-                    }
-                )
+        try:
+            with open(tmp_path, "w", newline="", encoding="utf-8") as file:
+                writer = csv.DictWriter(file, fieldnames=["timestamp", "open", "high", "low", "close", "volume"])
+                writer.writeheader()
+                for candle in candles:
+                    writer.writerow(
+                        {
+                            "timestamp": candle["timestamp"],
+                            "open": candle["open"],
+                            "high": candle["high"],
+                            "low": candle["low"],
+                            "close": candle["close"],
+                            "volume": candle["volume"],
+                        }
+                    )
 
-        loaded = self._load_from_path(tmp_path)
-        self._validate_candles(loaded)
-        os.replace(tmp_path, self.csv_path)
-        self.completed_daily_candles = loaded
-        return self.get_completed_candles()
+            loaded = self._load_from_path(tmp_path)
+            self._validate_candles(loaded)
+            os.replace(tmp_path, self.csv_path)
+            self.completed_daily_candles = loaded
+            return self.get_completed_candles()
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
 
     def refresh_if_needed(self, now=None, fetcher=None):
         now_kst = self._to_kst(now or datetime.now(timezone.utc))
