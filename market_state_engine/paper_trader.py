@@ -4,13 +4,17 @@ from pathlib import Path
 
 
 class PaperTrader:
-    def __init__(self, config, trade_log_path="work/logs/trade_log.jsonl"):
+    def __init__(self, config, trade_log_path="work/logs/trade_log.jsonl", state_path="work/state/paper_trader_state.json"):
         self.config = config
         self.trade_log_path = Path(trade_log_path) if trade_log_path else None
         if self.trade_log_path:
             self.trade_log_path.parent.mkdir(parents=True, exist_ok=True)
+        self.state_path = Path(state_path) if state_path else None
+        if self.state_path:
+            self.state_path.parent.mkdir(parents=True, exist_ok=True)
         self.position = None
         self.realized_pnl = 0.0
+        self._load_state()
 
     def update(self, result, current_candle, current_time=None, symbol=None):
         current_price = current_candle["close"]
@@ -24,6 +28,7 @@ class PaperTrader:
             return None
 
         self._update_trailing_stop(current_price, atr)
+        self._save_state()
 
         stop_event = self._check_stop_loss(current_price, current_time, symbol)
         if stop_event:
@@ -85,6 +90,7 @@ class PaperTrader:
             "remaining_size": self.position["remaining_size"],
         }
         self._write_event(event)
+        self._save_state()
         return event
 
     def _check_add_entry(self, result, current_price, current_time, symbol):
@@ -123,6 +129,7 @@ class PaperTrader:
             "reason": f"score increased by {self.config.add_entry_score_increase}",
         }
         self._write_event(event)
+        self._save_state()
         return event
 
     def _close_position(self, exit_price, current_time, symbol, exit_reason, result=None, close_size=None):
@@ -156,6 +163,7 @@ class PaperTrader:
             self.position = None
 
         self._write_event(event)
+        self._save_state()
         return event
 
     def _check_stop_loss(self, current_price, current_time, symbol):
@@ -265,3 +273,29 @@ class PaperTrader:
 
         with open(self.trade_log_path, "a", encoding="utf-8") as file:
             file.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+    def _save_state(self):
+        if self.state_path is None:
+            return
+
+        tmp_path = self.state_path.with_name(f"{self.state_path.name}.tmp")
+        state = {
+            "position": self.position,
+            "realized_pnl": self.realized_pnl,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }
+
+        with open(tmp_path, "w", encoding="utf-8") as file:
+            json.dump(state, file, ensure_ascii=False, indent=2)
+
+        tmp_path.replace(self.state_path)
+
+    def _load_state(self):
+        if self.state_path is None or not self.state_path.exists():
+            return
+
+        with open(self.state_path, encoding="utf-8") as file:
+            state = json.load(file)
+
+        self.position = state.get("position")
+        self.realized_pnl = state.get("realized_pnl", 0.0)

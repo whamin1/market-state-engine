@@ -18,8 +18,9 @@ class MarketStateConfig:
 
     atr_period: int = 14
     atr_stop_multiplier: float = 1.5
+    activity_direction_bonus_enabled: bool = True
 
-    partial_take_profit_pct: float = 2.0
+    partial_take_profit_pct: float = 3.0
     partial_take_profit_size: float = 0.5
     trailing_take_profit_pct: float = 5.0
     trailing_atr_multiplier: float = 1.5

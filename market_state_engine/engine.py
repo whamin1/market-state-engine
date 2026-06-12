@@ -46,6 +46,9 @@ class MarketStateEngine:
             short_score = 0
 
         activity_score = atr_result["activity_score"]
+        activity_direction_result = self.calc_activity_direction_bonus(current_candle, activity_score)
+        long_score += activity_direction_result["long_score"]
+        short_score += activity_direction_result["short_score"]
 
         if range_result["block_trade"]:
             state = "HOLD"
@@ -71,9 +74,31 @@ class MarketStateEngine:
                 + trend_result["reasons"]
                 + range_result["reasons"]
                 + atr_result["reasons"]
+                + activity_direction_result["reasons"]
                 + liquidation_result["reasons"]
             ),
         }
+
+    def calc_activity_direction_bonus(self, current_candle, activity_score):
+        if not self.config.activity_direction_bonus_enabled or current_candle is None or activity_score <= 0:
+            return {"long_score": 0, "short_score": 0, "reasons": []}
+
+        direction = self._candle_direction(current_candle)
+        if direction == "UP":
+            return {
+                "long_score": activity_score,
+                "short_score": 0,
+                "reasons": [f"activity_direction LONG +{activity_score}"],
+            }
+
+        if direction == "DOWN":
+            return {
+                "long_score": 0,
+                "short_score": activity_score,
+                "reasons": [f"activity_direction SHORT +{activity_score}"],
+            }
+
+        return {"long_score": 0, "short_score": 0, "reasons": ["activity_direction 0: current candle is doji"]}
 
     def update_failure_counts(self, ohlcv_data):
         if len(ohlcv_data) < self.config.range_days + 1:

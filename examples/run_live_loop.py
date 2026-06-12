@@ -21,7 +21,11 @@ def main():
 
     engine = MarketStateEngine()
     logger = None if args.no_state_log else MarketStateLogger()
-    trader = PaperTrader(engine.config, trade_log_path=None if args.no_trade_log else "work/logs/trade_log.jsonl")
+    trader = PaperTrader(
+        engine.config,
+        trade_log_path=None if args.no_trade_log else "work/logs/trade_log.jsonl",
+        state_path=args.paper_state_path,
+    )
     fetcher = BinanceFuturesFetcher()
     daily_cache = DailyCandleCache(args.symbol)
     report_send_times = parse_send_times(args.report_times)
@@ -121,6 +125,7 @@ def parse_args():
     parser.add_argument("--report-detail", choices=["compact", "full"], default="compact")
     parser.add_argument("--no-state-log", action="store_true")
     parser.add_argument("--no-trade-log", action="store_true")
+    parser.add_argument("--paper-state-path", default="work/state/paper_trader_state.json")
     parser.add_argument("--once", action="store_true")
     return parser.parse_args()
 
@@ -234,13 +239,23 @@ def format_trade_event_line(event):
     side = event.get("side")
 
     if event_type == "OPEN":
-        return f"- OPEN {side} entry={event.get('entry_price')} stop={fmt(event.get('stop_price'))}"
+        return (
+            f"- {format_event_time(event.get('entry_time', event.get('logged_at')))} "
+            f"OPEN {side} entry={event.get('entry_price')} stop={fmt(event.get('stop_price'))}"
+        )
     if event_type == "ADD":
-        return f"- ADD {side} price={event.get('price')} total_size={event.get('total_size')}"
+        return (
+            f"- {format_event_time(event.get('time', event.get('logged_at')))} "
+            f"ADD {side} price={event.get('price')} total_size={event.get('total_size')}"
+        )
     if event_type == "CLOSE":
-        return f"- CLOSE {side} exit={event.get('exit_price')} pnl={fmt(event.get('pnl_pct'))}% reason={event.get('exit_reason')}"
+        return (
+            f"- {format_event_time(event.get('exit_time', event.get('logged_at')))} "
+            f"CLOSE {side} exit={event.get('exit_price')} pnl={fmt(event.get('pnl_pct'))}% "
+            f"reason={event.get('exit_reason')}"
+        )
 
-    return f"- {event_type} {side}"
+    return f"- {format_event_time(event.get('logged_at'))} {event_type} {side}"
 
 
 def fmt(value):
@@ -267,6 +282,13 @@ def format_holding_time(entry_time, current_time):
     hours = total_minutes // 60
     minutes = total_minutes % 60
     return f"{hours}h {minutes}m"
+
+
+def format_event_time(value):
+    if not value:
+        return "time=None"
+
+    return parse_datetime(value).astimezone(KST).strftime("%m-%d %H:%M")
 
 
 def parse_datetime(value):
@@ -360,6 +382,8 @@ def simplify_reason_label(reason):
         return reason.split(" LONG ")[0].split(" SHORT ")[0].replace("range position ", "range ")
     if reason.startswith("atr_score"):
         return "atr"
+    if reason.startswith("activity_direction"):
+        return "activity direction"
     if reason.startswith("liquidation_score short_liq"):
         return "short liquidation"
     if reason.startswith("liquidation_score long_liq"):
