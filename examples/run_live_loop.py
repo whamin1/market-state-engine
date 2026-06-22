@@ -125,6 +125,8 @@ def parse_args():
     parser.add_argument("--telegram-trades", action="store_true")
     parser.add_argument("--report-times", default="09:10,21:10")
     parser.add_argument("--report-every-hour", action="store_true")
+    parser.add_argument("--report-every-4-hours", action="store_true")
+    parser.add_argument("--report-interval-hours", type=int, default=None)
     parser.add_argument("--report-minute", type=int, default=10)
     parser.add_argument("--report-title", default="Market State Check")
     parser.add_argument("--report-detail", choices=["compact", "full"], default="compact")
@@ -159,9 +161,12 @@ def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot
     current_hhmm = now_kst.strftime("%H:%M")
     current_hour_key = now_kst.strftime("%Y-%m-%d-%H")
     send_key = now_kst.strftime("%Y-%m-%d") + "-" + current_hhmm
+    interval_hours = get_report_interval_hours(args)
 
-    if args.report_every_hour:
+    if interval_hours:
         if now_kst.minute < args.report_minute:
+            return
+        if now_kst.hour % interval_hours != 0:
             return
         send_key = current_hour_key
     elif current_hhmm not in report_send_times:
@@ -185,6 +190,16 @@ def maybe_send_trade_event(args, trade_event):
         return
 
     send_status_report(format_trade_event_message(trade_event))
+
+
+def get_report_interval_hours(args):
+    if args.report_interval_hours:
+        return args.report_interval_hours
+    if args.report_every_4_hours:
+        return 4
+    if args.report_every_hour:
+        return 1
+    return None
 
 
 def build_live_status_report(snapshot, recent_trade_events, title, report_detail="compact"):
@@ -267,6 +282,27 @@ def format_trade_event_line(event):
             f"- {format_event_time(event.get('exit_time', event.get('logged_at')))} "
             f"CLOSE {side} exit={event.get('exit_price')} pnl={fmt(event.get('pnl_pct'))}% "
             f"reason={event.get('exit_reason')}"
+        )
+    if event_type == "LIVE_ORDER":
+        return (
+            f"- {format_event_time(event.get('logged_at'))} "
+            f"LIVE ENTRY {event.get('position_side', side)} status={event.get('status')} "
+            f"price={event.get('price')} qty={event.get('quantity')} notional={event.get('notional_usdt')}"
+        )
+    if event_type == "LIVE_TRAILING_START":
+        return (
+            f"- {format_event_time(event.get('logged_at'))} "
+            f"TRAILING START {side} price={event.get('price')} stop={fmt(event.get('stop_price'))}"
+        )
+    if event_type == "LIVE_TRAILING_STOP_HIT":
+        return (
+            f"- {format_event_time(event.get('logged_at'))} "
+            f"TRAILING STOP HIT {side} price={event.get('price')} stop={fmt(event.get('stop_price'))}"
+        )
+    if event_type == "LIVE_POSITION_CLOSED":
+        return (
+            f"- {format_event_time(event.get('logged_at'))} "
+            f"LIVE POSITION CLOSED {side} exit={event.get('exit_price')} reason={event.get('reason')}"
         )
 
     return f"- {format_event_time(event.get('logged_at'))} {event_type} {side}"

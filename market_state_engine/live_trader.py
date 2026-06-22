@@ -19,7 +19,9 @@ class LiveTrader:
 
     def update(self, result, current_candle, current_time=None, symbol=None):
         current_price = current_candle["close"]
-        self._sync_position_state(symbol, current_price, current_time)
+        sync_event = self._sync_position_state(symbol, current_price, current_time)
+        if sync_event:
+            return sync_event
 
         if result["signal"] not in ("ENTER_LONG", "ENTER_SHORT"):
             return None
@@ -38,6 +40,7 @@ class LiveTrader:
             "symbol": symbol,
             "signal": result["signal"],
             "side": side,
+            "position_side": position_side,
             "notional_usdt": self.config.live_entry_notional_usdt,
             "quantity": quantity,
             "price": current_price,
@@ -121,16 +124,29 @@ class LiveTrader:
         return f"{quantity:.3f}"
 
     def _sync_position_state(self, symbol, current_price, current_time):
+        previous_state = dict(self.position_state) if self.position_state else None
         snapshot = self.get_position_snapshot(symbol, current_price)
-        if snapshot["status"] != "OPEN" or self.position_state is None:
-            return
+        if snapshot["status"] == "FLAT" and previous_state:
+            return {
+                "type": "LIVE_POSITION_CLOSED",
+                "logged_at": datetime.now(timezone.utc).isoformat(),
+                "symbol": symbol,
+                "side": previous_state.get("side"),
+                "entry_price": previous_state.get("entry_price"),
+                "exit_price": current_price,
+                "reason": "exchange position is closed",
+            }
 
-        self._update_trailing_state(snapshot["side"], current_price)
+        if snapshot["status"] != "OPEN" or self.position_state is None:
+            return None
+
+        trailing_event = self._update_trailing_state(snapshot["side"], current_price, symbol)
         if current_time and not self.position_state.get("last_seen_time"):
             self.position_state["last_seen_time"] = current_time
         else:
             self.position_state["last_seen_time"] = datetime.now(timezone.utc).isoformat()
         self._save_state()
+        return trailing_event
 
     def _set_position_state(self, symbol, side, entry_price, current_time, result):
         atr = result.get("atr")
@@ -151,6 +167,7 @@ class LiveTrader:
             "trailing_active": False,
             "best_price": entry_price,
             "add_count": 0,
+            "trailing_stop_alerted": False,
             "entry_score": result["long_score"] if side == "LONG" else result["short_score"],
             "last_add_score": result["long_score"] if side == "LONG" else result["short_score"],
             "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -172,27 +189,29 @@ class LiveTrader:
             "trailing_active": False,
             "best_price": entry_price,
             "add_count": 0,
+            "trailing_stop_alerted": False,
             "entry_score": None,
             "last_add_score": None,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         self._save_state()
 
-    def _update_trailing_state(self, side, current_price):
+    def _update_trailing_state(self, side, current_price, symbol):
         if not self.position_state:
-            return
+            return None
 
         entry_price = self.position_state.get("entry_price")
         if not entry_price:
-            return
+            return None
 
         if side == "LONG":
             pnl_pct = (current_price - entry_price) / entry_price * 100
         else:
             pnl_pct = (entry_price - current_price) / entry_price * 100
 
-        if pnl_pct < self.config.trailing_take_profit_pct:
-            return
+        was_active = self.position_state.get("trailing_active", False)
+        if not was_active and pnl_pct < self.config.trailing_take_profit_pct:
+            return None
 
         self.position_state["trailing_active"] = True
         if side == "LONG":
@@ -209,6 +228,43 @@ class LiveTrader:
             self.position_state["trailing_stop_price"] = new_stop if current_stop is None else min(current_stop, new_stop)
 
         self.position_state["updated_at"] = datetime.now(timezone.utc).isoformat()
+        stop_price = self.position_state.get("trailing_stop_price")
+
+        if self._is_trailing_stop_touched(side, current_price, stop_price):
+            if self.position_state.get("trailing_stop_alerted"):
+                return None
+            self.position_state["trailing_stop_alerted"] = True
+            return {
+                "type": "LIVE_TRAILING_STOP_HIT",
+                "logged_at": datetime.now(timezone.utc).isoformat(),
+                "symbol": symbol,
+                "side": side,
+                "price": current_price,
+                "stop_price": stop_price,
+                "best_price": self.position_state.get("best_price"),
+                "reason": "local trailing stop touched",
+            }
+
+        if not was_active:
+            return {
+                "type": "LIVE_TRAILING_START",
+                "logged_at": datetime.now(timezone.utc).isoformat(),
+                "symbol": symbol,
+                "side": side,
+                "price": current_price,
+                "stop_price": stop_price,
+                "best_price": self.position_state.get("best_price"),
+                "trigger_pct": self.config.trailing_take_profit_pct,
+            }
+
+        return None
+
+    def _is_trailing_stop_touched(self, side, current_price, stop_price):
+        if stop_price is None:
+            return False
+        if side == "LONG":
+            return current_price <= stop_price
+        return current_price >= stop_price
 
     def _calculate_local_unrealized_pnl(self, current_price):
         if not self.position_state:
