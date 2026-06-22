@@ -80,13 +80,14 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         logger.log(result, symbol=symbol, current_candle=current_candle, current_time=current_time)
 
     trade_event = trader.update(result, current_candle=current_candle, current_time=current_time, symbol=symbol)
-    position_snapshot = trader.get_position_snapshot(current_candle["close"])
+    position_snapshot = get_position_snapshot(trader, symbol, current_candle["close"])
     account_snapshot = trader.get_account_snapshot(current_candle["close"])
 
     snapshot = {
         "time": current_time,
         "symbol": symbol,
         "price": current_candle["close"],
+        "mode": "LIVE" if isinstance(trader, LiveTrader) else "PAPER",
         "result": result,
         "trade_event": trade_event,
         "position": position_snapshot,
@@ -107,6 +108,12 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         }
     )
     return snapshot, trade_event
+
+
+def get_position_snapshot(trader, symbol, current_price):
+    if isinstance(trader, LiveTrader):
+        return trader.get_position_snapshot(symbol, current_price)
+    return trader.get_position_snapshot(current_price)
 
 
 def parse_args():
@@ -184,7 +191,8 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
     range_info = result.get("range") or {}
     position = snapshot.get("position") or {}
     account = snapshot.get("account") or {}
-    decision = build_decision_snapshot(result, snapshot.get("trade_event"), position)
+    mode = snapshot.get("mode", "PAPER")
+    decision = build_decision_snapshot(result, snapshot.get("trade_event"), position, mode)
     time_utc = parse_datetime(snapshot["time"])
     time_kst = time_utc.astimezone(KST)
 
@@ -215,7 +223,7 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
         f"- activity_score: {result.get('activity_score')}",
         f"- atr: {fmt(result.get('atr'))}",
         "",
-        "paper_account:",
+        f"{mode.lower()}_account:",
         f"- equity: {fmt(account.get('equity'))}",
         f"- realized: {fmt(account.get('realized_pnl'))}",
         f"- unrealized: {fmt(account.get('unrealized_pnl'))}",
@@ -305,7 +313,7 @@ def parse_datetime(value):
     return parsed.astimezone(timezone.utc)
 
 
-def build_decision_snapshot(result, trade_event, position):
+def build_decision_snapshot(result, trade_event, position, mode="PAPER"):
     if trade_event:
         return {
             "state": result.get("state"),
@@ -319,14 +327,14 @@ def build_decision_snapshot(result, trade_event, position):
             "state": result.get("state"),
             "new_signal": result.get("signal"),
             "order_action": "NONE",
-            "reason": f"already in paper {position.get('side')} position",
+            "reason": f"already in {mode.lower()} {position.get('side')} position",
         }
 
     return {
         "state": result.get("state"),
         "new_signal": result.get("signal"),
         "order_action": "NONE",
-        "reason": "no valid paper trade action",
+        "reason": f"no valid {mode.lower()} trade action",
     }
 
 
