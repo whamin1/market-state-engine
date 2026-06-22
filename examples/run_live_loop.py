@@ -30,6 +30,7 @@ def main():
     sent_report_keys = set()
     recent_trade_events = []
     latest_snapshot = None
+    error_notification_times = {}
 
     while True:
         try:
@@ -45,11 +46,14 @@ def main():
             if trade_event:
                 recent_trade_events.append(trade_event)
                 recent_trade_events = recent_trade_events[-10:]
+                if isinstance(trader, LiveTrader):
+                    trader.record_event(trade_event)
                 maybe_send_trade_event(args, trade_event)
 
             maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events)
         except Exception as exc:
             print(f"live loop error: {exc}")
+            maybe_send_loop_error(args, exc, error_notification_times)
 
         if args.once:
             break
@@ -134,6 +138,7 @@ def parse_args():
     parser.add_argument("--no-trade-log", action="store_true")
     parser.add_argument("--paper-state-path", default="work/state/paper_trader_state.json")
     parser.add_argument("--live-state-path", default="work/state/live_trader_state.json")
+    parser.add_argument("--live-trade-log-path", default="work/logs/live_trade_log.jsonl")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
     parser.add_argument("--live-confirm", action="store_true")
     parser.add_argument("--once", action="store_true")
@@ -150,7 +155,13 @@ def build_trader(args, config):
 
     env = load_env_file(".env")
     enabled = args.live_confirm and env.get("LIVE_TRADING_ENABLED", "").lower() == "true"
-    return LiveTrader(config, dry_run=not enabled, enabled=enabled, state_path=args.live_state_path)
+    return LiveTrader(
+        config,
+        dry_run=not enabled,
+        enabled=enabled,
+        state_path=args.live_state_path,
+        trade_log_path=args.live_trade_log_path,
+    )
 
 
 def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events):
@@ -181,8 +192,8 @@ def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot
         message = build_status_report(title=args.report_title)
 
     print(message)
-    send_status_report(message)
-    sent_report_keys.add(send_key)
+    if send_status_report(message):
+        sent_report_keys.add(send_key)
 
 
 def maybe_send_trade_event(args, trade_event):
@@ -190,6 +201,27 @@ def maybe_send_trade_event(args, trade_event):
         return
 
     send_status_report(format_trade_event_message(trade_event))
+
+
+def maybe_send_loop_error(args, exc, error_notification_times):
+    if not (args.telegram_report or args.telegram_trades):
+        return
+
+    error_key = str(exc)
+    now = datetime.now(timezone.utc)
+    previous_time = error_notification_times.get(error_key)
+    if previous_time and (now - previous_time).total_seconds() < 1800:
+        return
+
+    message = "\n".join(
+        [
+            "Market State Error",
+            f"time_kst: {now.astimezone(KST).strftime('%Y-%m-%d %H:%M:%S')} KST",
+            f"error: {error_key}",
+        ]
+    )
+    if send_status_report(message):
+        error_notification_times[error_key] = now
 
 
 def get_report_interval_hours(args):
@@ -303,6 +335,14 @@ def format_trade_event_line(event):
         return (
             f"- {format_event_time(event.get('logged_at'))} "
             f"LIVE POSITION CLOSED {side} exit={event.get('exit_price')} reason={event.get('reason')}"
+        )
+    if event_type in ("LIVE_CLOSE", "LIVE_PARTIAL_CLOSE"):
+        label = "LIVE PARTIAL CLOSE" if event_type == "LIVE_PARTIAL_CLOSE" else "LIVE CLOSE"
+        return (
+            f"- {format_event_time(event.get('logged_at'))} "
+            f"{label} {side} exit={event.get('exit_price')} qty={event.get('quantity')} "
+            f"pnl={fmt(event.get('pnl_pct'))}% reason={event.get('reason')} "
+            f"status={event.get('status')}"
         )
 
     return f"- {format_event_time(event.get('logged_at'))} {event_type} {side}"

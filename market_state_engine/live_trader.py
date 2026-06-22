@@ -1,4 +1,6 @@
 import json
+import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -6,7 +8,15 @@ from .binance_signed_client import BinanceSignedClient
 
 
 class LiveTrader:
-    def __init__(self, config, client=None, dry_run=True, enabled=False, state_path="work/state/live_trader_state.json"):
+    def __init__(
+        self,
+        config,
+        client=None,
+        dry_run=True,
+        enabled=False,
+        state_path="work/state/live_trader_state.json",
+        trade_log_path="work/logs/live_trade_log.jsonl",
+    ):
         self.config = config
         self.client = client or BinanceSignedClient()
         self.dry_run = dry_run
@@ -14,6 +24,9 @@ class LiveTrader:
         self.state_path = Path(state_path) if state_path else None
         if self.state_path:
             self.state_path.parent.mkdir(parents=True, exist_ok=True)
+        self.trade_log_path = Path(trade_log_path) if trade_log_path else None
+        if self.trade_log_path:
+            self.trade_log_path.parent.mkdir(parents=True, exist_ok=True)
         self.position_state = None
         self.realized_pnl = 0.0
         self._load_state()
@@ -22,9 +35,9 @@ class LiveTrader:
         current_price = current_candle["close"]
         is_dry_run = self.dry_run or not self.enabled
         if is_dry_run:
-            sync_event = self._sync_dry_run_position_state(symbol, current_price, current_time)
+            sync_event = self._sync_dry_run_position_state(symbol, current_price, current_time, result)
         else:
-            sync_event = self._sync_position_state(symbol, current_price, current_time)
+            sync_event = self._sync_position_state(symbol, current_price, current_time, result)
         if sync_event:
             return sync_event
 
@@ -59,6 +72,8 @@ class LiveTrader:
         exchange_position = self.get_position_snapshot(symbol, current_price)
         if exchange_position["status"] == "OPEN":
             return None
+        if exchange_position["status"] != "FLAT":
+            raise RuntimeError(f"cannot place entry while exchange position status is {exchange_position['status']}")
 
         self.client.set_margin_type(symbol, "ISOLATED")
         self.client.set_leverage(symbol, self.config.live_leverage)
@@ -134,10 +149,19 @@ class LiveTrader:
         quantity = notional / price
         return f"{quantity:.3f}"
 
-    def _sync_position_state(self, symbol, current_price, current_time):
+    def _sync_position_state(self, symbol, current_price, current_time, result):
         previous_state = dict(self.position_state) if self.position_state else None
         snapshot = self.get_position_snapshot(symbol, current_price)
         if snapshot["status"] == "FLAT" and previous_state:
+            estimated_pnl = self._calculate_pnl_pct(
+                previous_state.get("side"),
+                previous_state.get("entry_price"),
+                current_price,
+            )
+            amount = float(previous_state.get("amount", 0) or 0)
+            estimated_pnl_usdt = amount * current_price * estimated_pnl / 100
+            self.realized_pnl += estimated_pnl_usdt
+            self._save_state()
             return {
                 "type": "LIVE_POSITION_CLOSED",
                 "logged_at": datetime.now(timezone.utc).isoformat(),
@@ -146,12 +170,24 @@ class LiveTrader:
                 "entry_price": previous_state.get("entry_price"),
                 "exit_price": current_price,
                 "reason": "exchange position is closed",
+                "estimated_realized_pnl": estimated_pnl_usdt,
             }
 
         if snapshot["status"] != "OPEN" or self.position_state is None:
             return None
 
+        stop_event = self._maybe_close_at_stop(symbol, snapshot, current_price, "stop loss")
+        if stop_event:
+            return stop_event
+
         trailing_event = self._update_trailing_state(snapshot["side"], current_price, symbol)
+        if trailing_event and trailing_event["type"] == "LIVE_TRAILING_STOP_HIT":
+            return self._close_live_position(symbol, snapshot, current_price, "trailing stop")
+
+        signal_event = self._maybe_close_on_opposite_signal(symbol, snapshot, current_price, result)
+        if signal_event:
+            return signal_event
+
         if current_time and not self.position_state.get("last_seen_time"):
             self.position_state["last_seen_time"] = current_time
         else:
@@ -180,6 +216,7 @@ class LiveTrader:
             "trailing_active": False,
             "best_price": entry_price,
             "add_count": 0,
+            "partial_taken": False,
             "trailing_stop_alerted": False,
             "entry_score": result["long_score"] if side == "LONG" else result["short_score"],
             "last_add_score": result["long_score"] if side == "LONG" else result["short_score"],
@@ -204,6 +241,7 @@ class LiveTrader:
             "trailing_active": False,
             "best_price": entry_price,
             "add_count": 0,
+            "partial_taken": False,
             "trailing_stop_alerted": False,
             "entry_score": None,
             "last_add_score": None,
@@ -229,26 +267,164 @@ class LiveTrader:
             "trailing_active": self.position_state.get("trailing_active", False),
         }
 
-    def _sync_dry_run_position_state(self, symbol, current_price, current_time):
+    def _sync_dry_run_position_state(self, symbol, current_price, current_time, result):
         if not self.position_state or not self.position_state.get("dry_run"):
             return None
+
+        snapshot = self._get_local_position_snapshot(current_price)
+        stop_event = self._maybe_close_dry_run_at_stop(current_price, "stop loss")
+        if stop_event:
+            return stop_event
 
         trailing_event = self._update_trailing_state(self.position_state["side"], current_price, symbol)
         self.position_state["last_seen_time"] = current_time or datetime.now(timezone.utc).isoformat()
 
         if trailing_event and trailing_event["type"] == "LIVE_TRAILING_STOP_HIT":
-            pnl_pct = self._calculate_pnl_pct(self.position_state["side"], self.position_state["entry_price"], current_price)
-            realized_pnl = self._calculate_local_unrealized_pnl(current_price)
-            self.realized_pnl += realized_pnl
-            trailing_event["status"] = "DRY_RUN_CLOSE"
-            trailing_event["pnl_pct"] = pnl_pct
-            trailing_event["realized_pnl"] = realized_pnl
-            self.position_state = None
-            self._save_state()
-            return trailing_event
+            return self._close_dry_run_position(current_price, "trailing stop")
+
+        signal_event = self._maybe_close_dry_run_on_opposite_signal(current_price, result)
+        if signal_event:
+            return signal_event
 
         self._save_state()
         return trailing_event
+
+    def _maybe_close_at_stop(self, symbol, snapshot, current_price, reason):
+        stop_price = self._get_stop_price()
+        if not self._is_stop_touched(snapshot["side"], current_price, stop_price):
+            return None
+        return self._close_live_position(symbol, snapshot, current_price, reason)
+
+    def _maybe_close_dry_run_at_stop(self, current_price, reason):
+        stop_price = self._get_stop_price()
+        side = self.position_state["side"]
+        if not self._is_stop_touched(side, current_price, stop_price):
+            return None
+        return self._close_dry_run_position(current_price, reason)
+
+    def _maybe_close_on_opposite_signal(self, symbol, snapshot, current_price, result):
+        if not self._is_opposite_signal(snapshot["side"], result.get("signal")):
+            return None
+
+        if self._can_take_partial_profit(snapshot["side"], current_price):
+            return self._close_live_position(symbol, snapshot, current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size)
+        return self._close_live_position(symbol, snapshot, current_price, "opposite signal")
+
+    def _maybe_close_dry_run_on_opposite_signal(self, current_price, result):
+        if not self._is_opposite_signal(self.position_state["side"], result.get("signal")):
+            return None
+
+        if self._can_take_partial_profit(self.position_state["side"], current_price):
+            return self._close_dry_run_position(current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size)
+        return self._close_dry_run_position(current_price, "opposite signal")
+
+    def _close_live_position(self, symbol, snapshot, current_price, reason, fraction=1.0):
+        amount = abs(float(snapshot.get("amount", 0) or 0))
+        quantity = self._round_down_quantity(amount * fraction)
+        if quantity <= 0:
+            raise RuntimeError("close quantity is below the BTCUSDT minimum step")
+
+        side = "SELL" if snapshot["side"] == "LONG" else "BUY"
+        response = self.client.place_market_order(symbol, side, self._format_quantity(quantity), reduce_only=True)
+        pnl_pct = self._calculate_pnl_pct(snapshot["side"], snapshot["entry"], current_price)
+        estimated_pnl = quantity * (current_price - snapshot["entry"])
+        if snapshot["side"] == "SHORT":
+            estimated_pnl = quantity * (snapshot["entry"] - current_price)
+        self.realized_pnl += estimated_pnl
+
+        is_partial = fraction < 1.0 and quantity < amount
+        event = {
+            "type": "LIVE_PARTIAL_CLOSE" if is_partial else "LIVE_CLOSE",
+            "logged_at": datetime.now(timezone.utc).isoformat(),
+            "symbol": symbol,
+            "side": snapshot["side"],
+            "entry_price": snapshot["entry"],
+            "exit_price": current_price,
+            "quantity": self._format_quantity(quantity),
+            "pnl_pct": pnl_pct,
+            "estimated_realized_pnl": estimated_pnl,
+            "reason": reason,
+            "response": response,
+            "status": "SENT",
+        }
+
+        if is_partial:
+            self.position_state["amount"] = max(amount - quantity, 0.0)
+            self.position_state["partial_taken"] = True
+        else:
+            self.position_state = None
+        self._save_state()
+        return event
+
+    def _close_dry_run_position(self, current_price, reason, fraction=1.0):
+        amount = float(self.position_state.get("amount", 0) or 0)
+        quantity = self._round_down_quantity(amount * fraction)
+        if quantity <= 0:
+            quantity = amount
+
+        side = self.position_state["side"]
+        entry_price = self.position_state["entry_price"]
+        pnl_pct = self._calculate_pnl_pct(side, entry_price, current_price)
+        realized_pnl = quantity * (current_price - entry_price)
+        if side == "SHORT":
+            realized_pnl = quantity * (entry_price - current_price)
+        self.realized_pnl += realized_pnl
+
+        is_partial = fraction < 1.0 and quantity < amount
+        event = {
+            "type": "LIVE_PARTIAL_CLOSE" if is_partial else "LIVE_CLOSE",
+            "logged_at": datetime.now(timezone.utc).isoformat(),
+            "symbol": self.position_state["symbol"],
+            "side": side,
+            "entry_price": entry_price,
+            "exit_price": current_price,
+            "quantity": self._format_quantity(quantity),
+            "pnl_pct": pnl_pct,
+            "estimated_realized_pnl": realized_pnl,
+            "reason": reason,
+            "status": "DRY_RUN_CLOSE",
+        }
+
+        if is_partial:
+            self.position_state["amount"] = max(amount - quantity, 0.0)
+            self.position_state["partial_taken"] = True
+        else:
+            self.position_state = None
+        self._save_state()
+        return event
+
+    def _get_stop_price(self):
+        if not self.position_state:
+            return None
+        return self.position_state.get("trailing_stop_price") or self.position_state.get("stop_price")
+
+    def _is_stop_touched(self, side, current_price, stop_price):
+        if stop_price is None:
+            return False
+        if side == "LONG":
+            return current_price <= stop_price
+        return current_price >= stop_price
+
+    def _is_opposite_signal(self, side, signal):
+        return (side == "LONG" and signal == "ENTER_SHORT") or (side == "SHORT" and signal == "ENTER_LONG")
+
+    def _can_take_partial_profit(self, side, current_price):
+        if self.position_state.get("partial_taken"):
+            return False
+        pnl_pct = self._calculate_pnl_pct(side, self.position_state["entry_price"], current_price)
+        return pnl_pct >= self.config.partial_take_profit_pct
+
+    def _round_down_quantity(self, quantity):
+        return math.floor(quantity * 1000) / 1000
+
+    def _format_quantity(self, quantity):
+        return f"{quantity:.3f}"
+
+    def record_event(self, event):
+        if self.trade_log_path is None:
+            return
+        with open(self.trade_log_path, "a", encoding="utf-8") as file:
+            file.write(json.dumps(event, ensure_ascii=False) + "\n")
 
     def _update_trailing_state(self, side, current_price, symbol):
         if not self.position_state:
@@ -314,11 +490,7 @@ class LiveTrader:
         return None
 
     def _is_trailing_stop_touched(self, side, current_price, stop_price):
-        if stop_price is None:
-            return False
-        if side == "LONG":
-            return current_price <= stop_price
-        return current_price >= stop_price
+        return self._is_stop_touched(side, current_price, stop_price)
 
     def _calculate_local_unrealized_pnl(self, current_price):
         if not self.position_state:

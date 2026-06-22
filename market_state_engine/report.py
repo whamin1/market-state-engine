@@ -69,8 +69,7 @@ def send_status_report(message):
         print(f"telegram sender import failed: {exc}")
         return False
 
-    send_telegram_message(message)
-    return True
+    return bool(send_telegram_message(message))
 
 
 def _read_last_jsonl_record(path):
