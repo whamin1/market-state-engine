@@ -131,6 +131,7 @@ def parse_args():
     parser.add_argument("--no-state-log", action="store_true")
     parser.add_argument("--no-trade-log", action="store_true")
     parser.add_argument("--paper-state-path", default="work/state/paper_trader_state.json")
+    parser.add_argument("--live-state-path", default="work/state/live_trader_state.json")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
     parser.add_argument("--live-confirm", action="store_true")
     parser.add_argument("--once", action="store_true")
@@ -147,7 +148,7 @@ def build_trader(args, config):
 
     env = load_env_file(".env")
     enabled = args.live_confirm and env.get("LIVE_TRADING_ENABLED", "").lower() == "true"
-    return LiveTrader(config, dry_run=not enabled, enabled=enabled)
+    return LiveTrader(config, dry_run=not enabled, enabled=enabled, state_path=args.live_state_path)
 
 
 def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events):
@@ -198,9 +199,6 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
 
     lines = [
         title,
-        f"time_kst: {time_kst.strftime('%Y-%m-%d %H:%M:%S')} KST",
-        "",
-        f"symbol: {snapshot['symbol']}",
         f"price: {snapshot['price']}",
         "",
         "position:",
@@ -223,10 +221,11 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
         f"- activity_score: {result.get('activity_score')}",
         f"- atr: {fmt(result.get('atr'))}",
         "",
-        f"{mode.lower()}_account:",
-        f"- equity: {fmt(account.get('equity'))}",
-        f"- realized: {fmt(account.get('realized_pnl'))}",
-        f"- unrealized: {fmt(account.get('unrealized_pnl'))}",
+        "capital_status:",
+        f"- start: {fmt(account.get('start_balance'))}",
+        f"- current: {fmt(account.get('equity'))}",
+        f"- change: {fmt_signed(account_change(account))}",
+        f"- change_pct: {fmt_pct(account_change_pct(account))}",
         "",
         "range_15d:",
         f"- high: {fmt(range_info.get('high'))}",
@@ -285,6 +284,30 @@ def fmt_pct(value):
     if value is None:
         return "None"
     return f"{value:.2f}%"
+
+
+def fmt_signed(value):
+    if value is None:
+        return "None"
+    if isinstance(value, float):
+        return f"{value:+.2f}"
+    return value
+
+
+def account_change(account):
+    start = account.get("start_balance")
+    equity = account.get("equity")
+    if start is None or equity is None:
+        return None
+    return equity - start
+
+
+def account_change_pct(account):
+    start = account.get("start_balance")
+    change = account_change(account)
+    if not start or change is None:
+        return None
+    return change / start * 100
 
 
 def format_holding_time(entry_time, current_time):
