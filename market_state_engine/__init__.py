@@ -4,6 +4,7 @@ from .config import MarketStateConfig
 from .daily_candle_cache import DailyCandleCache
 from .engine import MarketStateEngine
 from .liquidation_loader import load_liquidation_data
+from .live_trader import LiveTrader
 from .logger import MarketStateLogger
 from .ohlcv_loader import load_ohlcv_csv
 from .paper_trader import PaperTrader
@@ -16,6 +17,7 @@ __all__ = [
     "MarketStateEngine",
     "MarketStateLogger",
     "PaperTrader",
+    "LiveTrader",
     "load_liquidation_data",
     "load_ohlcv_csv",
     "parse_binance_kline",

@@ -194,7 +194,7 @@ class PaperTrader:
         return self._close_position(current_price, current_time, symbol, f"partial take profit: {exit_reason}", result, close_size)
 
     def _update_trailing_stop(self, current_price, atr):
-        if atr is None:
+        if atr is None and not self.config.trailing_use_percent_distance:
             return
 
         pnl_pct = self._calculate_pnl_pct(self.position["side"], self.position["entry_price"], current_price)
@@ -205,14 +205,24 @@ class PaperTrader:
 
         if self.position["side"] == "LONG":
             self.position["best_price"] = max(self.position["best_price"], current_price)
-            new_stop = self.position["best_price"] - atr * self.config.trailing_atr_multiplier
+            new_stop = self._calculate_trailing_stop_from_best_price("LONG", self.position["best_price"], atr)
             current_stop = self.position.get("trailing_stop_price")
             self.position["trailing_stop_price"] = new_stop if current_stop is None else max(current_stop, new_stop)
         else:
             self.position["best_price"] = min(self.position["best_price"], current_price)
-            new_stop = self.position["best_price"] + atr * self.config.trailing_atr_multiplier
+            new_stop = self._calculate_trailing_stop_from_best_price("SHORT", self.position["best_price"], atr)
             current_stop = self.position.get("trailing_stop_price")
             self.position["trailing_stop_price"] = new_stop if current_stop is None else min(current_stop, new_stop)
+
+    def _calculate_trailing_stop_from_best_price(self, side, best_price, atr):
+        if self.config.trailing_use_percent_distance:
+            if side == "LONG":
+                return best_price * (1 - self.config.trailing_distance_pct / 100)
+            return best_price * (1 + self.config.trailing_distance_pct / 100)
+
+        if side == "LONG":
+            return best_price - atr * self.config.trailing_atr_multiplier
+        return best_price + atr * self.config.trailing_atr_multiplier
 
     def _extract_atr(self, result):
         return None

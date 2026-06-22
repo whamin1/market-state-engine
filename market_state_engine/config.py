@@ -22,11 +22,18 @@ class MarketStateConfig:
 
     partial_take_profit_pct: float = 3.0
     partial_take_profit_size: float = 0.5
-    trailing_take_profit_pct: float = 5.0
+    trailing_take_profit_pct: float = 3.0
     trailing_atr_multiplier: float = 1.5
+    trailing_distance_pct: float = 0.7
+    trailing_use_percent_distance: bool = True
 
     add_entry_score_increase: int = 5
     max_add_entries: int = 1
     add_entry_size: float = 0.5
 
     paper_start_balance: float = 100.0
+
+    live_capital_usdt: float = 300.0
+    live_entry_notional_usdt: float = 200.0
+    live_add_notional_usdt: float = 100.0
+    live_leverage: int = 1

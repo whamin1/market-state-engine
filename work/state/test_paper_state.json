@@ -1,0 +1,24 @@
+{
+  "position": {
+    "symbol": "BTCUSDT",
+    "side": "LONG",
+    "entry_time": "2026-06-12T00:00:00+00:00",
+    "entry_price": 100,
+    "stop_price": 97.0,
+    "trailing_stop_price": null,
+    "trailing_active": false,
+    "best_price": 100,
+    "remaining_size": 1.0,
+    "total_size": 1.0,
+    "add_count": 0,
+    "entry_score": 20,
+    "last_add_score": 20,
+    "partial_taken": false,
+    "entry_signal": "ENTER_LONG",
+    "entry_reasons": [
+      "open"
+    ]
+  },
+  "realized_pnl": 0.0,
+  "updated_at": "2026-06-12T12:15:31.393206+00:00"
+}

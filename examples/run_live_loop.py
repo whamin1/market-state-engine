@@ -5,11 +5,13 @@ from datetime import datetime, timedelta, timezone
 from market_state_engine import (
     BinanceFuturesFetcher,
     DailyCandleCache,
+    LiveTrader,
     MarketStateEngine,
     MarketStateLogger,
     PaperTrader,
     load_liquidation_data,
 )
+from market_state_engine.env_loader import load_env_file
 from market_state_engine.report import build_status_report, send_status_report
 
 
@@ -21,11 +23,7 @@ def main():
 
     engine = MarketStateEngine()
     logger = None if args.no_state_log else MarketStateLogger()
-    trader = PaperTrader(
-        engine.config,
-        trade_log_path=None if args.no_trade_log else "work/logs/trade_log.jsonl",
-        state_path=args.paper_state_path,
-    )
+    trader = build_trader(args, engine.config)
     fetcher = BinanceFuturesFetcher()
     daily_cache = DailyCandleCache(args.symbol)
     report_send_times = parse_send_times(args.report_times)
@@ -126,8 +124,23 @@ def parse_args():
     parser.add_argument("--no-state-log", action="store_true")
     parser.add_argument("--no-trade-log", action="store_true")
     parser.add_argument("--paper-state-path", default="work/state/paper_trader_state.json")
+    parser.add_argument("--trader", choices=["paper", "live"], default="paper")
+    parser.add_argument("--live-confirm", action="store_true")
     parser.add_argument("--once", action="store_true")
     return parser.parse_args()
+
+
+def build_trader(args, config):
+    if args.trader == "paper":
+        return PaperTrader(
+            config,
+            trade_log_path=None if args.no_trade_log else "work/logs/trade_log.jsonl",
+            state_path=args.paper_state_path,
+        )
+
+    env = load_env_file(".env")
+    enabled = args.live_confirm and env.get("LIVE_TRADING_ENABLED", "").lower() == "true"
+    return LiveTrader(config, dry_run=not enabled, enabled=enabled)
 
 
 def maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events):
@@ -169,7 +182,6 @@ def maybe_send_trade_event(args, trade_event):
 def build_live_status_report(snapshot, recent_trade_events, title, report_detail="compact"):
     result = snapshot["result"]
     range_info = result.get("range") or {}
-    failures = result.get("failure_counts") or {}
     position = snapshot.get("position") or {}
     account = snapshot.get("account") or {}
     decision = build_decision_snapshot(result, snapshot.get("trade_event"), position)
@@ -178,7 +190,6 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
 
     lines = [
         title,
-        "mode: PAPER",
         f"time_kst: {time_kst.strftime('%Y-%m-%d %H:%M:%S')} KST",
         "",
         f"symbol: {snapshot['symbol']}",
@@ -205,18 +216,14 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
         f"- atr: {fmt(result.get('atr'))}",
         "",
         "paper_account:",
-        f"- start_balance: {fmt(account.get('start_balance'))}",
-        f"- realized_pnl: {fmt(account.get('realized_pnl'))}",
-        f"- unrealized_pnl: {fmt(account.get('unrealized_pnl'))}",
         f"- equity: {fmt(account.get('equity'))}",
+        f"- realized: {fmt(account.get('realized_pnl'))}",
+        f"- unrealized: {fmt(account.get('unrealized_pnl'))}",
         "",
         "range_15d:",
         f"- high: {fmt(range_info.get('high'))}",
         f"- low: {fmt(range_info.get('low'))}",
         f"- width_pct: {fmt(range_info.get('width_pct'))}",
-        "",
-        f"upper_breakout_failure: {failures.get('upper_breakout_failure', 0)}",
-        f"lower_breakdown_failure: {failures.get('lower_breakdown_failure', 0)}",
     ]
 
     if recent_trade_events:
