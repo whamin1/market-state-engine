@@ -15,19 +15,23 @@ class LiveTrader:
         if self.state_path:
             self.state_path.parent.mkdir(parents=True, exist_ok=True)
         self.position_state = None
+        self.realized_pnl = 0.0
         self._load_state()
 
     def update(self, result, current_candle, current_time=None, symbol=None):
         current_price = current_candle["close"]
-        sync_event = self._sync_position_state(symbol, current_price, current_time)
+        is_dry_run = self.dry_run or not self.enabled
+        if is_dry_run:
+            sync_event = self._sync_dry_run_position_state(symbol, current_price, current_time)
+        else:
+            sync_event = self._sync_position_state(symbol, current_price, current_time)
         if sync_event:
             return sync_event
 
         if result["signal"] not in ("ENTER_LONG", "ENTER_SHORT"):
             return None
 
-        exchange_position = self.get_position_snapshot(symbol, current_price)
-        if exchange_position["status"] == "OPEN":
+        if is_dry_run and self.position_state:
             return None
 
         side = "BUY" if result["signal"] == "ENTER_LONG" else "SELL"
@@ -44,21 +48,29 @@ class LiveTrader:
             "notional_usdt": self.config.live_entry_notional_usdt,
             "quantity": quantity,
             "price": current_price,
-            "dry_run": self.dry_run or not self.enabled,
+            "dry_run": is_dry_run,
         }
 
         if event["dry_run"]:
             event["status"] = "DRY_RUN"
+            self._set_position_state(symbol, position_side, current_price, current_time, result, quantity, dry_run=True)
             return event
+
+        exchange_position = self.get_position_snapshot(symbol, current_price)
+        if exchange_position["status"] == "OPEN":
+            return None
 
         self.client.set_margin_type(symbol, "ISOLATED")
         self.client.set_leverage(symbol, self.config.live_leverage)
         event["response"] = self.client.place_market_order(symbol, side, quantity)
         event["status"] = "SENT"
-        self._set_position_state(symbol, position_side, current_price, current_time, result)
+        self._set_position_state(symbol, position_side, current_price, current_time, result, quantity)
         return event
 
     def get_position_snapshot(self, symbol, current_price):
+        if self.position_state and self.position_state.get("dry_run"):
+            return self._get_local_position_snapshot(current_price)
+
         try:
             positions = self.client.get_position_risk(symbol)
         except Exception as exc:
@@ -110,13 +122,12 @@ class LiveTrader:
         }
 
     def get_account_snapshot(self, current_price):
-        realized = self.position_state.get("realized_pnl", 0.0) if self.position_state else 0.0
         unrealized = self._calculate_local_unrealized_pnl(current_price)
         return {
             "start_balance": self.config.live_capital_usdt,
-            "realized_pnl": realized,
+            "realized_pnl": self.realized_pnl,
             "unrealized_pnl": unrealized,
-            "equity": self.config.live_capital_usdt + realized + unrealized,
+            "equity": self.config.live_capital_usdt + self.realized_pnl + unrealized,
         }
 
     def _quantity_from_notional(self, notional, price):
@@ -148,7 +159,7 @@ class LiveTrader:
         self._save_state()
         return trailing_event
 
-    def _set_position_state(self, symbol, side, entry_price, current_time, result):
+    def _set_position_state(self, symbol, side, entry_price, current_time, result, quantity, dry_run=False):
         atr = result.get("atr")
         stop_price = None
         if atr is not None:
@@ -162,6 +173,8 @@ class LiveTrader:
             "side": side,
             "entry_time": current_time or datetime.now(timezone.utc).isoformat(),
             "entry_price": entry_price,
+            "amount": abs(float(quantity)),
+            "dry_run": dry_run,
             "stop_price": stop_price,
             "trailing_stop_price": None,
             "trailing_active": False,
@@ -184,6 +197,8 @@ class LiveTrader:
             "side": side,
             "entry_time": datetime.now(timezone.utc).isoformat(),
             "entry_price": entry_price,
+            "amount": None,
+            "dry_run": False,
             "stop_price": None,
             "trailing_stop_price": None,
             "trailing_active": False,
@@ -195,6 +210,45 @@ class LiveTrader:
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         self._save_state()
+
+    def _get_local_position_snapshot(self, current_price):
+        entry_price = self.position_state["entry_price"]
+        side = self.position_state["side"]
+        pnl_pct = self._calculate_pnl_pct(side, entry_price, current_price)
+        stop_price = self.position_state.get("trailing_stop_price") or self.position_state.get("stop_price")
+        return {
+            "status": "OPEN",
+            "side": side,
+            "entry": entry_price,
+            "entry_time": self.position_state.get("entry_time"),
+            "stop": stop_price,
+            "unrealized_pnl_pct": pnl_pct,
+            "unrealized_pnl_usdt": self._calculate_local_unrealized_pnl(current_price),
+            "amount": self.position_state.get("amount"),
+            "add_count": self.position_state.get("add_count", 0),
+            "trailing_active": self.position_state.get("trailing_active", False),
+        }
+
+    def _sync_dry_run_position_state(self, symbol, current_price, current_time):
+        if not self.position_state or not self.position_state.get("dry_run"):
+            return None
+
+        trailing_event = self._update_trailing_state(self.position_state["side"], current_price, symbol)
+        self.position_state["last_seen_time"] = current_time or datetime.now(timezone.utc).isoformat()
+
+        if trailing_event and trailing_event["type"] == "LIVE_TRAILING_STOP_HIT":
+            pnl_pct = self._calculate_pnl_pct(self.position_state["side"], self.position_state["entry_price"], current_price)
+            realized_pnl = self._calculate_local_unrealized_pnl(current_price)
+            self.realized_pnl += realized_pnl
+            trailing_event["status"] = "DRY_RUN_CLOSE"
+            trailing_event["pnl_pct"] = pnl_pct
+            trailing_event["realized_pnl"] = realized_pnl
+            self.position_state = None
+            self._save_state()
+            return trailing_event
+
+        self._save_state()
+        return trailing_event
 
     def _update_trailing_state(self, side, current_price, symbol):
         if not self.position_state:
@@ -280,6 +334,11 @@ class LiveTrader:
             return amount * (current_price - entry_price)
         return amount * (entry_price - current_price)
 
+    def _calculate_pnl_pct(self, side, entry_price, current_price):
+        if side == "LONG":
+            return (current_price - entry_price) / entry_price * 100
+        return (entry_price - current_price) / entry_price * 100
+
     def _save_state(self):
         if self.state_path is None:
             return
@@ -287,6 +346,7 @@ class LiveTrader:
         tmp_path = self.state_path.with_name(f"{self.state_path.name}.tmp")
         state = {
             "position": self.position_state,
+            "realized_pnl": self.realized_pnl,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         with open(tmp_path, "w", encoding="utf-8") as file:
@@ -300,3 +360,4 @@ class LiveTrader:
         with open(self.state_path, encoding="utf-8") as file:
             state = json.load(file)
         self.position_state = state.get("position")
+        self.realized_pnl = state.get("realized_pnl", 0.0)
