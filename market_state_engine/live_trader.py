@@ -180,6 +180,10 @@ class LiveTrader:
         if stop_event:
             return stop_event
 
+        protection_event = self._maybe_close_live_on_small_profit_protection(symbol, snapshot, current_price)
+        if protection_event:
+            return protection_event
+
         trailing_event = self._update_trailing_state(snapshot["side"], current_price, symbol)
         if trailing_event and trailing_event["type"] == "LIVE_TRAILING_STOP_HIT":
             return self._close_live_position(symbol, snapshot, current_price, "trailing stop")
@@ -215,6 +219,7 @@ class LiveTrader:
             "trailing_stop_price": None,
             "trailing_active": False,
             "best_price": entry_price,
+            "peak_profit_pct": 0.0,
             "add_count": 0,
             "partial_taken": False,
             "trailing_stop_alerted": False,
@@ -240,6 +245,7 @@ class LiveTrader:
             "trailing_stop_price": None,
             "trailing_active": False,
             "best_price": entry_price,
+            "peak_profit_pct": 0.0,
             "add_count": 0,
             "partial_taken": False,
             "trailing_stop_alerted": False,
@@ -275,6 +281,10 @@ class LiveTrader:
         stop_event = self._maybe_close_dry_run_at_stop(current_price, "stop loss")
         if stop_event:
             return stop_event
+
+        protection_event = self._maybe_close_dry_run_on_small_profit_protection(current_price)
+        if protection_event:
+            return protection_event
 
         trailing_event = self._update_trailing_state(self.position_state["side"], current_price, symbol)
         self.position_state["last_seen_time"] = current_time or datetime.now(timezone.utc).isoformat()
@@ -317,6 +327,39 @@ class LiveTrader:
         if self._can_take_partial_profit(self.position_state["side"], current_price):
             return self._close_dry_run_position(current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size)
         return self._close_dry_run_position(current_price, "opposite signal")
+
+    def _maybe_close_live_on_small_profit_protection(self, symbol, snapshot, current_price):
+        reason = self._get_small_profit_protection_reason(snapshot["side"], current_price)
+        if reason is None:
+            return None
+        return self._close_live_position(symbol, snapshot, current_price, reason)
+
+    def _maybe_close_dry_run_on_small_profit_protection(self, current_price):
+        reason = self._get_small_profit_protection_reason(self.position_state["side"], current_price)
+        if reason is None:
+            return None
+        return self._close_dry_run_position(current_price, reason)
+
+    def _get_small_profit_protection_reason(self, side, current_price):
+        if not self.config.small_profit_protection_enabled:
+            return None
+
+        pnl_pct = self._calculate_pnl_pct(side, self.position_state["entry_price"], current_price)
+        peak_profit = max(self.position_state.get("peak_profit_pct", 0.0), pnl_pct)
+        self.position_state["peak_profit_pct"] = peak_profit
+
+        if peak_profit < self.config.small_profit_protection_min_peak_pct:
+            return None
+        if peak_profit >= self.config.small_profit_protection_max_pct:
+            return None
+        if pnl_pct <= 0:
+            return None
+
+        trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
+        if pnl_pct > trigger_pct:
+            return None
+
+        return f"small profit protection: peak {peak_profit:.2f}% -> current {pnl_pct:.2f}%"
 
     def _close_live_position(self, symbol, snapshot, current_price, reason, fraction=1.0):
         amount = abs(float(snapshot.get("amount", 0) or 0))

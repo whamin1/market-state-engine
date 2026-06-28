@@ -22,6 +22,10 @@ class MarketStateConfig:
 
     partial_take_profit_pct: float = 3.0
     partial_take_profit_size: float = 0.5
+    small_profit_protection_enabled: bool = True
+    small_profit_protection_max_pct: float = 3.0
+    small_profit_protection_min_peak_pct: float = 0.6
+    small_profit_protection_retrace_ratio: float = 0.5
     trailing_take_profit_pct: float = 3.0
     trailing_atr_multiplier: float = 1.5
     trailing_distance_pct: float = 0.7

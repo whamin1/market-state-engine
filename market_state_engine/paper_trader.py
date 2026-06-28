@@ -27,12 +27,19 @@ class PaperTrader:
                 return self._open_position("SHORT", current_price, atr, current_time, symbol, result)
             return None
 
-        self._update_trailing_stop(current_price, atr)
+        self._update_peak_profit(current_price)
         self._save_state()
 
         stop_event = self._check_stop_loss(current_price, current_time, symbol)
         if stop_event:
             return stop_event
+
+        protection_event = self._check_small_profit_protection(current_price, current_time, symbol, result)
+        if protection_event:
+            return protection_event
+
+        self._update_trailing_stop(current_price, atr)
+        self._save_state()
 
         add_event = self._check_add_entry(result, current_price, current_time, symbol)
         if add_event:
@@ -69,6 +76,7 @@ class PaperTrader:
             "trailing_stop_price": None,
             "trailing_active": False,
             "best_price": entry_price,
+            "peak_profit_pct": 0.0,
             "remaining_size": 1.0,
             "total_size": 1.0,
             "add_count": 0,
@@ -192,6 +200,30 @@ class PaperTrader:
         close_size = self.position["remaining_size"] * self.config.partial_take_profit_size
         self.position["partial_taken"] = True
         return self._close_position(current_price, current_time, symbol, f"partial take profit: {exit_reason}", result, close_size)
+
+    def _update_peak_profit(self, current_price):
+        pnl_pct = self._calculate_pnl_pct(self.position["side"], self.position["entry_price"], current_price)
+        self.position["peak_profit_pct"] = max(self.position.get("peak_profit_pct", 0.0), pnl_pct)
+
+    def _check_small_profit_protection(self, current_price, current_time, symbol, result):
+        if not self.config.small_profit_protection_enabled:
+            return None
+
+        pnl_pct = self._calculate_pnl_pct(self.position["side"], self.position["entry_price"], current_price)
+        peak_profit = self.position.get("peak_profit_pct", 0.0)
+        if peak_profit < self.config.small_profit_protection_min_peak_pct:
+            return None
+        if peak_profit >= self.config.small_profit_protection_max_pct:
+            return None
+        if pnl_pct <= 0:
+            return None
+
+        trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
+        if pnl_pct > trigger_pct:
+            return None
+
+        reason = f"small profit protection: peak {peak_profit:.2f}% -> current {pnl_pct:.2f}%"
+        return self._close_position(current_price, current_time, symbol, reason, result)
 
     def _update_trailing_stop(self, current_price, atr):
         if atr is None and not self.config.trailing_use_percent_distance:
