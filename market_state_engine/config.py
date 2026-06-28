@@ -26,6 +26,9 @@ class MarketStateConfig:
     small_profit_protection_max_pct: float = 3.0
     small_profit_protection_min_peak_pct: float = 0.6
     small_profit_protection_retrace_ratio: float = 0.5
+    profit_reentry_cooldown_minutes: int = 30
+    profit_reentry_score_increase: int = 3
+    profit_reentry_score_memory_minutes: int = 240
     trailing_take_profit_pct: float = 3.0
     trailing_atr_multiplier: float = 1.5
     trailing_distance_pct: float = 0.7

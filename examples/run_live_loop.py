@@ -54,6 +54,9 @@ def main():
         except Exception as exc:
             print(f"live loop error: {exc}")
             maybe_send_loop_error(args, exc, error_notification_times)
+            if should_halt_on_error(args, trader):
+                maybe_send_halt_notice(args, exc)
+                break
 
         if args.once:
             break
@@ -141,6 +144,8 @@ def parse_args():
     parser.add_argument("--live-trade-log-path", default="work/logs/live_trade_log.jsonl")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
     parser.add_argument("--live-confirm", action="store_true")
+    parser.add_argument("--halt-on-error", action="store_true")
+    parser.add_argument("--continue-on-error", action="store_true")
     parser.add_argument("--once", action="store_true")
     return parser.parse_args()
 
@@ -222,6 +227,30 @@ def maybe_send_loop_error(args, exc, error_notification_times):
     )
     if send_status_report(message):
         error_notification_times[error_key] = now
+
+
+def should_halt_on_error(args, trader):
+    if args.continue_on_error:
+        return False
+    if args.halt_on_error:
+        return True
+    return isinstance(trader, LiveTrader) and trader.enabled and not trader.dry_run
+
+
+def maybe_send_halt_notice(args, exc):
+    if not (args.telegram_report or args.telegram_trades):
+        return
+
+    now = datetime.now(timezone.utc)
+    message = "\n".join(
+        [
+            "Market State Bot Halted",
+            f"time_kst: {now.astimezone(KST).strftime('%Y-%m-%d %H:%M:%S')} KST",
+            "reason: unexpected error",
+            f"error: {exc}",
+        ]
+    )
+    send_status_report(message)
 
 
 def get_report_interval_hours(args):

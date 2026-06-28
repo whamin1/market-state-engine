@@ -14,6 +14,7 @@ class PaperTrader:
             self.state_path.parent.mkdir(parents=True, exist_ok=True)
         self.position = None
         self.realized_pnl = 0.0
+        self.last_profit_exit = None
         self._load_state()
 
     def update(self, result, current_candle, current_time=None, symbol=None):
@@ -22,15 +23,19 @@ class PaperTrader:
 
         if self.position is None:
             if result["signal"] == "ENTER_LONG":
+                if self._is_entry_blocked_by_profit_reentry("LONG", result, current_time):
+                    return None
                 return self._open_position("LONG", current_price, atr, current_time, symbol, result)
             if result["signal"] == "ENTER_SHORT":
+                if self._is_entry_blocked_by_profit_reentry("SHORT", result, current_time):
+                    return None
                 return self._open_position("SHORT", current_price, atr, current_time, symbol, result)
             return None
 
         self._update_peak_profit(current_price)
         self._save_state()
 
-        stop_event = self._check_stop_loss(current_price, current_time, symbol)
+        stop_event = self._check_stop_loss(current_price, current_time, symbol, result)
         if stop_event:
             return stop_event
 
@@ -168,24 +173,84 @@ class PaperTrader:
 
         position["remaining_size"] = max(position["remaining_size"] - close_size, 0.0)
         if position["remaining_size"] == 0:
+            self._record_profit_exit_if_needed(position, event, result)
             self.position = None
 
         self._write_event(event)
         self._save_state()
         return event
 
-    def _check_stop_loss(self, current_price, current_time, symbol):
+    def _record_profit_exit_if_needed(self, position, event, result):
+        pnl_pct = event.get("pnl_pct", 0.0)
+        if pnl_pct <= 0:
+            return
+
+        side = position["side"]
+        exit_score = None
+        if result:
+            exit_score = result["long_score"] if side == "LONG" else result["short_score"]
+        if exit_score is None:
+            exit_score = position.get("last_add_score") or position.get("entry_score")
+
+        self.last_profit_exit = {
+            "side": side,
+            "exit_time": event.get("exit_time") or event.get("logged_at"),
+            "exit_score": exit_score,
+            "pnl_pct": pnl_pct,
+            "reason": event.get("exit_reason"),
+        }
+
+    def _is_entry_blocked_by_profit_reentry(self, side, result, current_time):
+        if not self.last_profit_exit or self.last_profit_exit.get("side") != side:
+            return False
+
+        exit_time = self.last_profit_exit.get("exit_time")
+        if not exit_time:
+            return False
+
+        elapsed_minutes = self._elapsed_minutes(exit_time, current_time)
+        if elapsed_minutes is None:
+            return False
+        if elapsed_minutes >= self.config.profit_reentry_score_memory_minutes:
+            self.last_profit_exit = None
+            self._save_state()
+            return False
+        if elapsed_minutes < self.config.profit_reentry_cooldown_minutes:
+            return True
+
+        exit_score = self.last_profit_exit.get("exit_score")
+        if exit_score is None:
+            return False
+
+        current_score = result["long_score"] if side == "LONG" else result["short_score"]
+        return current_score < exit_score + self.config.profit_reentry_score_increase
+
+    def _elapsed_minutes(self, start_time, end_time):
+        try:
+            start = self._parse_datetime(start_time)
+            end = self._parse_datetime(end_time) if end_time else datetime.now(timezone.utc)
+        except ValueError:
+            return None
+        return (end - start).total_seconds() / 60
+
+    def _parse_datetime(self, value):
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+
+    def _check_stop_loss(self, current_price, current_time, symbol, result=None):
         stop_price = self.position.get("trailing_stop_price") or self.position.get("stop_price")
         if stop_price is None:
             return None
 
         if self.position["side"] == "LONG" and current_price <= stop_price:
             reason = "LONG trailing stop" if self.position.get("trailing_active") else "LONG stop loss"
-            return self._close_position(current_price, current_time, symbol, reason)
+            return self._close_position(current_price, current_time, symbol, reason, result)
 
         if self.position["side"] == "SHORT" and current_price >= stop_price:
             reason = "SHORT trailing stop" if self.position.get("trailing_active") else "SHORT stop loss"
-            return self._close_position(current_price, current_time, symbol, reason)
+            return self._close_position(current_price, current_time, symbol, reason, result)
 
         return None
 
@@ -324,6 +389,7 @@ class PaperTrader:
         state = {
             "position": self.position,
             "realized_pnl": self.realized_pnl,
+            "last_profit_exit": self.last_profit_exit,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -341,3 +407,4 @@ class PaperTrader:
 
         self.position = state.get("position")
         self.realized_pnl = state.get("realized_pnl", 0.0)
+        self.last_profit_exit = state.get("last_profit_exit")
