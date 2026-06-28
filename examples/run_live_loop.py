@@ -95,6 +95,7 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         "symbol": symbol,
         "price": current_candle["close"],
         "mode": "LIVE" if isinstance(trader, LiveTrader) else "PAPER",
+        "order_mode": get_order_mode(trader),
         "result": result,
         "trade_event": trade_event,
         "position": position_snapshot,
@@ -111,6 +112,7 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
             "activity_score": result["activity_score"],
             "state": result["state"],
             "signal": result["signal"],
+            "order_mode": get_order_mode(trader),
             "trade_event": trade_event,
         }
     )
@@ -121,6 +123,14 @@ def get_position_snapshot(trader, symbol, current_price):
     if isinstance(trader, LiveTrader):
         return trader.get_position_snapshot(symbol, current_price)
     return trader.get_position_snapshot(current_price)
+
+
+def get_order_mode(trader):
+    if not isinstance(trader, LiveTrader):
+        return "PAPER"
+    if trader.enabled and not trader.dry_run:
+        return "REAL_ORDER"
+    return "DRY_RUN"
 
 
 def parse_args():
@@ -269,12 +279,18 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
     position = snapshot.get("position") or {}
     account = snapshot.get("account") or {}
     mode = snapshot.get("mode", "PAPER")
+    order_mode = snapshot.get("order_mode", "PAPER")
     decision = build_decision_snapshot(result, snapshot.get("trade_event"), position, mode)
     time_utc = parse_datetime(snapshot["time"])
     time_kst = time_utc.astimezone(KST)
 
     lines = [
         title,
+        "",
+        "mode:",
+        f"- trader: {mode}",
+        f"- order_mode: {order_mode}",
+        "",
         f"price: {snapshot['price']}",
         "",
         "position:",
@@ -345,9 +361,10 @@ def format_trade_event_line(event):
             f"reason={event.get('exit_reason')}"
         )
     if event_type == "LIVE_ORDER":
+        order_mode = "DRY_RUN" if event.get("dry_run") else "REAL_ORDER"
         return (
             f"- {format_event_time(event.get('logged_at'))} "
-            f"LIVE ENTRY {event.get('position_side', side)} status={event.get('status')} "
+            f"LIVE ENTRY {event.get('position_side', side)} mode={order_mode} status={event.get('status')} "
             f"price={event.get('price')} qty={event.get('quantity')} notional={event.get('notional_usdt')}"
         )
     if event_type == "LIVE_TRAILING_START":
