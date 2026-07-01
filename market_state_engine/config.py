@@ -12,6 +12,7 @@ class MarketStateConfig:
     range_near_pct: float = 2.0
     range_breakout_pct: float = 1.0
     range_breakout_score: int = 3
+    range_level_memory_days: int = 3
     range_position_bins: int = 20
     range_edge_bins_no_score: int = 2
     range_position_max_score: int = 4

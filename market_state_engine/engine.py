@@ -11,6 +11,10 @@ class MarketStateEngine:
             "lower_breakdown_failure": 0,
         }
         self._counted_failure_keys = set()
+        self.range_levels = {
+            "breakout": None,
+            "breakdown": None,
+        }
 
     def update(self, ohlcv_data, current_candle=None, day_progress=None, current_time=None, liquidation_data=None):
         failure_result = self.update_failure_counts(ohlcv_data)
@@ -18,7 +22,7 @@ class MarketStateEngine:
         body_result = self.calc_body_score(ohlcv_data, current_candle)
         volume_result = self.calc_volume_score(ohlcv_data, current_candle, day_progress, current_time)
         trend_result = self.calc_trend_continuity_score(ohlcv_data, current_candle)
-        range_result = self.calc_range_score(ohlcv_data, current_candle)
+        range_result = self.calc_range_score(ohlcv_data, current_candle, current_time)
         atr_result = self.calc_atr_score(ohlcv_data, current_candle)
         liquidation_result = self.calc_liquidation_score(liquidation_data, current_time)
 
@@ -291,7 +295,7 @@ class MarketStateEngine:
 
         return {"long_score": long_score, "short_score": short_score, "reasons": reasons}
 
-    def calc_range_score(self, ohlcv_data, current_candle=None):
+    def calc_range_score(self, ohlcv_data, current_candle=None, current_time=None):
         if current_candle is None:
             if len(ohlcv_data) < self.config.range_days + 1:
                 return self._empty_range_result("range skipped: not enough candles")
@@ -308,6 +312,9 @@ class MarketStateEngine:
         range_high = max(candle["high"] for candle in range_candles)
         range_low = min(candle["low"] for candle in range_candles)
         current_price = current_candle["close"]
+        current_high = current_candle["high"]
+        current_low = current_candle["low"]
+        now = self._parse_time(current_time) if current_time is not None else datetime.now(timezone.utc)
         range_width_pct = (range_high - range_low) / range_low * 100
 
         long_score = 0
@@ -321,20 +328,53 @@ class MarketStateEngine:
             block_trade = True
             reasons.append(f"range HOLD: width {range_width_pct:.2f}% below {self.config.range_min_width_pct:.2f}%")
 
-        upper_breakout_price = range_high * (1 + self.config.range_breakout_pct / 100)
-        lower_breakdown_price = range_low * (1 - self.config.range_breakout_pct / 100)
+        self._expire_range_levels(now)
 
-        if current_price > upper_breakout_price:
+        breakout_level = self._get_active_range_level("breakout", now)
+        breakdown_level = self._get_active_range_level("breakdown", now)
+        upper_reference = breakout_level or range_high
+        lower_reference = breakdown_level or range_low
+        upper_breakout_price = upper_reference * (1 + self.config.range_breakout_pct / 100)
+        lower_breakdown_price = lower_reference * (1 - self.config.range_breakout_pct / 100)
+
+        upper_breakout_active = breakout_level is not None
+        lower_breakdown_active = breakdown_level is not None
+        upper_breakout_touched = current_high > upper_breakout_price or current_price > upper_breakout_price
+        lower_breakdown_touched = current_low < lower_breakdown_price or current_price < lower_breakdown_price
+
+        if current_high > range_high * (1 + self.config.range_breakout_pct / 100) or current_price > range_high * (1 + self.config.range_breakout_pct / 100):
+            breakout_level = range_high
+            upper_reference = breakout_level
+            upper_breakout_price = upper_reference * (1 + self.config.range_breakout_pct / 100)
+            upper_breakout_active = True
+            upper_breakout_touched = True
+            self._remember_range_level("breakout", range_high, now)
+
+        if current_low < range_low * (1 - self.config.range_breakout_pct / 100) or current_price < range_low * (1 - self.config.range_breakout_pct / 100):
+            breakdown_level = range_low
+            lower_reference = breakdown_level
+            lower_breakdown_price = lower_reference * (1 - self.config.range_breakout_pct / 100)
+            lower_breakdown_active = True
+            lower_breakdown_touched = True
+            self._remember_range_level("breakdown", range_low, now)
+
+        if upper_breakout_touched:
             long_score += self.config.range_breakout_score
-            reasons.append(f"range upper breakout LONG +{self.config.range_breakout_score}")
-        elif self._pct_distance(current_price, range_high) <= self.config.range_near_pct:
+            reasons.append(
+                f"range upper breakout LONG +{self.config.range_breakout_score} "
+                f"level={upper_reference:.2f}"
+            )
+        elif not upper_breakout_active and self._pct_distance(current_price, range_high) <= self.config.range_near_pct:
             zero_long_score = True
             reasons.append("range near high: LONG score forced to 0")
 
-        if current_price < lower_breakdown_price:
+        if lower_breakdown_touched:
             short_score += self.config.range_breakout_score
-            reasons.append(f"range lower breakdown SHORT +{self.config.range_breakout_score}")
-        elif self._pct_distance(current_price, range_low) <= self.config.range_near_pct:
+            reasons.append(
+                f"range lower breakdown SHORT +{self.config.range_breakout_score} "
+                f"level={lower_reference:.2f}"
+            )
+        elif not lower_breakdown_active and self._pct_distance(current_price, range_low) <= self.config.range_near_pct:
             zero_short_score = True
             reasons.append("range near low: SHORT score forced to 0")
 
@@ -358,9 +398,34 @@ class MarketStateEngine:
                 "low": range_low,
                 "width_pct": range_width_pct,
                 "position_bin": position_result["position_bin"],
+                "breakout_level": breakout_level,
+                "breakdown_level": breakdown_level,
             },
             "reasons": reasons,
         }
+
+    def _remember_range_level(self, side, level, now):
+        self.range_levels[side] = {
+            "level": level,
+            "created_at": now.isoformat(),
+            "expires_at": (now + timedelta(days=self.config.range_level_memory_days)).isoformat(),
+        }
+
+    def _get_active_range_level(self, side, now):
+        level_state = self.range_levels.get(side)
+        if not level_state:
+            return None
+
+        expires_at = self._parse_time(level_state["expires_at"])
+        if now >= expires_at:
+            self.range_levels[side] = None
+            return None
+
+        return level_state["level"]
+
+    def _expire_range_levels(self, now):
+        self._get_active_range_level("breakout", now)
+        self._get_active_range_level("breakdown", now)
 
     def _calc_range_position_score(self, current_price, range_low, range_high):
         if current_price < range_low or current_price > range_high:

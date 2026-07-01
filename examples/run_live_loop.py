@@ -323,6 +323,8 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
         f"- high: {fmt(range_info.get('high'))}",
         f"- low: {fmt(range_info.get('low'))}",
         f"- width_pct: {fmt(range_info.get('width_pct'))}",
+        f"- breakout_level: {fmt(range_info.get('breakout_level'))}",
+        f"- breakdown_level: {fmt(range_info.get('breakdown_level'))}",
     ]
 
     if recent_trade_events:
