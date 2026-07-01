@@ -21,7 +21,7 @@ KST = timezone(timedelta(hours=9))
 def main():
     args = parse_args()
 
-    engine = MarketStateEngine()
+    engine = MarketStateEngine(state_path=get_engine_state_path(args))
     logger = None if args.no_state_log else MarketStateLogger()
     trader = build_trader(args, engine.config)
     fetcher = BinanceFuturesFetcher()
@@ -133,6 +133,12 @@ def get_order_mode(trader):
     return "DRY_RUN"
 
 
+def get_engine_state_path(args):
+    if args.engine_state_path:
+        return args.engine_state_path
+    return f"work/state/range_levels_{args.symbol}.json"
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--symbol", default="BTCUSDT")
@@ -152,6 +158,7 @@ def parse_args():
     parser.add_argument("--paper-state-path", default="work/state/paper_trader_state.json")
     parser.add_argument("--live-state-path", default="work/state/live_trader_state.json")
     parser.add_argument("--live-trade-log-path", default="work/logs/live_trade_log.jsonl")
+    parser.add_argument("--engine-state-path", default=None)
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
     parser.add_argument("--live-confirm", action="store_true")
     parser.add_argument("--halt-on-error", action="store_true")

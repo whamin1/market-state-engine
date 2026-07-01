@@ -1,11 +1,16 @@
+import json
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 from .config import MarketStateConfig
 
 
 class MarketStateEngine:
-    def __init__(self, config: MarketStateConfig | None = None):
+    def __init__(self, config: MarketStateConfig | None = None, state_path=None):
         self.config = config or MarketStateConfig()
+        self.state_path = Path(state_path) if state_path else None
+        if self.state_path:
+            self.state_path.parent.mkdir(parents=True, exist_ok=True)
         self.failure_counts = {
             "upper_breakout_failure": 0,
             "lower_breakdown_failure": 0,
@@ -15,6 +20,7 @@ class MarketStateEngine:
             "breakout": None,
             "breakdown": None,
         }
+        self._load_state()
 
     def update(self, ohlcv_data, current_candle=None, day_progress=None, current_time=None, liquidation_data=None):
         failure_result = self.update_failure_counts(ohlcv_data)
@@ -410,6 +416,7 @@ class MarketStateEngine:
             "created_at": now.isoformat(),
             "expires_at": (now + timedelta(days=self.config.range_level_memory_days)).isoformat(),
         }
+        self._save_state()
 
     def _get_active_range_level(self, side, now):
         level_state = self.range_levels.get(side)
@@ -419,6 +426,7 @@ class MarketStateEngine:
         expires_at = self._parse_time(level_state["expires_at"])
         if now >= expires_at:
             self.range_levels[side] = None
+            self._save_state()
             return None
 
         return level_state["level"]
@@ -426,6 +434,32 @@ class MarketStateEngine:
     def _expire_range_levels(self, now):
         self._get_active_range_level("breakout", now)
         self._get_active_range_level("breakdown", now)
+
+    def _save_state(self):
+        if self.state_path is None:
+            return
+
+        tmp_path = self.state_path.with_name(f"{self.state_path.name}.tmp")
+        state = {
+            "range_levels": self.range_levels,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }
+        with open(tmp_path, "w", encoding="utf-8") as file:
+            json.dump(state, file, ensure_ascii=False, indent=2)
+        tmp_path.replace(self.state_path)
+
+    def _load_state(self):
+        if self.state_path is None or not self.state_path.exists():
+            return
+
+        with open(self.state_path, encoding="utf-8") as file:
+            state = json.load(file)
+
+        loaded_levels = state.get("range_levels", {})
+        self.range_levels = {
+            "breakout": loaded_levels.get("breakout"),
+            "breakdown": loaded_levels.get("breakdown"),
+        }
 
     def _calc_range_position_score(self, current_price, range_low, range_high):
         if current_price < range_low or current_price > range_high:
