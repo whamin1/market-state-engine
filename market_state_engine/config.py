@@ -26,7 +26,7 @@ class MarketStateConfig:
     small_profit_protection_enabled: bool = True
     small_profit_protection_max_pct: float = 3.0
     small_profit_protection_min_peak_pct: float = 0.6
-    small_profit_protection_retrace_ratio: float = 0.5
+    small_profit_protection_retrace_ratio: float = 0.6
     profit_reentry_cooldown_minutes: int = 30
     profit_reentry_score_increase: int = 3
     profit_reentry_score_memory_minutes: int = 240
@@ -44,4 +44,4 @@ class MarketStateConfig:
     live_capital_usdt: float = 300.0
     live_entry_notional_usdt: float = 200.0
     live_add_notional_usdt: float = 100.0
-    live_leverage: int = 1
+    live_leverage: int = 2
