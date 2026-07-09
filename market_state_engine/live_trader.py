@@ -53,7 +53,9 @@ class LiveTrader:
         if self._is_entry_blocked_by_profit_reentry(position_side, result, current_time):
             return None
 
-        quantity = self._quantity_from_notional(self.config.live_entry_notional_usdt, current_price)
+        margin_usdt = self.config.live_entry_notional_usdt
+        notional_usdt = self._effective_notional_from_margin(margin_usdt)
+        quantity = self._quantity_from_notional(notional_usdt, current_price)
 
         event = {
             "type": "LIVE_ORDER",
@@ -62,7 +64,9 @@ class LiveTrader:
             "signal": result["signal"],
             "side": side,
             "position_side": position_side,
-            "notional_usdt": self.config.live_entry_notional_usdt,
+            "margin_usdt": margin_usdt,
+            "notional_usdt": notional_usdt,
+            "leverage": self.config.live_leverage,
             "quantity": quantity,
             "price": current_price,
             "dry_run": is_dry_run,
@@ -152,6 +156,9 @@ class LiveTrader:
     def _quantity_from_notional(self, notional, price):
         quantity = notional / price
         return f"{quantity:.3f}"
+
+    def _effective_notional_from_margin(self, margin_usdt):
+        return margin_usdt * self.config.live_leverage
 
     def _sync_position_state(self, symbol, current_price, current_time, result):
         previous_state = dict(self.position_state) if self.position_state else None

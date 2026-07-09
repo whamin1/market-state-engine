@@ -146,7 +146,7 @@ def parse_args():
     parser.add_argument("--interval-sec", type=int, default=60)
     parser.add_argument("--telegram-report", action="store_true")
     parser.add_argument("--telegram-trades", action="store_true")
-    parser.add_argument("--report-times", default="09:10,21:10")
+    parser.add_argument("--report-times", default="18:00")
     parser.add_argument("--report-every-hour", action="store_true")
     parser.add_argument("--report-every-4-hours", action="store_true")
     parser.add_argument("--report-interval-hours", type=int, default=None)
@@ -374,7 +374,9 @@ def format_trade_event_line(event):
         return (
             f"- {format_event_time(event.get('logged_at'))} "
             f"LIVE ENTRY {event.get('position_side', side)} mode={order_mode} status={event.get('status')} "
-            f"price={event.get('price')} qty={event.get('quantity')} notional={event.get('notional_usdt')}"
+            f"price={event.get('price')} qty={event.get('quantity')} "
+            f"margin={event.get('margin_usdt')} notional={event.get('notional_usdt')} "
+            f"leverage={event.get('leverage')}"
         )
     if event_type == "LIVE_TRAILING_START":
         return (
