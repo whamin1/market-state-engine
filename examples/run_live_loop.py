@@ -1,6 +1,8 @@
 import argparse
+import json
 import time
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 from market_state_engine import (
     BinanceFuturesFetcher,
@@ -28,9 +30,10 @@ def main():
     daily_cache = DailyCandleCache(args.symbol)
     report_send_times = parse_send_times(args.report_times)
     sent_report_keys = set()
-    recent_trade_events = []
+    recent_trade_events = load_recent_trade_events(get_trade_log_path(args), limit=10)
     latest_snapshot = None
     error_notification_times = {}
+    score_alert_state = load_json_file(get_score_alert_state_path(args), default={})
 
     while True:
         try:
@@ -51,6 +54,7 @@ def main():
                 maybe_send_trade_event(args, trade_event)
 
             maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events)
+            maybe_send_score_alerts(args, latest_snapshot, score_alert_state)
         except Exception as exc:
             print(f"live loop error: {exc}")
             maybe_send_loop_error(args, exc, error_notification_times)
@@ -139,6 +143,20 @@ def get_engine_state_path(args):
     return f"work/state/range_levels_{args.symbol}.json"
 
 
+def get_score_alert_state_path(args):
+    if args.score_alert_state_path:
+        return args.score_alert_state_path
+    return f"work/state/score_alerts_{args.symbol}.json"
+
+
+def get_trade_log_path(args):
+    if args.trader == "live":
+        return args.live_trade_log_path
+    if args.no_trade_log:
+        return None
+    return "work/logs/trade_log.jsonl"
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--symbol", default="BTCUSDT")
@@ -159,6 +177,9 @@ def parse_args():
     parser.add_argument("--live-state-path", default="work/state/live_trader_state.json")
     parser.add_argument("--live-trade-log-path", default="work/logs/live_trade_log.jsonl")
     parser.add_argument("--engine-state-path", default=None)
+    parser.add_argument("--score-alert-state-path", default=None)
+    parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
+    parser.add_argument("--no-score-alerts", action="store_true")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
     parser.add_argument("--live-confirm", action="store_true")
     parser.add_argument("--halt-on-error", action="store_true")
@@ -225,6 +246,107 @@ def maybe_send_trade_event(args, trade_event):
     send_status_report(format_trade_event_message(trade_event))
 
 
+def maybe_send_score_alerts(args, snapshot, score_alert_state):
+    if args.no_score_alerts or not (args.telegram_report or args.telegram_trades) or not snapshot:
+        return
+
+    alerts = build_score_alerts(snapshot)
+    if not alerts:
+        return
+
+    now = datetime.now(timezone.utc)
+    cooldown_seconds = args.score_alert_cooldown_hours * 60 * 60
+    selected_alerts = []
+    selected_keys = []
+    sent_at_by_key = score_alert_state.setdefault("sent_at_by_key", {})
+
+    for alert in alerts:
+        key = alert["key"]
+        last_sent_at = sent_at_by_key.get(key)
+        if last_sent_at:
+            elapsed = (now - parse_datetime(last_sent_at)).total_seconds()
+            if elapsed < cooldown_seconds:
+                continue
+        selected_alerts.append(alert)
+        selected_keys.append(key)
+
+    if not selected_alerts:
+        return
+
+    message = format_score_alert_message(snapshot, selected_alerts)
+    if send_status_report(message):
+        for key in selected_keys:
+            sent_at_by_key[key] = now.isoformat()
+        save_json_file(get_score_alert_state_path(args), score_alert_state)
+
+
+def build_score_alerts(snapshot):
+    result = snapshot["result"]
+    alerts = []
+
+    signal = result.get("signal")
+    if signal in ("ENTER_LONG", "ENTER_SHORT"):
+        alerts.append({
+            "key": f"signal:{signal}",
+            "line": f"entry signal {signal}",
+        })
+
+    long_score = result.get("long_score", 0)
+    short_score = result.get("short_score", 0)
+    if long_score >= 12:
+        alerts.append({"key": "score:long_near_entry", "line": f"LONG score near entry: {long_score}"})
+    if short_score >= 12:
+        alerts.append({"key": "score:short_near_entry", "line": f"SHORT score near entry: {short_score}"})
+
+    for reason in result.get("reasons", []):
+        alert = build_reason_alert(reason)
+        if alert:
+            alerts.append(alert)
+
+    return alerts
+
+
+def build_reason_alert(reason):
+    score = extract_reason_score(reason)
+    label = simplify_reason_label(reason)
+
+    if reason.startswith("range upper breakout"):
+        return {"key": "range:upper_breakout", "line": label}
+    if reason.startswith("range lower breakdown"):
+        return {"key": "range:lower_breakdown", "line": label}
+    if reason.startswith("liquidation_score short_liq") and score is not None and score >= 5:
+        return {"key": f"liquidation:short:{score}", "line": f"strong short liquidation: +{score}"}
+    if reason.startswith("liquidation_score long_liq") and score is not None and score >= 5:
+        return {"key": f"liquidation:long:{score}", "line": f"strong long liquidation: +{score}"}
+    if reason.startswith("body_score") and score is not None and score >= 5:
+        return {"key": f"body:{score}", "line": f"large candle body: +{score}"}
+    if reason.startswith("volume_score") and score is not None and score >= 5:
+        return {"key": f"volume:{score}", "line": f"large volume: +{score}"}
+    if reason.startswith("trend_continuity") and score is not None and score >= 5:
+        return {"key": f"trend:{score}", "line": f"strong trend continuity: +{score}"}
+    if reason.startswith("atr_score") and score is not None and score >= 5:
+        return {"key": f"atr:{score}", "line": f"high activity ATR: +{score}"}
+    if reason.startswith("activity_direction") and score is not None and score >= 5:
+        return {"key": f"activity_direction:{score}", "line": f"activity direction bonus: +{score}"}
+
+    return None
+
+
+def format_score_alert_message(snapshot, alerts):
+    result = snapshot["result"]
+    lines = [
+        "Market State Score Alert",
+        f"price: {snapshot.get('price')}",
+        f"long_score: {result.get('long_score')}",
+        f"short_score: {result.get('short_score')}",
+        f"activity_score: {result.get('activity_score')}",
+        "",
+        "alerts:",
+    ]
+    lines.extend(f"- {alert['line']}" for alert in alerts[:8])
+    return "\n".join(lines)
+
+
 def maybe_send_loop_error(args, exc, error_notification_times):
     if not (args.telegram_report or args.telegram_trades):
         return
@@ -278,6 +400,47 @@ def get_report_interval_hours(args):
     if args.report_every_hour:
         return 1
     return None
+
+
+def load_recent_trade_events(path, limit=10):
+    if not path:
+        return []
+
+    log_path = Path(path)
+    if not log_path.exists():
+        return []
+
+    events = []
+    with open(log_path, encoding="utf-8") as file:
+        for line in file:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                events.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    return events[-limit:]
+
+
+def load_json_file(path, default=None):
+    file_path = Path(path)
+    if not file_path.exists():
+        return default if default is not None else {}
+    try:
+        with open(file_path, encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return default if default is not None else {}
+
+
+def save_json_file(path, value):
+    file_path = Path(path)
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = file_path.with_name(f"{file_path.name}.tmp")
+    with open(tmp_path, "w", encoding="utf-8") as file:
+        json.dump(value, file, ensure_ascii=False, indent=2)
+    tmp_path.replace(file_path)
 
 
 def build_live_status_report(snapshot, recent_trade_events, title, report_detail="compact"):
