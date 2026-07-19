@@ -462,16 +462,19 @@ class LiveTrader:
 
         if peak_profit < self.config.small_profit_protection_min_peak_pct:
             return None
-        if peak_profit >= self.config.small_profit_protection_max_pct:
-            return None
-        if pnl_pct <= 0:
+        if peak_profit >= self.config.trailing_take_profit_pct:
             return None
 
-        trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
+        if peak_profit < self.config.small_profit_protection_ratio_start_peak_pct:
+            trigger_pct = self.config.small_profit_protection_fixed_exit_pct
+            rule = f"fixed +{trigger_pct:.2f}% floor"
+        else:
+            trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
+            rule = f"{self.config.small_profit_protection_retrace_ratio:.0%} of peak"
         if pnl_pct > trigger_pct:
             return None
 
-        return f"small profit protection: peak {peak_profit:.2f}% -> current {pnl_pct:.2f}%"
+        return f"profit protection ({rule}): peak {peak_profit:.2f}% -> current {pnl_pct:.2f}%"
 
     def _close_live_position(self, symbol, snapshot, current_price, reason, fraction=1.0, result=None, exit_time=None):
         amount = abs(float(snapshot.get("amount", 0) or 0))

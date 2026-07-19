@@ -306,16 +306,19 @@ class PaperTrader:
         peak_profit = self.position.get("peak_profit_pct", 0.0)
         if peak_profit < self.config.small_profit_protection_min_peak_pct:
             return None
-        if peak_profit >= self.config.small_profit_protection_max_pct:
-            return None
-        if pnl_pct <= 0:
+        if peak_profit >= self.config.trailing_take_profit_pct:
             return None
 
-        trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
+        if peak_profit < self.config.small_profit_protection_ratio_start_peak_pct:
+            trigger_pct = self.config.small_profit_protection_fixed_exit_pct
+            rule = f"fixed +{trigger_pct:.2f}% floor"
+        else:
+            trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
+            rule = f"{self.config.small_profit_protection_retrace_ratio:.0%} of peak"
         if pnl_pct > trigger_pct:
             return None
 
-        reason = f"small profit protection: peak {peak_profit:.2f}% -> current {pnl_pct:.2f}%"
+        reason = f"profit protection ({rule}): peak {peak_profit:.2f}% -> current {pnl_pct:.2f}%"
         return self._close_position(current_price, current_time, symbol, reason, result)
 
     def _update_trailing_stop(self, current_price, atr):
