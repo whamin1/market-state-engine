@@ -45,11 +45,11 @@ class LiveTrader:
         if result["signal"] not in ("ENTER_LONG", "ENTER_SHORT"):
             return None
 
-        if is_dry_run and self.position_state:
-            return None
-
         side = "BUY" if result["signal"] == "ENTER_LONG" else "SELL"
         position_side = "LONG" if side == "BUY" else "SHORT"
+        if self.position_state:
+            return self._maybe_add_entry(symbol, position_side, side, current_price, current_time, result, is_dry_run)
+
         if self._is_entry_blocked_by_profit_reentry(position_side, result, current_time):
             return None
 
@@ -160,6 +160,85 @@ class LiveTrader:
     def _effective_notional_from_margin(self, margin_usdt):
         return margin_usdt * self.config.live_leverage
 
+    def _maybe_add_entry(self, symbol, position_side, order_side, current_price, current_time, result, is_dry_run):
+        if self.position_state.get("side") != position_side:
+            return None
+        if self.position_state.get("add_count", 0) >= self.config.max_add_entries:
+            return None
+
+        current_score = result["long_score"] if position_side == "LONG" else result["short_score"]
+        last_add_score = self.position_state.get("last_add_score")
+        if last_add_score is None:
+            last_add_score = self.position_state.get("entry_score", 0)
+        if current_score < last_add_score + self.config.add_entry_score_increase:
+            return None
+
+        margin_usdt = self.config.live_add_notional_usdt
+        notional_usdt = self._effective_notional_from_margin(margin_usdt)
+        quantity = self._quantity_from_notional(notional_usdt, current_price)
+        event = {
+            "type": "LIVE_ADD",
+            "logged_at": datetime.now(timezone.utc).isoformat(),
+            "symbol": symbol,
+            "side": position_side,
+            "order_side": order_side,
+            "margin_usdt": margin_usdt,
+            "notional_usdt": notional_usdt,
+            "leverage": self.config.live_leverage,
+            "quantity": quantity,
+            "price": current_price,
+            "score": current_score,
+            "required_score": last_add_score + self.config.add_entry_score_increase,
+            "dry_run": is_dry_run,
+        }
+
+        if is_dry_run:
+            event["status"] = "DRY_RUN"
+            event.update(self._update_position_after_add(position_side, current_price, quantity, result, current_time))
+            return event
+
+        exchange_position = self.get_position_snapshot(symbol, current_price)
+        if exchange_position["status"] != "OPEN" or exchange_position.get("side") != position_side:
+            return None
+
+        self.client.set_margin_type(symbol, "ISOLATED")
+        self.client.set_leverage(symbol, self.config.live_leverage)
+        event["response"] = self.client.place_market_order(symbol, order_side, quantity)
+        event["status"] = "SENT"
+        event.update(self._update_position_after_add(position_side, current_price, quantity, result, current_time))
+        return event
+
+    def _update_position_after_add(self, side, add_price, quantity, result, current_time):
+        add_amount = abs(float(quantity))
+        current_amount = abs(float(self.position_state.get("amount", 0) or 0))
+        current_entry = self.position_state.get("entry_price", add_price)
+        new_amount = current_amount + add_amount
+        if new_amount <= 0:
+            return {}
+
+        new_entry = ((current_entry * current_amount) + (add_price * add_amount)) / new_amount
+        new_stop_price = self._calculate_initial_stop_price(side, new_entry, result.get("atr"))
+        self.position_state["entry_price"] = new_entry
+        self.position_state["amount"] = new_amount
+        self.position_state["add_count"] = self.position_state.get("add_count", 0) + 1
+        self.position_state["last_add_score"] = result["long_score"] if side == "LONG" else result["short_score"]
+        self.position_state["stop_price"] = new_stop_price
+        self.position_state["trailing_stop_price"] = None
+        self.position_state["trailing_active"] = False
+        self.position_state["trailing_stop_alerted"] = False
+        self.position_state["best_price"] = new_entry
+        self.position_state["peak_profit_pct"] = 0.0
+        self.position_state["last_seen_time"] = current_time or datetime.now(timezone.utc).isoformat()
+        self.position_state["updated_at"] = datetime.now(timezone.utc).isoformat()
+        self._save_state()
+        return {
+            "previous_entry_price": current_entry,
+            "new_entry_price": new_entry,
+            "new_stop_price": new_stop_price,
+            "total_quantity": self._format_quantity(new_amount),
+            "add_count": self.position_state["add_count"],
+        }
+
     def _sync_position_state(self, symbol, current_price, current_time, result):
         previous_state = dict(self.position_state) if self.position_state else None
         snapshot = self.get_position_snapshot(symbol, current_price)
@@ -220,12 +299,7 @@ class LiveTrader:
 
     def _set_position_state(self, symbol, side, entry_price, current_time, result, quantity, dry_run=False):
         atr = result.get("atr")
-        stop_price = None
-        if atr is not None:
-            if side == "LONG":
-                stop_price = entry_price - atr * self.config.atr_stop_multiplier
-            else:
-                stop_price = entry_price + atr * self.config.atr_stop_multiplier
+        stop_price = self._calculate_initial_stop_price(side, entry_price, atr)
 
         self.position_state = {
             "symbol": symbol,
@@ -247,6 +321,25 @@ class LiveTrader:
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         self._save_state()
+
+    def _calculate_initial_stop_price(self, side, entry_price, atr):
+        atr_stop_price = None
+        if atr is not None:
+            if side == "LONG":
+                atr_stop_price = entry_price - atr * self.config.atr_stop_multiplier
+            else:
+                atr_stop_price = entry_price + atr * self.config.atr_stop_multiplier
+
+        if side == "LONG":
+            max_loss_stop_price = entry_price * (1 - self.config.atr_stop_max_loss_pct / 100)
+            if atr_stop_price is None:
+                return max_loss_stop_price
+            return max(atr_stop_price, max_loss_stop_price)
+
+        max_loss_stop_price = entry_price * (1 + self.config.atr_stop_max_loss_pct / 100)
+        if atr_stop_price is None:
+            return max_loss_stop_price
+        return min(atr_stop_price, max_loss_stop_price)
 
     def _ensure_position_state(self, symbol, side, entry_price):
         if self.position_state and self.position_state.get("symbol") == symbol and self.position_state.get("side") == side:

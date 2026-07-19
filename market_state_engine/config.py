@@ -19,6 +19,7 @@ class MarketStateConfig:
 
     atr_period: int = 14
     atr_stop_multiplier: float = 1.5
+    atr_stop_max_loss_pct: float = 2.0
     activity_direction_bonus_enabled: bool = True
 
     partial_take_profit_pct: float = 3.0
@@ -37,11 +38,11 @@ class MarketStateConfig:
 
     add_entry_score_increase: int = 5
     max_add_entries: int = 1
-    add_entry_size: float = 0.5
+    add_entry_size: float = 1.5
 
     paper_start_balance: float = 100.0
 
     live_capital_usdt: float = 300.0
-    live_entry_notional_usdt: float = 200.0
-    live_add_notional_usdt: float = 100.0
+    live_entry_notional_usdt: float = 120.0
+    live_add_notional_usdt: float = 180.0
     live_leverage: int = 2

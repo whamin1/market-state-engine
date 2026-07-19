@@ -524,7 +524,9 @@ def format_trade_event_line(event):
     if event_type == "ADD":
         return (
             f"- {format_event_time(event.get('time', event.get('logged_at')))} "
-            f"ADD {side} price={event.get('price')} total_size={event.get('total_size')}"
+            f"ADD {side} price={event.get('price')} "
+            f"avg={fmt(event.get('previous_entry_price'))}->{fmt(event.get('new_entry_price'))} "
+            f"total_size={event.get('total_size')}"
         )
     if event_type == "CLOSE":
         return (
@@ -540,6 +542,17 @@ def format_trade_event_line(event):
             f"price={event.get('price')} qty={event.get('quantity')} "
             f"margin={event.get('margin_usdt')} notional={event.get('notional_usdt')} "
             f"leverage={event.get('leverage')}"
+        )
+    if event_type == "LIVE_ADD":
+        order_mode = "DRY_RUN" if event.get("dry_run") else "REAL_ORDER"
+        return (
+            f"- {format_event_time(event.get('logged_at'))} "
+            f"LIVE ADD {side} mode={order_mode} status={event.get('status')} "
+            f"price={event.get('price')} qty={event.get('quantity')} "
+            f"avg={fmt(event.get('previous_entry_price'))}->{fmt(event.get('new_entry_price'))} "
+            f"stop={fmt(event.get('new_stop_price'))} "
+            f"margin={event.get('margin_usdt')} notional={event.get('notional_usdt')} "
+            f"score={event.get('score')} leverage={event.get('leverage')}"
         )
     if event_type == "LIVE_TRAILING_START":
         return (

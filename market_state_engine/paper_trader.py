@@ -65,12 +65,7 @@ class PaperTrader:
         return None
 
     def _open_position(self, side, entry_price, atr, current_time, symbol, result):
-        stop_price = None
-        if atr is not None:
-            if side == "LONG":
-                stop_price = entry_price - atr * self.config.atr_stop_multiplier
-            else:
-                stop_price = entry_price + atr * self.config.atr_stop_multiplier
+        stop_price = self._calculate_initial_stop_price(side, entry_price, atr)
 
         self.position = {
             "symbol": symbol,
@@ -106,6 +101,25 @@ class PaperTrader:
         self._save_state()
         return event
 
+    def _calculate_initial_stop_price(self, side, entry_price, atr):
+        atr_stop_price = None
+        if atr is not None:
+            if side == "LONG":
+                atr_stop_price = entry_price - atr * self.config.atr_stop_multiplier
+            else:
+                atr_stop_price = entry_price + atr * self.config.atr_stop_multiplier
+
+        if side == "LONG":
+            max_loss_stop_price = entry_price * (1 - self.config.atr_stop_max_loss_pct / 100)
+            if atr_stop_price is None:
+                return max_loss_stop_price
+            return max(atr_stop_price, max_loss_stop_price)
+
+        max_loss_stop_price = entry_price * (1 + self.config.atr_stop_max_loss_pct / 100)
+        if atr_stop_price is None:
+            return max_loss_stop_price
+        return min(atr_stop_price, max_loss_stop_price)
+
     def _check_add_entry(self, result, current_price, current_time, symbol):
         if self.position["add_count"] >= self.config.max_add_entries:
             return None
@@ -123,10 +137,22 @@ class PaperTrader:
         if current_score < self.position["last_add_score"] + self.config.add_entry_score_increase:
             return None
 
+        previous_entry = self.position["entry_price"]
+        previous_total_size = self.position["total_size"]
+        add_size = self.config.add_entry_size
+        new_total_size = previous_total_size + add_size
+        new_entry = ((previous_entry * previous_total_size) + (current_price * add_size)) / new_total_size
+
         self.position["add_count"] += 1
         self.position["last_add_score"] = current_score
-        self.position["remaining_size"] += self.config.add_entry_size
-        self.position["total_size"] += self.config.add_entry_size
+        self.position["entry_price"] = new_entry
+        self.position["remaining_size"] += add_size
+        self.position["total_size"] = new_total_size
+        self.position["stop_price"] = self._calculate_initial_stop_price(self.position["side"], new_entry, result.get("atr"))
+        self.position["trailing_stop_price"] = None
+        self.position["trailing_active"] = False
+        self.position["best_price"] = new_entry
+        self.position["peak_profit_pct"] = 0.0
 
         event = {
             "type": "ADD",
@@ -135,8 +161,10 @@ class PaperTrader:
             "side": self.position["side"],
             "time": current_time,
             "price": current_price,
+            "previous_entry_price": previous_entry,
+            "new_entry_price": new_entry,
             "score": current_score,
-            "add_size": self.config.add_entry_size,
+            "add_size": add_size,
             "total_size": self.position["total_size"],
             "remaining_size": self.position["remaining_size"],
             "reason": f"score increased by {self.config.add_entry_score_increase}",
