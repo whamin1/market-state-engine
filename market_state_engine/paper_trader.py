@@ -180,7 +180,11 @@ class PaperTrader:
         position = self.position
         close_size = position["remaining_size"] if close_size is None else close_size
         pnl_pct = self._calculate_pnl_pct(position["side"], position["entry_price"], exit_price)
-        realized_pnl_amount = self.config.paper_start_balance * close_size * pnl_pct / 100
+        gross_realized_pnl = self.config.paper_start_balance * close_size * pnl_pct / 100
+        entry_notional = self.config.paper_start_balance * close_size
+        exit_notional = entry_notional * exit_price / position["entry_price"]
+        estimated_fees = (entry_notional + exit_notional) * self.config.futures_taker_fee_rate_pct / 100
+        realized_pnl_amount = gross_realized_pnl - estimated_fees
         self.realized_pnl += realized_pnl_amount
 
         event = {
@@ -193,6 +197,8 @@ class PaperTrader:
             "exit_time": current_time,
             "exit_price": exit_price,
             "pnl_pct": pnl_pct,
+            "gross_realized_pnl": gross_realized_pnl,
+            "estimated_fees": estimated_fees,
             "realized_pnl_amount": realized_pnl_amount,
             "paper_balance_after": self.config.paper_start_balance + self.realized_pnl,
             "close_size": close_size,

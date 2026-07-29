@@ -249,7 +249,11 @@ class LiveTrader:
                 current_price,
             )
             amount = float(previous_state.get("amount", 0) or 0)
-            estimated_pnl_usdt = amount * current_price * estimated_pnl / 100
+            gross_pnl_usdt = amount * (current_price - previous_state.get("entry_price", current_price))
+            if previous_state.get("side") == "SHORT":
+                gross_pnl_usdt = amount * (previous_state.get("entry_price", current_price) - current_price)
+            estimated_fees = self._calculate_round_trip_fee(amount, previous_state.get("entry_price", current_price), current_price)
+            estimated_pnl_usdt = gross_pnl_usdt - estimated_fees
             self.realized_pnl += estimated_pnl_usdt
             self._record_profit_exit_if_needed(
                 previous_state,
@@ -268,6 +272,8 @@ class LiveTrader:
                 "entry_price": previous_state.get("entry_price"),
                 "exit_price": current_price,
                 "reason": "exchange position is closed",
+                "gross_realized_pnl": gross_pnl_usdt,
+                "estimated_fees": estimated_fees,
                 "estimated_realized_pnl": estimated_pnl_usdt,
             }
 
@@ -488,9 +494,11 @@ class LiveTrader:
         side = "SELL" if snapshot["side"] == "LONG" else "BUY"
         response = self.client.place_market_order(symbol, side, self._format_quantity(quantity), reduce_only=True)
         pnl_pct = self._calculate_pnl_pct(snapshot["side"], snapshot["entry"], current_price)
-        estimated_pnl = quantity * (current_price - snapshot["entry"])
+        gross_pnl = quantity * (current_price - snapshot["entry"])
         if snapshot["side"] == "SHORT":
-            estimated_pnl = quantity * (snapshot["entry"] - current_price)
+            gross_pnl = quantity * (snapshot["entry"] - current_price)
+        estimated_fees = self._calculate_round_trip_fee(quantity, snapshot["entry"], current_price)
+        estimated_pnl = gross_pnl - estimated_fees
         self.realized_pnl += estimated_pnl
 
         is_partial = fraction < 1.0 and quantity < amount
@@ -503,6 +511,8 @@ class LiveTrader:
             "exit_price": current_price,
             "quantity": self._format_quantity(quantity),
             "pnl_pct": pnl_pct,
+            "gross_realized_pnl": gross_pnl,
+            "estimated_fees": estimated_fees,
             "estimated_realized_pnl": estimated_pnl,
             "reason": reason,
             "response": response,
@@ -527,9 +537,11 @@ class LiveTrader:
         side = self.position_state["side"]
         entry_price = self.position_state["entry_price"]
         pnl_pct = self._calculate_pnl_pct(side, entry_price, current_price)
-        realized_pnl = quantity * (current_price - entry_price)
+        gross_pnl = quantity * (current_price - entry_price)
         if side == "SHORT":
-            realized_pnl = quantity * (entry_price - current_price)
+            gross_pnl = quantity * (entry_price - current_price)
+        estimated_fees = self._calculate_round_trip_fee(quantity, entry_price, current_price)
+        realized_pnl = gross_pnl - estimated_fees
         self.realized_pnl += realized_pnl
 
         is_partial = fraction < 1.0 and quantity < amount
@@ -542,6 +554,8 @@ class LiveTrader:
             "exit_price": current_price,
             "quantity": self._format_quantity(quantity),
             "pnl_pct": pnl_pct,
+            "gross_realized_pnl": gross_pnl,
+            "estimated_fees": estimated_fees,
             "estimated_realized_pnl": realized_pnl,
             "reason": reason,
             "status": "DRY_RUN_CLOSE",
@@ -732,6 +746,10 @@ class LiveTrader:
         if side == "LONG":
             return (current_price - entry_price) / entry_price * 100
         return (entry_price - current_price) / entry_price * 100
+
+    def _calculate_round_trip_fee(self, quantity, entry_price, exit_price):
+        fee_rate = self.config.futures_taker_fee_rate_pct / 100
+        return abs(float(quantity)) * (float(entry_price) + float(exit_price)) * fee_rate
 
     def _save_state(self):
         if self.state_path is None:

@@ -34,9 +34,11 @@ def main():
     latest_snapshot = None
     error_notification_times = {}
     score_alert_state = load_json_file(get_score_alert_state_path(args), default={})
+    last_log_cleanup_date = None
 
     while True:
         try:
+            last_log_cleanup_date = cleanup_logs_if_needed(args, logger, last_log_cleanup_date)
             latest_snapshot, trade_event = run_once(
                 symbol=args.symbol,
                 liquda_dir=args.liquda_dir,
@@ -149,6 +151,12 @@ def get_score_alert_state_path(args):
     return f"work/state/score_alerts_{args.symbol}.json"
 
 
+def get_score_alert_log_path(args):
+    if args.score_alert_log_path:
+        return args.score_alert_log_path
+    return f"work/logs/score_alert_log_{args.symbol}.jsonl"
+
+
 def get_trade_log_path(args):
     if args.trader == "live":
         return args.live_trade_log_path
@@ -178,7 +186,9 @@ def parse_args():
     parser.add_argument("--live-trade-log-path", default="work/logs/live_trade_log.jsonl")
     parser.add_argument("--engine-state-path", default=None)
     parser.add_argument("--score-alert-state-path", default=None)
+    parser.add_argument("--score-alert-log-path", default=None)
     parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
+    parser.add_argument("--log-retention-days", type=int, default=7)
     parser.add_argument("--no-score-alerts", action="store_true")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
     parser.add_argument("--live-confirm", action="store_true")
@@ -278,6 +288,65 @@ def maybe_send_score_alerts(args, snapshot, score_alert_state):
         for key in selected_keys:
             sent_at_by_key[key] = now.isoformat()
         save_json_file(get_score_alert_state_path(args), score_alert_state)
+        append_jsonl_record(
+            get_score_alert_log_path(args),
+            {
+                "type": "SCORE_ALERT",
+                "logged_at": now.isoformat(),
+                "market_time": snapshot.get("time"),
+                "symbol": snapshot.get("symbol"),
+                "mode": snapshot.get("mode"),
+                "order_mode": snapshot.get("order_mode"),
+                "price": snapshot.get("price"),
+                "state": snapshot["result"].get("state"),
+                "signal": snapshot["result"].get("signal"),
+                "long_score": snapshot["result"].get("long_score"),
+                "short_score": snapshot["result"].get("short_score"),
+                "activity_score": snapshot["result"].get("activity_score"),
+                "alerts": selected_alerts,
+            },
+        )
+
+
+def append_jsonl_record(path, record):
+    log_path = Path(path)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(log_path, "a", encoding="utf-8") as file:
+        file.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def cleanup_logs_if_needed(args, logger, last_cleanup_date):
+    today = datetime.now(timezone.utc).date()
+    if last_cleanup_date == today or args.log_retention_days <= 0:
+        return last_cleanup_date
+
+    paths = [get_trade_log_path(args), get_score_alert_log_path(args)]
+    if logger:
+        paths.append(logger.log_path)
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=args.log_retention_days)
+    for path in paths:
+        prune_jsonl_before(path, cutoff)
+    return today
+
+
+def prune_jsonl_before(path, cutoff):
+    log_path = Path(path)
+    if not log_path.exists():
+        return
+
+    temp_path = log_path.with_name(f"{log_path.name}.tmp")
+    with open(log_path, encoding="utf-8") as source, open(temp_path, "w", encoding="utf-8") as target:
+        for line in source:
+            try:
+                record = json.loads(line)
+                timestamp = record.get("logged_at") or record.get("current_time") or record.get("time")
+                if timestamp is None or parse_datetime(timestamp) >= cutoff:
+                    target.write(line)
+            except (json.JSONDecodeError, TypeError, ValueError):
+                # Preserve an unreadable line instead of silently discarding data.
+                target.write(line)
+    temp_path.replace(log_path)
 
 
 def build_score_alerts(snapshot):
