@@ -109,15 +109,18 @@ class PaperTrader:
             else:
                 atr_stop_price = entry_price + atr * self.config.atr_stop_multiplier
 
+        if atr_stop_price is None:
+            return None
+
+        max_loss_pct = self.config.atr_stop_max_loss_pct
+        if max_loss_pct is None:
+            return atr_stop_price
+
         if side == "LONG":
-            max_loss_stop_price = entry_price * (1 - self.config.atr_stop_max_loss_pct / 100)
-            if atr_stop_price is None:
-                return max_loss_stop_price
+            max_loss_stop_price = entry_price * (1 - max_loss_pct / 100)
             return max(atr_stop_price, max_loss_stop_price)
 
-        max_loss_stop_price = entry_price * (1 + self.config.atr_stop_max_loss_pct / 100)
-        if atr_stop_price is None:
-            return max_loss_stop_price
+        max_loss_stop_price = entry_price * (1 + max_loss_pct / 100)
         return min(atr_stop_price, max_loss_stop_price)
 
     def _check_add_entry(self, result, current_price, current_time, symbol):

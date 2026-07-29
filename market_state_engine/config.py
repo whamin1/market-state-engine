@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class MarketStateConfig:
-    entry_long_score: int = 15
-    entry_short_score: int = 15
+    entry_long_score: int = 10
+    entry_short_score: int = 10
     entry_score_gap: int = 5
 
     range_days: int = 15
@@ -19,7 +19,8 @@ class MarketStateConfig:
 
     atr_period: int = 14
     atr_stop_multiplier: float = 1.5
-    atr_stop_max_loss_pct: float = 2.0
+    # ATR itself decides the stop distance. Set a number only when a hard cap is wanted.
+    atr_stop_max_loss_pct: float | None = None
     activity_direction_bonus_enabled: bool = True
 
     partial_take_profit_pct: float = 3.0
