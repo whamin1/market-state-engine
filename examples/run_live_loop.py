@@ -403,6 +403,7 @@ def build_reason_alert(reason):
 
 def format_score_alert_message(snapshot, alerts):
     result = snapshot["result"]
+    position = snapshot.get("position") or {}
     lines = [
         "Market State Score Alert",
         f"price: {snapshot.get('price')}",
@@ -413,6 +414,17 @@ def format_score_alert_message(snapshot, alerts):
         "alerts:",
     ]
     lines.extend(f"- {alert['line']}" for alert in alerts[:8])
+
+    if position.get("status") == "OPEN":
+        pnl_pct = float(position.get("unrealized_pnl_pct", 0.0) or 0.0)
+        lines.extend(
+            [
+                "",
+                "position:",
+                f"- side: {position.get('side')}",
+                f"- unrealized_pnl_pct: {pnl_pct:+.2f}%",
+            ]
+        )
     return "\n".join(lines)
 
 
