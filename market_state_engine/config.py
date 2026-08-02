@@ -28,7 +28,8 @@ class MarketStateConfig:
     small_profit_protection_enabled: bool = True
     small_profit_protection_min_peak_pct: float = 0.6
     small_profit_protection_fixed_exit_pct: float = 0.15
-    small_profit_protection_ratio_start_peak_pct: float = 1.5
+    # Start using the peak-retrace rule as soon as profit protection activates.
+    small_profit_protection_ratio_start_peak_pct: float = 0.6
     small_profit_protection_retrace_ratio: float = 0.6
     profit_reentry_cooldown_minutes: int = 30
     profit_reentry_score_increase: int = 3
