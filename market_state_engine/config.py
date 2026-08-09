@@ -45,9 +45,9 @@ class MarketStateConfig:
 
     paper_start_balance: float = 100.0
 
-    live_capital_usdt: float = 300.0
-    live_entry_notional_usdt: float = 120.0
-    live_add_notional_usdt: float = 180.0
+    live_capital_usdt: float = 450.0
+    live_entry_notional_usdt: float = 300.0
+    live_add_notional_usdt: float = 150.0
     live_leverage: int = 2
     # Market orders are taker orders. Match this with the account's actual Binance fee rate.
     futures_taker_fee_rate_pct: float = 0.05
