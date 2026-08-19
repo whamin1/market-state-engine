@@ -49,16 +49,12 @@ class MarketStateEngine:
             + liquidation_result["short_score"]
         )
 
-        if range_result["zero_long_score"]:
-            long_score = 0
-
-        if range_result["zero_short_score"]:
-            short_score = 0
-
         activity_score = atr_result["activity_score"]
         activity_direction_result = self.calc_activity_direction_bonus(current_candle, activity_score)
         long_score += activity_direction_result["long_score"]
         short_score += activity_direction_result["short_score"]
+        long_score = max(long_score, 0)
+        short_score = max(short_score, 0)
 
         if range_result["block_trade"]:
             state = "HOLD"
@@ -326,8 +322,6 @@ class MarketStateEngine:
         long_score = 0
         short_score = 0
         block_trade = False
-        zero_long_score = False
-        zero_short_score = False
         reasons = []
 
         if range_width_pct < self.config.range_min_width_pct:
@@ -367,22 +361,22 @@ class MarketStateEngine:
         if upper_breakout_touched:
             long_score += self.config.range_breakout_score
             reasons.append(
-                f"range upper breakout LONG +{self.config.range_breakout_score} "
+                f"range_break_score upper breakout LONG +{self.config.range_breakout_score} "
                 f"level={upper_reference:.2f}"
             )
         elif not upper_breakout_active and self._pct_distance(current_price, range_high) <= self.config.range_near_pct:
-            zero_long_score = True
-            reasons.append("range near high: LONG score forced to 0")
+            long_score -= self.config.range_near_score_penalty
+            reasons.append(f"range_edge_penalty near high LONG -{self.config.range_near_score_penalty}")
 
         if lower_breakdown_touched:
             short_score += self.config.range_breakout_score
             reasons.append(
-                f"range lower breakdown SHORT +{self.config.range_breakout_score} "
+                f"range_break_score lower breakdown SHORT +{self.config.range_breakout_score} "
                 f"level={lower_reference:.2f}"
             )
         elif not lower_breakdown_active and self._pct_distance(current_price, range_low) <= self.config.range_near_pct:
-            zero_short_score = True
-            reasons.append("range near low: SHORT score forced to 0")
+            short_score -= self.config.range_near_score_penalty
+            reasons.append(f"range_edge_penalty near low SHORT -{self.config.range_near_score_penalty}")
 
         position_result = self._calc_range_position_score(current_price, range_low, range_high)
         long_score += position_result["long_score"]
@@ -397,8 +391,6 @@ class MarketStateEngine:
             "long_score": long_score,
             "short_score": short_score,
             "block_trade": block_trade,
-            "zero_long_score": zero_long_score,
-            "zero_short_score": zero_short_score,
             "range": {
                 "high": range_high,
                 "low": range_low,
@@ -486,7 +478,7 @@ class MarketStateEngine:
                 "long_score": score,
                 "short_score": 0,
                 "position_bin": position_bin,
-                "reason": f"range position bin {position_bin}/{bins} LONG +{score}",
+                "reason": f"range_position_score bin {position_bin}/{bins} LONG +{score}",
             }
 
         if position_bin in upper_score_bins:
@@ -497,14 +489,14 @@ class MarketStateEngine:
                 "long_score": 0,
                 "short_score": score,
                 "position_bin": position_bin,
-                "reason": f"range position bin {position_bin}/{bins} SHORT +{score}",
+                "reason": f"range_position_score bin {position_bin}/{bins} SHORT +{score}",
             }
 
         return {
             "long_score": 0,
             "short_score": 0,
             "position_bin": position_bin,
-            "reason": f"range position bin {position_bin}/{bins} score 0",
+            "reason": f"range_position_score bin {position_bin}/{bins} score 0",
         }
 
     def _scale_range_position_score(self, distance_from_center, max_distance):
@@ -519,8 +511,6 @@ class MarketStateEngine:
             "long_score": 0,
             "short_score": 0,
             "block_trade": False,
-            "zero_long_score": False,
-            "zero_short_score": False,
             "range": None,
             "reasons": [reason],
         }

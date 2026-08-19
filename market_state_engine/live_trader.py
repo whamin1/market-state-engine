@@ -70,6 +70,7 @@ class LiveTrader:
             "quantity": quantity,
             "price": current_price,
             "dry_run": is_dry_run,
+            "score_context": self._build_score_context(result),
         }
 
         if event["dry_run"]:
@@ -190,6 +191,7 @@ class LiveTrader:
             "score": current_score,
             "required_score": last_add_score + self.config.add_entry_score_increase,
             "dry_run": is_dry_run,
+            "score_context": self._build_score_context(result),
         }
 
         if is_dry_run:
@@ -515,6 +517,7 @@ class LiveTrader:
             "estimated_fees": estimated_fees,
             "estimated_realized_pnl": estimated_pnl,
             "reason": reason,
+            "score_context": self._build_score_context(result),
             "response": response,
             "status": "SENT",
         }
@@ -558,6 +561,7 @@ class LiveTrader:
             "estimated_fees": estimated_fees,
             "estimated_realized_pnl": realized_pnl,
             "reason": reason,
+            "score_context": self._build_score_context(result),
             "status": "DRY_RUN_CLOSE",
         }
 
@@ -750,6 +754,22 @@ class LiveTrader:
     def _calculate_round_trip_fee(self, quantity, entry_price, exit_price):
         fee_rate = self.config.futures_taker_fee_rate_pct / 100
         return abs(float(quantity)) * (float(entry_price) + float(exit_price)) * fee_rate
+
+    @staticmethod
+    def _build_score_context(result):
+        if not result:
+            return None
+
+        return {
+            "long_score": result.get("long_score"),
+            "short_score": result.get("short_score"),
+            "activity_score": result.get("activity_score"),
+            "state": result.get("state"),
+            "signal": result.get("signal"),
+            "atr": result.get("atr"),
+            "range": result.get("range"),
+            "reasons": list(result.get("reasons", [])),
+        }
 
     def _save_state(self):
         if self.state_path is None:

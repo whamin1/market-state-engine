@@ -304,6 +304,7 @@ def maybe_send_score_alerts(args, snapshot, score_alert_state):
                 "short_score": snapshot["result"].get("short_score"),
                 "activity_score": snapshot["result"].get("activity_score"),
                 "alerts": selected_alerts,
+                "details": build_score_alert_details(snapshot),
             },
         )
 
@@ -379,9 +380,9 @@ def build_reason_alert(reason):
     score = extract_reason_score(reason)
     label = simplify_reason_label(reason)
 
-    if reason.startswith("range upper breakout"):
+    if reason.startswith("range_break_score upper breakout"):
         return {"key": "range:upper_breakout", "line": label}
-    if reason.startswith("range lower breakdown"):
+    if reason.startswith("range_break_score lower breakdown"):
         return {"key": "range:lower_breakdown", "line": label}
     if reason.startswith("liquidation_score short_liq") and score is not None and score >= 5:
         return {"key": f"liquidation:short:{score}", "line": f"strong short liquidation: +{score}"}
@@ -590,7 +591,57 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
 
 
 def format_trade_event_message(event):
-    return "\n".join(["Trade Event", format_trade_event_line(event)])
+    lines = ["Trade Event", format_trade_event_line(event)]
+    score_context = event.get("score_context")
+    if not score_context:
+        return "\n".join(lines)
+
+    range_info = score_context.get("range") or {}
+    lines.extend(
+        [
+            "",
+            "scores:",
+            f"- long_score: {score_context.get('long_score')}",
+            f"- short_score: {score_context.get('short_score')}",
+            f"- activity_score: {score_context.get('activity_score')}",
+            f"- atr: {fmt(score_context.get('atr'))}",
+            "",
+            "range_context:",
+            f"- position_bin: {fmt(range_info.get('position_bin'))}/20",
+            f"- high: {fmt(range_info.get('high'))}",
+            f"- low: {fmt(range_info.get('low'))}",
+        ]
+    )
+    reasons = score_context.get("reasons") or []
+    if reasons:
+        lines.extend(["", "score_reasons:"])
+        lines.extend(f"- {reason}" for reason in reasons)
+    return "\n".join(lines)
+
+
+def build_score_alert_details(snapshot):
+    result = snapshot.get("result") or {}
+    position = snapshot.get("position") or {}
+    return {
+        "scores": {
+            "long_score": result.get("long_score"),
+            "short_score": result.get("short_score"),
+            "activity_score": result.get("activity_score"),
+            "atr": result.get("atr"),
+            "state": result.get("state"),
+            "signal": result.get("signal"),
+        },
+        "range": result.get("range"),
+        "failure_counts": result.get("failure_counts"),
+        "score_reasons": list(result.get("reasons", [])),
+        "position": {
+            "status": position.get("status"),
+            "side": position.get("side"),
+            "entry": position.get("entry"),
+            "stop": position.get("stop"),
+            "unrealized_pnl_pct": position.get("unrealized_pnl_pct"),
+        },
+    }
 
 
 def format_trade_event_line(event):
@@ -778,9 +829,9 @@ def build_score_reason_summary(reasons, report_detail):
         if not items:
             continue
         total = sum(score for _, score in items)
-        lines.append(f"{section}: +{total}")
+        lines.append(f"{section}: {total:+d}")
         for label, score in items:
-            lines.append(f"- {label}: +{score}")
+            lines.append(f"- {label}: {score:+d}")
 
     if report_detail == "full" and grouped["BLOCK"]:
         lines.append("NOTES:")
@@ -802,12 +853,14 @@ def simplify_reason_label(reason):
         return "volume"
     if reason.startswith("trend_continuity"):
         return "trend"
-    if reason.startswith("range upper breakout"):
+    if reason.startswith("range_break_score upper breakout"):
         return "range breakout"
-    if reason.startswith("range lower breakdown"):
+    if reason.startswith("range_break_score lower breakdown"):
         return "range breakdown"
-    if reason.startswith("range position"):
-        return reason.split(" LONG ")[0].split(" SHORT ")[0].replace("range position ", "range ")
+    if reason.startswith("range_position_score"):
+        return reason.split(" LONG ")[0].split(" SHORT ")[0].replace("range_position_score ", "range position ")
+    if reason.startswith("range_edge_penalty"):
+        return "range edge penalty"
     if reason.startswith("atr_score"):
         return "atr"
     if reason.startswith("activity_direction"):
@@ -820,15 +873,13 @@ def simplify_reason_label(reason):
 
 
 def extract_reason_score(reason):
-    marker = "+"
-    if marker not in reason:
-        return None
-
-    tail = reason.split(marker)[-1].split()[0]
-    try:
-        return int(tail)
-    except ValueError:
-        return None
+    for token in reason.split():
+        if token.startswith(("+", "-")):
+            try:
+                return int(token)
+            except ValueError:
+                continue
+    return None
 
 
 def parse_send_times(value):

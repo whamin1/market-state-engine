@@ -10,6 +10,9 @@ class MarketStateConfig:
     range_days: int = 15
     range_min_width_pct: float = 4.0
     range_near_pct: float = 2.0
+    # Near an unbroken range edge, reduce only the crowded direction instead of
+    # discarding every other signal that supports it.
+    range_near_score_penalty: int = 3
     range_breakout_pct: float = 1.0
     range_breakout_score: int = 3
     range_level_memory_days: int = 3
