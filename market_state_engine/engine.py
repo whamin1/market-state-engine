@@ -48,6 +48,8 @@ class MarketStateEngine:
             + range_result["short_score"]
             + liquidation_result["short_score"]
         )
+        long_score += liquidation_result["long_activity_bonus"]
+        short_score += liquidation_result["short_activity_bonus"]
 
         activity_score = atr_result["activity_score"]
         activity_direction_result = self.calc_activity_direction_bonus(current_candle, activity_score)
@@ -67,6 +69,11 @@ class MarketStateEngine:
             "long_score": long_score,
             "short_score": short_score,
             "activity_score": activity_score,
+            "liquidation_activity_score": liquidation_result["activity_score"],
+            "liquidation_activity_bonus": max(
+                liquidation_result["long_activity_bonus"],
+                liquidation_result["short_activity_bonus"],
+            ),
             "state": state,
             "signal": signal,
             "range": range_result["range"],
@@ -149,14 +156,14 @@ class MarketStateEngine:
 
     def calc_liquidation_score(self, liquidation_data=None, current_time=None):
         if not liquidation_data:
-            return {"long_score": 0, "short_score": 0, "reasons": ["liquidation_score skipped: no data"]}
+            return self._empty_liquidation_result("liquidation_score skipped: no data")
 
         raw_events = liquidation_data.get("raw_events", [])
         hourly_history = liquidation_data.get("hourly_history", [])
         symbol = liquidation_data.get("symbol")
 
         if not raw_events or not hourly_history:
-            return {"long_score": 0, "short_score": 0, "reasons": ["liquidation_score skipped: missing raw or hourly data"]}
+            return self._empty_liquidation_result("liquidation_score skipped: missing raw or hourly data")
 
         now = self._parse_time(current_time) if current_time is not None else datetime.now(timezone.utc)
         one_hour_ago = now - timedelta(hours=1)
@@ -182,8 +189,8 @@ class MarketStateEngine:
             elif liq_type == "long_liquidation" or side == "SELL":
                 current_long_liq += usd_size
 
-        reference_short_liqs = []
-        reference_long_liqs = []
+        reference_total_liqs = []
+        reference_net_liqs = []
 
         for row in hourly_history:
             if symbol and row.get("symbol") != symbol:
@@ -193,25 +200,70 @@ class MarketStateEngine:
             if not (one_week_ago <= row_time < now):
                 continue
 
-            reference_short_liqs.append(self._safe_float(row.get("short_liq_usd_1h", row.get("short_liq_usd"))))
-            reference_long_liqs.append(self._safe_float(row.get("long_liq_usd_1h", row.get("long_liq_usd"))))
+            short_liq = self._safe_float(row.get("short_liq_usd_1h", row.get("short_liq_usd")))
+            long_liq = self._safe_float(row.get("long_liq_usd_1h", row.get("long_liq_usd")))
+            reference_total_liqs.append(short_liq + long_liq)
+            reference_net_liqs.append(abs(short_liq - long_liq))
 
-        short_liq_score = self._percentile_to_score(current_short_liq, reference_short_liqs)
-        long_liq_score = self._percentile_to_score(current_long_liq, reference_long_liqs)
+        current_total_liq = current_short_liq + current_long_liq
+        current_net_liq = current_short_liq - current_long_liq
+        imbalance_ratio = current_net_liq / current_total_liq if current_total_liq > 0 else 0.0
+        liquidation_activity_score = self._percentile_to_score(current_total_liq, reference_total_liqs)
+        net_liq_score = self._percentile_to_score(abs(current_net_liq), reference_net_liqs)
+        reference_hours = len(reference_total_liqs)
+
+        if current_total_liq <= 0:
+            return self._empty_liquidation_result("liquidation_score 0: no liquidation in current hour")
+
+        if abs(imbalance_ratio) < self.config.liquidation_min_imbalance_ratio:
+            return {
+                "long_score": 0,
+                "short_score": 0,
+                "activity_score": liquidation_activity_score,
+                "long_activity_bonus": 0,
+                "short_activity_bonus": 0,
+                "reasons": [
+                    "liquidation_score balanced direction +0 "
+                    f"imbalance_ratio={imbalance_ratio:.2f} total_1h={current_total_liq:.2f} "
+                    f"activity_score={liquidation_activity_score} reference_hours={reference_hours}"
+                ],
+            }
+
+        direction = "LONG" if imbalance_ratio > 0 else "SHORT"
+        activity_bonus = 0
+        if (
+            liquidation_activity_score >= self.config.liquidation_activity_bonus_min_score
+            and abs(imbalance_ratio) >= self.config.liquidation_activity_bonus_min_imbalance_ratio
+        ):
+            activity_bonus = self.config.liquidation_activity_bonus_score
+
+        reasons = [
+            f"liquidation_score imbalance {direction} +{net_liq_score} "
+            f"short_liq_1h={current_short_liq:.2f} long_liq_1h={current_long_liq:.2f} "
+            f"imbalance_ratio={imbalance_ratio:.2f} activity_score={liquidation_activity_score} "
+            f"reference_hours={reference_hours}"
+        ]
+        if activity_bonus:
+            reasons.append(f"liquidation_activity_bonus {direction} +{activity_bonus}")
 
         return {
-            "long_score": short_liq_score,
-            "short_score": long_liq_score,
-            "reasons": [
-                (
-                    f"liquidation_score short_liq LONG +{short_liq_score} "
-                    f"current_1h={current_short_liq:.2f} reference_hours={len(reference_short_liqs)}"
-                ),
-                (
-                    f"liquidation_score long_liq SHORT +{long_liq_score} "
-                    f"current_1h={current_long_liq:.2f} reference_hours={len(reference_long_liqs)}"
-                ),
-            ],
+            "long_score": net_liq_score if direction == "LONG" else 0,
+            "short_score": net_liq_score if direction == "SHORT" else 0,
+            "activity_score": liquidation_activity_score,
+            "long_activity_bonus": activity_bonus if direction == "LONG" else 0,
+            "short_activity_bonus": activity_bonus if direction == "SHORT" else 0,
+            "reasons": reasons,
+        }
+
+    @staticmethod
+    def _empty_liquidation_result(reason):
+        return {
+            "long_score": 0,
+            "short_score": 0,
+            "activity_score": 0,
+            "long_activity_bonus": 0,
+            "short_activity_bonus": 0,
+            "reasons": [reason],
         }
 
     def calc_atr_score(self, ohlcv_data, current_candle=None):
@@ -332,49 +384,37 @@ class MarketStateEngine:
 
         breakout_level = self._get_active_range_level("breakout", now)
         breakdown_level = self._get_active_range_level("breakdown", now)
-        upper_reference = breakout_level or range_high
-        lower_reference = breakdown_level or range_low
-        upper_breakout_price = upper_reference * (1 + self.config.range_breakout_pct / 100)
-        lower_breakdown_price = lower_reference * (1 - self.config.range_breakout_pct / 100)
+        if breakout_level is not None and current_price <= breakout_level:
+            self._clear_range_level("breakout")
+            breakout_level = None
+            reasons.append("range_break_score upper breakout cleared: price returned below level")
 
-        upper_breakout_active = breakout_level is not None
-        lower_breakdown_active = breakdown_level is not None
-        upper_breakout_touched = current_high > upper_breakout_price or current_price > upper_breakout_price
-        lower_breakdown_touched = current_low < lower_breakdown_price or current_price < lower_breakdown_price
+        if breakdown_level is not None and current_price >= breakdown_level:
+            self._clear_range_level("breakdown")
+            breakdown_level = None
+            reasons.append("range_break_score lower breakdown cleared: price returned above level")
 
-        if current_high > range_high * (1 + self.config.range_breakout_pct / 100) or current_price > range_high * (1 + self.config.range_breakout_pct / 100):
+        if breakout_level is None and current_price > range_high * (1 + self.config.range_breakout_pct / 100):
             breakout_level = range_high
-            upper_reference = breakout_level
-            upper_breakout_price = upper_reference * (1 + self.config.range_breakout_pct / 100)
-            upper_breakout_active = True
-            upper_breakout_touched = True
-            self._remember_range_level("breakout", range_high, now)
+            self._remember_range_level("breakout", breakout_level, now)
 
-        if current_low < range_low * (1 - self.config.range_breakout_pct / 100) or current_price < range_low * (1 - self.config.range_breakout_pct / 100):
+        if breakdown_level is None and current_price < range_low * (1 - self.config.range_breakout_pct / 100):
             breakdown_level = range_low
-            lower_reference = breakdown_level
-            lower_breakdown_price = lower_reference * (1 - self.config.range_breakout_pct / 100)
-            lower_breakdown_active = True
-            lower_breakdown_touched = True
-            self._remember_range_level("breakdown", range_low, now)
+            self._remember_range_level("breakdown", breakdown_level, now)
 
-        if upper_breakout_touched:
-            long_score += self.config.range_breakout_score
-            reasons.append(
-                f"range_break_score upper breakout LONG +{self.config.range_breakout_score} "
-                f"level={upper_reference:.2f}"
-            )
-        elif not upper_breakout_active and self._pct_distance(current_price, range_high) <= self.config.range_near_pct:
+        if breakout_level is not None:
+            score = self._get_range_break_score("breakout", now)
+            long_score += score
+            reasons.append(f"range_break_score upper breakout LONG +{score} level={breakout_level:.2f}")
+        elif self._pct_distance(current_price, range_high) <= self.config.range_near_pct:
             long_score -= self.config.range_near_score_penalty
             reasons.append(f"range_edge_penalty near high LONG -{self.config.range_near_score_penalty}")
 
-        if lower_breakdown_touched:
-            short_score += self.config.range_breakout_score
-            reasons.append(
-                f"range_break_score lower breakdown SHORT +{self.config.range_breakout_score} "
-                f"level={lower_reference:.2f}"
-            )
-        elif not lower_breakdown_active and self._pct_distance(current_price, range_low) <= self.config.range_near_pct:
+        if breakdown_level is not None:
+            score = self._get_range_break_score("breakdown", now)
+            short_score += score
+            reasons.append(f"range_break_score lower breakdown SHORT +{score} level={breakdown_level:.2f}")
+        elif self._pct_distance(current_price, range_low) <= self.config.range_near_pct:
             short_score -= self.config.range_near_score_penalty
             reasons.append(f"range_edge_penalty near low SHORT -{self.config.range_near_score_penalty}")
 
@@ -409,6 +449,19 @@ class MarketStateEngine:
             "expires_at": (now + timedelta(days=self.config.range_level_memory_days)).isoformat(),
         }
         self._save_state()
+
+    def _clear_range_level(self, side):
+        self.range_levels[side] = None
+        self._save_state()
+
+    def _get_range_break_score(self, side, now):
+        level_state = self.range_levels.get(side)
+        if not level_state:
+            return 0
+
+        created_at = self._parse_time(level_state["created_at"])
+        age_days = max(int((now - created_at).total_seconds() // (24 * 60 * 60)), 0)
+        return max(self.config.range_breakout_score - age_days, 0)
 
     def _get_active_range_level(self, side, now):
         level_state = self.range_levels.get(side)

@@ -20,6 +20,12 @@ class MarketStateConfig:
     range_edge_bins_no_score: int = 2
     range_position_max_score: int = 4
 
+    # Liquidations give a directional score only when one side is clearly dominant.
+    liquidation_min_imbalance_ratio: float = 0.30
+    liquidation_activity_bonus_min_score: int = 5
+    liquidation_activity_bonus_min_imbalance_ratio: float = 0.60
+    liquidation_activity_bonus_score: int = 1
+
     atr_period: int = 14
     atr_stop_multiplier: float = 1.5
     # ATR itself decides the stop distance. Set a number only when a hard cap is wanted.
@@ -36,7 +42,7 @@ class MarketStateConfig:
     small_profit_protection_retrace_ratio: float = 0.6
     profit_reentry_cooldown_minutes: int = 30
     profit_reentry_score_increase: int = 3
-    profit_reentry_score_memory_minutes: int = 240
+    profit_reentry_price_breakout_pct: float = 0.30
     trailing_take_profit_pct: float = 3.0
     trailing_atr_multiplier: float = 1.5
     trailing_distance_pct: float = 0.7

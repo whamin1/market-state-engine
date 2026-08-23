@@ -384,10 +384,10 @@ def build_reason_alert(reason):
         return {"key": "range:upper_breakout", "line": label}
     if reason.startswith("range_break_score lower breakdown"):
         return {"key": "range:lower_breakdown", "line": label}
-    if reason.startswith("liquidation_score short_liq") and score is not None and score >= 5:
-        return {"key": f"liquidation:short:{score}", "line": f"strong short liquidation: +{score}"}
-    if reason.startswith("liquidation_score long_liq") and score is not None and score >= 5:
-        return {"key": f"liquidation:long:{score}", "line": f"strong long liquidation: +{score}"}
+    if reason.startswith("liquidation_score imbalance LONG") and score is not None and score >= 5:
+        return {"key": f"liquidation:long:{score}", "line": f"strong LONG liquidation imbalance: +{score}"}
+    if reason.startswith("liquidation_score imbalance SHORT") and score is not None and score >= 5:
+        return {"key": f"liquidation:short:{score}", "line": f"strong SHORT liquidation imbalance: +{score}"}
     if reason.startswith("body_score") and score is not None and score >= 5:
         return {"key": f"body:{score}", "line": f"large candle body: +{score}"}
     if reason.startswith("volume_score") and score is not None and score >= 5:
@@ -604,6 +604,7 @@ def format_trade_event_message(event):
             f"- long_score: {score_context.get('long_score')}",
             f"- short_score: {score_context.get('short_score')}",
             f"- activity_score: {score_context.get('activity_score')}",
+            f"- liquidation_activity_score: {score_context.get('liquidation_activity_score')}",
             f"- atr: {fmt(score_context.get('atr'))}",
             "",
             "range_context:",
@@ -627,6 +628,7 @@ def build_score_alert_details(snapshot):
             "long_score": result.get("long_score"),
             "short_score": result.get("short_score"),
             "activity_score": result.get("activity_score"),
+            "liquidation_activity_score": result.get("liquidation_activity_score"),
             "atr": result.get("atr"),
             "state": result.get("state"),
             "signal": result.get("signal"),
@@ -865,10 +867,10 @@ def simplify_reason_label(reason):
         return "atr"
     if reason.startswith("activity_direction"):
         return "activity direction"
-    if reason.startswith("liquidation_score short_liq"):
-        return "short liquidation"
-    if reason.startswith("liquidation_score long_liq"):
-        return "long liquidation"
+    if reason.startswith("liquidation_score imbalance LONG"):
+        return "liquidation imbalance LONG"
+    if reason.startswith("liquidation_score imbalance SHORT"):
+        return "liquidation imbalance SHORT"
     return reason
 
 

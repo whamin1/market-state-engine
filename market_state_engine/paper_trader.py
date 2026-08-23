@@ -23,11 +23,11 @@ class PaperTrader:
 
         if self.position is None:
             if result["signal"] == "ENTER_LONG":
-                if self._is_entry_blocked_by_profit_reentry("LONG", result, current_time):
+                if self._is_entry_blocked_by_profit_reentry("LONG", result, current_price, current_time):
                     return None
                 return self._open_position("LONG", current_price, atr, current_time, symbol, result)
             if result["signal"] == "ENTER_SHORT":
-                if self._is_entry_blocked_by_profit_reentry("SHORT", result, current_time):
+                if self._is_entry_blocked_by_profit_reentry("SHORT", result, current_price, current_time):
                     return None
                 return self._open_position("SHORT", current_price, atr, current_time, symbol, result)
             return None
@@ -82,6 +82,7 @@ class PaperTrader:
             "add_count": 0,
             "entry_score": result["long_score"] if side == "LONG" else result["short_score"],
             "last_add_score": result["long_score"] if side == "LONG" else result["short_score"],
+            "entry_candle_key": self._daily_candle_key(current_time),
             "partial_taken": False,
             "entry_signal": result["signal"],
             "entry_reasons": result["reasons"],
@@ -232,12 +233,14 @@ class PaperTrader:
         self.last_profit_exit = {
             "side": side,
             "exit_time": event.get("exit_time") or event.get("logged_at"),
-            "exit_score": exit_score,
+            "entry_score": position.get("entry_score", exit_score),
+            "entry_price": position.get("entry_price"),
+            "entry_candle_key": position.get("entry_candle_key") or self._daily_candle_key(event.get("exit_time")),
             "pnl_pct": pnl_pct,
             "reason": event.get("exit_reason"),
         }
 
-    def _is_entry_blocked_by_profit_reentry(self, side, result, current_time):
+    def _is_entry_blocked_by_profit_reentry(self, side, result, current_price, current_time):
         if not self.last_profit_exit or self.last_profit_exit.get("side") != side:
             return False
 
@@ -245,22 +248,33 @@ class PaperTrader:
         if not exit_time:
             return False
 
-        elapsed_minutes = self._elapsed_minutes(exit_time, current_time)
-        if elapsed_minutes is None:
-            return False
-        if elapsed_minutes >= self.config.profit_reentry_score_memory_minutes:
+        if self.last_profit_exit.get("entry_candle_key") != self._daily_candle_key(current_time):
             self.last_profit_exit = None
             self._save_state()
+            return False
+
+        elapsed_minutes = self._elapsed_minutes(exit_time, current_time)
+        if elapsed_minutes is None:
             return False
         if elapsed_minutes < self.config.profit_reentry_cooldown_minutes:
             return True
 
-        exit_score = self.last_profit_exit.get("exit_score")
-        if exit_score is None:
+        entry_score = self.last_profit_exit.get("entry_score")
+        entry_price = self.last_profit_exit.get("entry_price")
+        if entry_score is None or entry_price is None:
             return False
 
         current_score = result["long_score"] if side == "LONG" else result["short_score"]
-        return current_score < exit_score + self.config.profit_reentry_score_increase
+        stronger_score = current_score >= entry_score + self.config.profit_reentry_score_increase
+        if side == "LONG":
+            new_price_breakout = current_price >= entry_price * (1 + self.config.profit_reentry_price_breakout_pct / 100)
+        else:
+            new_price_breakout = current_price <= entry_price * (1 - self.config.profit_reentry_price_breakout_pct / 100)
+        return not (stronger_score or new_price_breakout)
+
+    def _daily_candle_key(self, value):
+        now = self._parse_datetime(value) if value else datetime.now(timezone.utc)
+        return now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
 
     def _elapsed_minutes(self, start_time, end_time):
         try:
