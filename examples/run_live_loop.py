@@ -53,6 +53,7 @@ def main():
                 recent_trade_events = recent_trade_events[-10:]
                 if isinstance(trader, LiveTrader):
                     trader.record_event(trade_event)
+                maybe_log_entry_evidence(args, trade_event)
                 maybe_send_trade_event(args, trade_event)
 
             maybe_send_report(args, report_send_times, sent_report_keys, latest_snapshot, recent_trade_events)
@@ -157,6 +158,12 @@ def get_score_alert_log_path(args):
     return f"work/logs/score_alert_log_{args.symbol}.jsonl"
 
 
+def get_entry_evidence_log_path(args):
+    if args.entry_evidence_log_path:
+        return args.entry_evidence_log_path
+    return f"work/logs/entry_evidence_log_{args.symbol}.jsonl"
+
+
 def get_trade_log_path(args):
     if args.trader == "live":
         return args.live_trade_log_path
@@ -187,6 +194,7 @@ def parse_args():
     parser.add_argument("--engine-state-path", default=None)
     parser.add_argument("--score-alert-state-path", default=None)
     parser.add_argument("--score-alert-log-path", default=None)
+    parser.add_argument("--entry-evidence-log-path", default=None)
     parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
     parser.add_argument("--log-retention-days", type=int, default=7)
     parser.add_argument("--no-score-alerts", action="store_true")
@@ -256,6 +264,86 @@ def maybe_send_trade_event(args, trade_event):
     send_status_report(format_trade_event_message(trade_event))
 
 
+def maybe_log_entry_evidence(args, trade_event):
+    """Keep detailed entry evidence locally; this never sends a Telegram message."""
+    if trade_event.get("type") not in {"LIVE_ORDER", "LIVE_ADD"}:
+        return
+
+    score_context = trade_event.get("score_context") or {}
+    if not score_context:
+        return
+
+    side = trade_event.get("position_side") or trade_event.get("side")
+    if side not in {"LONG", "SHORT"}:
+        return
+
+    long_score = score_context.get("long_score")
+    short_score = score_context.get("short_score")
+    entry_score = long_score if side == "LONG" else short_score
+    opposite_score = short_score if side == "LONG" else long_score
+    reasons = list(score_context.get("reasons") or [])
+    range_info = score_context.get("range") or {}
+    evidence_groups = build_entry_evidence_groups(reasons, side)
+
+    append_jsonl_record(
+        get_entry_evidence_log_path(args),
+        {
+            "type": "ENTRY_EVIDENCE",
+            "logged_at": datetime.now(timezone.utc).isoformat(),
+            "event_type": trade_event.get("type"),
+            "symbol": trade_event.get("symbol"),
+            "side": side,
+            "status": trade_event.get("status"),
+            "dry_run": trade_event.get("dry_run"),
+            "price": trade_event.get("price"),
+            "quantity": trade_event.get("quantity"),
+            "margin_usdt": trade_event.get("margin_usdt"),
+            "notional_usdt": trade_event.get("notional_usdt"),
+            "leverage": trade_event.get("leverage"),
+            "entry_score": entry_score,
+            "opposite_score": opposite_score,
+            "score_gap": None if entry_score is None or opposite_score is None else entry_score - opposite_score,
+            "signal": score_context.get("signal"),
+            "state": score_context.get("state"),
+            "activity_score": score_context.get("activity_score"),
+            "liquidation_activity_score": score_context.get("liquidation_activity_score"),
+            "liquidation_activity_bonus": score_context.get("liquidation_activity_bonus"),
+            "entry_evidence_groups": evidence_groups,
+            "entry_evidence_group_count": len(evidence_groups),
+            "range": {
+                "high": range_info.get("high"),
+                "low": range_info.get("low"),
+                "position_bin": range_info.get("position_bin"),
+                "breakout_level": range_info.get("breakout_level"),
+                "breakdown_level": range_info.get("breakdown_level"),
+                "breakout_age_hours": range_info.get("breakout_age_hours"),
+                "breakdown_age_hours": range_info.get("breakdown_age_hours"),
+            },
+            "score_reasons": reasons,
+        },
+    )
+
+
+def build_entry_evidence_groups(reasons, side):
+    group_rules = [
+        ("candle", ("body_score", "volume_score", "activity_direction")),
+        ("trend", ("trend_continuity",)),
+        ("range", ("range_position_score", "range_break_score")),
+        ("liquidation", ("liquidation_score imbalance", "liquidation_activity_bonus")),
+        ("long_term_price", ("price_position",)),
+    ]
+    groups = []
+    for group_name, prefixes in group_rules:
+        for reason in reasons:
+            score = extract_reason_score(reason)
+            if not reason.startswith(prefixes) or score is None or score <= 0:
+                continue
+            if side in reason:
+                groups.append(group_name)
+                break
+    return groups
+
+
 def maybe_send_score_alerts(args, snapshot, score_alert_state):
     if args.no_score_alerts or not (args.telegram_report or args.telegram_trades) or not snapshot:
         return
@@ -321,7 +409,11 @@ def cleanup_logs_if_needed(args, logger, last_cleanup_date):
     if last_cleanup_date == today or args.log_retention_days <= 0:
         return last_cleanup_date
 
-    paths = [get_trade_log_path(args), get_score_alert_log_path(args)]
+    paths = [
+        get_trade_log_path(args),
+        get_score_alert_log_path(args),
+        get_entry_evidence_log_path(args),
+    ]
     if logger:
         paths.append(logger.log_path)
 
