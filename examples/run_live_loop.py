@@ -1,6 +1,7 @@
 import argparse
 import json
 import time
+from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -10,6 +11,7 @@ from market_state_engine import (
     LiveTrader,
     MarketStateEngine,
     MarketStateLogger,
+    MarketStateRecorder,
     PaperTrader,
     load_liquidation_data,
 )
@@ -28,6 +30,10 @@ def main():
     trader = build_trader(args, engine.config)
     fetcher = BinanceFuturesFetcher()
     daily_cache = DailyCandleCache(args.symbol)
+    state_recorder = MarketStateRecorder(
+        db_path=get_market_state_db_path(args),
+        strategy_version=args.strategy_version,
+    )
     report_send_times = parse_send_times(args.report_times)
     sent_report_keys = set()
     recent_trade_events = load_recent_trade_events(get_trade_log_path(args), limit=10)
@@ -47,6 +53,7 @@ def main():
                 trader=trader,
                 fetcher=fetcher,
                 daily_cache=daily_cache,
+                state_recorder=state_recorder,
             )
             if trade_event:
                 recent_trade_events.append(trade_event)
@@ -71,7 +78,7 @@ def main():
         time.sleep(args.interval_sec)
 
 
-def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
+def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache, state_recorder=None):
     current_time = datetime.now(timezone.utc).isoformat()
 
     daily_cache.refresh_if_needed(
@@ -107,7 +114,11 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache):
         "trade_event": trade_event,
         "position": position_snapshot,
         "account": account_snapshot,
+        "strategy_version": getattr(state_recorder, "strategy_version", None),
+        "strategy_config": asdict(engine.config),
     }
+    if state_recorder is not None:
+        state_recorder.save(snapshot)
 
     print(
         {
@@ -164,6 +175,12 @@ def get_entry_evidence_log_path(args):
     return f"work/logs/entry_evidence_log_{args.symbol}.jsonl"
 
 
+def get_market_state_db_path(args):
+    if args.market_state_db_path:
+        return args.market_state_db_path
+    return "work/data/btc_market_state.db"
+
+
 def get_trade_log_path(args):
     if args.trader == "live":
         return args.live_trade_log_path
@@ -195,6 +212,8 @@ def parse_args():
     parser.add_argument("--score-alert-state-path", default=None)
     parser.add_argument("--score-alert-log-path", default=None)
     parser.add_argument("--entry-evidence-log-path", default=None)
+    parser.add_argument("--market-state-db-path", default=None)
+    parser.add_argument("--strategy-version", default="market_state_engine_v1")
     parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
     parser.add_argument("--log-retention-days", type=int, default=7)
     parser.add_argument("--no-score-alerts", action="store_true")

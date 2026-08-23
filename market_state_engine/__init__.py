@@ -8,6 +8,7 @@ from .live_trader import LiveTrader
 from .logger import MarketStateLogger
 from .ohlcv_loader import load_ohlcv_csv
 from .paper_trader import PaperTrader
+from .state_recorder import MarketStateRecorder
 
 __all__ = [
     "DailyCandleCache",
@@ -16,6 +17,7 @@ __all__ = [
     "MarketStateConfig",
     "MarketStateEngine",
     "MarketStateLogger",
+    "MarketStateRecorder",
     "PaperTrader",
     "LiveTrader",
     "load_liquidation_data",

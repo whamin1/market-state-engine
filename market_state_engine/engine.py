@@ -79,6 +79,38 @@ class MarketStateEngine:
             "range": range_result["range"],
             "atr": atr_result["atr"],
             "failure_counts": dict(self.failure_counts),
+            # These are the values already calculated above. They are exposed so
+            # recorders can persist the real scoring inputs without recalculating.
+            "score_components": {
+                "price_position": self._score_pair(price_position_result),
+                "body": self._score_pair(body_result),
+                "volume": self._score_pair(volume_result),
+                "trend_continuity": self._score_pair(trend_result),
+                "range": {
+                    **self._score_pair(range_result),
+                    **dict(range_result.get("score_components", {})),
+                    "block_trade": range_result.get("block_trade", False),
+                },
+                "liquidation": {
+                    "long_score": liquidation_result["long_score"],
+                    "short_score": liquidation_result["short_score"],
+                    "activity_score": liquidation_result["activity_score"],
+                    "long_activity_bonus": liquidation_result["long_activity_bonus"],
+                    "short_activity_bonus": liquidation_result["short_activity_bonus"],
+                },
+                "atr": {"activity_score": atr_result["activity_score"]},
+                "activity_direction": self._score_pair(activity_direction_result),
+            },
+            "indicators": {
+                "current_candle": self._candle_values(current_candle),
+                "price_position": price_position_result.get("indicators", {}),
+                "body": body_result.get("indicators", {}),
+                "volume": volume_result.get("indicators", {}),
+                "trend_continuity": trend_result.get("indicators", {}),
+                "range": range_result.get("range"),
+                "atr": atr_result.get("indicators", {}),
+                "liquidation": liquidation_result.get("indicators", {}),
+            },
             "reasons": (
                 failure_result["reasons"]
                 + price_position_result["reasons"]
@@ -90,6 +122,27 @@ class MarketStateEngine:
                 + activity_direction_result["reasons"]
                 + liquidation_result["reasons"]
             ),
+        }
+
+    @staticmethod
+    def _score_pair(result):
+        return {
+            "long_score": result.get("long_score", 0),
+            "short_score": result.get("short_score", 0),
+        }
+
+    @staticmethod
+    def _candle_values(candle):
+        if not candle:
+            return {}
+
+        return {
+            "timestamp": candle.get("timestamp"),
+            "open": candle.get("open"),
+            "high": candle.get("high"),
+            "low": candle.get("low"),
+            "close": candle.get("close"),
+            "volume": candle.get("volume"),
         }
 
     def calc_activity_direction_bonus(self, current_candle, activity_score):
@@ -213,7 +266,16 @@ class MarketStateEngine:
         reference_hours = len(reference_total_liqs)
 
         if current_total_liq <= 0:
-            return self._empty_liquidation_result("liquidation_score 0: no liquidation in current hour")
+            result = self._empty_liquidation_result("liquidation_score 0: no liquidation in current hour")
+            result["indicators"] = self._liquidation_indicators(
+                current_short_liq,
+                current_long_liq,
+                current_total_liq,
+                current_net_liq,
+                imbalance_ratio,
+                reference_hours,
+            )
+            return result
 
         if abs(imbalance_ratio) < self.config.liquidation_min_imbalance_ratio:
             return {
@@ -222,6 +284,14 @@ class MarketStateEngine:
                 "activity_score": liquidation_activity_score,
                 "long_activity_bonus": 0,
                 "short_activity_bonus": 0,
+                "indicators": self._liquidation_indicators(
+                    current_short_liq,
+                    current_long_liq,
+                    current_total_liq,
+                    current_net_liq,
+                    imbalance_ratio,
+                    reference_hours,
+                ),
                 "reasons": [
                     "liquidation_score balanced direction +0 "
                     f"imbalance_ratio={imbalance_ratio:.2f} total_1h={current_total_liq:.2f} "
@@ -252,6 +322,14 @@ class MarketStateEngine:
             "activity_score": liquidation_activity_score,
             "long_activity_bonus": activity_bonus if direction == "LONG" else 0,
             "short_activity_bonus": activity_bonus if direction == "SHORT" else 0,
+            "indicators": self._liquidation_indicators(
+                current_short_liq,
+                current_long_liq,
+                current_total_liq,
+                current_net_liq,
+                imbalance_ratio,
+                reference_hours,
+            ),
             "reasons": reasons,
         }
 
@@ -263,7 +341,19 @@ class MarketStateEngine:
             "activity_score": 0,
             "long_activity_bonus": 0,
             "short_activity_bonus": 0,
+            "indicators": {},
             "reasons": [reason],
+        }
+
+    @staticmethod
+    def _liquidation_indicators(short_liq, long_liq, total_liq, net_liq, imbalance_ratio, reference_hours):
+        return {
+            "short_liq_1h": short_liq,
+            "long_liq_1h": long_liq,
+            "total_liq_1h": total_liq,
+            "net_liq_1h": net_liq,
+            "imbalance_ratio": imbalance_ratio,
+            "reference_hours": reference_hours,
         }
 
     def calc_atr_score(self, ohlcv_data, current_candle=None):
@@ -274,13 +364,23 @@ class MarketStateEngine:
 
         minimum_candles = self.config.atr_period + 2
         if len(candles) < minimum_candles:
-            return {"activity_score": 0, "atr": None, "reasons": ["atr_score skipped: not enough candles"]}
+            return {
+                "activity_score": 0,
+                "atr": None,
+                "indicators": {"period": self.config.atr_period, "reference_count": 0, "current_true_range": None},
+                "reasons": ["atr_score skipped: not enough candles"],
+            }
 
         true_ranges = self._calculate_true_ranges(candles)
         atr_values = self._calculate_atr_values(true_ranges, self.config.atr_period)
 
         if len(atr_values) < 2:
-            return {"activity_score": 0, "atr": None, "reasons": ["atr_score skipped: not enough ATR values"]}
+            return {
+                "activity_score": 0,
+                "atr": None,
+                "indicators": {"period": self.config.atr_period, "reference_count": 0, "current_true_range": None},
+                "reasons": ["atr_score skipped: not enough ATR values"],
+            }
 
         current_atr = atr_values[-1]
         reference_atrs = atr_values[-366:-1]
@@ -289,34 +389,60 @@ class MarketStateEngine:
         return {
             "activity_score": score,
             "atr": current_atr,
+            "indicators": {
+                "period": self.config.atr_period,
+                "reference_count": len(reference_atrs),
+                "current_true_range": true_ranges[-1],
+            },
             "reasons": [f"atr_score activity +{score} atr={current_atr:.2f}"],
         }
 
     def calc_trend_continuity_score(self, ohlcv_data, current_candle=None):
         if current_candle is None:
             if len(ohlcv_data) < 8:
-                return {"long_score": 0, "short_score": 0, "reasons": ["trend_continuity skipped: not enough candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["trend_continuity skipped: not enough candles"],
+                }
 
             reference_candles = ohlcv_data[:-1]
             current_candle = ohlcv_data[-1]
         else:
             if len(ohlcv_data) < 7:
-                return {"long_score": 0, "short_score": 0, "reasons": ["trend_continuity skipped: not enough reference candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["trend_continuity skipped: not enough reference candles"],
+                }
 
             reference_candles = ohlcv_data
 
         current_direction = self._candle_direction(current_candle)
         previous_direction = self._candle_direction(reference_candles[-1])
+        trend_indicators = {
+            "current_direction": current_direction,
+            "previous_direction": previous_direction,
+            "current_body": abs(current_candle["close"] - current_candle["open"]),
+            "reference_count": len(reference_candles),
+        }
 
         if current_direction == "FLAT":
-            return {"long_score": 0, "short_score": 0, "reasons": ["trend_continuity 0: current candle is doji"]}
+            return {
+                "long_score": 0,
+                "short_score": 0,
+                "indicators": trend_indicators,
+                "reasons": ["trend_continuity 0: current candle is doji"],
+            }
 
         long_score = 0
         short_score = 0
         reasons = []
 
         if current_direction == previous_direction:
-            current_body = abs(current_candle["close"] - current_candle["open"])
+            current_body = trend_indicators["current_body"]
             reference_bodies = [abs(candle["close"] - candle["open"]) for candle in reference_candles]
             continuity_score = self._percentile_to_score(current_body, reference_bodies)
 
@@ -332,6 +458,8 @@ class MarketStateEngine:
         recent_7_candles = reference_candles[-6:] + [current_candle]
         up_count = sum(1 for candle in recent_7_candles if self._candle_direction(candle) == "UP")
         down_count = sum(1 for candle in recent_7_candles if self._candle_direction(candle) == "DOWN")
+        trend_indicators["up_count_7"] = up_count
+        trend_indicators["down_count_7"] = down_count
 
         if up_count == 7:
             long_score += 2
@@ -347,7 +475,12 @@ class MarketStateEngine:
             short_score += 1
             reasons.append("trend_continuity 6 down candles SHORT +1")
 
-        return {"long_score": long_score, "short_score": short_score, "reasons": reasons}
+        return {
+            "long_score": long_score,
+            "short_score": short_score,
+            "indicators": trend_indicators,
+            "reasons": reasons,
+        }
 
     def calc_range_score(self, ohlcv_data, current_candle=None, current_time=None):
         if current_candle is None:
@@ -373,6 +506,10 @@ class MarketStateEngine:
 
         long_score = 0
         short_score = 0
+        breakout_long_score = 0
+        breakdown_short_score = 0
+        edge_penalty_long_score = 0
+        edge_penalty_short_score = 0
         block_trade = False
         reasons = []
 
@@ -405,17 +542,21 @@ class MarketStateEngine:
         if breakout_level is not None:
             score = self._get_range_break_score("breakout", now)
             long_score += score
+            breakout_long_score = score
             reasons.append(f"range_break_score upper breakout LONG +{score} level={breakout_level:.2f}")
         elif self._pct_distance(current_price, range_high) <= self.config.range_near_pct:
             long_score -= self.config.range_near_score_penalty
+            edge_penalty_long_score = -self.config.range_near_score_penalty
             reasons.append(f"range_edge_penalty near high LONG -{self.config.range_near_score_penalty}")
 
         if breakdown_level is not None:
             score = self._get_range_break_score("breakdown", now)
             short_score += score
+            breakdown_short_score = score
             reasons.append(f"range_break_score lower breakdown SHORT +{score} level={breakdown_level:.2f}")
         elif self._pct_distance(current_price, range_low) <= self.config.range_near_pct:
             short_score -= self.config.range_near_score_penalty
+            edge_penalty_short_score = -self.config.range_near_score_penalty
             reasons.append(f"range_edge_penalty near low SHORT -{self.config.range_near_score_penalty}")
 
         position_result = self._calc_range_position_score(current_price, range_low, range_high)
@@ -431,6 +572,14 @@ class MarketStateEngine:
             "long_score": long_score,
             "short_score": short_score,
             "block_trade": block_trade,
+            "score_components": {
+                "breakout_long_score": breakout_long_score,
+                "breakdown_short_score": breakdown_short_score,
+                "edge_penalty_long_score": edge_penalty_long_score,
+                "edge_penalty_short_score": edge_penalty_short_score,
+                "position_long_score": position_result["long_score"],
+                "position_short_score": position_result["short_score"],
+            },
             "range": {
                 "high": range_high,
                 "low": range_low,
@@ -438,6 +587,8 @@ class MarketStateEngine:
                 "position_bin": position_result["position_bin"],
                 "breakout_level": breakout_level,
                 "breakdown_level": breakdown_level,
+                "breakout_age_hours": self._get_range_break_age_hours("breakout", now),
+                "breakdown_age_hours": self._get_range_break_age_hours("breakdown", now),
             },
             "reasons": reasons,
         }
@@ -459,9 +610,16 @@ class MarketStateEngine:
         if not level_state:
             return 0
 
-        created_at = self._parse_time(level_state["created_at"])
-        age_days = max(int((now - created_at).total_seconds() // (24 * 60 * 60)), 0)
+        age_days = self._get_range_break_age_hours(side, now) // 24
         return max(self.config.range_breakout_score - age_days, 0)
+
+    def _get_range_break_age_hours(self, side, now):
+        level_state = self.range_levels.get(side)
+        if not level_state:
+            return None
+
+        created_at = self._parse_time(level_state["created_at"])
+        return max(int((now - created_at).total_seconds() // 3600), 0)
 
     def _get_active_range_level(self, side, now):
         level_state = self.range_levels.get(side)
@@ -564,6 +722,14 @@ class MarketStateEngine:
             "long_score": 0,
             "short_score": 0,
             "block_trade": False,
+            "score_components": {
+                "breakout_long_score": 0,
+                "breakdown_short_score": 0,
+                "edge_penalty_long_score": 0,
+                "edge_penalty_short_score": 0,
+                "position_long_score": 0,
+                "position_short_score": 0,
+            },
             "range": None,
             "reasons": [reason],
         }
@@ -615,13 +781,23 @@ class MarketStateEngine:
     def calc_price_position_score(self, ohlcv_data, current_candle=None):
         if current_candle is None:
             if len(ohlcv_data) < 2:
-                return {"long_score": 0, "short_score": 0, "reasons": ["price_position skipped: not enough candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["price_position skipped: not enough candles"],
+                }
 
             reference_candles = ohlcv_data[:-1]
             current_candle = ohlcv_data[-1]
         else:
             if len(ohlcv_data) < 1:
-                return {"long_score": 0, "short_score": 0, "reasons": ["price_position skipped: no reference candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["price_position skipped: no reference candles"],
+                }
 
             reference_candles = ohlcv_data
 
@@ -635,6 +811,7 @@ class MarketStateEngine:
         short_score = 0
         reasons = []
         current_price = current_candle["close"]
+        period_levels = {}
 
         for label, days, weight in periods:
             candles = reference_candles[-days:]
@@ -643,6 +820,11 @@ class MarketStateEngine:
 
             period_high = max(candle["high"] for candle in candles)
             period_low = min(candle["low"] for candle in candles)
+            period_levels[label] = {
+                "high": period_high,
+                "low": period_low,
+                "candle_count": len(candles),
+            }
 
             if current_price > period_high:
                 long_score += weight
@@ -655,44 +837,92 @@ class MarketStateEngine:
         if not reasons:
             reasons.append("price_position 0: inside previous ranges")
 
-        return {"long_score": long_score, "short_score": short_score, "reasons": reasons}
+        return {
+            "long_score": long_score,
+            "short_score": short_score,
+            "indicators": {
+                "current_price": current_price,
+                "period_levels": period_levels,
+            },
+            "reasons": reasons,
+        }
 
     def calc_body_score(self, ohlcv_data, current_candle=None):
         if current_candle is None:
             if len(ohlcv_data) < 2:
-                return {"long_score": 0, "short_score": 0, "reasons": ["body_score skipped: not enough candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["body_score skipped: not enough candles"],
+                }
 
             reference_candles = ohlcv_data[:-1]
             current_candle = ohlcv_data[-1]
         else:
             if len(ohlcv_data) < 1:
-                return {"long_score": 0, "short_score": 0, "reasons": ["body_score skipped: no reference candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["body_score skipped: no reference candles"],
+                }
 
             reference_candles = ohlcv_data
 
         current_body = abs(current_candle["close"] - current_candle["open"])
         reference_bodies = [abs(candle["close"] - candle["open"]) for candle in reference_candles]
         score = self._percentile_to_score(current_body, reference_bodies)
+        indicators = {
+            "body": current_body,
+            "direction": self._candle_direction(current_candle),
+            "reference_count": len(reference_bodies),
+        }
 
         if current_candle["close"] > current_candle["open"]:
-            return {"long_score": score, "short_score": 0, "reasons": [f"body_score LONG +{score}"]}
+            return {
+                "long_score": score,
+                "short_score": 0,
+                "indicators": indicators,
+                "reasons": [f"body_score LONG +{score}"],
+            }
 
         if current_candle["close"] < current_candle["open"]:
-            return {"long_score": 0, "short_score": score, "reasons": [f"body_score SHORT +{score}"]}
+            return {
+                "long_score": 0,
+                "short_score": score,
+                "indicators": indicators,
+                "reasons": [f"body_score SHORT +{score}"],
+            }
 
-        return {"long_score": 0, "short_score": 0, "reasons": ["body_score 0: current candle is doji"]}
+        return {
+            "long_score": 0,
+            "short_score": 0,
+            "indicators": indicators,
+            "reasons": ["body_score 0: current candle is doji"],
+        }
 
     def calc_volume_score(self, ohlcv_data, current_candle=None, day_progress=None, current_time=None):
         if current_candle is None:
             if len(ohlcv_data) < 2:
-                return {"long_score": 0, "short_score": 0, "reasons": ["volume_score skipped: not enough candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["volume_score skipped: not enough candles"],
+                }
 
             reference_candles = ohlcv_data[:-1]
             current_candle = ohlcv_data[-1]
             expected_volume = current_candle["volume"]
         else:
             if len(ohlcv_data) < 1:
-                return {"long_score": 0, "short_score": 0, "reasons": ["volume_score skipped: no reference candles"]}
+                return {
+                    "long_score": 0,
+                    "short_score": 0,
+                    "indicators": {},
+                    "reasons": ["volume_score skipped: no reference candles"],
+                }
 
             reference_candles = ohlcv_data
             if day_progress is None:
@@ -701,11 +931,19 @@ class MarketStateEngine:
 
         reference_volumes = [candle["volume"] for candle in reference_candles]
         score = self._percentile_to_score(expected_volume, reference_volumes)
+        indicators = {
+            "current_volume": current_candle["volume"],
+            "expected_final_volume": expected_volume,
+            "day_progress": day_progress,
+            "reference_count": len(reference_volumes),
+            "direction": self._candle_direction(current_candle),
+        }
 
         if current_candle["close"] > current_candle["open"]:
             return {
                 "long_score": score,
                 "short_score": 0,
+                "indicators": indicators,
                 "reasons": [f"volume_score LONG +{score} expected_volume={expected_volume:.2f}"],
             }
 
@@ -713,10 +951,16 @@ class MarketStateEngine:
             return {
                 "long_score": 0,
                 "short_score": score,
+                "indicators": indicators,
                 "reasons": [f"volume_score SHORT +{score} expected_volume={expected_volume:.2f}"],
             }
 
-        return {"long_score": 0, "short_score": 0, "reasons": ["volume_score 0: current candle is doji"]}
+        return {
+            "long_score": 0,
+            "short_score": 0,
+            "indicators": indicators,
+            "reasons": ["volume_score 0: current candle is doji"],
+        }
 
     def _estimate_final_volume(self, current_volume, day_progress):
         if day_progress is None:
