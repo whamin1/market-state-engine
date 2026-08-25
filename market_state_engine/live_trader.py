@@ -478,12 +478,13 @@ class LiveTrader:
         if peak_profit >= self.config.trailing_take_profit_pct:
             return None
 
-        if peak_profit < self.config.small_profit_protection_ratio_start_peak_pct:
-            trigger_pct = self.config.small_profit_protection_fixed_exit_pct
-            rule = f"fixed +{trigger_pct:.2f}% floor"
+        if peak_profit < self.config.small_profit_protection_mid_peak_pct:
+            retain_ratio = self.config.small_profit_protection_low_peak_retain_ratio
         else:
-            trigger_pct = peak_profit * self.config.small_profit_protection_retrace_ratio
-            rule = f"{self.config.small_profit_protection_retrace_ratio:.0%} of peak"
+            retain_ratio = self.config.small_profit_protection_mid_peak_retain_ratio
+
+        trigger_pct = peak_profit * retain_ratio
+        rule = f"{retain_ratio:.0%} of peak"
         if pnl_pct > trigger_pct:
             return None
 

@@ -36,16 +36,16 @@ class MarketStateConfig:
     partial_take_profit_size: float = 0.5
     small_profit_protection_enabled: bool = True
     small_profit_protection_min_peak_pct: float = 0.6
-    small_profit_protection_fixed_exit_pct: float = 0.15
-    # Start using the peak-retrace rule as soon as profit protection activates.
-    small_profit_protection_ratio_start_peak_pct: float = 0.6
-    small_profit_protection_retrace_ratio: float = 0.6
+    # Below the trailing activation point, retain more of a larger peak profit.
+    small_profit_protection_mid_peak_pct: float = 1.5
+    small_profit_protection_low_peak_retain_ratio: float = 0.70
+    small_profit_protection_mid_peak_retain_ratio: float = 0.80
     profit_reentry_cooldown_minutes: int = 30
     profit_reentry_score_increase: int = 3
     profit_reentry_price_breakout_pct: float = 0.30
     trailing_take_profit_pct: float = 3.0
     trailing_atr_multiplier: float = 1.5
-    trailing_distance_pct: float = 0.7
+    trailing_distance_pct: float = 0.25
     trailing_use_percent_distance: bool = True
 
     add_entry_score_increase: int = 5
