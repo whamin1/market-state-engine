@@ -10,7 +10,7 @@ LOGGER = logging.getLogger(__name__)
 class MarketStateRecorder:
     """Persist already-calculated live market snapshots without affecting trading."""
 
-    SCHEMA_VERSION = 1
+    SCHEMA_VERSION = 2
     COLUMNS = (
         "timestamp", "symbol", "price", "strategy_version", "schema_version", "mode", "order_mode",
         "decision", "action", "long_score", "short_score", "score_diff",
@@ -34,6 +34,8 @@ class MarketStateRecorder:
         "position_size", "entry_price", "stop_price", "unrealized_pnl", "unrealized_pnl_pct",
         "position_add_count", "trailing_active", "future_15m_long_score", "future_15m_short_score",
         "future_1h_long_score", "future_1h_short_score", "future_4h_long_score", "future_4h_short_score",
+        "future_15m_timestamp", "future_1h_timestamp", "future_4h_timestamp",
+        "future_15m_core_score_diff", "future_1h_core_score_diff", "future_4h_core_score_diff",
         "return_15m", "return_1h", "return_4h", "future_15m_entry_condition",
         "future_1h_entry_condition", "future_4h_entry_condition", "score_reasons_json",
         "score_components_json", "indicators_json", "position_json", "account_json", "trade_event_json",
@@ -83,6 +85,7 @@ class MarketStateRecorder:
                 connection.execute("PRAGMA journal_mode=WAL")
                 connection.execute("PRAGMA synchronous=NORMAL")
                 connection.execute(CREATE_MARKET_STATE_TABLE)
+                ensure_market_state_extensions(connection)
                 connection.commit()
             finally:
                 connection.close()
@@ -215,6 +218,12 @@ class MarketStateRecorder:
             "future_1h_short_score": None,
             "future_4h_long_score": None,
             "future_4h_short_score": None,
+            "future_15m_timestamp": None,
+            "future_1h_timestamp": None,
+            "future_4h_timestamp": None,
+            "future_15m_core_score_diff": None,
+            "future_1h_core_score_diff": None,
+            "future_4h_core_score_diff": None,
             "return_15m": None,
             "return_1h": None,
             "return_4h": None,
@@ -360,6 +369,12 @@ CREATE TABLE IF NOT EXISTS market_state (
     future_1h_short_score INTEGER,
     future_4h_long_score INTEGER,
     future_4h_short_score INTEGER,
+    future_15m_timestamp TEXT,
+    future_1h_timestamp TEXT,
+    future_4h_timestamp TEXT,
+    future_15m_core_score_diff INTEGER,
+    future_1h_core_score_diff INTEGER,
+    future_4h_core_score_diff INTEGER,
     return_15m REAL,
     return_1h REAL,
     return_4h REAL,
@@ -376,3 +391,21 @@ CREATE TABLE IF NOT EXISTS market_state (
     PRIMARY KEY (timestamp, symbol)
 )
 """
+
+
+MARKET_STATE_EXTENSION_COLUMNS = {
+    "future_15m_timestamp": "TEXT",
+    "future_1h_timestamp": "TEXT",
+    "future_4h_timestamp": "TEXT",
+    "future_15m_core_score_diff": "INTEGER",
+    "future_1h_core_score_diff": "INTEGER",
+    "future_4h_core_score_diff": "INTEGER",
+}
+
+
+def ensure_market_state_extensions(connection):
+    """Upgrade an existing recorder database without touching saved snapshots."""
+    existing = {row[1] for row in connection.execute("PRAGMA table_info(market_state)")}
+    for name, column_type in MARKET_STATE_EXTENSION_COLUMNS.items():
+        if name not in existing:
+            connection.execute(f"ALTER TABLE market_state ADD COLUMN {name} {column_type}")
