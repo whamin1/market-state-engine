@@ -27,6 +27,7 @@ class MarketStateConfig:
     liquidation_activity_bonus_score: int = 1
 
     atr_period: int = 14
+    atr_max_score: int = 3
     atr_stop_multiplier: float = 1.5
     # ATR itself decides the stop distance. Set a number only when a hard cap is wanted.
     atr_stop_max_loss_pct: float | None = None
@@ -43,6 +44,8 @@ class MarketStateConfig:
     profit_reentry_cooldown_minutes: int = 30
     profit_reentry_score_increase: int = 3
     profit_reentry_price_breakout_pct: float = 0.30
+    opposite_reentry_extra_score: int = 4
+    opposite_reentry_window_minutes: int = 30
     trailing_take_profit_pct: float = 3.0
     trailing_atr_multiplier: float = 1.5
     trailing_distance_pct: float = 0.25

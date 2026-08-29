@@ -1,7 +1,7 @@
 import json
 import json
 import math
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .binance_signed_client import BinanceSignedClient
@@ -30,6 +30,7 @@ class LiveTrader:
         self.position_state = None
         self.realized_pnl = 0.0
         self.last_profit_exit = None
+        self.last_opposite_exit = None
         self._load_state()
 
     def update(self, result, current_candle, current_time=None, symbol=None):
@@ -51,6 +52,8 @@ class LiveTrader:
             return self._maybe_add_entry(symbol, position_side, side, current_price, current_time, result, is_dry_run)
 
         if self._is_entry_blocked_by_profit_reentry(position_side, result, current_price, current_time):
+            return None
+        if self._is_entry_blocked_by_opposite_reentry(position_side, result, current_time):
             return None
 
         margin_usdt = self.config.live_entry_notional_usdt
@@ -75,6 +78,7 @@ class LiveTrader:
 
         if event["dry_run"]:
             event["status"] = "DRY_RUN"
+            self.last_opposite_exit = None
             self._set_position_state(symbol, position_side, current_price, current_time, result, quantity, dry_run=True)
             return event
 
@@ -88,6 +92,7 @@ class LiveTrader:
         self.client.set_leverage(symbol, self.config.live_leverage)
         event["response"] = self.client.place_market_order(symbol, side, quantity)
         event["status"] = "SENT"
+        self.last_opposite_exit = None
         self._set_position_state(symbol, position_side, current_price, current_time, result, quantity)
         return event
 
@@ -443,7 +448,10 @@ class LiveTrader:
 
         if self._can_take_partial_profit(snapshot["side"], current_price):
             return self._close_live_position(symbol, snapshot, current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size, result=result, exit_time=exit_time)
-        return self._close_live_position(symbol, snapshot, current_price, "opposite signal", result=result, exit_time=exit_time)
+        event = self._close_live_position(symbol, snapshot, current_price, "opposite signal", result=result, exit_time=exit_time)
+        self._record_opposite_exit(snapshot["side"], exit_time)
+        self._save_state()
+        return event
 
     def _maybe_close_dry_run_on_opposite_signal(self, current_price, result, exit_time=None):
         if not self._is_opposite_signal(self.position_state["side"], result.get("signal")):
@@ -451,7 +459,11 @@ class LiveTrader:
 
         if self._can_take_partial_profit(self.position_state["side"], current_price):
             return self._close_dry_run_position(current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size, result=result, exit_time=exit_time)
-        return self._close_dry_run_position(current_price, "opposite signal", result=result, exit_time=exit_time)
+        closed_side = self.position_state["side"]
+        event = self._close_dry_run_position(current_price, "opposite signal", result=result, exit_time=exit_time)
+        self._record_opposite_exit(closed_side, exit_time)
+        self._save_state()
+        return event
 
     def _maybe_close_live_on_small_profit_protection(self, symbol, snapshot, current_price, result, exit_time):
         reason = self._get_small_profit_protection_reason(snapshot["side"], current_price)
@@ -581,6 +593,12 @@ class LiveTrader:
         if pnl_pct <= 0:
             return
 
+        if exit_time:
+            exit_at = self._parse_datetime(exit_time)
+        else:
+            exit_at = datetime.now(timezone.utc)
+        reentry_block_until = exit_at + timedelta(minutes=self.config.profit_reentry_cooldown_minutes)
+
         side = position_state.get("side")
         exit_score = None
         if result:
@@ -590,7 +608,8 @@ class LiveTrader:
 
         self.last_profit_exit = {
             "side": side,
-            "exit_time": exit_time or datetime.now(timezone.utc).isoformat(),
+            "exit_time": exit_at.isoformat(),
+            "reentry_block_until": reentry_block_until.isoformat(),
             "exit_price": exit_price,
             "entry_score": position_state.get("entry_score", exit_score),
             "entry_price": position_state.get("entry_price"),
@@ -603,20 +622,11 @@ class LiveTrader:
         if not self.last_profit_exit or self.last_profit_exit.get("side") != side:
             return False
 
-        exit_time = self.last_profit_exit.get("exit_time")
-        if not exit_time:
-            return False
-
-        if self.last_profit_exit.get("entry_candle_key") != self._daily_candle_key(current_time):
-            self.last_profit_exit = None
-            self._save_state()
-            return False
-
-        elapsed_minutes = self._elapsed_minutes(exit_time, current_time)
-        if elapsed_minutes is None:
-            return False
-        if elapsed_minutes < self.config.profit_reentry_cooldown_minutes:
-            return True
+        block_until = self._get_profit_reentry_block_until(self.last_profit_exit)
+        if block_until is not None:
+            now = self._parse_datetime(current_time) if current_time else datetime.now(timezone.utc)
+            if now < block_until:
+                return True
 
         entry_score = self.last_profit_exit.get("entry_score")
         entry_price = self.last_profit_exit.get("entry_price")
@@ -630,6 +640,51 @@ class LiveTrader:
         else:
             new_price_breakout = current_price <= entry_price * (1 - self.config.profit_reentry_price_breakout_pct / 100)
         return not (stronger_score or new_price_breakout)
+
+    def _get_profit_reentry_block_until(self, profit_exit):
+        block_until = profit_exit.get("reentry_block_until")
+        if block_until:
+            try:
+                return self._parse_datetime(block_until)
+            except (TypeError, ValueError):
+                return None
+
+        # States saved before this field existed still honor the configured cooldown.
+        exit_time = profit_exit.get("exit_time")
+        if not exit_time:
+            return None
+        try:
+            return self._parse_datetime(exit_time) + timedelta(minutes=self.config.profit_reentry_cooldown_minutes)
+        except (TypeError, ValueError):
+            return None
+
+    def _record_opposite_exit(self, closed_side, exit_time):
+        exit_at = self._parse_datetime(exit_time) if exit_time else datetime.now(timezone.utc)
+        self.last_opposite_exit = {
+            "closed_side": closed_side,
+            "reversal_side": "SHORT" if closed_side == "LONG" else "LONG",
+            "exit_time": exit_at.isoformat(),
+            "window_until": (exit_at + timedelta(minutes=self.config.opposite_reentry_window_minutes)).isoformat(),
+        }
+
+    def _is_entry_blocked_by_opposite_reentry(self, side, result, current_time):
+        if not self.last_opposite_exit or self.last_opposite_exit.get("reversal_side") != side:
+            return False
+
+        try:
+            window_until = self._parse_datetime(self.last_opposite_exit["window_until"])
+        except (KeyError, TypeError, ValueError):
+            return False
+
+        now = self._parse_datetime(current_time) if current_time else datetime.now(timezone.utc)
+        if now >= window_until:
+            self.last_opposite_exit = None
+            self._save_state()
+            return False
+
+        current_score = result["long_score"] if side == "LONG" else result["short_score"]
+        base_score = self.config.entry_long_score if side == "LONG" else self.config.entry_short_score
+        return current_score < base_score + self.config.opposite_reentry_extra_score
 
     def _daily_candle_key(self, value):
         now = self._parse_datetime(value) if value else datetime.now(timezone.utc)
@@ -798,6 +853,7 @@ class LiveTrader:
             "position": self.position_state,
             "realized_pnl": self.realized_pnl,
             "last_profit_exit": self.last_profit_exit,
+            "last_opposite_exit": self.last_opposite_exit,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         with open(tmp_path, "w", encoding="utf-8") as file:
@@ -813,3 +869,4 @@ class LiveTrader:
         self.position_state = state.get("position")
         self.realized_pnl = state.get("realized_pnl", 0.0)
         self.last_profit_exit = state.get("last_profit_exit")
+        self.last_opposite_exit = state.get("last_opposite_exit")

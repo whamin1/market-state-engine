@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -15,6 +15,7 @@ class PaperTrader:
         self.position = None
         self.realized_pnl = 0.0
         self.last_profit_exit = None
+        self.last_opposite_exit = None
         self._load_state()
 
     def update(self, result, current_candle, current_time=None, symbol=None):
@@ -25,10 +26,16 @@ class PaperTrader:
             if result["signal"] == "ENTER_LONG":
                 if self._is_entry_blocked_by_profit_reentry("LONG", result, current_price, current_time):
                     return None
+                if self._is_entry_blocked_by_opposite_reentry("LONG", result, current_time):
+                    return None
+                self.last_opposite_exit = None
                 return self._open_position("LONG", current_price, atr, current_time, symbol, result)
             if result["signal"] == "ENTER_SHORT":
                 if self._is_entry_blocked_by_profit_reentry("SHORT", result, current_price, current_time):
                     return None
+                if self._is_entry_blocked_by_opposite_reentry("SHORT", result, current_time):
+                    return None
+                self.last_opposite_exit = None
                 return self._open_position("SHORT", current_price, atr, current_time, symbol, result)
             return None
 
@@ -54,13 +61,19 @@ class PaperTrader:
             partial_event = self._check_partial_take_profit(current_price, current_time, symbol, "opposite SHORT signal", result)
             if partial_event:
                 return partial_event
-            return self._close_position(current_price, current_time, symbol, "opposite SHORT signal", result)
+            event = self._close_position(current_price, current_time, symbol, "opposite SHORT signal", result)
+            self._record_opposite_exit("LONG", current_time)
+            self._save_state()
+            return event
 
         if self.position["side"] == "SHORT" and result["signal"] == "ENTER_LONG":
             partial_event = self._check_partial_take_profit(current_price, current_time, symbol, "opposite LONG signal", result)
             if partial_event:
                 return partial_event
-            return self._close_position(current_price, current_time, symbol, "opposite LONG signal", result)
+            event = self._close_position(current_price, current_time, symbol, "opposite LONG signal", result)
+            self._record_opposite_exit("SHORT", current_time)
+            self._save_state()
+            return event
 
         return None
 
@@ -223,6 +236,10 @@ class PaperTrader:
         if pnl_pct <= 0:
             return
 
+        exit_time = event.get("exit_time") or event.get("logged_at")
+        exit_at = self._parse_datetime(exit_time) if exit_time else datetime.now(timezone.utc)
+        reentry_block_until = exit_at + timedelta(minutes=self.config.profit_reentry_cooldown_minutes)
+
         side = position["side"]
         exit_score = None
         if result:
@@ -232,7 +249,8 @@ class PaperTrader:
 
         self.last_profit_exit = {
             "side": side,
-            "exit_time": event.get("exit_time") or event.get("logged_at"),
+            "exit_time": exit_at.isoformat(),
+            "reentry_block_until": reentry_block_until.isoformat(),
             "entry_score": position.get("entry_score", exit_score),
             "entry_price": position.get("entry_price"),
             "entry_candle_key": position.get("entry_candle_key") or self._daily_candle_key(event.get("exit_time")),
@@ -244,20 +262,11 @@ class PaperTrader:
         if not self.last_profit_exit or self.last_profit_exit.get("side") != side:
             return False
 
-        exit_time = self.last_profit_exit.get("exit_time")
-        if not exit_time:
-            return False
-
-        if self.last_profit_exit.get("entry_candle_key") != self._daily_candle_key(current_time):
-            self.last_profit_exit = None
-            self._save_state()
-            return False
-
-        elapsed_minutes = self._elapsed_minutes(exit_time, current_time)
-        if elapsed_minutes is None:
-            return False
-        if elapsed_minutes < self.config.profit_reentry_cooldown_minutes:
-            return True
+        block_until = self._get_profit_reentry_block_until(self.last_profit_exit)
+        if block_until is not None:
+            now = self._parse_datetime(current_time) if current_time else datetime.now(timezone.utc)
+            if now < block_until:
+                return True
 
         entry_score = self.last_profit_exit.get("entry_score")
         entry_price = self.last_profit_exit.get("entry_price")
@@ -271,6 +280,50 @@ class PaperTrader:
         else:
             new_price_breakout = current_price <= entry_price * (1 - self.config.profit_reentry_price_breakout_pct / 100)
         return not (stronger_score or new_price_breakout)
+
+    def _get_profit_reentry_block_until(self, profit_exit):
+        block_until = profit_exit.get("reentry_block_until")
+        if block_until:
+            try:
+                return self._parse_datetime(block_until)
+            except (TypeError, ValueError):
+                return None
+
+        exit_time = profit_exit.get("exit_time")
+        if not exit_time:
+            return None
+        try:
+            return self._parse_datetime(exit_time) + timedelta(minutes=self.config.profit_reentry_cooldown_minutes)
+        except (TypeError, ValueError):
+            return None
+
+    def _record_opposite_exit(self, closed_side, exit_time):
+        exit_at = self._parse_datetime(exit_time) if exit_time else datetime.now(timezone.utc)
+        self.last_opposite_exit = {
+            "closed_side": closed_side,
+            "reversal_side": "SHORT" if closed_side == "LONG" else "LONG",
+            "exit_time": exit_at.isoformat(),
+            "window_until": (exit_at + timedelta(minutes=self.config.opposite_reentry_window_minutes)).isoformat(),
+        }
+
+    def _is_entry_blocked_by_opposite_reentry(self, side, result, current_time):
+        if not self.last_opposite_exit or self.last_opposite_exit.get("reversal_side") != side:
+            return False
+
+        try:
+            window_until = self._parse_datetime(self.last_opposite_exit["window_until"])
+        except (KeyError, TypeError, ValueError):
+            return False
+
+        now = self._parse_datetime(current_time) if current_time else datetime.now(timezone.utc)
+        if now >= window_until:
+            self.last_opposite_exit = None
+            self._save_state()
+            return False
+
+        current_score = result["long_score"] if side == "LONG" else result["short_score"]
+        base_score = self.config.entry_long_score if side == "LONG" else self.config.entry_short_score
+        return current_score < base_score + self.config.opposite_reentry_extra_score
 
     def _daily_candle_key(self, value):
         now = self._parse_datetime(value) if value else datetime.now(timezone.utc)
@@ -445,6 +498,7 @@ class PaperTrader:
             "position": self.position,
             "realized_pnl": self.realized_pnl,
             "last_profit_exit": self.last_profit_exit,
+            "last_opposite_exit": self.last_opposite_exit,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -463,3 +517,4 @@ class PaperTrader:
         self.position = state.get("position")
         self.realized_pnl = state.get("realized_pnl", 0.0)
         self.last_profit_exit = state.get("last_profit_exit")
+        self.last_opposite_exit = state.get("last_opposite_exit")

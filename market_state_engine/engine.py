@@ -384,7 +384,8 @@ class MarketStateEngine:
 
         current_atr = atr_values[-1]
         reference_atrs = atr_values[-366:-1]
-        score = self._percentile_to_score(current_atr, reference_atrs)
+        raw_score = self._percentile_to_score(current_atr, reference_atrs)
+        score = min(raw_score, self.config.atr_max_score)
 
         return {
             "activity_score": score,
@@ -393,8 +394,10 @@ class MarketStateEngine:
                 "period": self.config.atr_period,
                 "reference_count": len(reference_atrs),
                 "current_true_range": true_ranges[-1],
+                "raw_score": raw_score,
+                "score_cap": self.config.atr_max_score,
             },
-            "reasons": [f"atr_score activity +{score} atr={current_atr:.2f}"],
+            "reasons": [f"atr_score activity +{score} raw={raw_score} cap={self.config.atr_max_score} atr={current_atr:.2f}"],
         }
 
     def calc_trend_continuity_score(self, ohlcv_data, current_candle=None):
