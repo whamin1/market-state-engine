@@ -49,7 +49,8 @@ class MarketStateConfig:
     trailing_use_percent_distance: bool = True
 
     add_entry_score_increase: int = 5
-    max_add_entries: int = 1
+    # Disabled while the live trade data is re-evaluated.
+    max_add_entries: int = 0
     add_entry_size: float = 1.5
 
     paper_start_balance: float = 100.0
