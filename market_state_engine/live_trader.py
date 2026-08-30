@@ -41,6 +41,12 @@ class LiveTrader:
         else:
             sync_event = self._sync_position_state(symbol, current_price, current_time, result)
         if sync_event:
+            reversal_side = sync_event.get("reversal_side")
+            if reversal_side:
+                entry_event = self._open_entry(symbol, current_price, current_time, result, is_dry_run)
+                if entry_event:
+                    return self._build_reversal_event(sync_event, entry_event, reversal_side, result)
+                sync_event["reversal_entry_status"] = "PENDING_EXCHANGE_FLAT_CONFIRMATION"
             return sync_event
 
         if result["signal"] not in ("ENTER_LONG", "ENTER_SHORT"):
@@ -51,6 +57,14 @@ class LiveTrader:
         if self.position_state:
             return self._maybe_add_entry(symbol, position_side, side, current_price, current_time, result, is_dry_run)
 
+        return self._open_entry(symbol, current_price, current_time, result, is_dry_run)
+
+    def _open_entry(self, symbol, current_price, current_time, result, is_dry_run):
+        if result.get("signal") not in ("ENTER_LONG", "ENTER_SHORT") or self.position_state:
+            return None
+
+        side = "BUY" if result["signal"] == "ENTER_LONG" else "SELL"
+        position_side = "LONG" if side == "BUY" else "SHORT"
         if self._is_entry_blocked_by_profit_reentry(position_side, result, current_price, current_time):
             return None
         if self._is_entry_blocked_by_opposite_reentry(position_side, result, current_time):
@@ -95,6 +109,20 @@ class LiveTrader:
         self.last_opposite_exit = None
         self._set_position_state(symbol, position_side, current_price, current_time, result, quantity)
         return event
+
+    def _build_reversal_event(self, close_event, entry_event, reversal_side, result):
+        return {
+            "type": "LIVE_REVERSAL",
+            "logged_at": datetime.now(timezone.utc).isoformat(),
+            "symbol": close_event.get("symbol") or entry_event.get("symbol"),
+            "side": f"{close_event.get('side')}->{reversal_side}",
+            "position_side": reversal_side,
+            "price": entry_event.get("price"),
+            "close_event": close_event,
+            "entry_event": entry_event,
+            "score_context": self._build_score_context(result),
+            "status": entry_event.get("status"),
+        }
 
     def get_position_snapshot(self, symbol, current_price):
         if self.position_state and self.position_state.get("dry_run"):
@@ -443,25 +471,25 @@ class LiveTrader:
         return self._close_dry_run_position(current_price, reason, result=result, exit_time=exit_time)
 
     def _maybe_close_on_opposite_signal(self, symbol, snapshot, current_price, result, exit_time=None):
-        if not self._is_opposite_signal(snapshot["side"], result.get("signal")):
+        reversal_side = self._confirmed_reversal_side(snapshot["side"], result)
+        if reversal_side is None:
             return None
 
-        if self._can_take_partial_profit(snapshot["side"], current_price):
-            return self._close_live_position(symbol, snapshot, current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size, result=result, exit_time=exit_time)
-        event = self._close_live_position(symbol, snapshot, current_price, "opposite signal", result=result, exit_time=exit_time)
+        event = self._close_live_position(symbol, snapshot, current_price, "confirmed opposite reversal", result=result, exit_time=exit_time)
         self._record_opposite_exit(snapshot["side"], exit_time)
+        event["reversal_side"] = reversal_side
         self._save_state()
         return event
 
     def _maybe_close_dry_run_on_opposite_signal(self, current_price, result, exit_time=None):
-        if not self._is_opposite_signal(self.position_state["side"], result.get("signal")):
+        reversal_side = self._confirmed_reversal_side(self.position_state["side"], result)
+        if reversal_side is None:
             return None
 
-        if self._can_take_partial_profit(self.position_state["side"], current_price):
-            return self._close_dry_run_position(current_price, "partial take profit: opposite signal", fraction=self.config.partial_take_profit_size, result=result, exit_time=exit_time)
         closed_side = self.position_state["side"]
-        event = self._close_dry_run_position(current_price, "opposite signal", result=result, exit_time=exit_time)
+        event = self._close_dry_run_position(current_price, "confirmed opposite reversal", result=result, exit_time=exit_time)
         self._record_opposite_exit(closed_side, exit_time)
+        event["reversal_side"] = reversal_side
         self._save_state()
         return event
 
@@ -719,6 +747,18 @@ class LiveTrader:
     def _is_opposite_signal(self, side, signal):
         return (side == "LONG" and signal == "ENTER_SHORT") or (side == "SHORT" and signal == "ENTER_LONG")
 
+    def _confirmed_reversal_side(self, current_side, result):
+        signal = result.get("signal")
+        if not self._is_opposite_signal(current_side, signal):
+            return None
+
+        reversal_side = "SHORT" if current_side == "LONG" else "LONG"
+        current_score = result["short_score"] if reversal_side == "SHORT" else result["long_score"]
+        base_score = self.config.entry_short_score if reversal_side == "SHORT" else self.config.entry_long_score
+        if current_score < base_score + self.config.opposite_reentry_extra_score:
+            return None
+        return reversal_side
+
     def _can_take_partial_profit(self, side, current_price):
         if self.position_state.get("partial_taken"):
             return False
@@ -733,6 +773,11 @@ class LiveTrader:
 
     def record_event(self, event):
         if self.trade_log_path is None:
+            return
+        if event.get("type") == "LIVE_REVERSAL":
+            for nested_event in (event.get("close_event"), event.get("entry_event")):
+                if nested_event:
+                    self.record_event(nested_event)
             return
         with open(self.trade_log_path, "a", encoding="utf-8") as file:
             file.write(json.dumps(event, ensure_ascii=False) + "\n")

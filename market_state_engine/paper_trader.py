@@ -57,23 +57,24 @@ class PaperTrader:
         if add_event:
             return add_event
 
-        if self.position["side"] == "LONG" and result["signal"] == "ENTER_SHORT":
-            partial_event = self._check_partial_take_profit(current_price, current_time, symbol, "opposite SHORT signal", result)
-            if partial_event:
-                return partial_event
-            event = self._close_position(current_price, current_time, symbol, "opposite SHORT signal", result)
-            self._record_opposite_exit("LONG", current_time)
+        reversal_side = self._confirmed_reversal_side(self.position["side"], result)
+        if reversal_side is not None:
+            closed_side = self.position["side"]
+            close_event = self._close_position(current_price, current_time, symbol, "confirmed opposite reversal", result)
+            self._record_opposite_exit(closed_side, current_time)
+            entry_event = self._open_position(reversal_side, current_price, atr, current_time, symbol, result)
+            self.last_opposite_exit = None
             self._save_state()
-            return event
-
-        if self.position["side"] == "SHORT" and result["signal"] == "ENTER_LONG":
-            partial_event = self._check_partial_take_profit(current_price, current_time, symbol, "opposite LONG signal", result)
-            if partial_event:
-                return partial_event
-            event = self._close_position(current_price, current_time, symbol, "opposite LONG signal", result)
-            self._record_opposite_exit("SHORT", current_time)
-            self._save_state()
-            return event
+            return {
+                "type": "REVERSAL",
+                "logged_at": datetime.now(timezone.utc).isoformat(),
+                "symbol": symbol,
+                "side": f"{closed_side}->{reversal_side}",
+                "position_side": reversal_side,
+                "price": current_price,
+                "close_event": close_event,
+                "entry_event": entry_event,
+            }
 
         return None
 
@@ -324,6 +325,21 @@ class PaperTrader:
         current_score = result["long_score"] if side == "LONG" else result["short_score"]
         base_score = self.config.entry_long_score if side == "LONG" else self.config.entry_short_score
         return current_score < base_score + self.config.opposite_reentry_extra_score
+
+    def _confirmed_reversal_side(self, current_side, result):
+        signal = result.get("signal")
+        if current_side == "LONG" and signal == "ENTER_SHORT":
+            reversal_side = "SHORT"
+        elif current_side == "SHORT" and signal == "ENTER_LONG":
+            reversal_side = "LONG"
+        else:
+            return None
+
+        current_score = result["short_score"] if reversal_side == "SHORT" else result["long_score"]
+        base_score = self.config.entry_short_score if reversal_side == "SHORT" else self.config.entry_long_score
+        if current_score < base_score + self.config.opposite_reentry_extra_score:
+            return None
+        return reversal_side
 
     def _daily_candle_key(self, value):
         now = self._parse_datetime(value) if value else datetime.now(timezone.utc)
