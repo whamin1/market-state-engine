@@ -65,7 +65,8 @@ class LiveTrader:
 
         side = "BUY" if result["signal"] == "ENTER_LONG" else "SELL"
         position_side = "LONG" if side == "BUY" else "SHORT"
-        if self._is_entry_blocked_by_profit_reentry(position_side, result, current_price, current_time):
+        pending_confirmed_reversal = self._is_pending_confirmed_reversal(position_side, result, current_time)
+        if not pending_confirmed_reversal and self._is_entry_blocked_by_profit_reentry(position_side, result, current_price, current_time):
             return None
         if self._is_entry_blocked_by_opposite_reentry(position_side, result, current_time):
             return None
@@ -461,14 +462,16 @@ class LiveTrader:
         stop_price = self._get_stop_price()
         if not self._is_stop_touched(snapshot["side"], current_price, stop_price):
             return None
-        return self._close_live_position(symbol, snapshot, current_price, reason, result=result, exit_time=exit_time)
+        close_reason = self._active_stop_reason(reason)
+        return self._close_live_position(symbol, snapshot, current_price, close_reason, result=result, exit_time=exit_time)
 
     def _maybe_close_dry_run_at_stop(self, current_price, reason, result=None, exit_time=None):
         stop_price = self._get_stop_price()
         side = self.position_state["side"]
         if not self._is_stop_touched(side, current_price, stop_price):
             return None
-        return self._close_dry_run_position(current_price, reason, result=result, exit_time=exit_time)
+        close_reason = self._active_stop_reason(reason)
+        return self._close_dry_run_position(current_price, close_reason, result=result, exit_time=exit_time)
 
     def _maybe_close_on_opposite_signal(self, symbol, snapshot, current_price, result, exit_time=None):
         reversal_side = self._confirmed_reversal_side(snapshot["side"], result)
@@ -714,6 +717,27 @@ class LiveTrader:
         base_score = self.config.entry_long_score if side == "LONG" else self.config.entry_short_score
         return current_score < base_score + self.config.opposite_reentry_extra_score
 
+    def _is_pending_confirmed_reversal(self, side, result, current_time):
+        if not self.last_opposite_exit or self.last_opposite_exit.get("reversal_side") != side:
+            return False
+
+        expected_signal = "ENTER_LONG" if side == "LONG" else "ENTER_SHORT"
+        if result.get("signal") != expected_signal:
+            return False
+
+        try:
+            window_until = self._parse_datetime(self.last_opposite_exit["window_until"])
+        except (KeyError, TypeError, ValueError):
+            return False
+
+        now = self._parse_datetime(current_time) if current_time else datetime.now(timezone.utc)
+        if now >= window_until:
+            return False
+
+        current_score = result["long_score"] if side == "LONG" else result["short_score"]
+        base_score = self.config.entry_long_score if side == "LONG" else self.config.entry_short_score
+        return current_score >= base_score + self.config.opposite_reentry_extra_score
+
     def _daily_candle_key(self, value):
         now = self._parse_datetime(value) if value else datetime.now(timezone.utc)
         return now.replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
@@ -736,6 +760,11 @@ class LiveTrader:
         if not self.position_state:
             return None
         return self.position_state.get("trailing_stop_price") or self.position_state.get("stop_price")
+
+    def _active_stop_reason(self, default_reason):
+        if self.position_state and self.position_state.get("trailing_active") and self.position_state.get("trailing_stop_price") is not None:
+            return "trailing stop"
+        return default_reason
 
     def _is_stop_touched(self, side, current_price, stop_price):
         if stop_price is None:

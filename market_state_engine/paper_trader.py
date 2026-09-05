@@ -24,14 +24,14 @@ class PaperTrader:
 
         if self.position is None:
             if result["signal"] == "ENTER_LONG":
-                if self._is_entry_blocked_by_profit_reentry("LONG", result, current_price, current_time):
+                if not self._is_pending_confirmed_reversal("LONG", result, current_time) and self._is_entry_blocked_by_profit_reentry("LONG", result, current_price, current_time):
                     return None
                 if self._is_entry_blocked_by_opposite_reentry("LONG", result, current_time):
                     return None
                 self.last_opposite_exit = None
                 return self._open_position("LONG", current_price, atr, current_time, symbol, result)
             if result["signal"] == "ENTER_SHORT":
-                if self._is_entry_blocked_by_profit_reentry("SHORT", result, current_price, current_time):
+                if not self._is_pending_confirmed_reversal("SHORT", result, current_time) and self._is_entry_blocked_by_profit_reentry("SHORT", result, current_price, current_time):
                     return None
                 if self._is_entry_blocked_by_opposite_reentry("SHORT", result, current_time):
                     return None
@@ -340,6 +340,27 @@ class PaperTrader:
         if current_score < base_score + self.config.opposite_reentry_extra_score:
             return None
         return reversal_side
+
+    def _is_pending_confirmed_reversal(self, side, result, current_time):
+        if not self.last_opposite_exit or self.last_opposite_exit.get("reversal_side") != side:
+            return False
+
+        expected_signal = "ENTER_LONG" if side == "LONG" else "ENTER_SHORT"
+        if result.get("signal") != expected_signal:
+            return False
+
+        try:
+            window_until = self._parse_datetime(self.last_opposite_exit["window_until"])
+        except (KeyError, TypeError, ValueError):
+            return False
+
+        now = self._parse_datetime(current_time) if current_time else datetime.now(timezone.utc)
+        if now >= window_until:
+            return False
+
+        current_score = result["long_score"] if side == "LONG" else result["short_score"]
+        base_score = self.config.entry_long_score if side == "LONG" else self.config.entry_short_score
+        return current_score >= base_score + self.config.opposite_reentry_extra_score
 
     def _daily_candle_key(self, value):
         now = self._parse_datetime(value) if value else datetime.now(timezone.utc)

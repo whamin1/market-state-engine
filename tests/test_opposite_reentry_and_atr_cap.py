@@ -123,6 +123,52 @@ class OppositeReentryAndAtrCapTests(unittest.TestCase):
         self.assertEqual(reversal["entry_event"]["position_side"], "SHORT")
         self.assertEqual(trader.position_state["side"], "SHORT")
 
+    def test_confirmed_reversal_bypasses_an_old_profit_reentry_block(self):
+        trader = LiveTrader(MarketStateConfig(), client=object(), dry_run=True, state_path=None, trade_log_path=None)
+        trader.update(
+            self._result(long_score=10, short_score=0, signal="ENTER_LONG"),
+            {"close": 100.0},
+            "2026-01-01T00:00:00+00:00",
+            "BTCUSDT",
+        )
+        trader.last_profit_exit = {
+            "side": "SHORT",
+            "reentry_block_until": "2026-01-01T01:00:00+00:00",
+            "entry_score": 20,
+            "entry_price": 90.0,
+        }
+
+        reversal = trader.update(
+            self._result(long_score=0, short_score=14, signal="ENTER_SHORT"),
+            {"close": 98.0},
+            "2026-01-01T00:01:00+00:00",
+            "BTCUSDT",
+        )
+
+        self.assertEqual(reversal["type"], "LIVE_REVERSAL")
+        self.assertEqual(trader.position_state["side"], "SHORT")
+
+    def test_live_trailing_stop_is_recorded_as_trailing_stop(self):
+        trader = LiveTrader(MarketStateConfig(), client=object(), dry_run=True, state_path=None, trade_log_path=None)
+        trader.update(
+            self._result(long_score=10, signal="ENTER_LONG"),
+            {"close": 100.0},
+            "2026-01-01T00:00:00+00:00",
+            "BTCUSDT",
+        )
+        trader.position_state["trailing_active"] = True
+        trader.position_state["trailing_stop_price"] = 99.5
+
+        event = trader.update(
+            self._result(),
+            {"close": 99.0},
+            "2026-01-01T00:01:00+00:00",
+            "BTCUSDT",
+        )
+
+        self.assertEqual(event["type"], "LIVE_CLOSE")
+        self.assertEqual(event["reason"], "trailing stop")
+
 
 if __name__ == "__main__":
     unittest.main()
