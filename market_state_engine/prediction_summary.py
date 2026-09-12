@@ -139,41 +139,158 @@ def format_forecast_scores(forecast):
     return lines
 
 
-def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, warning=None):
+def _report_time(value):
+    parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
+def summarize_recent_actuals(records, now):
+    """Summarize first confirmations, not the creation times of their forecasts."""
+    since = now - timedelta(hours=6)
+    groups = {}
+    for record in records:
+        forecast = record.get("forecast") or {}
+        strategy = forecast.get("strategy_version")
+        version = forecast.get("forecast_version")
+        if not strategy or not version:
+            continue
+        group = groups.setdefault((strategy, version), {
+            "strategy_version": strategy, "forecast_version": version,
+            "legacy_time_count": 0, "horizons": {
+                name: {"LONG": [], "SHORT": [], "latest": None} for name in HORIZON_MINUTES},
+        })
+        source_time = _report_time(record["source_timestamp"])
+        if not 0 <= (_report_time(record["created_at"]) - source_time).total_seconds() <= 120:
+            continue
+        for name, minutes in HORIZON_MINUTES.items():
+            actual = (record.get("actual_outcomes") or {}).get(name) or {}
+            if not actual.get("timestamp") or actual.get("report_strategy_matches") is False:
+                continue
+            actual_time = _report_time(actual["timestamp"])
+            if not source_time + timedelta(minutes=minutes) <= actual_time <= now:
+                continue
+            confirmed = _report_time(actual.get("confirmed_at") or actual["timestamp"])
+            if not since < confirmed <= now:
+                continue
+            items = (forecast.get("horizons", {}).get(name) or {}).get("score_changes") or {}
+            comparison = {}
+            for side in ("LONG", "SHORT"):
+                item = items.get(side) or {}
+                score = actual.get(f"{side.lower()}_score")
+                predicted = item.get("median_score")
+                if not item.get("ready") or score is None or predicted is None:
+                    continue
+                error = abs(score - predicted)
+                group["horizons"][name][side].append(error)
+                comparison[side] = {"predicted": predicted, "actual": score, "absolute_error": error}
+            if comparison:
+                if not actual.get("confirmed_at"):
+                    group["legacy_time_count"] += 1
+                latest = group["horizons"][name]["latest"]
+                if latest is None or confirmed > _report_time(latest["confirmed_at"]):
+                    group["horizons"][name]["latest"] = {
+                        "source_timestamp": record["source_timestamp"], "actual_timestamp": actual["timestamp"],
+                        "confirmed_at": confirmed.isoformat(), "sides": comparison,
+                    }
+    for group in groups.values():
+        for stats in group["horizons"].values():
+            for side in ("LONG", "SHORT"):
+                errors = stats[side]
+                stats[side] = {"count": len(errors), "mae": mean(errors) if errors else None}
+    return list(groups.values())
+
+
+def _forecast_item(forecast, name, side):
+    item = ((forecast.get("horizons") or {}).get(name) or {}).get("score_changes", {}).get(side) or {}
+    return item if item.get("ready") and item.get("median_score") is not None else None
+
+
+def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, warning=None, context=None):
+    context = context or {}
     lines = ["BTCUSDT 점수 예측 연구", now.astimezone(KST).strftime("%Y-%m-%d %H:%M KST")]
     if warning:
         lines.append(warning)
+    lines.extend(["", "① 현재 상태"])
     if forecast:
-        lines.extend(["", *format_forecast_scores(forecast)])
-    lines.extend(["", "최근 6시간 예측의 실제 변화 (LONG/SHORT)"])
-    for record in recent_records[-6:]:
-        actual = record.get("actual_outcomes") or {}
-        source = record["forecast"]
-        parts = []
-        for name, minutes in HORIZON_MINUTES.items():
-            item = actual.get(name) or {}
-            if item.get("long_score") is not None and item.get("short_score") is not None:
-                parts.append(f"{name} {item['long_score'] - source['long_score']:+d}/{item['short_score'] - source['short_score']:+d}")
-            else:
-                due = datetime.fromisoformat(record["source_timestamp"]) + timedelta(minutes=minutes)
-                parts.append(f"{name} {'대기' if now < due else '자료 없음'}")
-        lines.append(f"{record['schedule_key'][-2:]}시: " + " | ".join(parts))
-    if not recent_records:
-        lines.append("기록 없음")
-    lines.extend(["", f"최근 {days}일 성적: 최고확률 분류 적중/평가건수", "7·10 = 각 점수의 상승/하락/유지 분류"])
-    for name, metrics in evaluation["horizons"].items():
-        baseline = metrics["baseline"]
-        lines.append(f"{name}: 기존 점수차3점(비교용) {_ratio(baseline)} (항상유지 {baseline['always_stable_hits']}/{baseline['count']})")
-        for side, stats in metrics["sides"].items():
-            metric = stats["7"]
-            lines.append(f" {side}: 7점 {_ratio(metric)}, 10점 {_ratio(stats['10'])}; 실제변화 포착 {metric['change_hits']}/{metric['actual_changes']}")
-            if stats["score_error_count"]:
-                error = stats["score_error_sum"] / stats["score_error_count"]
-                lines.append(f"  예상 점수 평균 절대오차: {error:.1f}점 ({stats['score_error_count']}건)")
-        low = " / ".join(f"{side} {_ratio(stats['bands']['0_9'])}" for side, stats in metrics["sides"].items())
-        high = " / ".join(f"{side} {_ratio(stats['bands']['10_plus'])}" for side, stats in metrics["sides"].items())
-        lines.append(f" 시작0~9: {low}; 시작10+: {high}")
-        lines.append(f" 평가대기 {metrics['pending']} / 결과누락 {metrics['missing_actual']}")
-    lines.extend(["", "점수 변화 예측이며 가격 방향·매매 수익률 예측이 아닙니다.",
-                  "사례 수에는 겹치는 1분 기록이 포함됩니다. +7/-7 및 +10/-10은 이상 변화 확률입니다."])
+        spread = forecast["long_score"] - forecast["short_score"]
+        lines.extend([f"BTC: {forecast.get('price')}",
+                      f"LONG {forecast['long_score']} / SHORT {forecast['short_score']} / Spread {spread:+g}",
+                      f"기준: {_report_time(forecast['source_timestamp']).astimezone(KST):%m-%d %H:%M} KST",
+                      "", "② 4시간 전망", "예상 점수: 중앙값 / 범위: 과거 사례의 10~90백분위"])
+        medians = {}
+        for side in ("LONG", "SHORT"):
+            item = _forecast_item(forecast, "4h", side)
+            if not item:
+                lines.append(f"{side}: 사례 부족")
+                continue
+            medians[side] = item["median_score"]
+            change = item["median_score"] - item["start_score"]
+            lines.extend([f"{side}: {item['start_score']} -> 예상 {item['median_score']:.1f} ({change:+.1f})",
+                          f" 범위 {item['score_p10']:.1f}~{item['score_p90']:.1f} / 사례 {item['case_count']}",
+                          f" +7 이상 {item['up_7_pct']:.0f}% / -7 이하 {item['down_7_pct']:.0f}%",
+                          f" +10 이상 {item['up_10_pct']:.0f}% / -10 이하 {item['down_10_pct']:.0f}%"])
+        if len(medians) == 2:
+            future_spread = medians["LONG"] - medians["SHORT"]
+            lines.append(f"예상 Spread: {future_spread:+.1f} (현재 대비 {future_spread - spread:+.1f})")
+            lines.append("Spread는 두 예상 점수의 차이입니다.")
+        lines.extend(["", "③ 단기 전망"])
+        for name in ("1h", "15m"):
+            parts = []
+            for side in ("LONG", "SHORT"):
+                item = _forecast_item(forecast, name, side)
+                parts.append(f"{side} {item['median_score']:.1f} ({item['median_score'] - item['start_score']:+.1f})"
+                             if item else f"{side} 사례 부족")
+            lines.append(f"{name.upper()}: " + " / ".join(parts))
+    else:
+        lines.append("현재 예측 없음")
+    lines.extend(["", "④ 지난 변화"])
+    earlier = context.get("previous_snapshot")
+    if (forecast and earlier and earlier.get("strategy_version") == forecast.get("strategy_version")
+            and all(earlier.get(f"{side}_score") is not None for side in ("long", "short"))):
+        lines.append(f"1시간 전 실제 점수 ({_report_time(earlier['timestamp']).astimezone(KST):%H:%M} KST) 대비:")
+        for side in ("LONG", "SHORT"):
+            before, current = earlier[f"{side.lower()}_score"], forecast[f"{side.lower()}_score"]
+            lines.append(f"{side}: {before} -> {current} ({current - before:+g})")
+    else:
+        lines.append("1시간 전 비교: 자료 없음 또는 전략 변경")
+    previous = (context.get("previous_forecast") or {}).get("forecast")
+    if (forecast and previous and previous.get("strategy_version") == forecast.get("strategy_version")
+            and previous.get("forecast_version") == forecast.get("forecast_version")):
+        old_target = _report_time(previous["source_timestamp"]) + timedelta(hours=4)
+        new_target = _report_time(forecast["source_timestamp"]) + timedelta(hours=4)
+        lines.append(f"직전 실행 대비 4H 전망 (목표 {_report_time(old_target).astimezone(KST):%m-%d %H:%M}"
+                     f" -> {_report_time(new_target).astimezone(KST):%m-%d %H:%M} KST):")
+        for side in ("LONG", "SHORT"):
+            old, new = _forecast_item(previous, "4h", side), _forecast_item(forecast, "4h", side)
+            lines.append(f"{side}: {old['median_score']:.1f} -> {new['median_score']:.1f}"
+                         f" ({new['median_score'] - old['median_score']:+.1f})" if old and new else f"{side}: 비교 자료 부족")
+    else:
+        lines.append("직전 4H 전망 비교: 자료 없음 또는 버전 변경")
+    lines.append("서로 다른 목표 시각의 rolling forecast 비교이며, 같은 시각의 수정 예측이 아닙니다.")
+    lines.extend(["", "⑤ 최근 6시간 새로 확정된 결과", "LONG/SHORT 평균 절대오차 (점수), 평가 건수"])
+    groups = context.get("recent_actuals")
+    if groups is None:
+        groups = summarize_recent_actuals(recent_records, now)
+    groups = [group for group in groups if any(stats[side]["count"] for stats in group["horizons"].values()
+                                              for side in ("LONG", "SHORT"))]
+    for group in groups[:3]:
+        lines.append(f"전략: {group['strategy_version'][:48]} / {group['forecast_version'][:32]}")
+        for name in ("4h", "1h", "15m"):
+            stats = group["horizons"][name]
+            parts = [f"{side} {stats[side]['mae']:.2f} ({stats[side]['count']}건)"
+                     if stats[side]["count"] else f"{side} 평가 없음" for side in ("LONG", "SHORT")]
+            lines.append(f"{name.upper()}: " + " / ".join(parts))
+        latest = group["horizons"]["4h"]["latest"]
+        if latest:
+            lines.append(f"최근 확정 4H (실제 {_report_time(latest['actual_timestamp']).astimezone(KST):%m-%d %H:%M} KST):")
+            for side, item in latest["sides"].items():
+                lines.append(f"{side}: 예상 {item['predicted']:.1f} / 실제 {item['actual']:g} / 오차 {item['absolute_error']:.1f}")
+        if group["legacy_time_count"]:
+            lines.append("기존 확정시각 미기록 건은 실제 시장 시각으로 집계했습니다.")
+    if not groups:
+        lines.append("새로 확정된 평가 가능 결과 없음")
+    if len(groups) > 3:
+        lines.append(f"그 외 {len(groups) - 3}개 버전의 상세 집계는 DB 보고 기록에 보존됩니다.")
+    lines.extend(["미확정·자료 부족은 오답으로 계산하지 않습니다.",
+                  "점수 예측은 가격·매매 수익 예측이 아닙니다. 사례에는 겹치는 1분 기록이 포함됩니다."])
     return "\n".join(lines)

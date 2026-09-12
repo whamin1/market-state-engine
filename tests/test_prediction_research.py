@@ -74,7 +74,7 @@ class PredictionResearchTests(unittest.TestCase):
 
             self.assertEqual(result["status"], "ready")
             self.assertEqual(result["schedule_key"], "2026-08-30-00")
-            self.assertIn("current_scores:", result["message"])
+            self.assertIn("① 현재 상태", result["message"])
 
     @staticmethod
     def _create_database(db_path):

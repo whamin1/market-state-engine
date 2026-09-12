@@ -75,6 +75,9 @@ class HourlyPredictionTests(unittest.TestCase):
                     sent_hours.append((hour + 9) % 24)
             self.assertEqual(sorted(sent_hours), [0, 6, 12, 18])
             self.assertEqual(send.call_count, 4)
+        with closing(sqlite3.connect(self.db)) as connection:
+            self.assertEqual(connection.execute("SELECT count(*) FROM prediction_forecast").fetchone()[0], 24)
+            self.assertEqual(connection.execute("SELECT count(*) FROM prediction_digest").fetchone()[0], 4)
 
     def test_snapshot_older_than_two_minutes_does_not_create_forecast(self):
         self.insert(self.start - timedelta(hours=3))

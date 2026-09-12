@@ -7,7 +7,8 @@ from pathlib import Path
 
 from .future_labeler import HORIZONS, FutureStateLabeler, _as_utc, _core_score_diff
 from .prediction_telegram import send_prediction_alert
-from .prediction_summary import evaluate_forecasts, format_prediction_digest, format_forecast_scores, summarize_score_changes
+from .prediction_summary import (evaluate_forecasts, format_prediction_digest, format_forecast_scores,
+                                 summarize_score_changes, summarize_recent_actuals)
 from .state_recorder import ensure_market_state_extensions
 
 
@@ -138,6 +139,15 @@ class MarketStateForecaster:
                     continue
                 source = dict(source)
                 outcome = self._actual_outcome(source, now=now)
+                previous = _load_json(record["actual_outcomes_json"]) or {}
+                for name, item in outcome.items():
+                    old = previous.get(name) or {}
+                    if item["timestamp"] and item["long_score"] is not None and item["short_score"] is not None:
+                        if old.get("confirmed_at"):
+                            item["confirmed_at"] = old["confirmed_at"]
+                        elif not (old.get("timestamp") and old.get("long_score") is not None
+                                  and old.get("short_score") is not None):
+                            item["confirmed_at"] = now.isoformat()
                 if not any(item["timestamp"] for item in outcome.values()):
                     continue
                 complete = all(item["timestamp"] and item["long_score"] is not None
@@ -292,6 +302,44 @@ class MarketStateForecaster:
         finally:
             connection.close()
 
+    def report_context(self, symbol, forecast, now):
+        """Read comparison inputs; no additional forecasts or market requests."""
+        since = now - timedelta(hours=6)
+        source_time = _as_utc(forecast["source_timestamp"]) if forecast else now
+        earlier = self.latest_snapshot(symbol, at_or_before=source_time - timedelta(hours=1))
+        if earlier and (source_time - timedelta(hours=1) - _as_utc(earlier["timestamp"])).total_seconds() > 120:
+            earlier = None
+        connection = self._connect()
+        try:
+            previous = connection.execute(
+                """SELECT * FROM prediction_forecast WHERE symbol=? AND source_timestamp<? AND created_at<=?
+                   ORDER BY created_at DESC, id DESC LIMIT 1""",
+                (symbol, source_time.isoformat(), now.isoformat()),
+            ).fetchone()
+            records = connection.execute(
+                """SELECT * FROM prediction_forecast WHERE symbol=? AND created_at<=?
+                   AND (source_timestamp>=? OR actual_labeled_at>?) ORDER BY created_at""",
+                (symbol, now.isoformat(), (since - timedelta(hours=4, minutes=10)).isoformat(), since.isoformat()),
+            ).fetchall()
+            records = [self._forecast_record(row) for row in records]
+            # A changed scoring version cannot be treated as a prediction error.
+            for record in records:
+                for actual in (record.get("actual_outcomes") or {}).values():
+                    if actual.get("timestamp"):
+                        target = connection.execute(
+                            "SELECT strategy_version FROM market_state WHERE symbol=? AND timestamp=?",
+                            (symbol, actual["timestamp"]),
+                        ).fetchone()
+                        actual["report_strategy_matches"] = bool(target and target[0] == record["strategy_version"])
+        finally:
+            connection.close()
+        return {
+            "previous_snapshot": {key: earlier.get(key) for key in
+                                  ("timestamp", "long_score", "short_score", "strategy_version")} if earlier else None,
+            "previous_forecast": self._forecast_record(previous),
+            "recent_actuals": summarize_recent_actuals(records, now),
+        }
+
     def mark_digest_sent(self, symbol, schedule_key, now):
         connection = self._connect()
         try:
@@ -348,8 +396,9 @@ class PredictionResearchScheduler:
         recent = self.forecaster.recent_forecasts(symbol, slot - timedelta(hours=5), now)
         history = self.forecaster.recent_forecasts(symbol, now - timedelta(days=self.report_days), now)
         evaluation = evaluate_forecasts(history, now)
+        evaluation["report"] = self.forecaster.report_context(symbol, record["forecast"] if record else None, now)
         message = format_prediction_digest(record["forecast"] if record else None, recent, evaluation, now,
-                                           days=self.report_days, warning=warning)
+                                           days=self.report_days, warning=warning, context=evaluation["report"])
         digest = self.forecaster.save_digest(symbol, schedule_key, message, evaluation, now,
                                             previous_sent_at=record.get("telegram_sent_at") if record else None)
         sent = False
