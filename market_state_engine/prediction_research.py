@@ -7,12 +7,14 @@ from pathlib import Path
 
 from .future_labeler import HORIZONS, FutureStateLabeler, _as_utc, _core_score_diff
 from .prediction_telegram import send_prediction_alert
+from .prediction_summary import evaluate_forecasts, format_prediction_digest, format_forecast_scores, summarize_score_changes
 from .state_recorder import ensure_market_state_extensions
 
 
 LOGGER = logging.getLogger(__name__)
 KST = timezone(timedelta(hours=9))
 SCHEDULE_HOURS_KST = (0, 6, 12, 18)
+FORECAST_VERSION = "per_side_changes_v2"
 
 
 class MarketStateForecaster:
@@ -46,6 +48,9 @@ class MarketStateForecaster:
         source = dict(source)
         source_core_diff = _core_score_diff(source)
         forecast = {
+            "forecast_version": FORECAST_VERSION,
+            "selection": {"score_tolerance": self.score_tolerance, "min_case_count": self.min_case_count,
+                          "outcomes_known_by_source": True, "side_start_bands": ["0_9", "10_plus"]},
             "source_timestamp": source.get("timestamp"),
             "symbol": source.get("symbol"),
             "price": source.get("price"),
@@ -84,13 +89,14 @@ class MarketStateForecaster:
                 INSERT OR IGNORE INTO prediction_forecast (
                     symbol, schedule_key, created_at, source_timestamp, source_price,
                     source_long_score, source_short_score, source_atr_activity_score,
-                    source_core_score_diff, strategy_version, forecast_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    source_core_score_diff, strategy_version, forecast_json, forecast_version
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     forecast["symbol"], schedule_key, created_at, forecast["source_timestamp"], forecast["price"],
                     forecast["long_score"], forecast["short_score"], forecast["atr_activity_score"],
                     forecast["core_score_diff"], forecast["strategy_version"], _json(forecast),
+                    forecast.get("forecast_version", "legacy_core_gap_v1"),
                 ),
             )
             connection.commit()
@@ -109,35 +115,43 @@ class MarketStateForecaster:
         finally:
             connection.close()
 
-    def refresh_actual_outcomes(self, symbol="BTCUSDT"):
-        """Attach actual 15m/1h/4h outcomes once a saved forecast has matured."""
+    def refresh_actual_outcomes(self, symbol="BTCUSDT", now=None):
+        """Attach each horizon independently; missing data never means a failed prediction."""
+        now = _as_utc(now or datetime.now(timezone.utc))
         connection = self._connect()
         updated = 0
         try:
             records = connection.execute(
                 """
                 SELECT * FROM prediction_forecast
-                WHERE symbol = ? AND actual_outcomes_json IS NULL
+                WHERE symbol = ? AND outcomes_complete = 0 AND created_at <= ?
                 ORDER BY created_at ASC
                 """,
-                (symbol,),
+                (symbol, now.isoformat()),
             ).fetchall()
             for record in records:
                 source = connection.execute(
                     "SELECT * FROM market_state WHERE symbol = ? AND timestamp = ?",
                     (symbol, record["source_timestamp"]),
                 ).fetchone()
-                if source is None or source["future_4h_timestamp"] is None:
+                if source is None:
                     continue
                 source = dict(source)
-                outcome = self._actual_outcome(source)
+                outcome = self._actual_outcome(source, now=now)
+                if not any(item["timestamp"] for item in outcome.values()):
+                    continue
+                complete = all(item["timestamp"] and item["long_score"] is not None
+                               and item["short_score"] is not None and item["core_score_change"] is not None
+                               for item in outcome.values())
+                if _load_json(record["actual_outcomes_json"]) == outcome and not complete:
+                    continue
                 connection.execute(
                     """
                     UPDATE prediction_forecast
-                    SET actual_outcomes_json = ?, actual_labeled_at = ?
+                    SET actual_outcomes_json = ?, actual_labeled_at = ?, outcomes_complete = ?
                     WHERE id = ?
                     """,
-                    (_json(outcome), datetime.now(timezone.utc).isoformat(), record["id"]),
+                    (_json(outcome), now.isoformat(), int(complete), record["id"]),
                 )
                 updated += 1
             connection.commit()
@@ -146,12 +160,15 @@ class MarketStateForecaster:
         return updated
 
     def _forecast_horizon(self, connection, source, source_core_diff, name):
+        if name not in HORIZONS:
+            raise ValueError("unsupported prediction horizon")
         future_core_column = f"future_{name}_core_score_diff"
         future_entry_column = f"future_{name}_entry_condition"
         source_atr = source.get("atr_activity_score") or 0
         rows = connection.execute(
             f"""
-            SELECT {future_core_column}, {future_entry_column}
+            SELECT {future_core_column}, {future_entry_column}, long_score, short_score,
+                   future_{name}_long_score, future_{name}_short_score
             FROM market_state
             WHERE symbol = ?
               AND strategy_version = ?
@@ -160,12 +177,14 @@ class MarketStateForecaster:
               AND ABS(COALESCE(short_score, 0) - ?) <= ?
               AND ABS(COALESCE(atr_activity_score, 0) - ?) <= ?
               AND {future_core_column} IS NOT NULL
+              AND future_{name}_timestamp <= ?
             """,
             (
                 source.get("symbol"), source.get("strategy_version"), source.get("timestamp"),
                 source.get("long_score") or 0, self.score_tolerance,
                 source.get("short_score") or 0, self.score_tolerance,
                 source_atr, self.score_tolerance,
+                source.get("timestamp"),
             ),
         ).fetchall()
         count = len(rows)
@@ -180,22 +199,36 @@ class MarketStateForecaster:
             "short_strengthen_pct": _percent(short_count, count),
             "stable_pct": _percent(stable_count, count),
             "entry_condition_pct": _percent(entry_count, count),
+            "score_changes": {
+                side: summarize_score_changes(
+                    source.get(f"{side.lower()}_score") or 0,
+                    [(row[f"{side.lower()}_score"], row[f"future_{name}_{side.lower()}_score"]) for row in rows],
+                    self.min_case_count,
+                ) for side in ("LONG", "SHORT")
+            },
         }
 
     @staticmethod
-    def _actual_outcome(source):
+    def _actual_outcome(source, now=None):
         source_core_diff = _core_score_diff(source)
         output = {}
         for name in HORIZONS:
-            future_core_diff = source.get(f"future_{name}_core_score_diff")
+            timestamp = source.get(f"future_{name}_timestamp")
+            known = bool(timestamp and (now is None or _as_utc(timestamp) <= now))
+            future_core_diff = source.get(f"future_{name}_core_score_diff") if known else None
             core_change = None if future_core_diff is None else future_core_diff - source_core_diff
+            long_score = source.get(f"future_{name}_long_score") if known else None
+            short_score = source.get(f"future_{name}_short_score") if known else None
+            entry = source.get(f"future_{name}_entry_condition") if known else None
             output[name] = {
-                "timestamp": source.get(f"future_{name}_timestamp"),
-                "long_score": source.get(f"future_{name}_long_score"),
-                "short_score": source.get(f"future_{name}_short_score"),
+                "timestamp": timestamp if known else None,
+                "long_score": long_score,
+                "short_score": short_score,
+                "long_score_change": None if long_score is None else long_score - source["long_score"],
+                "short_score_change": None if short_score is None else short_score - source["short_score"],
                 "core_score_change": core_change,
-                "return_pct": source.get(f"return_{name}"),
-                "entry_condition": bool(source.get(f"future_{name}_entry_condition")),
+                "return_pct": source.get(f"return_{name}") if known else None,
+                "entry_condition": None if entry is None else bool(entry),
             }
         return output
 
@@ -206,12 +239,18 @@ class MarketStateForecaster:
         try:
             ensure_market_state_extensions(connection)
             connection.execute(CREATE_PREDICTION_FORECAST_TABLE)
+            columns = {row[1] for row in connection.execute("PRAGMA table_info(prediction_forecast)")}
+            for name, definition in {"forecast_version": "TEXT NOT NULL DEFAULT 'legacy_core_gap_v1'",
+                                     "outcomes_complete": "INTEGER NOT NULL DEFAULT 0"}.items():
+                if name not in columns:
+                    connection.execute(f"ALTER TABLE prediction_forecast ADD COLUMN {name} {definition}")
+            connection.execute(CREATE_PREDICTION_DIGEST_TABLE)
             connection.commit()
         finally:
             connection.close()
 
     def _connect(self):
-        connection = sqlite3.connect(str(self.db_path), timeout=5)
+        connection = sqlite3.connect(self.db_path.resolve().as_uri() + "?mode=rw", uri=True, timeout=5)
         connection.execute("PRAGMA busy_timeout=5000")
         connection.execute("PRAGMA journal_mode=WAL")
         connection.row_factory = sqlite3.Row
@@ -226,61 +265,106 @@ class MarketStateForecaster:
         output["actual_outcomes"] = _load_json(output.pop("actual_outcomes_json", None))
         return output
 
+    def recent_forecasts(self, symbol, since, until):
+        connection = self._connect()
+        try:
+            rows = connection.execute(
+                "SELECT * FROM prediction_forecast WHERE symbol = ? AND created_at >= ? AND created_at <= ? ORDER BY created_at",
+                (symbol, _as_utc(since).isoformat(), _as_utc(until).isoformat()),
+            ).fetchall()
+            return [self._forecast_record(row) for row in rows]
+        finally:
+            connection.close()
+
+    def save_digest(self, symbol, schedule_key, message, evaluation, now, previous_sent_at=None):
+        connection = self._connect()
+        try:
+            connection.execute(
+                """INSERT OR IGNORE INTO prediction_digest
+                   (symbol, schedule_key, created_at, message, evaluation_json, telegram_sent_at)
+                   VALUES (?, ?, ?, ?, ?, ?)""",
+                (symbol, schedule_key, now.isoformat(), message, _json(evaluation), previous_sent_at),
+            )
+            connection.commit()
+            return dict(connection.execute(
+                "SELECT * FROM prediction_digest WHERE symbol = ? AND schedule_key = ?", (symbol, schedule_key)
+            ).fetchone())
+        finally:
+            connection.close()
+
+    def mark_digest_sent(self, symbol, schedule_key, now):
+        connection = self._connect()
+        try:
+            for table in ("prediction_digest", "prediction_forecast"):
+                connection.execute(f"UPDATE {table} SET telegram_sent_at = ? WHERE symbol = ? AND schedule_key = ?",
+                                   (now.isoformat(), symbol, schedule_key))
+            connection.commit()
+        finally:
+            connection.close()
+
 
 class PredictionResearchScheduler:
-    """Run research reports at 00:00, 06:00, 12:00, and 18:00 KST only."""
+    """Save hourly forecasts; deliver one digest at 00/06/12/18 KST."""
 
-    def __init__(self, db_path="work/data/btc_market_state.db", min_case_count=30):
+    def __init__(self, db_path="work/data/btc_market_state.db", min_case_count=30, report_days=7):
+        if min_case_count < 1 or report_days < 1:
+            raise ValueError("min_case_count and report_days must be positive")
+        self.report_days = report_days
         self.labeler = FutureStateLabeler(db_path)
         self.forecaster = MarketStateForecaster(db_path, min_case_count=min_case_count)
 
     def run_once(self, symbol="BTCUSDT", now=None, send_telegram=False, force=False):
         now = _as_utc(now or datetime.now(timezone.utc))
-        label_counts = self.labeler.label_available(symbol=symbol, now=now)
-        completed_count = self.forecaster.refresh_actual_outcomes(symbol=symbol)
+        if not self.forecaster.db_path.exists():
+            return {"status": "missing_database"}
         now_kst = now.astimezone(KST)
-        if not force and (now_kst.hour not in SCHEDULE_HOURS_KST or now_kst.minute > 4):
-            return {
-                "status": "not_scheduled",
-                "label_counts": label_counts,
-                "completed_count": completed_count,
-            }
+        if not force and now_kst.minute > 4:
+            return {"status": "not_scheduled"}
+        label_counts = self.labeler.label_available(symbol=symbol, now=now)
+        completed_count = self.forecaster.refresh_actual_outcomes(symbol=symbol, now=now)
 
         schedule_key = now_kst.strftime("%Y-%m-%d-%H")
         record = self.forecaster.get_schedule_record(symbol, schedule_key)
+        warning = None
         if record is None:
             source = self.forecaster.latest_snapshot(symbol=symbol, at_or_before=now)
-            forecast = self.forecaster.forecast_for_snapshot(source)
-            if forecast is None:
-                return {
-                    "status": "missing_snapshot",
-                    "label_counts": label_counts,
-                    "completed_count": completed_count,
-                }
-            self.forecaster.save_forecast(forecast, schedule_key, created_at=now)
-            record = self.forecaster.get_schedule_record(symbol, schedule_key)
+            if source is None:
+                warning = "새 예측 없음: 시장 기록이 없습니다."
+            elif (now - _as_utc(source["timestamp"])).total_seconds() > 120:
+                warning = "새 예측 보류: 시장 기록이 2분 이상 지연됐습니다."
+            else:
+                forecast = self.forecaster.forecast_for_snapshot(source)
+                self.forecaster.save_forecast(forecast, schedule_key, created_at=now)
+                record = self.forecaster.get_schedule_record(symbol, schedule_key)
 
-        previous_key = (now_kst - timedelta(hours=6)).strftime("%Y-%m-%d-%H")
-        previous = self.forecaster.get_schedule_record(symbol, previous_key)
-        message = format_prediction_report(record["forecast"], previous.get("actual_outcomes") if previous else None)
+        result = {"status": "recorded" if record else "missing_snapshot", "schedule_key": schedule_key,
+                  "label_counts": label_counts, "completed_count": completed_count,
+                  "forecast": record["forecast"] if record else None, "warning": warning}
+        if not force and now_kst.hour not in SCHEDULE_HOURS_KST:
+            result["message"] = warning or f"hourly prediction saved: {schedule_key}; Telegram digest at 00/06/12/18 KST"
+            return result
+
+        slot = now.replace(minute=0, second=0, microsecond=0)
+        recent = self.forecaster.recent_forecasts(symbol, slot - timedelta(hours=5), now)
+        history = self.forecaster.recent_forecasts(symbol, now - timedelta(days=self.report_days), now)
+        evaluation = evaluate_forecasts(history, now)
+        message = format_prediction_digest(record["forecast"] if record else None, recent, evaluation, now,
+                                           days=self.report_days, warning=warning)
+        digest = self.forecaster.save_digest(symbol, schedule_key, message, evaluation, now,
+                                            previous_sent_at=record.get("telegram_sent_at") if record else None)
         sent = False
-        if send_telegram and record.get("telegram_sent_at") is None:
-            sent = send_prediction_alert(message)
+        if send_telegram and digest["telegram_sent_at"] is None:
+            sent = send_prediction_alert(digest["message"])
             if sent:
-                self.forecaster.mark_telegram_sent(symbol, schedule_key, sent_at=now)
-
-        return {
-            "status": "sent" if sent else "ready",
-            "label_counts": label_counts,
-            "completed_count": completed_count,
-            "schedule_key": schedule_key,
-            "message": message,
-            "forecast": record["forecast"],
-            "previous_actual_outcomes": previous.get("actual_outcomes") if previous else None,
-        }
+                self.forecaster.mark_digest_sent(symbol, schedule_key, now)
+        result.update({"status": "sent" if sent else "ready", "message": digest["message"],
+                       "evaluation": _load_json(digest["evaluation_json"])})
+        return result
 
 
 def format_prediction_report(forecast, previous_actual_outcomes=None):
+    if forecast.get("forecast_version") == FORECAST_VERSION:
+        return "\n".join(["BTCUSDT Score Research", *format_forecast_scores(forecast)])
     lines = [
         "BTCUSDT Score Research",
         "",
@@ -360,7 +444,21 @@ CREATE TABLE IF NOT EXISTS prediction_forecast (
     actual_outcomes_json TEXT,
     actual_labeled_at TEXT,
     telegram_sent_at TEXT,
+    forecast_version TEXT NOT NULL DEFAULT 'legacy_core_gap_v1',
+    outcomes_complete INTEGER NOT NULL DEFAULT 0,
     UNIQUE (symbol, schedule_key)
+)
+"""
+
+CREATE_PREDICTION_DIGEST_TABLE = """
+CREATE TABLE IF NOT EXISTS prediction_digest (
+    symbol TEXT NOT NULL,
+    schedule_key TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    message TEXT NOT NULL,
+    evaluation_json TEXT NOT NULL,
+    telegram_sent_at TEXT,
+    PRIMARY KEY (symbol, schedule_key)
 )
 """
 
@@ -370,14 +468,16 @@ def main():
     parser.add_argument("--symbol", default="BTCUSDT")
     parser.add_argument("--market-state-db-path", default="work/data/btc_market_state.db")
     parser.add_argument("--min-case-count", type=int, default=30)
+    parser.add_argument("--report-days", type=int, default=7)
     parser.add_argument("--send-telegram", action="store_true")
-    parser.add_argument("--force", action="store_true", help="Run now outside the KST schedule")
+    parser.add_argument("--force", action="store_true", help="Manually save an hourly forecast and preview/send its digest now")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     scheduler = PredictionResearchScheduler(
         db_path=args.market_state_db_path,
         min_case_count=args.min_case_count,
+        report_days=args.report_days,
     )
     result = scheduler.run_once(
         symbol=args.symbol,

@@ -88,7 +88,7 @@ class FutureStateLabeler:
 
             target = dict(zip(columns, target))
             target_timestamp = _as_utc(target["timestamp"])
-            if target_timestamp - target_time > self.max_snapshot_lag:
+            if target_timestamp > now or target_timestamp - target_time > self.max_snapshot_lag:
                 continue
 
             target_core_diff = _core_score_diff(target)
