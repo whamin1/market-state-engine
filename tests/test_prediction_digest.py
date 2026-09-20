@@ -40,12 +40,13 @@ class DigestFormattingTests(unittest.TestCase):
             "timestamp": (self.now - timedelta(hours=1)).isoformat(), "strategy_version": "test_v1",
             "long_score": 3, "short_score": 8}, "recent_actuals": []}
         message = format_prediction_digest(forecast, [], {}, self.now, context=context)
-        headings = ["① 현재 상태", "② 4시간 전망", "③ 단기 전망", "④ 지난 변화", "⑤ 최근 6시간"]
+        headings = ["① 현재 상태", "② 4시간 전망", "③ 단기 전망", "④ 지난 변화", "⑤ 예측 성적"]
         self.assertEqual([message.index(h) for h in headings], sorted(message.index(h) for h in headings))
-        for part in ("BTC: 77000", "Spread -6", "예상 Spread: +2.0 (현재 대비 +8.0)",
-                     "LONG: 3 -> 4 (+1)", "SHORT: 8 -> 10 (+2)", "LONG: 7.0 -> 9.0 (+2.0)",
-                     "1H: LONG 9.0 (+5.0) / SHORT 7.0 (-3.0)", "15M: LONG 9.0",
-                     "09-12 15:02 -> 09-12 16:02 KST", "같은 시각의 수정 예측이 아닙니다"):
+        for part in ("BTC: 77,000", "점수 차이 -6", "예상 점수 차이: +2 (현재보다 +8)",
+                     "LONG: 3 → 4 (+1)", "SHORT: 8 → 10 (+2)", "LONG 예상 7 → 9 (+2)",
+                     "1시간 뒤: LONG 9 (+5) / SHORT 7 (-3)", "15분 뒤: LONG 9",
+                     "지난 예측 목표: 09-12 15:02 KST", "이번 예측 목표: 09-12 16:02 KST",
+                     "같은 목표 시각의 수정 예측이 아닙니다"):
             self.assertIn(part, message)
         short_section = message[message.index("③"):message.index("④")]
         self.assertNotIn("확률", short_section)

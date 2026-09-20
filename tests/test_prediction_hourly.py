@@ -189,8 +189,8 @@ class HourlyPredictionTests(unittest.TestCase):
         self.assertEqual(evaluation["horizons"]["4h"]["pending"], 1)
         self.assertEqual(evaluation["horizons"]["4h"]["baseline"]["count"], 0)
         message = format_prediction_digest(forecast, [record] * 6, evaluation, now)
-        self.assertIn("LONG: 4 -> 예상 11.0 (+7.0)", message)
-        self.assertIn("SHORT: 14 -> 예상 4.0 (-10.0)", message)
+        self.assertIn("LONG 현재 4 → 예상 11 (+7)", message)
+        self.assertIn("SHORT 현재 14 → 예상 4 (-10)", message)
         self.assertLessEqual(len(message.encode("utf-16-le")) // 2, 4096)
 
     def test_failed_telegram_send_retries_without_recalculating_saved_prediction(self):

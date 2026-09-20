@@ -108,11 +108,11 @@ class PersistenceSummaryTests(unittest.TestCase):
         context['persistence_performance'] = summarize_persistence_performance([self.record], self.now)
         new = format_prediction_digest(current, [], {}, self.now, context=context)
         self.assertEqual(old.split('⑤')[0], new.split('⑤')[0])
-        self.assertIn('4H: LONG 2.00 (1건) / SHORT 3.00 (1건)', new)
-        self.assertIn('[최근 7일]', new)
-        self.assertIn('[전체 누적]', new)
-        self.assertIn('SHORT 10+: Forecast 3.00 / Persistence 6.00 / 개선 +50.0% (1건)', new)
-        self.assertIn('평가 건수에는 서로 겹치는', new)
+        self.assertIn('LONG 2.00 (채점 1건) / SHORT 3.00 (채점 1건)', new)
+        self.assertIn('[최근 7일 · 4시간 평균 오차]', new)
+        self.assertIn('[전체 · 4시간 평균 오차]', new)
+        self.assertIn('SHORT: 우리 예측 50.0% 우세 (채점 1건)', new)
+        self.assertIn('채점 건수에는 서로 겹치는', new)
         self.assertLessEqual(len(new.encode('utf-16-le')) // 2, 4096)
 
     def test_three_recent_versions_plus_full_metrics_fit_telegram(self):
@@ -126,6 +126,32 @@ class PersistenceSummaryTests(unittest.TestCase):
             'recent_actuals': summarize_recent_actuals(records, self.now),
             'persistence_performance': summarize_persistence_performance(records, self.now)})
         self.assertLessEqual(len(message.encode('utf-16-le')) // 2, 4096)
+
+    def test_simple_display_preserves_hidden_metrics_and_inputs(self):
+        current = forecast_at(self.now)
+        context = {'recent_actuals': summarize_recent_actuals([self.record], self.now),
+                   'persistence_performance': summarize_persistence_performance([self.record], self.now)}
+        before = deepcopy((current, context))
+        message = format_prediction_digest(current, [], {}, self.now, context=context)
+        self.assertEqual((current, context), before)
+        section = message.split('⑤')[1]
+        for hidden in ('Forecast', 'Persistence', 'MAE', '0~9', '15M', '1H', '개선율'):
+            self.assertNotIn(hidden, section)
+        self.assertIn('시작 점수 10점 이상', section)
+        for horizon in ('15m', '1h', '4h'):
+            self.assertEqual(context['persistence_performance'][0]['all_time']['horizons'][horizon]['LONG']['count'], 1)
+        self.assertEqual(context['persistence_performance'][0]['all_time']['bands_4h']['LONG']['0_9']['count'], 1)
+
+    def test_display_verdict_and_number_formats(self):
+        from market_state_engine.prediction_summary import _performance_verdict, _display_number
+        self.assertEqual(_performance_verdict(4.7), '우리 예측 4.7% 우세')
+        self.assertEqual(_performance_verdict(-3.8), '우리 예측 3.8% 뒤짐')
+        self.assertEqual(_performance_verdict(0), '우리 예측과 유지 비슷함')
+        self.assertEqual(_performance_verdict(None), '우열 비교 불가')
+        self.assertEqual(_display_number(80300.0, comma=True), '80,300')
+        self.assertEqual(_display_number(4.0), '4')
+        self.assertEqual(_display_number(4.5), '4.5')
+        self.assertEqual(_display_number(0.0, signed=True), '+0')
 
 
 class PersistenceStorageTests(unittest.TestCase):

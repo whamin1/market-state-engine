@@ -281,33 +281,40 @@ def _format_persistence_performance(groups, strategy):
     # Telegram shows the current strategy; all separated groups remain in evaluation_json.
     group = next((item for item in groups if item["strategy_version"] == strategy), None)
     if group is None:
-        return ["", "[최근 7일 / 전체 누적]", "현재 전략 v2 평가 자료 없음"]
+        return ["", "[최근 7일 / 전체]", "현재 전략의 채점 자료 없음"]
     def number(value):
-        return "N/A" if value is None else f"{value:.2f}"
+        return "자료 없음" if value is None else f"{value:.2f}"
 
     def comparison(metric):
-        improvement = metric["improvement_pct"]
-        rate = "N/A" if improvement is None else f"{improvement:+.1f}%"
-        return (f"Forecast {number(metric['forecast_mae'])} / Persistence {number(metric['persistence_mae'])}"
-                f" / 개선 {rate} ({metric['count']}건)")
+        return (f"우리 {number(metric['forecast_mae'])} / 유지 {number(metric['persistence_mae'])}"
+                f" → {_performance_verdict(metric['improvement_pct'])} (채점 {metric['count']}건)")
 
-    lines = ["", f"누적 평가 전략: {strategy[:48]} / per_side_changes_v2"]
-    for key, label in (("last_7_days", "최근 7일"), ("all_time", "전체 누적")):
+    lines = ["", f"채점 전략: {strategy[:48]}"]
+    for key, label in (("last_7_days", "최근 7일"), ("all_time", "전체")):
         stats = group[key]
-        lines.append(f"[{label}]")
-        for name in ("4h", "1h", "15m"):
-            parts = [f"{side} {number(stats['horizons'][name][side]['forecast_mae'])}"
-                     f" ({stats['horizons'][name][side]['count']}건)" for side in ("LONG", "SHORT")]
-            lines.append(f"{name.upper()}: " + " / ".join(parts))
-        lines.append(f"[4H vs 현재점수 유지 / {label}]")
+        lines.append(f"[{label} · 4시간 평균 오차]")
         for side in ("LONG", "SHORT"):
             lines.append(f"{side}: {comparison(stats['horizons']['4h'][side])}")
-    lines.append("[4H 점수 구간별 / 전체]")
+    lines.append("[시작 점수 10점 이상 · 전체]")
     for side in ("LONG", "SHORT"):
-        for band, label in (("0_9", "0~9"), ("10_plus", "10+")):
-            lines.append(f"{side} {label}: {comparison(group['all_time']['bands_4h'][side][band])}")
-    lines.append("Persistence baseline = 현재 점수 유지. 개선율 양수는 Forecast 우위.")
+        metric = group['all_time']['bands_4h'][side]['10_plus']
+        lines.append(f"{side}: {_performance_verdict(metric['improvement_pct'])} (채점 {metric['count']}건)")
     return lines
+
+
+def _display_number(value, signed=False, comma=False):
+    if value is None:
+        return "자료 없음"
+    text = format(value, ("+" if signed else "") + ("," if comma else "") + ".1f")
+    return text.rstrip("0").rstrip(".")
+
+
+def _performance_verdict(value):
+    if value is None:
+        return "우열 비교 불가"
+    if round(value, 1) == 0:
+        return "우리 예측과 유지 비슷함"
+    return f"우리 예측 {abs(value):.1f}% {'우세' if value > 0 else '뒤짐'}"
 
 
 def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, warning=None, context=None):
@@ -318,10 +325,11 @@ def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, 
     lines.extend(["", "① 현재 상태"])
     if forecast:
         spread = forecast["long_score"] - forecast["short_score"]
-        lines.extend([f"BTC: {forecast.get('price')}",
-                      f"LONG {forecast['long_score']} / SHORT {forecast['short_score']} / Spread {spread:+g}",
+        lines.extend([f"BTC: {_display_number(forecast.get('price'), comma=True)}",
+                      f"LONG {_display_number(forecast['long_score'])} / SHORT {_display_number(forecast['short_score'])} / 점수 차이 {spread:+g}",
                       f"기준: {_report_time(forecast['source_timestamp']).astimezone(KST):%m-%d %H:%M} KST",
-                      "", "② 4시간 전망", "예상 점수: 중앙값 / 범위: 과거 사례의 10~90백분위"])
+                      "", "② 4시간 전망", "예상 점수: 과거 비슷한 경우의 중간값",
+                      "범위: 과거 비슷한 경우의 10~90% 범위"])
         medians = {}
         for side in ("LONG", "SHORT"):
             item = _forecast_item(forecast, "4h", side)
@@ -330,22 +338,22 @@ def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, 
                 continue
             medians[side] = item["median_score"]
             change = item["median_score"] - item["start_score"]
-            lines.extend([f"{side}: {item['start_score']} -> 예상 {item['median_score']:.1f} ({change:+.1f})",
-                          f" 범위 {item['score_p10']:.1f}~{item['score_p90']:.1f} / 사례 {item['case_count']}",
-                          f" +7 이상 {item['up_7_pct']:.0f}% / -7 이하 {item['down_7_pct']:.0f}%",
-                          f" +10 이상 {item['up_10_pct']:.0f}% / -10 이하 {item['down_10_pct']:.0f}%"])
+            lines.extend([f"{side} 현재 {_display_number(item['start_score'])} → 예상 {_display_number(item['median_score'])} ({_display_number(change, signed=True)})",
+                          f" 범위 {_display_number(item['score_p10'])}~{_display_number(item['score_p90'])} / 비슷한 사례 {item['case_count']}건",
+                          f" 7점 이상 상승 {item['up_7_pct']:.0f}% / 하락 {item['down_7_pct']:.0f}%",
+                          f" 10점 이상 상승 {item['up_10_pct']:.0f}% / 하락 {item['down_10_pct']:.0f}%"])
         if len(medians) == 2:
             future_spread = medians["LONG"] - medians["SHORT"]
-            lines.append(f"예상 Spread: {future_spread:+.1f} (현재 대비 {future_spread - spread:+.1f})")
-            lines.append("Spread는 두 예상 점수의 차이입니다.")
+            lines.append(f"예상 점수 차이: {_display_number(future_spread, signed=True)} (현재보다 {_display_number(future_spread - spread, signed=True)})")
+            lines.append("점수 차이 = LONG - SHORT")
         lines.extend(["", "③ 단기 전망"])
         for name in ("1h", "15m"):
             parts = []
             for side in ("LONG", "SHORT"):
                 item = _forecast_item(forecast, name, side)
-                parts.append(f"{side} {item['median_score']:.1f} ({item['median_score'] - item['start_score']:+.1f})"
+                parts.append(f"{side} {_display_number(item['median_score'])} ({_display_number(item['median_score'] - item['start_score'], signed=True)})"
                              if item else f"{side} 사례 부족")
-            lines.append(f"{name.upper()}: " + " / ".join(parts))
+            lines.append(f"{'1시간' if name == '1h' else '15분'} 뒤: " + " / ".join(parts))
     else:
         lines.append("현재 예측 없음")
     lines.extend(["", "④ 지난 변화"])
@@ -355,7 +363,7 @@ def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, 
         lines.append(f"1시간 전 실제 점수 ({_report_time(earlier['timestamp']).astimezone(KST):%H:%M} KST) 대비:")
         for side in ("LONG", "SHORT"):
             before, current = earlier[f"{side.lower()}_score"], forecast[f"{side.lower()}_score"]
-            lines.append(f"{side}: {before} -> {current} ({current - before:+g})")
+            lines.append(f"{side}: {_display_number(before)} → {_display_number(current)} ({current - before:+g})")
     else:
         lines.append("1시간 전 비교: 자료 없음 또는 전략 변경")
     previous = (context.get("previous_forecast") or {}).get("forecast")
@@ -363,16 +371,17 @@ def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, 
             and previous.get("forecast_version") == forecast.get("forecast_version")):
         old_target = _report_time(previous["source_timestamp"]) + timedelta(hours=4)
         new_target = _report_time(forecast["source_timestamp"]) + timedelta(hours=4)
-        lines.append(f"직전 실행 대비 4H 전망 (목표 {_report_time(old_target).astimezone(KST):%m-%d %H:%M}"
-                     f" -> {_report_time(new_target).astimezone(KST):%m-%d %H:%M} KST):")
+        lines.extend(["직전 4시간 예측과 비교:",
+                      f"지난 예측 목표: {_report_time(old_target).astimezone(KST):%m-%d %H:%M} KST",
+                      f"이번 예측 목표: {_report_time(new_target).astimezone(KST):%m-%d %H:%M} KST"])
         for side in ("LONG", "SHORT"):
             old, new = _forecast_item(previous, "4h", side), _forecast_item(forecast, "4h", side)
-            lines.append(f"{side}: {old['median_score']:.1f} -> {new['median_score']:.1f}"
-                         f" ({new['median_score'] - old['median_score']:+.1f})" if old and new else f"{side}: 비교 자료 부족")
+            lines.append(f"{side} 예상 {_display_number(old['median_score'])} → {_display_number(new['median_score'])}"
+                         f" ({_display_number(new['median_score'] - old['median_score'], signed=True)})" if old and new else f"{side}: 비교 자료 부족")
     else:
-        lines.append("직전 4H 전망 비교: 자료 없음 또는 버전 변경")
-    lines.append("서로 다른 목표 시각의 rolling forecast 비교이며, 같은 시각의 수정 예측이 아닙니다.")
-    lines.extend(["", "⑤ 최근 6시간 새로 확정된 결과", "LONG/SHORT 평균 절대오차 (점수), 평가 건수"])
+        lines.append("직전 4시간 예측 비교: 자료 없음 또는 버전 변경")
+    lines.append("※ 매시간 새로 계산한 예측은 서로 다른 미래 시각을 봅니다. 같은 목표 시각의 수정 예측이 아닙니다.")
+    lines.extend(["", "⑤ 예측 성적", "[최근 6시간 새로 채점 · 4시간 평균 오차]"])
     groups = context.get("recent_actuals")
     if groups is None:
         groups = summarize_recent_actuals(recent_records, now)
@@ -380,26 +389,28 @@ def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, 
                                               for side in ("LONG", "SHORT"))]
     for group in groups[:3]:
         lines.append(f"전략: {group['strategy_version'][:48]} / {group['forecast_version'][:32]}")
-        for name in ("4h", "1h", "15m"):
+        for name in ("4h",):
             stats = group["horizons"][name]
-            parts = [f"{side} {stats[side]['mae']:.2f} ({stats[side]['count']}건)"
-                     if stats[side]["count"] else f"{side} 평가 없음" for side in ("LONG", "SHORT")]
-            lines.append(f"{name.upper()}: " + " / ".join(parts))
+            parts = [f"{side} {stats[side]['mae']:.2f} (채점 {stats[side]['count']}건)"
+                     if stats[side]["count"] else f"{side} 채점 없음" for side in ("LONG", "SHORT")]
+            lines.append(" / ".join(parts))
         latest = group["horizons"]["4h"]["latest"]
         if latest:
-            lines.append(f"최근 확정 4H (실제 {_report_time(latest['actual_timestamp']).astimezone(KST):%m-%d %H:%M} KST):")
+            lines.append(f"최근 4시간 예측 채점 (실제 {_report_time(latest['actual_timestamp']).astimezone(KST):%m-%d %H:%M} KST):")
             for side, item in latest["sides"].items():
-                lines.append(f"{side}: 예상 {item['predicted']:.1f} / 실제 {item['actual']:g} / 오차 {item['absolute_error']:.1f}")
+                lines.append(f"{side}: 예상 {_display_number(item['predicted'])} / 실제 {_display_number(item['actual'])} → 오차 {_display_number(item['absolute_error'])}")
         if group["legacy_time_count"]:
             lines.append("기존 확정시각 미기록 건은 실제 시장 시각으로 집계했습니다.")
     if not groups:
-        lines.append("새로 확정된 평가 가능 결과 없음")
+        lines.append("새로 채점할 결과 없음")
     if len(groups) > 3:
         lines.append(f"그 외 {len(groups) - 3}개 버전의 상세 집계는 DB 보고 기록에 보존됩니다.")
     if "persistence_performance" in context:
         lines.extend(_format_persistence_performance(context["persistence_performance"],
                                                      (forecast or {}).get("strategy_version")))
-    lines.extend(["미확정·자료 부족은 오답으로 계산하지 않습니다.",
-                  "평가 건수에는 서로 겹치는 시간대의 예측이 포함됩니다.",
-                  "점수 예측은 가격·매매 수익 예측이 아닙니다. 사례에는 겹치는 1분 기록이 포함됩니다."])
+    lines.extend(["※ 평균 오차는 낮을수록 좋습니다.",
+                  "※ 유지 = 지금 점수가 4시간 뒤에도 같다고 가정한 기준입니다.",
+                  "※ 미확정·자료 부족은 오답으로 계산하지 않습니다.",
+                  "※ 채점 건수에는 서로 겹치는 시간대의 예측도 포함됩니다.",
+                  "※ 점수 예측은 가격·매매 수익 예측이 아닙니다."])
     return "\n".join(lines)
