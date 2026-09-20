@@ -2,6 +2,7 @@
 
 from datetime import datetime, timedelta, timezone
 from statistics import mean
+from math import isfinite
 
 
 KST = timezone(timedelta(hours=9))
@@ -205,6 +206,110 @@ def _forecast_item(forecast, name, side):
     return item if item.get("ready") and item.get("median_score") is not None else None
 
 
+def summarize_persistence_performance(records, now, max_snapshot_age_seconds=120):
+    """Paired median/persistence errors only; no change to forecast generation."""
+    def accumulator():
+        return {"count": 0, "forecast_error_sum": 0.0, "persistence_error_sum": 0.0}
+
+    def period():
+        return {"horizons": {name: {side: accumulator() for side in ("LONG", "SHORT")}
+                             for name in HORIZON_MINUTES},
+                "bands_4h": {side: {band: accumulator() for band in ("0_9", "10_plus")}
+                             for side in ("LONG", "SHORT")}}
+
+    def add(metric, predicted, current, actual):
+        metric["count"] += 1
+        metric["forecast_error_sum"] += abs(predicted - actual)
+        metric["persistence_error_sum"] += abs(current - actual)
+
+    groups = {}
+    for record in records:
+        forecast = record.get("forecast") or {}
+        strategy = forecast.get("strategy_version")
+        if (forecast.get("forecast_version") != "per_side_changes_v2" or not strategy
+                or record.get("forecast_version", "per_side_changes_v2") != "per_side_changes_v2"
+                or record.get("strategy_version", strategy) != strategy
+                or record.get("report_source_matches") is False):
+            continue
+        source = _report_time(record["source_timestamp"])
+        created = _report_time(record["created_at"])
+        if created > now or not 0 <= (created - source).total_seconds() <= max_snapshot_age_seconds:
+            continue
+        group = groups.setdefault(strategy, {"strategy_version": strategy, "forecast_version": "per_side_changes_v2",
+                                             "last_7_days": period(), "all_time": period()})
+        periods = [group["all_time"]]
+        if source >= now - timedelta(days=7):
+            periods.append(group["last_7_days"])
+        for name, minutes in HORIZON_MINUTES.items():
+            actual = (record.get("actual_outcomes") or {}).get(name) or {}
+            if not actual.get("timestamp") or actual.get("report_strategy_matches") is False:
+                continue
+            actual_time = _report_time(actual["timestamp"])
+            if not source + timedelta(minutes=minutes) <= actual_time <= now:
+                continue
+            if actual.get("confirmed_at") and _report_time(actual["confirmed_at"]) > now:
+                continue
+            horizon = (forecast.get("horizons") or {}).get(name) or {}
+            if horizon.get("ready") is False:
+                continue
+            for side in ("LONG", "SHORT"):
+                item = (horizon.get("score_changes") or {}).get(side) or {}
+                current = forecast.get(f"{side.lower()}_score")
+                predicted, score = item.get("median_score"), actual.get(f"{side.lower()}_score")
+                if not item.get("ready") or not all(isinstance(x, (int, float)) and isfinite(x)
+                                                    for x in (current, predicted, score)):
+                    continue
+                for stats in periods:
+                    add(stats["horizons"][name][side], predicted, current, score)
+                    if name == "4h":
+                        add(stats["bands_4h"][side][score_band(current)], predicted, current, score)
+    for group in groups.values():
+        for key in ("last_7_days", "all_time"):
+            stats = group[key]
+            metrics = [m for h in stats["horizons"].values() for m in h.values()]
+            metrics += [m for side in stats["bands_4h"].values() for m in side.values()]
+            for metric in metrics:
+                count = metric["count"]
+                model = metric["forecast_error_sum"] / count if count else None
+                baseline = metric["persistence_error_sum"] / count if count else None
+                metric.update(forecast_mae=model, persistence_mae=baseline,
+                              improvement_pct=(baseline - model) / baseline * 100 if baseline else None)
+    return list(groups.values())
+
+
+def _format_persistence_performance(groups, strategy):
+    # Telegram shows the current strategy; all separated groups remain in evaluation_json.
+    group = next((item for item in groups if item["strategy_version"] == strategy), None)
+    if group is None:
+        return ["", "[최근 7일 / 전체 누적]", "현재 전략 v2 평가 자료 없음"]
+    def number(value):
+        return "N/A" if value is None else f"{value:.2f}"
+
+    def comparison(metric):
+        improvement = metric["improvement_pct"]
+        rate = "N/A" if improvement is None else f"{improvement:+.1f}%"
+        return (f"Forecast {number(metric['forecast_mae'])} / Persistence {number(metric['persistence_mae'])}"
+                f" / 개선 {rate} ({metric['count']}건)")
+
+    lines = ["", f"누적 평가 전략: {strategy[:48]} / per_side_changes_v2"]
+    for key, label in (("last_7_days", "최근 7일"), ("all_time", "전체 누적")):
+        stats = group[key]
+        lines.append(f"[{label}]")
+        for name in ("4h", "1h", "15m"):
+            parts = [f"{side} {number(stats['horizons'][name][side]['forecast_mae'])}"
+                     f" ({stats['horizons'][name][side]['count']}건)" for side in ("LONG", "SHORT")]
+            lines.append(f"{name.upper()}: " + " / ".join(parts))
+        lines.append(f"[4H vs 현재점수 유지 / {label}]")
+        for side in ("LONG", "SHORT"):
+            lines.append(f"{side}: {comparison(stats['horizons']['4h'][side])}")
+    lines.append("[4H 점수 구간별 / 전체]")
+    for side in ("LONG", "SHORT"):
+        for band, label in (("0_9", "0~9"), ("10_plus", "10+")):
+            lines.append(f"{side} {label}: {comparison(group['all_time']['bands_4h'][side][band])}")
+    lines.append("Persistence baseline = 현재 점수 유지. 개선율 양수는 Forecast 우위.")
+    return lines
+
+
 def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, warning=None, context=None):
     context = context or {}
     lines = ["BTCUSDT 점수 예측 연구", now.astimezone(KST).strftime("%Y-%m-%d %H:%M KST")]
@@ -291,6 +396,10 @@ def format_prediction_digest(forecast, recent_records, evaluation, now, days=7, 
         lines.append("새로 확정된 평가 가능 결과 없음")
     if len(groups) > 3:
         lines.append(f"그 외 {len(groups) - 3}개 버전의 상세 집계는 DB 보고 기록에 보존됩니다.")
+    if "persistence_performance" in context:
+        lines.extend(_format_persistence_performance(context["persistence_performance"],
+                                                     (forecast or {}).get("strategy_version")))
     lines.extend(["미확정·자료 부족은 오답으로 계산하지 않습니다.",
+                  "평가 건수에는 서로 겹치는 시간대의 예측이 포함됩니다.",
                   "점수 예측은 가격·매매 수익 예측이 아닙니다. 사례에는 겹치는 1분 기록이 포함됩니다."])
     return "\n".join(lines)

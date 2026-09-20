@@ -702,6 +702,11 @@ def build_live_status_report(snapshot, recent_trade_events, title, report_detail
 
 
 def format_trade_event_message(event):
+    from market_state_engine.trade_report import format_live_trade_report
+    if event.get("type") == "LIVE_REVERSAL":
+        return "\n\n".join(format_trade_event_message(event[key]) for key in ("close_event", "entry_event") if event.get(key))
+    if event.get("type") in ("LIVE_ORDER", "LIVE_CLOSE", "LIVE_POSITION_CLOSED"):
+        return format_live_trade_report(event)
     lines = ["Trade Event", format_trade_event_line(event)]
     score_context = event.get("score_context")
     if not score_context:

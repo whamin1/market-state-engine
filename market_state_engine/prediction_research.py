@@ -8,7 +8,7 @@ from pathlib import Path
 from .future_labeler import HORIZONS, FutureStateLabeler, _as_utc, _core_score_diff
 from .prediction_telegram import send_prediction_alert
 from .prediction_summary import (evaluate_forecasts, format_prediction_digest, format_forecast_scores,
-                                 summarize_score_changes, summarize_recent_actuals)
+                                 summarize_score_changes, summarize_recent_actuals, summarize_persistence_performance)
 from .state_recorder import ensure_market_state_extensions
 
 
@@ -338,7 +338,41 @@ class MarketStateForecaster:
                                   ("timestamp", "long_score", "short_score", "strategy_version")} if earlier else None,
             "previous_forecast": self._forecast_record(previous),
             "recent_actuals": summarize_recent_actuals(records, now),
+            "persistence_performance": self.persistence_performance(symbol, now),
         }
+
+    def persistence_performance(self, symbol, now):
+        """Read historical v2 predictions without reforecasting or relabeling them."""
+        connection = sqlite3.connect(self.db_path.resolve().as_uri() + "?mode=ro", uri=True, timeout=5)
+        connection.row_factory = sqlite3.Row
+        try:
+            rows = connection.execute(
+                """SELECT * FROM prediction_forecast WHERE symbol=? AND forecast_version=?
+                   AND created_at<=? ORDER BY source_timestamp""",
+                (symbol, FORECAST_VERSION, _as_utc(now).isoformat()),
+            )
+            def records():
+                for row in rows:
+                    record = self._forecast_record(row)
+                    source = connection.execute(
+                        "SELECT strategy_version, long_score, short_score FROM market_state WHERE symbol=? AND timestamp=?",
+                        (symbol, record["source_timestamp"]),
+                    ).fetchone()
+                    forecast = record["forecast"]
+                    record["report_source_matches"] = bool(
+                        source and source[0] == record["strategy_version"]
+                        and source[1] == forecast.get("long_score") and source[2] == forecast.get("short_score"))
+                    for actual in (record.get("actual_outcomes") or {}).values():
+                        if actual.get("timestamp"):
+                            target = connection.execute(
+                                "SELECT strategy_version FROM market_state WHERE symbol=? AND timestamp=?",
+                                (symbol, actual["timestamp"]),
+                            ).fetchone()
+                            actual["report_strategy_matches"] = bool(target and target[0] == record["strategy_version"])
+                    yield record
+            return summarize_persistence_performance(records(), _as_utc(now))
+        finally:
+            connection.close()
 
     def mark_digest_sent(self, symbol, schedule_key, now):
         connection = self._connect()

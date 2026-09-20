@@ -95,6 +95,7 @@ class LiveTrader:
             event["status"] = "DRY_RUN"
             self.last_opposite_exit = None
             self._set_position_state(symbol, position_side, current_price, current_time, result, quantity, dry_run=True)
+            event.update(self._entry_report_fields())
             return event
 
         exchange_position = self.get_position_snapshot(symbol, current_price)
@@ -109,7 +110,27 @@ class LiveTrader:
         event["status"] = "SENT"
         self.last_opposite_exit = None
         self._set_position_state(symbol, position_side, current_price, current_time, result, quantity)
+        event.update(self._entry_report_fields())
         return event
+
+    def _entry_report_fields(self):
+        state = self.position_state or {}
+        return {key: state.get(key) for key in (
+            "entry_time", "entry_price", "stop_price", "entry_long_score", "entry_short_score",
+        )}
+
+    @staticmethod
+    def _exit_report_fields(state, exit_time):
+        # Copy observational fields before the trading state is cleared.
+        state = state or {}
+        return {
+            "entry_time": state.get("entry_time"),
+            "entry_long_score": state.get("entry_long_score"),
+            "entry_short_score": state.get("entry_short_score"),
+            "peak_profit_pct": state.get("peak_profit_pct"),
+            "exit_time": exit_time or datetime.now(timezone.utc).isoformat(),
+            "exit_time_basis": "bot_observation",
+        }
 
     def _build_reversal_event(self, close_event, entry_event, reversal_side, result):
         return {
@@ -311,6 +332,9 @@ class LiveTrader:
                 "gross_realized_pnl": gross_pnl_usdt,
                 "estimated_fees": estimated_fees,
                 "estimated_realized_pnl": estimated_pnl_usdt,
+                "pnl_pct": estimated_pnl,
+                "score_context": self._build_score_context(result),
+                **self._exit_report_fields(previous_state, current_time),
             }
 
         if snapshot["status"] != "OPEN" or self.position_state is None:
@@ -359,6 +383,8 @@ class LiveTrader:
             "partial_taken": False,
             "trailing_stop_alerted": False,
             "entry_score": result["long_score"] if side == "LONG" else result["short_score"],
+            "entry_long_score": result.get("long_score"),
+            "entry_short_score": result.get("short_score"),
             "last_add_score": result["long_score"] if side == "LONG" else result["short_score"],
             "entry_candle_key": self._daily_candle_key(current_time),
             "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -408,6 +434,8 @@ class LiveTrader:
             "partial_taken": False,
             "trailing_stop_alerted": False,
             "entry_score": None,
+            "entry_long_score": None,
+            "entry_short_score": None,
             "last_add_score": None,
             "entry_candle_key": self._daily_candle_key(datetime.now(timezone.utc).isoformat()),
             "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -566,6 +594,7 @@ class LiveTrader:
             "score_context": self._build_score_context(result),
             "response": response,
             "status": "SENT",
+            **self._exit_report_fields(self.position_state, exit_time),
         }
 
         if is_partial:
@@ -609,6 +638,7 @@ class LiveTrader:
             "reason": reason,
             "score_context": self._build_score_context(result),
             "status": "DRY_RUN_CLOSE",
+            **self._exit_report_fields(self.position_state, exit_time),
         }
 
         if is_partial:
