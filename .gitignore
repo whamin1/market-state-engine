@@ -5,6 +5,7 @@ __pycache__/
 
 work/logs/
 work/data/
+work/exports/
 outputs/
 
 liquda/liquidation_*.csv
