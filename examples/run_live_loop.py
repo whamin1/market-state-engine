@@ -1,4 +1,5 @@
 import argparse
+import atexit
 import json
 import time
 from dataclasses import asdict
@@ -18,6 +19,7 @@ from market_state_engine import (
 from market_state_engine.env_loader import load_env_file
 from market_state_engine.report import build_status_report, send_status_report
 from market_state_engine.oi_report import summarize_oi, format_hourly_score_oi
+from market_state_engine.oi_collector import OICollector
 
 
 KST = timezone(timedelta(hours=9))
@@ -42,6 +44,14 @@ def main():
     error_notification_times = {}
     score_alert_state = load_json_file(get_score_alert_state_path(args), default={})
     last_log_cleanup_date = None
+    oi_collector = None
+    if args.symbol == 'BTCUSDT' and not args.no_oi_collection:
+        try:
+            oi_collector = OICollector(get_market_state_db_path(args))
+            oi_collector.start()
+            atexit.register(oi_collector.stop)
+        except Exception as exc:
+            print(f'OI collector startup failed: {exc}')
 
     while True:
         try:
@@ -55,8 +65,13 @@ def main():
                 fetcher=fetcher,
                 daily_cache=daily_cache,
                 state_recorder=state_recorder,
-                collect_oi_report=getattr(args, 'hourly_score_oi_days', 0) > 0,
+                collect_oi_report=False,
             )
+            if oi_collector is not None:
+                try:
+                    latest_snapshot['oi_report'] = oi_collector.report()
+                except Exception as exc:
+                    print(f'OI report failed: {exc}')
             if trade_event:
                 recent_trade_events.append(trade_event)
                 recent_trade_events = recent_trade_events[-10:]
@@ -78,6 +93,9 @@ def main():
             break
 
         time.sleep(args.interval_sec)
+
+    if oi_collector is not None:
+        oi_collector.stop()
 
 
 def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache, state_recorder=None, collect_oi_report=False):
@@ -225,6 +243,7 @@ def parse_args():
     parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
     parser.add_argument("--hourly-score-oi-days", type=int, choices=range(1, 8), default=0,
                         help="Temporarily replace score-change alerts with hourly OI reports for 1-7 days")
+    parser.add_argument("--no-oi-collection", action="store_true", help="Disable independent BTCUSDT OI recording")
     parser.add_argument("--log-retention-days", type=int, default=7)
     parser.add_argument("--no-score-alerts", action="store_true")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")

@@ -14,6 +14,7 @@ import zipfile
 
 
 TABLE_KEYS = {
+    "oi_snapshots": ("timestamp", "symbol"),
     "market_state": ("timestamp", "symbol"),
     "prediction_forecast": ("symbol", "schedule_key"),
     "prediction_digest": ("symbol", "schedule_key"),
@@ -138,6 +139,10 @@ def export_delta(source="work/data/btc_market_state.db", directory="work/exports
                         columns = _columns(src, table)
                         if columns:
                             counts[table] = _copy_rows(src, dst, table, table, columns)
+                    oi_columns = _columns(src, "oi_snapshots")
+                    if oi_columns:
+                        counts["oi_snapshots"] = _copy_rows(src, dst, "oi_snapshots", "oi_snapshots",
+                                                          oi_columns, "WHERE timestamp >= ?", (cutoff,))
                     dst.commit()
                 manifest = {"format_version": 1, "export_id": export_id,
                             "created_at": datetime.now(timezone.utc).isoformat(),
@@ -233,7 +238,7 @@ def merge_delta(base, archive, output):
                 with closing(sqlite3.connect(output)) as result:
                     old.backup(result)
                     result.execute("BEGIN")
-                    for table in ("market_state", "prediction_forecast", "prediction_digest"):
+                    for table in ("market_state", "prediction_forecast", "prediction_digest", "oi_snapshots"):
                         _upsert(changes, result, table)
                     labels = _columns(changes, "market_state_labels")
                     values = [(name, kind) for name, kind in labels if name not in ("timestamp", "symbol")]

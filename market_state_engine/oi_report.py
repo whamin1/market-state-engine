@@ -53,7 +53,12 @@ def format_hourly_score_oi(snapshot, expires_at):
              f"LONG {result.get('long_score')} / SHORT {result.get('short_score')} / 활동 {result.get('activity_score')}"]
     if snapshot.get('time'):
         lines.append(f"시장 시각: {parse_time(snapshot['time']).astimezone(timezone(timedelta(hours=9))):%m-%d %H:%M} KST")
-    lines.extend(['', '[OI 변화 · 기존 CSV 관측값]'])
+    independent = oi.get('source') == 'binance_oi_1m'
+    lines.extend(['', '[OI 변화 · 1분 정기 수집]' if independent else '[OI 변화 · 기존 CSV 관측값]'])
+    if independent:
+        labels = {'waiting': '수집 준비 중', 'error': '조회 실패', 'storage_error': '저장 실패',
+                  'stale': '자료 지연', 'observed': '정상', 'missing': '자료 없음'}
+        lines.append(f"수집 상태: {labels.get(oi.get('status'), oi.get('status'))}")
     if oi.get('oi') is not None:
         lines.append(f"마지막 OI: {oi['oi']:,.3f}")
         lines.append(f"기록 시각: {parse_time(oi['observed_at']).astimezone(timezone(timedelta(hours=9))):%m-%d %H:%M:%S} KST")
@@ -67,6 +72,8 @@ def format_hourly_score_oi(snapshot, expires_at):
     if position.get('status') == 'OPEN':
         pnl = position.get('unrealized_pnl_pct')
         lines.extend(['', f"보유: {position.get('side')} / 수익률: {pnl:+.2f}%" if pnl is not None else f"보유: {position.get('side')}"])
-    lines.extend(['', 'OI는 청산 발생 때 기록된 관측값입니다. 조회 성공 여부는 확인되지 않아 참고용입니다.',
+    note = ('청산과 무관하게 1분마다 수집합니다. 비교 기록이 쌓이기 전에는 판단 불가입니다.' if independent
+            else 'OI는 청산 발생 때 기록된 관측값입니다. 조회 성공 여부는 확인되지 않아 참고용입니다.')
+    lines.extend(['', note,
                   f"시간별 알림 종료: {parse_time(expires_at).astimezone(timezone(timedelta(hours=9))):%m-%d %H:%M} KST (기존 알림 자동 복귀)"])
     return '\n'.join(lines)

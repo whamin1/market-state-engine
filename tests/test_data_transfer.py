@@ -72,6 +72,20 @@ class DataTransferTests(unittest.TestCase):
         self.assertEqual(first["archive"], second["archive"])
         self.assertEqual(len(list(self.exports.glob("*.zip"))), 1)
 
+    def test_oi_export_and_merge(self):
+        from market_state_engine.oi_collector import CREATE_OI_TABLE
+        with closing(sqlite3.connect(self.source)) as c, c:
+            c.execute(CREATE_OI_TABLE)
+            c.execute('INSERT INTO oi_snapshots VALUES (?,?,?,?,?,?,?,?)',
+                      (self.t.isoformat(), 'BTCUSDT', self.t.isoformat(),
+                       self.t.isoformat(), 123.0, 'ok', None, 'binance_open_interest'))
+        result = self.export()
+        self.assertEqual(result['manifest']['rows']['oi_snapshots'], 1)
+        target = self.root / 'with_oi.db'
+        merge_delta(self.base, result['archive'], target)
+        with closing(sqlite3.connect(target)) as c:
+            self.assertEqual(c.execute('SELECT open_interest FROM oi_snapshots').fetchall(), [(123.0,)])
+
     def test_confirm_then_export_moves_cursor_and_only_deletes_confirmed_zip(self):
         first = self.export()
         unrelated = self.exports / "important.db"
