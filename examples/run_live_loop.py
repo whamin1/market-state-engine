@@ -17,6 +17,7 @@ from market_state_engine import (
 )
 from market_state_engine.env_loader import load_env_file
 from market_state_engine.report import build_status_report, send_status_report
+from market_state_engine.oi_report import summarize_oi, format_hourly_score_oi
 
 
 KST = timezone(timedelta(hours=9))
@@ -54,6 +55,7 @@ def main():
                 fetcher=fetcher,
                 daily_cache=daily_cache,
                 state_recorder=state_recorder,
+                collect_oi_report=getattr(args, 'hourly_score_oi_days', 0) > 0,
             )
             if trade_event:
                 recent_trade_events.append(trade_event)
@@ -78,7 +80,7 @@ def main():
         time.sleep(args.interval_sec)
 
 
-def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache, state_recorder=None):
+def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache, state_recorder=None, collect_oi_report=False):
     current_time = datetime.now(timezone.utc).isoformat()
 
     daily_cache.refresh_if_needed(
@@ -119,6 +121,12 @@ def run_once(symbol, liquda_dir, engine, logger, trader, fetcher, daily_cache, s
     }
     if state_recorder is not None:
         state_recorder.save(snapshot)
+
+    if collect_oi_report:
+        try:
+            snapshot['oi_report'] = summarize_oi(liquidation_data.get('raw_events', []), symbol, parse_datetime(current_time))
+        except Exception as exc:
+            print(f'OI report unavailable: {exc}')
 
     print(
         {
@@ -215,6 +223,8 @@ def parse_args():
     parser.add_argument("--market-state-db-path", default=None)
     parser.add_argument("--strategy-version", default="market_state_engine_v1")
     parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
+    parser.add_argument("--hourly-score-oi-days", type=int, choices=range(1, 8), default=0,
+                        help="Temporarily replace score-change alerts with hourly OI reports for 1-7 days")
     parser.add_argument("--log-retention-days", type=int, default=7)
     parser.add_argument("--no-score-alerts", action="store_true")
     parser.add_argument("--trader", choices=["paper", "live"], default="paper")
@@ -367,6 +377,15 @@ def maybe_send_score_alerts(args, snapshot, score_alert_state):
     if args.no_score_alerts or not (args.telegram_report or args.telegram_trades) or not snapshot:
         return
 
+    if getattr(args, 'hourly_score_oi_days', 0) > 0:
+        try:
+            if maybe_send_hourly_score_oi(args, snapshot, score_alert_state):
+                return
+        except Exception as exc:
+            # Reporting failures must not reach the live-trading halt handler.
+            print(f'hourly score/OI report error: {exc}')
+            return
+
     alerts = build_score_alerts(snapshot)
     if not alerts:
         return
@@ -414,6 +433,32 @@ def maybe_send_score_alerts(args, snapshot, score_alert_state):
                 "details": build_score_alert_details(snapshot),
             },
         )
+
+
+def maybe_send_hourly_score_oi(args, snapshot, state, now=None):
+    now = now or datetime.now(timezone.utc)
+    trial = state.get('hourly_oi_trial')
+    if trial is None:
+        trial = {'started_at': now.isoformat(),
+                 'expires_at': (now + timedelta(days=args.hourly_score_oi_days)).isoformat(),
+                 'last_sent_at': None}
+        state['hourly_oi_trial'] = trial
+        save_json_file(get_score_alert_state_path(args), state)
+    if now >= parse_datetime(trial['expires_at']):
+        return False
+    if trial.get('last_sent_at') and (now - parse_datetime(trial['last_sent_at'])).total_seconds() < 3600:
+        return True
+    message = format_hourly_score_oi(snapshot, trial['expires_at'])
+    if send_status_report(message):
+        trial['last_sent_at'] = now.isoformat()
+        save_json_file(get_score_alert_state_path(args), state)
+        append_jsonl_record(get_score_alert_log_path(args), {
+            'type': 'HOURLY_SCORE_OI', 'logged_at': now.isoformat(),
+            'market_time': snapshot.get('time'), 'symbol': snapshot.get('symbol'),
+            'price': snapshot.get('price'), 'oi_report': snapshot.get('oi_report'),
+            'details': build_score_alert_details(snapshot), 'message': message,
+        })
+    return True
 
 
 def append_jsonl_record(path, record):

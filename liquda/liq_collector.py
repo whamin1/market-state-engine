@@ -18,12 +18,7 @@ from tall6 import send_telegram_message
 # =========================
 # 설정
 # =========================
-SYMBOLS = [
-    "ETHUSDT",
-    "BTCUSDT",
-    "XRPUSDT",
-    "SOLUSDT"
-]
+SYMBOLS = ["BTCUSDT"]
 
 MIN_USD_SIZE = 1000.0
 REST_CACHE_TTL_SEC = 10
@@ -400,7 +395,7 @@ class LiquidationCollector:
 
             symbol = order.get("s")
             side = order.get("S")  # BUY=숏 청산, SELL=롱 청산
-            if not symbol or side not in ("BUY", "SELL"):
+            if symbol not in self.symbols or side not in ("BUY", "SELL"):
                 return
 
             price = safe_float(order.get("p"))
