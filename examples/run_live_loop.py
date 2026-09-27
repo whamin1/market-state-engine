@@ -968,6 +968,16 @@ def build_decision_snapshot(result, trade_event, position, mode="PAPER"):
             "reason": format_trade_event_line(trade_event).lstrip("- "),
         }
 
+    side = {'ENTER_LONG': 'LONG', 'ENTER_SHORT': 'SHORT'}.get(result.get('signal'))
+    evidence = (result.get('entry_eligibility') or {}).get(side)
+    if evidence and not evidence['allowed'] and (
+        position.get('status') != 'OPEN' or position.get('side') != side
+    ):
+        return {
+            'state': result.get('state'), 'new_signal': result.get('signal'), 'order_action': 'NONE',
+            'reason': f"{side} 진입·전환 제한: 양수 요소 {evidence['count']}/{evidence['minimum']}개 (활동 가점·청산 보너스 제외)",
+        }
+
     if position.get("status") == "OPEN":
         return {
             "state": result.get("state"),

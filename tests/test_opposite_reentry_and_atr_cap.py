@@ -16,6 +16,9 @@ class OppositeReentryAndAtrCapTests(unittest.TestCase):
             "signal": signal,
             "atr": 10.0,
             "reasons": [],
+            "score_components": {name: {'long_score': 1 if long_score else 0,
+                                         'short_score': 1 if short_score else 0}
+                                 for name in ('body', 'volume', 'liquidation')},
         }
 
     def test_atr_direction_score_is_capped_at_three(self):

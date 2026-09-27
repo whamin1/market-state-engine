@@ -13,6 +13,8 @@ class TradeReportTests(unittest.TestCase):
     def result(self, side):
         return {'long_score': 11 if side == 'LONG' else 3, 'short_score': 3 if side == 'LONG' else 11,
                 'activity_score': 4, 'atr': 10, 'signal': f'ENTER_{side}',
+                'score_components': {name: {side.lower() + '_score': score}
+                                     for name, score in [('trend_continuity', 3), ('volume', 2), ('liquidation', 5)]},
                 'reasons': [f'trend_continuity same direction {side} +3', f'volume_score {side} +2',
                             f'body_score {side} +0', f'range_edge_penalty {side} -3']}
 

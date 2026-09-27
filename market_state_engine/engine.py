@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .config import MarketStateConfig
+from .entry_filter import entry_evidence
 
 
 class MarketStateEngine:
@@ -65,7 +66,7 @@ class MarketStateEngine:
             state = self.get_state(long_score, short_score)
             signal = self.get_signal(long_score, short_score)
 
-        return {
+        result = {
             "long_score": long_score,
             "short_score": short_score,
             "activity_score": activity_score,
@@ -123,6 +124,14 @@ class MarketStateEngine:
                 + liquidation_result["reasons"]
             ),
         }
+
+        # Preserve numeric scores/signals for research; order eligibility is separate.
+        result['entry_eligibility'] = {
+            side: entry_evidence(result, side, self.config.entry_min_positive_components)
+            for side in ('LONG', 'SHORT')
+        }
+        result['indicators']['entry_eligibility'] = result['entry_eligibility']
+        return result
 
     @staticmethod
     def _score_pair(result):

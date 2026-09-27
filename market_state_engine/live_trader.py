@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .binance_signed_client import BinanceSignedClient
+from .entry_filter import entry_evidence
 
 
 class LiveTrader:
@@ -66,6 +67,8 @@ class LiveTrader:
         side = "BUY" if result["signal"] == "ENTER_LONG" else "SELL"
         position_side = "LONG" if side == "BUY" else "SHORT"
         pending_confirmed_reversal = self._is_pending_confirmed_reversal(position_side, result, current_time)
+        if not entry_evidence(result, position_side, self.config.entry_min_positive_components)['allowed']:
+            return None
         if not pending_confirmed_reversal and self._is_entry_blocked_by_profit_reentry(position_side, result, current_price, current_time):
             return None
         if self._is_entry_blocked_by_opposite_reentry(position_side, result, current_time):
@@ -812,6 +815,8 @@ class LiveTrader:
             return None
 
         reversal_side = "SHORT" if current_side == "LONG" else "LONG"
+        if not entry_evidence(result, reversal_side, self.config.entry_min_positive_components)['allowed']:
+            return None
         current_score = result["short_score"] if reversal_side == "SHORT" else result["long_score"]
         base_score = self.config.entry_short_score if reversal_side == "SHORT" else self.config.entry_long_score
         if current_score < base_score + self.config.opposite_reentry_extra_score:
@@ -946,6 +951,7 @@ class LiveTrader:
             "atr": result.get("atr"),
             "range": result.get("range"),
             "reasons": list(result.get("reasons", [])),
+            "entry_eligibility": result.get("entry_eligibility"),
         }
 
     def _save_state(self):

@@ -6,6 +6,7 @@ class MarketStateConfig:
     entry_long_score: int = 10
     entry_short_score: int = 10
     entry_score_gap: int = 5
+    entry_min_positive_components: int = 3
 
     range_days: int = 15
     range_min_width_pct: float = 4.0

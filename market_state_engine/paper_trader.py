@@ -1,6 +1,7 @@
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from .entry_filter import entry_evidence
 
 
 class PaperTrader:
@@ -23,6 +24,9 @@ class PaperTrader:
         atr = result.get("atr")
 
         if self.position is None:
+            side = {'ENTER_LONG': 'LONG', 'ENTER_SHORT': 'SHORT'}.get(result.get('signal'))
+            if side and not entry_evidence(result, side, self.config.entry_min_positive_components)['allowed']:
+                return None
             if result["signal"] == "ENTER_LONG":
                 if not self._is_pending_confirmed_reversal("LONG", result, current_time) and self._is_entry_blocked_by_profit_reentry("LONG", result, current_price, current_time):
                     return None
@@ -336,6 +340,8 @@ class PaperTrader:
             return None
 
         current_score = result["short_score"] if reversal_side == "SHORT" else result["long_score"]
+        if not entry_evidence(result, reversal_side, self.config.entry_min_positive_components)['allowed']:
+            return None
         base_score = self.config.entry_short_score if reversal_side == "SHORT" else self.config.entry_long_score
         if current_score < base_score + self.config.opposite_reentry_extra_score:
             return None
