@@ -17,6 +17,7 @@ from market_state_engine import (
     load_liquidation_data,
 )
 from market_state_engine.env_loader import load_env_file
+from market_state_engine.config import STRATEGY_VERSION
 from market_state_engine.report import build_status_report, send_status_report
 from market_state_engine.oi_report import summarize_oi, format_hourly_score_oi
 from market_state_engine.oi_collector import OICollector
@@ -239,7 +240,7 @@ def parse_args():
     parser.add_argument("--score-alert-log-path", default=None)
     parser.add_argument("--entry-evidence-log-path", default=None)
     parser.add_argument("--market-state-db-path", default=None)
-    parser.add_argument("--strategy-version", default="market_state_engine_v1")
+    parser.add_argument("--strategy-version", default=STRATEGY_VERSION)
     parser.add_argument("--score-alert-cooldown-hours", type=int, default=6)
     parser.add_argument("--hourly-score-oi-days", type=int, choices=range(1, 8), default=0,
                         help="Temporarily replace score-change alerts with hourly OI reports for 1-7 days")
@@ -1058,8 +1059,12 @@ def simplify_reason_label(reason):
     if reason.startswith("activity_direction"):
         return "activity direction"
     if reason.startswith("liquidation_score imbalance LONG"):
+        if "mode=speed_5m_v1" in reason:
+            return "5분 청산 속도 LONG"
         return "liquidation imbalance LONG"
     if reason.startswith("liquidation_score imbalance SHORT"):
+        if "mode=speed_5m_v1" in reason:
+            return "5분 청산 속도 SHORT"
         return "liquidation imbalance SHORT"
     return reason
 

@@ -1,0 +1,2678 @@
+{
+  "end": "10-02 05:31",
+  "onset": "09-27 11:41",
+  "summary": {
+    "all": {
+      "n": 21,
+      "wins": 8,
+      "gross": -72.40379999999986,
+      "fees": 12.3691701,
+      "net": -84.77297009999985,
+      "mean_price_pct": -0.5865917125686341
+    },
+    "post_new_entries": {
+      "n": 11,
+      "wins": 5,
+      "gross": -36.12139999999998,
+      "fees": 6.468901600000001,
+      "net": -42.590301599999975,
+      "mean_price_pct": -0.5585374524961273
+    },
+    "carry": {
+      "n": 1,
+      "wins": 0,
+      "gross": -8.9635,
+      "fees": 0.5900114500000001,
+      "net": -9.55351145,
+      "mean_price_pct": -1.5308360959315983
+    },
+    "reversal_exit": {
+      "n": 13,
+      "wins": 0,
+      "gross": -95.95740000000008,
+      "fees": 7.6654347000000005,
+      "net": -103.62283470000008,
+      "mean_price_pct": -1.2552571231994374
+    },
+    "profit_exit": {
+      "n": 8,
+      "wins": 8,
+      "gross": 23.553600000000223,
+      "fees": 4.7037354,
+      "net": 18.849864600000224,
+      "mean_price_pct": 0.49998957970642127
+    }
+  },
+  "trades": [
+    {
+      "entry": "09-24 01:35",
+      "exit": "09-24 18:00",
+      "side": "SHORT",
+      "hours": 16.416743211083944,
+      "entry_time": "2026-09-23T16:35:19.720302+00:00",
+      "entry_price": 84187.90000000001,
+      "exit_price": 83662.8,
+      "pnl_pct": 0.6237238367984066,
+      "net": 3.0882225500000406,
+      "fees": 0.5874774500000001,
+      "reason": "profit protection (70% of peak): peak 1.02% -> current 0.62%",
+      "peak": 1.020930561280201,
+      "new_rule": false,
+      "entry_long": 1,
+      "entry_short": 28,
+      "exit_long": 0,
+      "exit_short": 15,
+      "entry_candle_open": 86158.6,
+      "entry_from_day_open_pct": -2.289150473661372,
+      "raw_atr": 3,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 6
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "range": {
+          "long_score": 1,
+          "short_score": 2,
+          "breakout_long_score": 1,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 3
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 3
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 62.908823013305664,
+      "stop_distance_pct": 0.0,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-24 00:34",
+          "price": 84426.4,
+          "long": 4,
+          "short": 22,
+          "price_pnl": -0.283294867789774
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-24 01:20",
+          "price": 84229.5,
+          "long": 1,
+          "short": 28,
+          "price_pnl": -0.049413276729781686
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-24 01:35",
+          "price": 84186.3,
+          "long": 1,
+          "short": 28,
+          "price_pnl": 0.001900510643459974
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-24 01:49",
+          "price": 83876.2,
+          "long": 1,
+          "short": 30,
+          "price_pnl": 0.3702432297277958
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-24 02:34",
+          "price": 83971.9,
+          "long": 1,
+          "short": 26,
+          "price_pnl": 0.2565689368662416
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-24 18:00",
+          "price": 83662.8,
+          "long": 0,
+          "short": 15,
+          "price_pnl": 0.6237238367984066
+        }
+      ]
+    },
+    {
+      "entry": "09-24 18:30",
+      "exit": "09-24 23:30",
+      "side": "SHORT",
+      "hours": 4.998270988927947,
+      "entry_time": "2026-09-24T09:30:45.593659+00:00",
+      "entry_price": 83184.6,
+      "exit_price": 84670.0,
+      "pnl_pct": -1.7856670585661216,
+      "net": -10.985291099999959,
+      "fees": 0.5874911,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.33455711754339496,
+      "new_rule": false,
+      "entry_long": 0,
+      "entry_short": 19,
+      "exit_long": 14,
+      "exit_short": 3,
+      "entry_candle_open": 84355.2,
+      "entry_from_day_open_pct": -1.3408776222449736,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 3
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 2
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 3
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 63.89171600341797,
+      "stop_distance_pct": 4.63131740387388,
+      "first_reverse_candidate": "09-24 23:30",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-24 17:29",
+          "price": 83783.3,
+          "long": 1,
+          "short": 11,
+          "price_pnl": -0.7197245644025463
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-24 18:15",
+          "price": 83415.3,
+          "long": 0,
+          "short": 17,
+          "price_pnl": -0.27733498748565566
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-24 18:30",
+          "price": 83224.1,
+          "long": 0,
+          "short": 19,
+          "price_pnl": -0.047484750783199914
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-24 18:44",
+          "price": 83103.9,
+          "long": 0,
+          "short": 21,
+          "price_pnl": 0.09701314906847003
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-24 19:30",
+          "price": 83184.6,
+          "long": 0,
+          "short": 21,
+          "price_pnl": -0.0
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-24 23:30",
+          "price": 84670.0,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -1.7856670585661316
+        }
+      ]
+    },
+    {
+      "entry": "09-24 23:30",
+      "exit": "09-25 00:29",
+      "side": "LONG",
+      "hours": 0.9777848135762744,
+      "entry_time": "2026-09-24T14:30:39.369219+00:00",
+      "entry_price": 84670.7,
+      "exit_price": 84069.0,
+      "pnl_pct": -0.7106354382330571,
+      "net": -4.802488949999979,
+      "fees": 0.5905889500000001,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.15483514368017015,
+      "new_rule": false,
+      "entry_long": 14,
+      "entry_short": 3,
+      "exit_long": 0,
+      "exit_short": 17,
+      "entry_candle_open": 84355.2,
+      "entry_from_day_open_pct": 0.37318387011116005,
+      "raw_atr": 3,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 4,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 3
+        },
+        "activity_direction": {
+          "long_score": 3,
+          "short_score": 0
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 62.29814696311951,
+      "stop_distance_pct": 4.581016303666519,
+      "first_reverse_candidate": "09-25 00:29",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-24 22:29",
+          "price": 83730.2,
+          "long": 6,
+          "short": 9,
+          "price_pnl": -1.110773856835956
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-24 23:15",
+          "price": 84170.0,
+          "long": 7,
+          "short": 8,
+          "price_pnl": -0.5913497821560476
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-24 23:30",
+          "price": 84670.0,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.0008267322698318758
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-24 23:44",
+          "price": 84340.7,
+          "long": 7,
+          "short": 10,
+          "price_pnl": -0.38974521292489683
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 00:29",
+          "price": 84069.0,
+          "long": 0,
+          "short": 17,
+          "price_pnl": -0.7106354382330538
+        }
+      ]
+    },
+    {
+      "entry": "09-25 00:29",
+      "exit": "09-25 01:16",
+      "side": "SHORT",
+      "hours": 0.7936896447340648,
+      "entry_time": "2026-09-24T15:29:19.394548+00:00",
+      "entry_price": 84068.90000000001,
+      "exit_price": 84666.6,
+      "pnl_pct": -0.7109644589140538,
+      "net": -4.7744742499999795,
+      "fees": 0.59057425,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.056144424394766246,
+      "new_rule": false,
+      "entry_long": 0,
+      "entry_short": 17,
+      "exit_long": 14,
+      "exit_short": 3,
+      "entry_candle_open": 84355.2,
+      "entry_from_day_open_pct": -0.3392796176169277,
+      "raw_atr": 3,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 3
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 3
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 64.08377599716187,
+      "stop_distance_pct": 4.61309541510424,
+      "first_reverse_candidate": "09-25 01:16",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-24 23:28",
+          "price": 84777.1,
+          "long": 13,
+          "short": 3,
+          "price_pnl": -0.8424042660246434
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 00:14",
+          "price": 83802.9,
+          "long": 6,
+          "short": 11,
+          "price_pnl": 0.31640713747891347
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 00:29",
+          "price": 84069.0,
+          "long": 0,
+          "short": 17,
+          "price_pnl": -0.0001189500516751707
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 00:43",
+          "price": 84292.6,
+          "long": 0,
+          "short": 17,
+          "price_pnl": -0.26609126561665253
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 01:16",
+          "price": 84666.6,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.710964458914054
+        }
+      ]
+    },
+    {
+      "entry": "09-25 01:16",
+      "exit": "09-25 02:20",
+      "side": "LONG",
+      "hours": 1.062628247472975,
+      "entry_time": "2026-09-24T16:16:56.677269+00:00",
+      "entry_price": 84699.90000000001,
+      "exit_price": 84285.3,
+      "pnl_pct": -0.48949290376966886,
+      "net": -3.493648200000041,
+      "fees": 0.5914482000000001,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.17083845435472425,
+      "new_rule": false,
+      "entry_long": 14,
+      "entry_short": 3,
+      "exit_long": 0,
+      "exit_short": 14,
+      "entry_candle_open": 84355.2,
+      "entry_from_day_open_pct": 0.3691532946398235,
+      "raw_atr": 3,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 5,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 5,
+          "short_score": 0,
+          "activity_score": 5,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 3
+        },
+        "activity_direction": {
+          "long_score": 3,
+          "short_score": 0
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 62.060423135757446,
+      "stop_distance_pct": 4.617925843393644,
+      "first_reverse_candidate": "09-25 02:20",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-25 00:16",
+          "price": 83971.3,
+          "long": 6,
+          "short": 10,
+          "price_pnl": -0.8602135303583669
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 01:01",
+          "price": 84284.8,
+          "long": 3,
+          "short": 10,
+          "price_pnl": -0.4900832232387575
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 01:16",
+          "price": 84666.6,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.03931527664141621
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 01:31",
+          "price": 84610.3,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.10578524886099006
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-25 02:16",
+          "price": 84471.9,
+          "long": 8,
+          "short": 3,
+          "price_pnl": -0.26918567790518155
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 02:20",
+          "price": 84285.3,
+          "long": 0,
+          "short": 14,
+          "price_pnl": -0.4894929037696727
+        }
+      ]
+    },
+    {
+      "entry": "09-25 02:20",
+      "exit": "09-25 16:21",
+      "side": "SHORT",
+      "hours": 14.005428276393149,
+      "entry_time": "2026-09-24T17:20:42.138960+00:00",
+      "entry_price": 84314.1,
+      "exit_price": 83948.7,
+      "pnl_pct": 0.4333794703377119,
+      "net": 1.9688802000000611,
+      "fees": 0.5889198,
+      "reason": "profit protection (70% of peak): peak 0.70% -> current 0.43%",
+      "peak": 0.6962062098747421,
+      "new_rule": false,
+      "entry_long": 0,
+      "entry_short": 14,
+      "exit_long": 0,
+      "exit_short": 10,
+      "entry_candle_open": 84355.2,
+      "entry_from_day_open_pct": -0.08286388983724802,
+      "raw_atr": 3,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 3,
+          "activity_score": 4,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 3
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 3
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 64.09558510780334,
+      "stop_distance_pct": 4.56540314304319,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-25 01:20",
+          "price": 84445.0,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.15525279876080766
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 02:05",
+          "price": 84427.0,
+          "long": 12,
+          "short": 3,
+          "price_pnl": -0.1339040563796523
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 02:20",
+          "price": 84285.3,
+          "long": 0,
+          "short": 14,
+          "price_pnl": 0.03415798780986856
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 02:34",
+          "price": 84274.8,
+          "long": 0,
+          "short": 15,
+          "price_pnl": 0.046611420865549924
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-25 03:20",
+          "price": 84289.7,
+          "long": 0,
+          "short": 14,
+          "price_pnl": 0.028939406338923668
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 16:21",
+          "price": 83948.7,
+          "long": 0,
+          "short": 10,
+          "price_pnl": 0.4333794703377136
+        }
+      ]
+    },
+    {
+      "entry": "09-25 16:51",
+      "exit": "09-25 20:15",
+      "side": "SHORT",
+      "hours": 3.406782544189029,
+      "entry_time": "2026-09-25T07:51:19.344365+00:00",
+      "entry_price": 83969.40000000001,
+      "exit_price": 85214.1,
+      "pnl_pct": -1.482325704363729,
+      "net": -9.30504224999998,
+      "fees": 0.59214225,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.023341836430897232,
+      "new_rule": false,
+      "entry_long": 0,
+      "entry_short": 10,
+      "exit_long": 14,
+      "exit_short": 3,
+      "entry_candle_open": 84370.1,
+      "entry_from_day_open_pct": -0.4848874186471397,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 5,
+          "activity_score": 5,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 64.02498197555542,
+      "stop_distance_pct": 4.265431386739849,
+      "first_reverse_candidate": "09-25 20:15",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-25 15:50",
+          "price": 83991.4,
+          "long": 0,
+          "short": 5,
+          "price_pnl": -0.026200020483635456
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 16:36",
+          "price": 83802.6,
+          "long": 0,
+          "short": 11,
+          "price_pnl": 0.19864379166696366
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 16:51",
+          "price": 83961.0,
+          "long": 0,
+          "short": 10,
+          "price_pnl": 0.010003644184675142
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 17:05",
+          "price": 84092.7,
+          "long": 0,
+          "short": 10,
+          "price_pnl": -0.14683920571063602
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-25 17:51",
+          "price": 84270.5,
+          "long": 4,
+          "short": 5,
+          "price_pnl": -0.3585830076194396
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 20:15",
+          "price": 85214.1,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -1.4823257043637295
+        }
+      ]
+    },
+    {
+      "entry": "09-25 20:15",
+      "exit": "09-25 21:26",
+      "side": "LONG",
+      "hours": 1.1827210547526676,
+      "entry_time": "2026-09-25T11:15:43.761524+00:00",
+      "entry_price": 85181.8,
+      "exit_price": 84287.4,
+      "pnl_pct": -1.0499895517587192,
+      "net": -6.853942200000061,
+      "fees": 0.5931422000000001,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.0,
+      "new_rule": false,
+      "entry_long": 14,
+      "entry_short": 3,
+      "exit_long": 0,
+      "exit_short": 14,
+      "entry_candle_open": 84370.1,
+      "entry_from_day_open_pct": 1.0003543909512969,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 2,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 1,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 2,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 2,
+          "short_score": 0
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 64.10374093055725,
+      "stop_distance_pct": 4.22307682761206,
+      "first_reverse_candidate": "09-25 21:26",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-25 19:15",
+          "price": 84451.6,
+          "long": 5,
+          "short": 3,
+          "price_pnl": -0.8572253697386012
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 20:00",
+          "price": 84664.2,
+          "long": 5,
+          "short": 3,
+          "price_pnl": -0.6076415384507095
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 20:15",
+          "price": 85214.1,
+          "long": 14,
+          "short": 3,
+          "price_pnl": 0.03791889816839866
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 20:29",
+          "price": 84876.1,
+          "long": 12,
+          "short": 3,
+          "price_pnl": -0.35887947894972516
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-25 21:15",
+          "price": 84213.7,
+          "long": 0,
+          "short": 9,
+          "price_pnl": -1.136510381325595
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 21:26",
+          "price": 84287.4,
+          "long": 0,
+          "short": 14,
+          "price_pnl": -1.0499895517587232
+        }
+      ]
+    },
+    {
+      "entry": "09-25 21:26",
+      "exit": "09-25 22:53",
+      "side": "SHORT",
+      "hours": 1.4496454838911692,
+      "entry_time": "2026-09-25T12:26:41.557321+00:00",
+      "entry_price": 84290.2,
+      "exit_price": 83844.9,
+      "pnl_pct": 0.5282939179169144,
+      "net": 2.5286271500000206,
+      "fees": 0.5884728499999999,
+      "reason": "profit protection (70% of peak): peak 0.78% -> current 0.53%",
+      "peak": 0.7754163591971442,
+      "new_rule": false,
+      "entry_long": 0,
+      "entry_short": 14,
+      "exit_long": 0,
+      "exit_short": 14,
+      "entry_candle_open": 84370.1,
+      "entry_from_day_open_pct": -0.09802050726502864,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 2
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 62.394705057144165,
+      "stop_distance_pct": 4.302745582692702,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-25 20:25",
+          "price": 84839.0,
+          "long": 10,
+          "short": 3,
+          "price_pnl": -0.6510839931569867
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 21:11",
+          "price": 84553.4,
+          "long": 8,
+          "short": 3,
+          "price_pnl": -0.31225456814671926
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 21:26",
+          "price": 84287.4,
+          "long": 0,
+          "short": 14,
+          "price_pnl": 0.0033218571079518533
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 21:40",
+          "price": 84459.9,
+          "long": 4,
+          "short": 10,
+          "price_pnl": -0.20132826829215578
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-25 22:26",
+          "price": 84107.5,
+          "long": 0,
+          "short": 9,
+          "price_pnl": 0.2167511762933283
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-25 22:53",
+          "price": 83844.9,
+          "long": 0,
+          "short": 14,
+          "price_pnl": 0.528293917916911
+        }
+      ]
+    },
+    {
+      "entry": "09-25 23:24",
+      "exit": "09-28 09:21",
+      "side": "SHORT",
+      "hours": 57.95940308113893,
+      "entry_time": "2026-09-25T14:24:02.387256+00:00",
+      "entry_price": 83647.1,
+      "exit_price": 84927.6,
+      "pnl_pct": -1.5308360959315983,
+      "net": -9.55351145,
+      "fees": 0.5900114500000001,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.3635511571829816,
+      "new_rule": false,
+      "entry_long": 0,
+      "entry_short": 16,
+      "exit_long": 14,
+      "exit_short": 3,
+      "entry_candle_open": 84370.1,
+      "entry_from_day_open_pct": -0.8904813435091419,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 2
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 3
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": null,
+      "max_gap_seconds": 64.85554218292236,
+      "stop_distance_pct": 4.376251110746399,
+      "first_reverse_candidate": "09-28 09:21",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-25 22:23",
+          "price": 84231.0,
+          "long": 0,
+          "short": 8,
+          "price_pnl": -0.6980516957551419
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-25 23:08",
+          "price": 83384.7,
+          "long": 0,
+          "short": 16,
+          "price_pnl": 0.31369886104839484
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-25 23:24",
+          "price": 83618.8,
+          "long": 0,
+          "short": 16,
+          "price_pnl": 0.03383261344386268
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-25 23:38",
+          "price": 83854.6,
+          "long": 0,
+          "short": 15,
+          "price_pnl": -0.24806598196469576
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-26 00:23",
+          "price": 83884.3,
+          "long": 5,
+          "short": 7,
+          "price_pnl": -0.2835722936001428
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-28 09:21",
+          "price": 84927.6,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -1.5308360959316092
+        }
+      ]
+    },
+    {
+      "entry": "09-28 09:21",
+      "exit": "09-28 10:21",
+      "side": "LONG",
+      "hours": 0.9979323924912347,
+      "entry_time": "2026-09-28T00:21:36.238348+00:00",
+      "entry_price": 84966.8,
+      "exit_price": 84037.5,
+      "pnl_pct": -1.0937213123243466,
+      "net": -7.09661505000002,
+      "fees": 0.5915150499999999,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.0,
+      "new_rule": true,
+      "entry_long": 14,
+      "entry_short": 3,
+      "exit_long": 0,
+      "exit_short": 16,
+      "entry_candle_open": 84433.0,
+      "entry_from_day_open_pct": 0.5857899162649671,
+      "raw_atr": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 1,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 4,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 1,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 1,
+          "short_score": 0
+        }
+      },
+      "eligibility": {
+        "count": 4,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "trend_continuity",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 63.380717039108276,
+      "stop_distance_pct": 4.106683854332349,
+      "first_reverse_candidate": "09-28 10:21",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-28 08:20",
+          "price": 84298.4,
+          "long": 0,
+          "short": 10,
+          "price_pnl": -0.7866602013963164
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-28 09:06",
+          "price": 84492.8,
+          "long": 3,
+          "short": 3,
+          "price_pnl": -0.557864954311571
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-28 09:21",
+          "price": 84927.6,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.046135667107616296
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-28 09:35",
+          "price": 84176.7,
+          "long": 7,
+          "short": 9,
+          "price_pnl": -0.9298926168809563
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-28 10:21",
+          "price": 84037.5,
+          "long": 0,
+          "short": 16,
+          "price_pnl": -1.0937213123243472
+        }
+      ]
+    },
+    {
+      "entry": "09-28 10:21",
+      "exit": "09-28 11:12",
+      "side": "SHORT",
+      "hours": 0.8446196597152286,
+      "entry_time": "2026-09-28T01:21:28.794961+00:00",
+      "entry_price": 84055.8,
+      "exit_price": 83682.5,
+      "pnl_pct": 0.4441097461448263,
+      "net": 2.0260159500000205,
+      "fees": 0.58708405,
+      "reason": "profit protection (70% of peak): peak 0.66% -> current 0.44%",
+      "peak": 0.6624171086349816,
+      "new_rule": true,
+      "entry_long": 0,
+      "entry_short": 16,
+      "exit_long": 0,
+      "exit_short": 18,
+      "entry_candle_open": 84433.0,
+      "entry_from_day_open_pct": -0.46841874622481905,
+      "raw_atr": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 6
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 1
+        }
+      },
+      "eligibility": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 62.17850399017334,
+      "stop_distance_pct": 4.148774640519415,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-28 09:20",
+          "price": 84669.4,
+          "long": 3,
+          "short": 3,
+          "price_pnl": -0.7299912677054987
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-28 10:06",
+          "price": 83909.2,
+          "long": 6,
+          "short": 10,
+          "price_pnl": 0.17440795281230548
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-28 10:21",
+          "price": 84037.5,
+          "long": 0,
+          "short": 16,
+          "price_pnl": 0.021771251954061377
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-28 10:35",
+          "price": 83952.9,
+          "long": 0,
+          "short": 14,
+          "price_pnl": 0.12241867902037518
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-28 11:12",
+          "price": 83682.5,
+          "long": 0,
+          "short": 18,
+          "price_pnl": 0.44410974614482734
+        }
+      ]
+    },
+    {
+      "entry": "09-28 11:42",
+      "exit": "09-28 14:43",
+      "side": "SHORT",
+      "hours": 3.0116220466958152,
+      "entry_time": "2026-09-28T02:42:26.555959+00:00",
+      "entry_price": 83434.6,
+      "exit_price": 83002.4,
+      "pnl_pct": 0.5180105136238582,
+      "net": 2.4428705000000814,
+      "fees": 0.5825295,
+      "reason": "profit protection (70% of peak): peak 0.84% -> current 0.52%",
+      "peak": 0.8408981405795747,
+      "new_rule": true,
+      "entry_long": 0,
+      "entry_short": 17,
+      "exit_long": 0,
+      "exit_short": 19,
+      "entry_candle_open": 84433.0,
+      "entry_from_day_open_pct": -1.1825944831996948,
+      "raw_atr": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 2
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 1
+        }
+      },
+      "eligibility": {
+        "count": 4,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 62.799670934677124,
+      "stop_distance_pct": 4.259764962189361,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-28 10:41",
+          "price": 83925.1,
+          "long": 0,
+          "short": 15,
+          "price_pnl": -0.5878856014171596
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-28 11:27",
+          "price": 83686.6,
+          "long": 0,
+          "short": 18,
+          "price_pnl": -0.30203296953541514
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-28 11:42",
+          "price": 83434.5,
+          "long": 0,
+          "short": 17,
+          "price_pnl": 0.0001198543529978835
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-28 11:56",
+          "price": 83380.1,
+          "long": 0,
+          "short": 18,
+          "price_pnl": 0.06532062237968317
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-28 12:42",
+          "price": 83420.8,
+          "long": 0,
+          "short": 19,
+          "price_pnl": 0.01653990071265321
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-28 14:43",
+          "price": 83002.4,
+          "long": 0,
+          "short": 19,
+          "price_pnl": 0.5180105136238566
+        }
+      ]
+    },
+    {
+      "entry": "09-28 15:18",
+      "exit": "09-28 18:14",
+      "side": "SHORT",
+      "hours": 2.9298312194479834,
+      "entry_time": "2026-09-28T06:18:30.304386+00:00",
+      "entry_price": 83166.8,
+      "exit_price": 82828.8,
+      "pnl_pct": 0.40641217408869884,
+      "net": 1.7850154000000003,
+      "fees": 0.5809846,
+      "reason": "profit protection (70% of peak): peak 0.67% -> current 0.41%",
+      "peak": 0.6744277764685052,
+      "new_rule": true,
+      "entry_long": 0,
+      "entry_short": 19,
+      "exit_long": 0,
+      "exit_short": 19,
+      "entry_candle_open": 84433.0,
+      "entry_from_day_open_pct": -1.5129155661885663,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 3
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": {
+        "count": 4,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 64.08543109893799,
+      "stop_distance_pct": 4.356138163649104,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-28 14:17",
+          "price": 83200.0,
+          "long": 0,
+          "short": 12,
+          "price_pnl": -0.03991977567971983
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-28 15:03",
+          "price": 83154.1,
+          "long": 0,
+          "short": 19,
+          "price_pnl": 0.015270516600374151
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-28 15:18",
+          "price": 83155.6,
+          "long": 0,
+          "short": 19,
+          "price_pnl": 0.013466912277493304
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-28 15:32",
+          "price": 83119.9,
+          "long": 0,
+          "short": 20,
+          "price_pnl": 0.056392695162021944
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-28 16:18",
+          "price": 83084.9,
+          "long": 0,
+          "short": 12,
+          "price_pnl": 0.0984767960291899
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-28 18:14",
+          "price": 82828.8,
+          "long": 0,
+          "short": 19,
+          "price_pnl": 0.40641217408869945
+        }
+      ]
+    },
+    {
+      "entry": "09-28 18:44",
+      "exit": "09-30 21:36",
+      "side": "SHORT",
+      "hours": 50.86030274245474,
+      "entry_time": "2026-09-28T09:44:36.689866+00:00",
+      "entry_price": 82606.1,
+      "exit_price": 84676.1,
+      "pnl_pct": -2.5058682107011463,
+      "net": -15.0754877,
+      "fees": 0.5854877,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.020579594000927293,
+      "new_rule": true,
+      "entry_long": 0,
+      "entry_short": 19,
+      "exit_long": 14,
+      "exit_short": 3,
+      "entry_candle_open": 84433.0,
+      "entry_from_day_open_pct": -2.1630168299124786,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 4
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 1,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 1,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 5,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": {
+        "count": 4,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 72.4223620891571,
+      "stop_distance_pct": 4.40857705596629,
+      "first_reverse_candidate": "09-30 21:36",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-28 17:43",
+          "price": 82850.0,
+          "long": 0,
+          "short": 13,
+          "price_pnl": -0.2952566456956518
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-28 18:29",
+          "price": 82754.6,
+          "long": 0,
+          "short": 18,
+          "price_pnl": -0.1797688064198555
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-28 18:44",
+          "price": 82606.7,
+          "long": 0,
+          "short": 19,
+          "price_pnl": -0.000726338611789501
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-28 18:58",
+          "price": 82622.7,
+          "long": 0,
+          "short": 19,
+          "price_pnl": -0.020095368259709367
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-28 19:44",
+          "price": 82909.5,
+          "long": 0,
+          "short": 10,
+          "price_pnl": -0.3672852246988878
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-30 21:36",
+          "price": 84676.1,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -2.5058682107011565
+        }
+      ]
+    },
+    {
+      "entry": "09-30 21:36",
+      "exit": "09-30 22:01",
+      "side": "LONG",
+      "hours": 0.421399795876609,
+      "entry_time": "2026-09-30T12:36:13.779739+00:00",
+      "entry_price": 84723.7,
+      "exit_price": 85179.9,
+      "pnl_pct": 0.5384561816823358,
+      "net": 2.5987373999999797,
+      "fees": 0.5946625999999999,
+      "reason": "profit protection (70% of peak): peak 0.86% -> current 0.54%",
+      "peak": 0.8629226532835627,
+      "new_rule": true,
+      "entry_long": 14,
+      "entry_short": 3,
+      "exit_long": 21,
+      "exit_short": 3,
+      "entry_candle_open": 83624.5,
+      "entry_from_day_open_pct": 1.2575262034451695,
+      "raw_atr": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 3,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 3,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 1,
+          "short_score": 0
+        }
+      },
+      "eligibility": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "body",
+          "trend_continuity",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 63.08141613006592,
+      "stop_distance_pct": 4.225731912760445,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-30 20:35",
+          "price": 83780.2,
+          "long": 3,
+          "short": 2,
+          "price_pnl": -1.1136199198099273
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-30 21:21",
+          "price": 83748.4,
+          "long": 3,
+          "short": 2,
+          "price_pnl": -1.1511536913520137
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-30 21:36",
+          "price": 84676.1,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.05618262658499962
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-30 21:50",
+          "price": 85354.6,
+          "long": 21,
+          "short": 3,
+          "price_pnl": 0.7446558637075773
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-30 22:01",
+          "price": 85179.9,
+          "long": 21,
+          "short": 3,
+          "price_pnl": 0.5384561816823341
+        }
+      ]
+    },
+    {
+      "entry": "09-30 22:31",
+      "exit": "09-30 23:33",
+      "side": "LONG",
+      "hours": 1.0302313460906347,
+      "entry_time": "2026-09-30T13:31:49.941260+00:00",
+      "entry_price": 85423.80000000002,
+      "exit_price": 83432.3,
+      "pnl_pct": -2.331317501679876,
+      "net": -14.5314963500001,
+      "fees": 0.5909963500000002,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.0,
+      "new_rule": true,
+      "entry_long": 22,
+      "entry_short": 3,
+      "exit_long": 0,
+      "exit_short": 16,
+      "entry_candle_open": 83624.5,
+      "entry_from_day_open_pct": 2.1468588750904294,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 5,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 3,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 5,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 2,
+          "short_score": 0
+        }
+      },
+      "eligibility": {
+        "count": 4,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "trend_continuity",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 62.82174897193909,
+      "stop_distance_pct": 4.240123946722118,
+      "first_reverse_candidate": "09-30 23:33",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-30 21:31",
+          "price": 84245.3,
+          "long": 10,
+          "short": 2,
+          "price_pnl": -1.3795921043081805
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-30 22:16",
+          "price": 85395.7,
+          "long": 22,
+          "short": 3,
+          "price_pnl": -0.032894813857520244
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-30 22:31",
+          "price": 85419.8,
+          "long": 22,
+          "short": 3,
+          "price_pnl": -0.004682535780442532
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-30 22:45",
+          "price": 84372.0,
+          "long": 11,
+          "short": 3,
+          "price_pnl": -1.2312727834631776
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "09-30 23:31",
+          "price": 83739.8,
+          "long": 7,
+          "short": 9,
+          "price_pnl": -1.971347563559589
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "09-30 23:33",
+          "price": 83432.3,
+          "long": 0,
+          "short": 16,
+          "price_pnl": -2.331317501679875
+        }
+      ]
+    },
+    {
+      "entry": "09-30 23:33",
+      "exit": "10-01 00:33",
+      "side": "SHORT",
+      "hours": 0.9954177686240938,
+      "entry_time": "2026-09-30T14:33:38.774106+00:00",
+      "entry_price": 83420.8,
+      "exit_price": 84118.2,
+      "pnl_pct": -0.8360025317426758,
+      "net": -5.468186499999959,
+      "fees": 0.5863864999999999,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.04447332080249269,
+      "new_rule": true,
+      "entry_long": 0,
+      "entry_short": 16,
+      "exit_long": 16,
+      "exit_short": 2,
+      "entry_candle_open": 83624.5,
+      "entry_from_day_open_pct": -0.22983694969774815,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 62.77488899230957,
+      "stop_distance_pct": 4.350923270934826,
+      "first_reverse_candidate": "10-01 00:33",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-30 22:32",
+          "price": 85341.5,
+          "long": 22,
+          "short": 3,
+          "price_pnl": -2.302423376424101
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "09-30 23:18",
+          "price": 83974.2,
+          "long": 7,
+          "short": 9,
+          "price_pnl": -0.663383712455401
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "09-30 23:33",
+          "price": 83432.3,
+          "long": 0,
+          "short": 16,
+          "price_pnl": -0.013785530706966753
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "09-30 23:47",
+          "price": 83665.7,
+          "long": 8,
+          "short": 9,
+          "price_pnl": -0.29357186696843396
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "10-01 00:33",
+          "price": 84118.2,
+          "long": 16,
+          "short": 2,
+          "price_pnl": -0.8360025317426745
+        }
+      ]
+    },
+    {
+      "entry": "10-01 00:33",
+      "exit": "10-01 04:17",
+      "side": "LONG",
+      "hours": 3.738803364170922,
+      "entry_time": "2026-09-30T15:33:22.278073+00:00",
+      "entry_price": 84126.0,
+      "exit_price": 83599.8,
+      "pnl_pct": -0.625490335924681,
+      "net": -4.270440299999979,
+      "fees": 0.5870403,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.38145163207568905,
+      "new_rule": true,
+      "entry_long": 16,
+      "entry_short": 2,
+      "exit_long": 0,
+      "exit_short": 15,
+      "entry_candle_open": 83624.5,
+      "entry_from_day_open_pct": 0.5903772219863823,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 1,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 6,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 1,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 5,
+          "short_score": 0,
+          "activity_score": 5,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 2,
+          "short_score": 0
+        }
+      },
+      "eligibility": {
+        "count": 4,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "trend_continuity",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 63.93742299079895,
+      "stop_distance_pct": 4.310052777975892,
+      "first_reverse_candidate": "10-01 04:17",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "09-30 23:32",
+          "price": 83656.6,
+          "long": 7,
+          "short": 9,
+          "price_pnl": -0.5579725649620726
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "10-01 00:18",
+          "price": 83847.6,
+          "long": 8,
+          "short": 9,
+          "price_pnl": -0.3309321731688075
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "10-01 00:33",
+          "price": 84118.2,
+          "long": 16,
+          "short": 2,
+          "price_pnl": -0.009271806575850139
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "10-01 00:47",
+          "price": 84151.5,
+          "long": 16,
+          "short": 2,
+          "price_pnl": 0.03031167534413015
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "10-01 01:33",
+          "price": 84256.8,
+          "long": 16,
+          "short": 2,
+          "price_pnl": 0.15548106411811258
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "10-01 04:17",
+          "price": 83599.8,
+          "long": 0,
+          "short": 15,
+          "price_pnl": -0.6254903359246833
+        }
+      ]
+    },
+    {
+      "entry": "10-01 04:17",
+      "exit": "10-02 01:35",
+      "side": "SHORT",
+      "hours": 21.300972841646935,
+      "entry_time": "2026-09-30T19:17:41.970184+00:00",
+      "entry_price": 83599.8,
+      "exit_price": 84574.6,
+      "pnl_pct": -1.1660314976830122,
+      "net": -7.412210400000021,
+      "fees": 0.5886104000000002,
+      "reason": "confirmed opposite reversal",
+      "peak": 0.5302644264699232,
+      "new_rule": true,
+      "entry_long": 0,
+      "entry_short": 15,
+      "exit_long": 14,
+      "exit_short": 3,
+      "entry_candle_open": 83624.5,
+      "entry_from_day_open_pct": -0.029536798426299526,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 5
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 5,
+          "activity_score": 5,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 2
+        }
+      },
+      "eligibility": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 67.59670186042786,
+      "stop_distance_pct": 4.327851262802063,
+      "first_reverse_candidate": "10-02 01:35",
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "10-01 03:16",
+          "price": 83979.7,
+          "long": 7,
+          "short": 5,
+          "price_pnl": -0.4544269244663113
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "10-01 04:02",
+          "price": 83840.5,
+          "long": 7,
+          "short": 4,
+          "price_pnl": -0.28791934908933836
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "10-01 04:17",
+          "price": 83599.8,
+          "long": 0,
+          "short": 15,
+          "price_pnl": -0.0
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "10-01 04:32",
+          "price": 83806.1,
+          "long": 7,
+          "short": 7,
+          "price_pnl": -0.246770925289308
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "10-01 05:17",
+          "price": 83574.4,
+          "long": 0,
+          "short": 13,
+          "price_pnl": 0.03038284780586542
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "10-02 01:35",
+          "price": 84574.6,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -1.1660314976830177
+        }
+      ]
+    },
+    {
+      "entry": "10-02 01:35",
+      "exit": "10-02 03:40",
+      "side": "LONG",
+      "hours": 2.080184147225486,
+      "entry_time": "2026-10-01T16:35:45.472414+00:00",
+      "entry_price": 84586.0,
+      "exit_price": 85015.3,
+      "pnl_pct": 0.5075307970586184,
+      "net": 2.4114954500000207,
+      "fees": 0.59360455,
+      "reason": "profit protection (70% of peak): peak 0.73% -> current 0.51%",
+      "peak": 0.7323907029532074,
+      "new_rule": true,
+      "entry_long": 14,
+      "entry_short": 3,
+      "exit_long": 16,
+      "exit_short": 3,
+      "entry_candle_open": 83576.8,
+      "entry_from_day_open_pct": 1.193871983612671,
+      "raw_atr": 2,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 3,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 2,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 2
+        },
+        "activity_direction": {
+          "long_score": 2,
+          "short_score": 0
+        }
+      },
+      "eligibility": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "max_gap_seconds": 64.01821804046631,
+      "stop_distance_pct": 4.326159175277233,
+      "first_reverse_candidate": null,
+      "trajectory": [
+        {
+          "label": "\uc9c4\uc785 1\uc2dc\uac04 \uc804",
+          "kst": "10-02 00:34",
+          "price": 83813.2,
+          "long": 8,
+          "short": 2,
+          "price_pnl": -0.9136263684297652
+        },
+        {
+          "label": "\uc9c4\uc785 15\ubd84 \uc804",
+          "kst": "10-02 01:20",
+          "price": 84296.2,
+          "long": 13,
+          "short": 3,
+          "price_pnl": -0.34260988816116056
+        },
+        {
+          "label": "\uc9c4\uc785",
+          "kst": "10-02 01:35",
+          "price": 84574.6,
+          "long": 14,
+          "short": 3,
+          "price_pnl": -0.013477407608819547
+        },
+        {
+          "label": "15\ubd84 \ud6c4",
+          "kst": "10-02 01:49",
+          "price": 84236.2,
+          "long": 12,
+          "short": 2,
+          "price_pnl": -0.4135436124181324
+        },
+        {
+          "label": "1\uc2dc\uac04 \ud6c4",
+          "kst": "10-02 02:35",
+          "price": 84797.2,
+          "long": 15,
+          "short": 3,
+          "price_pnl": 0.2496867093845223
+        },
+        {
+          "label": "\uccad\uc0b0",
+          "kst": "10-02 03:40",
+          "price": 85015.3,
+          "long": 16,
+          "short": 3,
+          "price_pnl": 0.5075307970586085
+        }
+      ]
+    }
+  ],
+  "reentries": [
+    {
+      "at": "09-24 18:30",
+      "minutes": 30.42662994861603,
+      "side": "SHORT",
+      "price_from_exit_pct": -0.5243668631697673,
+      "net": -10.985291099999959
+    },
+    {
+      "at": "09-25 16:51",
+      "minutes": 30.29439349969228,
+      "side": "SHORT",
+      "price_from_exit_pct": 0.014651805209608959,
+      "net": -9.30504224999998
+    },
+    {
+      "at": "09-25 23:24",
+      "minutes": 30.368436547120414,
+      "side": "SHORT",
+      "price_from_exit_pct": -0.26966458305751617,
+      "net": -9.55351145
+    },
+    {
+      "at": "09-28 11:42",
+      "minutes": 30.28550371726354,
+      "side": "SHORT",
+      "price_from_exit_pct": -0.29635825889522405,
+      "net": 2.4428705000000814
+    },
+    {
+      "at": "09-28 15:18",
+      "minutes": 35.365150980154674,
+      "side": "SHORT",
+      "price_from_exit_pct": 0.1845729762031123,
+      "net": 1.7850154000000003
+    },
+    {
+      "at": "09-28 18:44",
+      "minutes": 30.316551502545675,
+      "side": "SHORT",
+      "price_from_exit_pct": -0.2681434476896949,
+      "net": -15.0754877
+    },
+    {
+      "at": "09-30 22:31",
+      "minutes": 30.318704267342884,
+      "side": "LONG",
+      "price_from_exit_pct": 0.2816392130068346,
+      "net": -14.5314963500001
+    }
+  ],
+  "last_account": {
+    "start_balance": 450.0,
+    "realized_pnl": -122.33742529999948,
+    "unrealized_pnl": 0.0,
+    "equity": 327.6625747000005
+  },
+  "last_position": {
+    "status": "FLAT",
+    "side": null,
+    "entry": null,
+    "stop": null,
+    "unrealized_pnl_pct": 0.0
+  },
+  "sources": [
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_20260920_043441.db",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_1ea9a65d3cde.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_207f42c9e2bd.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_49a2193fdf25.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_72da6c6b9001.zip",
+    "C:\\Users\\chlgh\\AppData\\Local\\Temp\\delta (2).db",
+    "C:\\Users\\chlgh\\AppData\\Local\\Temp\\manifest (3).json",
+    "C:\\Users\\chlgh\\Downloads\\live_trade_log (13).jsonl"
+  ]
+}

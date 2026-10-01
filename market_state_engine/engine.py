@@ -4,6 +4,7 @@ from pathlib import Path
 
 from .config import MarketStateConfig
 from .entry_filter import entry_evidence
+from .liquidation_speed import calculate_liquidation_speed
 
 
 class MarketStateEngine:
@@ -217,6 +218,14 @@ class MarketStateEngine:
         return {"reasons": reasons}
 
     def calc_liquidation_score(self, liquidation_data=None, current_time=None):
+        if self.config.liquidation_scoring_mode == "speed_5m_v1":
+            now = self._parse_time(current_time) if current_time is not None else datetime.now(timezone.utc)
+            return calculate_liquidation_speed(liquidation_data, now, self.config)
+        if self.config.liquidation_scoring_mode != "rolling_hour_v1":
+            raise ValueError("Unknown liquidation_scoring_mode")
+        return self._calc_liquidation_hour_score(liquidation_data, current_time)
+
+    def _calc_liquidation_hour_score(self, liquidation_data=None, current_time=None):
         if not liquidation_data:
             return self._empty_liquidation_result("liquidation_score skipped: no data")
 

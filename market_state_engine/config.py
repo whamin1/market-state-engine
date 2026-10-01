@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+STRATEGY_VERSION = "market_state_engine_v2_liquidation_speed_5m"
 
 @dataclass(frozen=True)
 class MarketStateConfig:
@@ -22,6 +23,9 @@ class MarketStateConfig:
     range_position_max_score: int = 4
 
     # Liquidations give a directional score only when one side is clearly dominant.
+    liquidation_scoring_mode: str = "speed_5m_v1"
+    liquidation_speed_reference_hours: int = 24
+    liquidation_speed_min_reference_hours: int = 6
     liquidation_min_imbalance_ratio: float = 0.30
     liquidation_activity_bonus_min_score: int = 5
     liquidation_activity_bonus_min_imbalance_ratio: float = 0.60

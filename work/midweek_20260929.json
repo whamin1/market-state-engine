@@ -1,0 +1,284 @@
+{
+  "start_kst": "09-27 11:41",
+  "end_kst": "09-29 19:50",
+  "hours": 56.13704780273967,
+  "post_rows": 3332,
+  "entries": [
+    {
+      "timestamp": "2026-09-28T00:21:36.238348+00:00",
+      "t": 1790554896.238348,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "LONG",
+      "activity": 1,
+      "reversal": true,
+      "row_t": 1790554896.238348,
+      "bonus": 1,
+      "closed": true,
+      "price": 84927.6,
+      "hours": 0.9979323924912347,
+      "pnl": -1.0937213123243466,
+      "net": -7.09661505000002,
+      "exit_reason": "confirmed opposite reversal",
+      "close_time": "2026-09-28T01:21:28.794961+00:00",
+      "raw": 1
+    },
+    {
+      "timestamp": "2026-09-28T01:21:28.794961+00:00",
+      "t": 1790558488.794961,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "activity": 1,
+      "reversal": true,
+      "row_t": 1790558488.794961,
+      "bonus": 1,
+      "closed": true,
+      "price": 84037.5,
+      "hours": 0.8446196597152286,
+      "pnl": 0.4441097461448263,
+      "net": 2.0260159500000205,
+      "exit_reason": "profit protection (70% of peak): peak 0.66% -> current 0.44%",
+      "close_time": "2026-09-28T02:12:09.425736+00:00",
+      "raw": 1
+    },
+    {
+      "timestamp": "2026-09-28T02:42:26.555959+00:00",
+      "t": 1790563346.555959,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "activity": 1,
+      "reversal": false,
+      "row_t": 1790563346.555959,
+      "bonus": 1,
+      "closed": true,
+      "price": 83434.5,
+      "hours": 3.0116220466958152,
+      "pnl": 0.5180105136238582,
+      "net": 2.4428705000000814,
+      "exit_reason": "profit protection (70% of peak): peak 0.84% -> current 0.52%",
+      "close_time": "2026-09-28T05:43:08.395327+00:00",
+      "raw": 1
+    },
+    {
+      "timestamp": "2026-09-28T06:18:30.304386+00:00",
+      "t": 1790576310.304386,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "activity": 2,
+      "reversal": false,
+      "row_t": 1790576310.304386,
+      "bonus": 2,
+      "closed": true,
+      "price": 83155.6,
+      "hours": 2.9298312194479834,
+      "pnl": 0.40641217408869884,
+      "net": 1.7850154000000003,
+      "exit_reason": "profit protection (70% of peak): peak 0.67% -> current 0.41%",
+      "close_time": "2026-09-28T09:14:17.696776+00:00",
+      "raw": 2
+    },
+    {
+      "timestamp": "2026-09-28T09:44:36.689866+00:00",
+      "t": 1790588676.689866,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "activity": 2,
+      "reversal": false,
+      "row_t": 1790588676.689866,
+      "bonus": 2,
+      "closed": false,
+      "price": 82606.7,
+      "raw": 2
+    }
+  ],
+  "closed_new_net": -0.8427131999999178,
+  "closed_new_fees": 2.3421132,
+  "carry_net": -9.55351145,
+  "all_post_realized": -10.396224649999919,
+  "account_start": {
+    "start_balance": 450.0,
+    "realized_pnl": -70.1936122499995,
+    "unrealized_pnl": -5.5047999999999595,
+    "equity": 374.3015877500006
+  },
+  "account_end": {
+    "start_balance": 450.0,
+    "realized_pnl": -80.58983689999943,
+    "unrealized_pnl": -9.59069999999994,
+    "equity": 359.81946310000063
+  },
+  "position_end": {
+    "status": "OPEN",
+    "side": "SHORT",
+    "entry": 82606.1,
+    "entry_time": "2026-09-28T09:44:36.689866+00:00",
+    "stop": 86247.85357142857,
+    "unrealized_pnl_pct": -1.6585942200394295,
+    "unrealized_pnl_usdt": -9.59069999999994,
+    "amount": -0.007,
+    "add_count": 0,
+    "trailing_active": false
+  },
+  "eligibility_mismatches": 0,
+  "log_missing_orders": [],
+  "blocked_observations": 0,
+  "blocked_episodes": [],
+  "raw_post": {
+    "2": 2481,
+    "1": 803,
+    "0": 48
+  },
+  "oi": {
+    "rows": 4151,
+    "statuses": {
+      "ok": 4151
+    },
+    "first": "09-26 22:39",
+    "last": "09-29 19:49",
+    "expected_minutes": 4151,
+    "gaps": [],
+    "max_observation_age_sec": 11.033598899841309,
+    "min_oi": 92621.013,
+    "max_oi": 96414.275,
+    "latest_oi": 93392.04
+  },
+  "before_equal_window": [
+    {
+      "timestamp": "2026-09-25T07:51:19.344365+00:00",
+      "t": 1790322679.344365,
+      "group": "market_state_engine_v1:90ef0341",
+      "side": "SHORT",
+      "activity": 2,
+      "reversal": false,
+      "row_t": 1790322679.344365,
+      "bonus": 2,
+      "closed": true,
+      "price": 83961.0,
+      "hours": 3.406782544189029,
+      "pnl": -1.482325704363729,
+      "net": -9.30504224999998,
+      "exit_reason": "confirmed opposite reversal",
+      "close_time": "2026-09-25T11:15:43.761524+00:00",
+      "raw": 2
+    },
+    {
+      "timestamp": "2026-09-25T11:15:43.761524+00:00",
+      "t": 1790334943.761524,
+      "group": "market_state_engine_v1:90ef0341",
+      "side": "LONG",
+      "activity": 2,
+      "reversal": true,
+      "row_t": 1790334943.761524,
+      "bonus": 2,
+      "closed": true,
+      "price": 85214.1,
+      "hours": 1.1827210547526676,
+      "pnl": -1.0499895517587192,
+      "net": -6.853942200000061,
+      "exit_reason": "confirmed opposite reversal",
+      "close_time": "2026-09-25T12:26:41.557321+00:00",
+      "raw": 2
+    },
+    {
+      "timestamp": "2026-09-25T12:26:41.557321+00:00",
+      "t": 1790339201.557321,
+      "group": "market_state_engine_v1:90ef0341",
+      "side": "SHORT",
+      "activity": 2,
+      "reversal": true,
+      "row_t": 1790339201.557321,
+      "bonus": 2,
+      "closed": true,
+      "price": 84287.4,
+      "hours": 1.4496454838911692,
+      "pnl": 0.5282939179169144,
+      "net": 2.5286271500000206,
+      "exit_reason": "profit protection (70% of peak): peak 0.78% -> current 0.53%",
+      "close_time": "2026-09-25T13:53:40.281063+00:00",
+      "raw": 2
+    }
+  ],
+  "market_regimes": {
+    "before": {
+      "observations": 3331,
+      "price_start": 84332.1,
+      "price_end": 84433.5,
+      "price_change_pct": 0.12023891258488018,
+      "observed_range_pct": 2.3706275546322355,
+      "raw_atr_counts": {
+        "3": 322,
+        "2": 2585,
+        "1": 424
+      }
+    },
+    "after": {
+      "observations": 3332,
+      "price_start": 84433.5,
+      "price_end": 83976.2,
+      "price_change_pct": -0.5416096691479133,
+      "observed_range_pct": 2.9585413372654217,
+      "raw_atr_counts": {
+        "2": 2481,
+        "1": 803,
+        "0": 48
+      }
+    }
+  },
+  "raw_before_stats": [
+    {
+      "reversal": false,
+      "raw": 3,
+      "n": 6,
+      "mean_pnl": 0.4453287265502966,
+      "net": 12.640569850000169
+    },
+    {
+      "reversal": false,
+      "raw": 4,
+      "n": 10,
+      "mean_pnl": 0.18379092278521136,
+      "net": 4.9116397499998605
+    },
+    {
+      "reversal": false,
+      "raw": 5,
+      "n": 2,
+      "mean_pnl": 0.5880850148014118,
+      "net": 6.040456000000093
+    },
+    {
+      "reversal": false,
+      "raw": 6,
+      "n": 0,
+      "mean_pnl": null,
+      "net": 0
+    },
+    {
+      "reversal": true,
+      "raw": 3,
+      "n": 5,
+      "mean_pnl": -0.46894749970808774,
+      "net": -17.11917560000003
+    },
+    {
+      "reversal": true,
+      "raw": 4,
+      "n": 2,
+      "mean_pnl": 0.5206228687569056,
+      "net": 5.2675328
+    },
+    {
+      "reversal": true,
+      "raw": 5,
+      "n": 0,
+      "mean_pnl": null,
+      "net": 0
+    },
+    {
+      "reversal": true,
+      "raw": 6,
+      "n": 0,
+      "mean_pnl": null,
+      "net": 0
+    }
+  ]
+}

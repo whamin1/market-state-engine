@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 from pathlib import Path
 
 
@@ -6,8 +7,13 @@ def load_liquidation_data(data_dir, symbol=None):
     data_path = Path(data_dir)
 
     raw_events = []
+    raw_dates = []
     for csv_path in sorted(data_path.glob("liquidation_raw_*.csv")):
         raw_events.extend(_read_csv_rows(csv_path))
+        try:
+            raw_dates.append(datetime.strptime(csv_path.stem.removeprefix("liquidation_raw_"), "%Y_%m_%d").date())
+        except ValueError:
+            pass
 
     hourly_history = []
     for csv_path in sorted(data_path.glob("liquidation_1h_*.csv")):
@@ -17,6 +23,8 @@ def load_liquidation_data(data_dir, symbol=None):
         "symbol": symbol,
         "raw_events": raw_events,
         "hourly_history": hourly_history,
+        # File coverage is not a websocket heartbeat; the scorer records this limitation.
+        "raw_file_dates": [d.isoformat() for d in sorted(set(raw_dates))],
     }
 
 

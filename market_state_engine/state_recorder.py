@@ -2,6 +2,7 @@ import json
 import logging
 import sqlite3
 from pathlib import Path
+from market_state_engine.config import STRATEGY_VERSION
 
 
 LOGGER = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ class MarketStateRecorder:
         "strategy_config_json",
     )
 
-    def __init__(self, db_path="work/data/btc_market_state.db", strategy_version="market_state_engine_v1"):
+    def __init__(self, db_path="work/data/btc_market_state.db", strategy_version=STRATEGY_VERSION):
         self.db_path = Path(db_path)
         self.strategy_version = strategy_version
         self._initialized = False
