@@ -19,6 +19,13 @@ def _percentile(value, reference):
     return 100 * sum(x <= value for x in reference) / len(reference) if reference else None
 
 
+def _positive_rank(value, history, ready, minimum):
+    positive = [x for x in history if x > 0]
+    rank_ready = ready and len(positive) >= minimum
+    percentile = _percentile(value, positive) if rank_ready and value > 0 else None
+    return percentile, len(positive), rank_ready
+
+
 def _score(percentile, value):
     if percentile is None or value <= 0:
         return 0
@@ -62,7 +69,9 @@ class _Series:
         acceleration = speed - previous
         accel_z = (acceleration - change_mean) / change_sd if ready and change_sd and change_sd > 1e-9 else None
         a, b = bisect_left(self.times, now - seconds), bisect_left(self.times, now)
-        percentile = _percentile(speed, history) if ready else None
+        # Keep zeros in chronological statistics; exclude them only from magnitude ranking.
+        percentile, positive_count, rank_ready = _positive_rank(
+            speed, history, ready, config.liquidation_speed_min_positive_windows)
         indicators = {
             "amount_usd": amount, "speed_usd_per_min": speed,
             "previous_speed_usd_per_min": previous, "speed_change_usd_per_min": acceleration,
@@ -70,6 +79,7 @@ class _Series:
             "reference_mean_speed": mean, "reference_std_speed": sd,
             "reference_count": len(history), "reference_start": ends[0] - seconds if ends else None,
             "reference_end": ends[-1] if ends else None, "reference_ready": ready,
+            "positive_reference_count": positive_count, "rank_ready": rank_ready,
             "speed_percentile": percentile, "raw_score": _score(percentile, speed),
             "increasing": speed > previous, "above_mean": mean is not None and speed > mean,
             "event_count": b - a,
@@ -82,6 +92,9 @@ class _Series:
 def calculate_liquidation_speed(data, current_time, config):
     if not (0 < config.liquidation_speed_min_reference_hours <= config.liquidation_speed_reference_hours):
         raise ValueError("Liquidation reference hours must satisfy 0 < minimum <= reference")
+    minimum = config.liquidation_speed_min_positive_windows
+    if isinstance(minimum, bool) or not isinstance(minimum, int) or minimum < 1:
+        raise ValueError("Liquidation minimum positive windows must be a positive integer")
     now = math.floor(current_time.timestamp())
     data = data or {}
     symbol = data.get("symbol")
@@ -142,7 +155,9 @@ def calculate_liquidation_speed(data, current_time, config):
     ready = a["reference_ready"] and b["reference_ready"] and not missing_today and not invalid
     direction = "LONG" if imbalance > 0 else "SHORT" if imbalance < 0 else None
     total_reference = [x + y for x, y in zip(histories["LONG"], histories["SHORT"])]
-    activity = _score(_percentile(total / 5, total_reference), total) if ready else 0
+    activity_percentile, activity_positive_count, activity_rank_ready = _positive_rank(
+        total / 5, total_reference, ready, minimum)
+    activity = _score(activity_percentile, total)
     selected = windows["5"].get(direction, {})
     if not ready:
         gate = "missing_raw_file" if missing_today else "invalid_rows" if invalid else "insufficient_history"
@@ -154,6 +169,8 @@ def calculate_liquidation_speed(data, current_time, config):
         gate = "not_increasing"
     elif not selected["above_mean"]:
         gate = "not_above_mean"
+    elif not selected["rank_ready"]:
+        gate = "insufficient_positive_history"
     else:
         gate = "passed"
     score = selected["raw_score"] if gate == "passed" else 0
@@ -172,6 +189,11 @@ def calculate_liquidation_speed(data, current_time, config):
             pass
     indicators = {
         "scoring_mode": "speed_5m_v1", "window_minutes": 5,
+        "ranking_method": "positive_windows_v2",
+        "minimum_positive_windows": minimum,
+        "activity_speed_percentile": activity_percentile,
+        "activity_positive_reference_count": activity_positive_count,
+        "activity_rank_ready": activity_rank_ready,
         "windows": windows, "data_status": "ready" if ready else gate,
         "coverage_basis": coverage, "invalid_rows": invalid, "gate": gate,
         "direction": direction, "imbalance_ratio_5m": imbalance,
@@ -187,7 +209,7 @@ def calculate_liquidation_speed(data, current_time, config):
         "last_complete_minute_short_liq": series["LONG"].amount((now // 60 - 1) * 60, now // 60 * 60),
         "last_complete_minute_long_liq": series["SHORT"].amount((now // 60 - 1) * 60, now // 60 * 60),
     }
-    reason = (f"liquidation_score imbalance {direction} +{score} mode=speed_5m_v1 "
+    reason = (f"liquidation_score imbalance {direction} +{score} mode=speed_5m_v1 ranking=positive_windows_v2 "
               f"gate={gate} speed_5m={selected.get('speed_usd_per_min', 0):.2f} "
               f"previous_5m={selected.get('previous_speed_usd_per_min', 0):.2f} "
               f"imbalance_ratio_5m={imbalance:.2f}")

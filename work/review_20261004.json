@@ -1,0 +1,2023 @@
+{
+  "start": "10-02 06:44",
+  "end": "10-04 10:59",
+  "hours": 52.24734921832879,
+  "post_rows": 3096,
+  "log_summary": {
+    "closed": 15,
+    "wins": 8,
+    "losses": 7,
+    "net": -41.69756745000022,
+    "gross": -32.83910000000022,
+    "fees": 8.858467450000001,
+    "first": "09-28 09:21",
+    "last": "10-03 03:53"
+  },
+  "post_stats": {
+    "entries": 4,
+    "closed": 3,
+    "open": 1,
+    "wins": 3,
+    "losses": 0,
+    "net": 10.446245599999756,
+    "gross": 12.245799999999756,
+    "fees": 1.7995544,
+    "mean_hold_hours": 3.629250646101104
+  },
+  "post_by_kind": {
+    "normal": {
+      "entries": 4,
+      "closed": 3,
+      "open": 1,
+      "wins": 3,
+      "losses": 0,
+      "net": 10.446245599999756,
+      "gross": 12.245799999999756,
+      "fees": 1.7995544,
+      "mean_hold_hours": 3.629250646101104
+    },
+    "reversal": {
+      "entries": 0,
+      "closed": 0,
+      "open": 0,
+      "wins": 0,
+      "losses": 0,
+      "net": 0,
+      "gross": 0,
+      "fees": 0,
+      "mean_hold_hours": null
+    }
+  },
+  "pre_equal_closed_stats": {
+    "entries": 6,
+    "closed": 6,
+    "open": 0,
+    "wins": 2,
+    "losses": 4,
+    "net": -26.67210070000006,
+    "gross": -23.13080000000006,
+    "fees": 3.5413007000000003,
+    "mean_hold_hours": 4.9278348772724465
+  },
+  "carry_closes": [],
+  "post_trades": [
+    {
+      "entry": "10-02 12:55",
+      "entry_time": "2026-10-02T03:55:41.201107+00:00",
+      "t": 1790913341.201107,
+      "side": "LONG",
+      "kind": "normal",
+      "version": "market_state_engine_v2_liquidation_speed_5m",
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "closed": true,
+      "entry_price": 85500.6,
+      "long_score": 11,
+      "short_score": 3,
+      "atr_raw": 0,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 2,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 2,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 6,
+          "short_score": 0,
+          "activity_score": 6,
+          "long_activity_bonus": 1,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 0
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 0
+        }
+      },
+      "liquidation": {
+        "scoring_mode": "speed_5m_v1",
+        "window_minutes": 5,
+        "windows": {
+          "1": {
+            "LONG": {
+              "amount_usd": 200048.2356000021,
+              "speed_usd_per_min": 200048.2356000021,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 200048.2356000021,
+              "speed_z": 1.8364015434580476,
+              "speed_change_z": 1.532758166285256,
+              "reference_mean_speed": 10543.990293555587,
+              "reference_std_speed": 103193.25094314576,
+              "reference_count": 1440,
+              "reference_start": 1790826840,
+              "reference_end": 1790913240,
+              "reference_ready": true,
+              "speed_percentile": 99.02777777777777,
+              "raw_score": 6,
+              "increasing": true,
+              "above_mean": true,
+              "event_count": 4,
+              "active_minutes": 1,
+              "largest_event_share": 0.876411060933137
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.09890085862897574,
+              "speed_change_z": 0.0,
+              "reference_mean_speed": 2844.9058551875305,
+              "reference_std_speed": 28765.22908522087,
+              "reference_count": 1440,
+              "reference_start": 1790826840,
+              "reference_end": 1790913240,
+              "reference_ready": true,
+              "speed_percentile": 93.95833333333333,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          },
+          "5": {
+            "LONG": {
+              "amount_usd": 200048.2356000021,
+              "speed_usd_per_min": 40009.64712000042,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 40009.64712000042,
+              "speed_z": 0.5294297714998951,
+              "speed_change_z": 0.5417732604694685,
+              "reference_mean_speed": 10548.71790355559,
+              "reference_std_speed": 55646.52915717391,
+              "reference_count": 288,
+              "reference_start": 1790826600,
+              "reference_end": 1790913000,
+              "reference_ready": true,
+              "speed_percentile": 94.79166666666667,
+              "raw_score": 6,
+              "increasing": true,
+              "above_mean": true,
+              "event_count": 4,
+              "active_minutes": 1,
+              "largest_event_share": 0.876411060933137
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.17725306060826793,
+              "speed_change_z": -2.756889585693271e-18,
+              "reference_mean_speed": 2844.9058551875305,
+              "reference_std_speed": 16049.967461350738,
+              "reference_count": 288,
+              "reference_start": 1790826600,
+              "reference_end": 1790913000,
+              "reference_ready": true,
+              "speed_percentile": 79.86111111111111,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          },
+          "10": {
+            "LONG": {
+              "amount_usd": 200048.2356000021,
+              "speed_usd_per_min": 20004.82356000021,
+              "previous_speed_usd_per_min": 231.60464999973775,
+              "speed_change_usd_per_min": 19773.218910000473,
+              "speed_z": 0.23292694444690507,
+              "speed_change_z": 0.3735866353253411,
+              "reference_mean_speed": 10612.879233555585,
+              "reference_std_speed": 40321.41643701289,
+              "reference_count": 144,
+              "reference_start": 1790826000,
+              "reference_end": 1790912400,
+              "reference_ready": true,
+              "speed_percentile": 90.97222222222223,
+              "raw_score": 6,
+              "increasing": true,
+              "above_mean": true,
+              "event_count": 4,
+              "active_minutes": 1,
+              "largest_event_share": 0.876411060933137
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.19552127356985127,
+              "speed_change_z": -9.288285335062187e-19,
+              "reference_mean_speed": 2844.9058551875305,
+              "reference_std_speed": 14550.364792765986,
+              "reference_count": 144,
+              "reference_start": 1790826000,
+              "reference_end": 1790912400,
+              "reference_ready": true,
+              "speed_percentile": 69.44444444444444,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          }
+        },
+        "data_status": "ready",
+        "coverage_basis": "contiguous_files_assumed_not_heartbeat",
+        "invalid_rows": 0,
+        "gate": "passed",
+        "direction": "LONG",
+        "imbalance_ratio_5m": 1.0,
+        "short_liq_5m": 200048.2356000021,
+        "long_liq_5m": 0.0,
+        "total_liq_5m": 200048.2356000021,
+        "reference_hours_requested": 24,
+        "short_liq_1h": 3683585.2537399903,
+        "long_liq_1h": 0.0,
+        "total_liq_1h": 3683585.2537399903,
+        "net_liq_1h": 3683585.2537399903,
+        "imbalance_ratio": 1.0,
+        "reference_hours": 167,
+        "latest_event_time": 1790913338.0,
+        "last_complete_minute_start": 1790913240,
+        "last_complete_minute_short_liq": 0.0,
+        "last_complete_minute_long_liq": 0.0
+      },
+      "evidence": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "body",
+          "trend_continuity",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "volume_expected_delta15": 2.084833773501038,
+      "body_delta15": 172.29999999998836,
+      "exit": "10-02 13:36",
+      "exit_t": 1790915767.640181,
+      "pnl": 1.0009286484539153,
+      "net": 5.389100499999919,
+      "gross": 5.990599999999919,
+      "fees": 0.6014995000000001,
+      "reason": "profit protection (70% of peak): peak 1.50% -> current 1.00%",
+      "peak": 1.4997555572709294,
+      "hours": 0.6740108538998498,
+      "oi_changes": {
+        "15": 0.28028159640223205,
+        "60": 1.5946694678804496
+      }
+    },
+    {
+      "entry": "10-02 14:06",
+      "entry_time": "2026-10-02T05:06:30.228156+00:00",
+      "t": 1790917590.228156,
+      "side": "LONG",
+      "kind": "normal",
+      "version": "market_state_engine_v2_liquidation_speed_5m",
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "closed": true,
+      "entry_price": 86533.8,
+      "long_score": 14,
+      "short_score": 0,
+      "atr_raw": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 5,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 6,
+          "short_score": 0
+        },
+        "trend_continuity": {
+          "long_score": 5,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": -3,
+          "short_score": 0,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": -3,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 0,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 0,
+          "activity_score": 0,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 1,
+          "short_score": 0
+        }
+      },
+      "liquidation": {
+        "scoring_mode": "speed_5m_v1",
+        "window_minutes": 5,
+        "windows": {
+          "1": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.05070812315323604,
+              "speed_change_z": 1.2872241027744633e-06,
+              "reference_mean_speed": 38388.078850270795,
+              "reference_std_speed": 757040.02560428,
+              "reference_count": 1440,
+              "reference_start": 1790831100,
+              "reference_end": 1790917500,
+              "reference_ready": true,
+              "speed_percentile": 90.55555555555556,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.1050944420310984,
+              "speed_change_z": 0.0,
+              "reference_mean_speed": 3067.2794818541965,
+              "reference_std_speed": 29185.934313696253,
+              "reference_count": 1440,
+              "reference_start": 1790831100,
+              "reference_end": 1790917500,
+              "reference_ready": true,
+              "speed_percentile": 93.54166666666667,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          },
+          "5": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.10664861270692073,
+              "speed_change_z": 7.750803511701549e-18,
+              "reference_mean_speed": 38388.078850270795,
+              "reference_std_speed": 359949.1627309249,
+              "reference_count": 288,
+              "reference_start": 1790830800,
+              "reference_end": 1790917200,
+              "reference_ready": true,
+              "speed_percentile": 72.56944444444444,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.18947968091930883,
+              "speed_change_z": -2.726232427803027e-18,
+              "reference_mean_speed": 3067.2794818541965,
+              "reference_std_speed": 16187.907151693049,
+              "reference_count": 288,
+              "reference_start": 1790830800,
+              "reference_end": 1790917200,
+              "reference_ready": true,
+              "speed_percentile": 78.47222222222223,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          },
+          "10": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 16647.61538999677,
+              "speed_change_usd_per_min": -16647.61538999677,
+              "speed_z": -0.13069260628122503,
+              "speed_change_z": -0.03996112279096667,
+              "reference_mean_speed": 39274.77163096525,
+              "reference_std_speed": 300512.5748770638,
+              "reference_count": 144,
+              "reference_start": 1790830200,
+              "reference_end": 1790916600,
+              "reference_ready": true,
+              "speed_percentile": 56.94444444444444,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.20881670978173955,
+              "speed_change_z": -1.4366848995764456e-18,
+              "reference_mean_speed": 3067.2794818541965,
+              "reference_std_speed": 14688.860317070381,
+              "reference_count": 144,
+              "reference_start": 1790830200,
+              "reference_end": 1790916600,
+              "reference_ready": true,
+              "speed_percentile": 67.36111111111111,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          }
+        },
+        "data_status": "ready",
+        "coverage_basis": "contiguous_files_assumed_not_heartbeat",
+        "invalid_rows": 0,
+        "gate": "no_recent_events",
+        "direction": null,
+        "imbalance_ratio_5m": 0.0,
+        "short_liq_5m": 0.0,
+        "long_liq_5m": 0.0,
+        "total_liq_5m": 0.0,
+        "reference_hours_requested": 24,
+        "short_liq_1h": 41561755.72849991,
+        "long_liq_1h": 320218.0223999992,
+        "total_liq_1h": 41881973.75089991,
+        "net_liq_1h": 41241537.70609991,
+        "imbalance_ratio": 0.9847085514973792,
+        "reference_hours": 167,
+        "latest_event_time": 1790916816.0,
+        "last_complete_minute_start": 1790917500,
+        "last_complete_minute_short_liq": 0.0,
+        "last_complete_minute_long_liq": 0.0
+      },
+      "evidence": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "trend_continuity"
+        ],
+        "allowed": true
+      },
+      "volume_expected_delta15": -0.5520231281443744,
+      "body_delta15": -118.60000000000582,
+      "exit": "10-02 22:42",
+      "exit_t": 1790948578.598333,
+      "pnl": 0.3526945540355296,
+      "net": 1.5295951999999797,
+      "gross": 2.1363999999999796,
+      "fees": 0.6068048,
+      "reason": "profit protection (70% of peak): peak 0.62% -> current 0.35%",
+      "peak": 0.6239180528302168,
+      "hours": 8.607880604664485,
+      "oi_changes": {
+        "15": 0.30600032280718725,
+        "60": 1.4202696467312093
+      }
+    },
+    {
+      "entry": "10-03 02:16",
+      "entry_time": "2026-10-02T17:16:46.536929+00:00",
+      "t": 1790961406.536929,
+      "side": "SHORT",
+      "kind": "normal",
+      "version": "market_state_engine_v2_liquidation_speed_5m",
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "closed": true,
+      "entry_price": 84758.49999999999,
+      "long_score": 0,
+      "short_score": 17,
+      "atr_raw": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 6
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 3,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 3,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 6,
+          "activity_score": 6,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 1
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 1
+        }
+      },
+      "liquidation": {
+        "scoring_mode": "speed_5m_v1",
+        "window_minutes": 5,
+        "windows": {
+          "1": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.055802875032161074,
+              "speed_change_z": 1.757531785001558e-06,
+              "reference_mean_speed": 42830.171744340245,
+              "reference_std_speed": 767526.2559439057,
+              "reference_count": 1440,
+              "reference_start": 1790874900,
+              "reference_end": 1790961300,
+              "reference_ready": true,
+              "speed_percentile": 90.0,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 2955292.2969799936,
+              "speed_usd_per_min": 2955292.2969799936,
+              "previous_speed_usd_per_min": 132481.58336000144,
+              "speed_change_usd_per_min": 2822810.713619992,
+              "speed_z": 32.74837461753679,
+              "speed_change_z": 26.106663872376775,
+              "reference_mean_speed": 9389.983004909738,
+              "reference_std_speed": 89955.68019420268,
+              "reference_count": 1440,
+              "reference_start": 1790874900,
+              "reference_end": 1790961300,
+              "reference_ready": true,
+              "speed_percentile": 100.0,
+              "raw_score": 6,
+              "increasing": true,
+              "above_mean": true,
+              "event_count": 15,
+              "active_minutes": 1,
+              "largest_event_share": 0.5704383291367583
+            }
+          },
+          "5": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.11710228215747445,
+              "speed_change_z": 6.946611398641981e-18,
+              "reference_mean_speed": 42830.171744340245,
+              "reference_std_speed": 365750.1028608815,
+              "reference_count": 288,
+              "reference_start": 1790874600,
+              "reference_end": 1790961000,
+              "reference_ready": true,
+              "speed_percentile": 71.18055555555556,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 4610901.898839995,
+              "speed_usd_per_min": 922180.379767999,
+              "previous_speed_usd_per_min": 6250.425740000605,
+              "speed_change_usd_per_min": 915929.9540279985,
+              "speed_z": 22.40721227605551,
+              "speed_change_z": 20.279938368338215,
+              "reference_mean_speed": 8242.147726465291,
+              "reference_std_speed": 40787.68125110208,
+              "reference_count": 288,
+              "reference_start": 1790874600,
+              "reference_end": 1790961000,
+              "reference_ready": true,
+              "speed_percentile": 100.0,
+              "raw_score": 6,
+              "increasing": true,
+              "above_mean": true,
+              "event_count": 32,
+              "active_minutes": 3,
+              "largest_event_share": 0.36561437154499304
+            }
+          },
+          "10": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.14117774972585453,
+              "speed_change_z": 9.056281582460499e-05,
+              "reference_mean_speed": 42866.12311781247,
+              "reference_std_speed": 303632.28767317714,
+              "reference_count": 144,
+              "reference_start": 1790874000,
+              "reference_end": 1790960400,
+              "reference_ready": true,
+              "speed_percentile": 55.55555555555556,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 4642154.027539998,
+              "speed_usd_per_min": 464215.4027539998,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 464215.4027539998,
+              "speed_z": 14.048552236270403,
+              "speed_change_z": 11.661540816953638,
+              "reference_mean_speed": 8242.147726465291,
+              "reference_std_speed": 32456.956941819783,
+              "reference_count": 144,
+              "reference_start": 1790874000,
+              "reference_end": 1790960400,
+              "reference_ready": true,
+              "speed_percentile": 100.0,
+              "raw_score": 6,
+              "increasing": true,
+              "above_mean": true,
+              "event_count": 35,
+              "active_minutes": 4,
+              "largest_event_share": 0.36315296519649454
+            }
+          }
+        },
+        "data_status": "ready",
+        "coverage_basis": "contiguous_files_assumed_not_heartbeat",
+        "invalid_rows": 0,
+        "gate": "passed",
+        "direction": "SHORT",
+        "imbalance_ratio_5m": -1.0,
+        "short_liq_5m": 0.0,
+        "long_liq_5m": 4610901.898839995,
+        "total_liq_5m": 4610901.898839995,
+        "reference_hours_requested": 24,
+        "short_liq_1h": 1711.942000001669,
+        "long_liq_1h": 5292274.322539985,
+        "total_liq_1h": 5293986.264539987,
+        "net_liq_1h": -5290562.3805399835,
+        "imbalance_ratio": -0.999353250305363,
+        "reference_hours": 167,
+        "latest_event_time": 1790961370.0,
+        "last_complete_minute_start": 1790961300,
+        "last_complete_minute_short_liq": 0.0,
+        "last_complete_minute_long_liq": 2859866.963599995
+      },
+      "evidence": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "volume",
+          "range",
+          "liquidation"
+        ],
+        "allowed": true
+      },
+      "volume_expected_delta15": 1.4814761197003978,
+      "body_delta15": -279.6999999999971,
+      "exit": "10-03 03:53",
+      "exit_t": 1790967187.634656,
+      "pnl": 0.6942076605885896,
+      "net": 3.5275498999998574,
+      "gross": 4.118799999999857,
+      "fees": 0.5912501,
+      "reason": "profit protection (70% of peak): peak 1.02% -> current 0.69%",
+      "peak": 1.0201926650424238,
+      "hours": 1.6058604797389773,
+      "oi_changes": {
+        "15": -0.21548331277463362,
+        "60": -0.6937653563787949
+      }
+    },
+    {
+      "entry": "10-03 04:23",
+      "entry_time": "2026-10-02T19:23:35.399881+00:00",
+      "t": 1790969015.399881,
+      "side": "SHORT",
+      "kind": "normal",
+      "version": "market_state_engine_v2_liquidation_speed_5m",
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "closed": false,
+      "entry_price": 83994.0,
+      "long_score": 0,
+      "short_score": 11,
+      "atr_raw": 1,
+      "components": {
+        "price_position": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "body": {
+          "long_score": 0,
+          "short_score": 2
+        },
+        "volume": {
+          "long_score": 0,
+          "short_score": 6
+        },
+        "trend_continuity": {
+          "long_score": 0,
+          "short_score": 0
+        },
+        "range": {
+          "long_score": 0,
+          "short_score": 2,
+          "breakout_long_score": 0,
+          "breakdown_short_score": 0,
+          "edge_penalty_long_score": 0,
+          "edge_penalty_short_score": 0,
+          "position_long_score": 0,
+          "position_short_score": 2,
+          "block_trade": false
+        },
+        "liquidation": {
+          "long_score": 0,
+          "short_score": 0,
+          "activity_score": 0,
+          "long_activity_bonus": 0,
+          "short_activity_bonus": 0
+        },
+        "atr": {
+          "activity_score": 1
+        },
+        "activity_direction": {
+          "long_score": 0,
+          "short_score": 1
+        }
+      },
+      "liquidation": {
+        "scoring_mode": "speed_5m_v1",
+        "window_minutes": 5,
+        "windows": {
+          "1": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.05113602252025301,
+              "speed_change_z": 0.0,
+              "reference_mean_speed": 39121.377036805505,
+              "reference_std_speed": 765045.3654527204,
+              "reference_count": 1440,
+              "reference_start": 1790882520,
+              "reference_end": 1790968920,
+              "reference_ready": true,
+              "speed_percentile": 90.83333333333333,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.11493728652316425,
+              "speed_change_z": 5.644003661653739e-06,
+              "reference_mean_speed": 18196.188160895814,
+              "reference_std_speed": 158314.05726833988,
+              "reference_count": 1440,
+              "reference_start": 1790882520,
+              "reference_end": 1790968920,
+              "reference_ready": true,
+              "speed_percentile": 90.13888888888889,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          },
+          "5": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.10726280864359583,
+              "speed_change_z": 6.964822172835275e-18,
+              "reference_mean_speed": 39121.377036805505,
+              "reference_std_speed": 364724.5259705519,
+              "reference_count": 288,
+              "reference_start": 1790882100,
+              "reference_end": 1790968500,
+              "reference_ready": true,
+              "speed_percentile": 72.22222222222223,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 3144.8728599995375,
+              "speed_change_usd_per_min": -3144.8728599995375,
+              "speed_z": -0.22701733723659942,
+              "speed_change_z": -0.03706371975554021,
+              "reference_mean_speed": 18185.26846346526,
+              "reference_std_speed": 80105.1967432444,
+              "reference_count": 288,
+              "reference_start": 1790882100,
+              "reference_end": 1790968500,
+              "reference_ready": true,
+              "speed_percentile": 71.875,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            }
+          },
+          "10": {
+            "LONG": {
+              "amount_usd": 0.0,
+              "speed_usd_per_min": 0.0,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 0.0,
+              "speed_z": -0.12908207280768116,
+              "speed_change_z": 1.238921563381941e-18,
+              "reference_mean_speed": 39121.377036805505,
+              "reference_std_speed": 303073.6661247475,
+              "reference_count": 144,
+              "reference_start": 1790881800,
+              "reference_end": 1790968200,
+              "reference_ready": true,
+              "speed_percentile": 56.94444444444444,
+              "raw_score": 0,
+              "increasing": false,
+              "above_mean": false,
+              "event_count": 0,
+              "active_minutes": 0,
+              "largest_event_share": null
+            },
+            "SHORT": {
+              "amount_usd": 15724.364299997687,
+              "speed_usd_per_min": 1572.4364299997687,
+              "previous_speed_usd_per_min": 0.0,
+              "speed_change_usd_per_min": 1572.4364299997687,
+              "speed_z": -0.25719334125983623,
+              "speed_change_z": 0.020839626443206968,
+              "reference_mean_speed": 18185.26846346526,
+              "reference_std_speed": 64592.77659401745,
+              "reference_count": 144,
+              "reference_start": 1790881800,
+              "reference_end": 1790968200,
+              "reference_ready": true,
+              "speed_percentile": 72.91666666666667,
+              "raw_score": 5,
+              "increasing": true,
+              "above_mean": false,
+              "event_count": 3,
+              "active_minutes": 1,
+              "largest_event_share": 0.7179929366048623
+            }
+          }
+        },
+        "data_status": "ready",
+        "coverage_basis": "contiguous_files_assumed_not_heartbeat",
+        "invalid_rows": 0,
+        "gate": "no_recent_events",
+        "direction": null,
+        "imbalance_ratio_5m": 0.0,
+        "short_liq_5m": 0.0,
+        "long_liq_5m": 0.0,
+        "total_liq_5m": 0.0,
+        "reference_hours_requested": 24,
+        "short_liq_1h": 108802.38222000003,
+        "long_liq_1h": 6903443.92903997,
+        "total_liq_1h": 7012246.31125997,
+        "net_liq_1h": -6794641.54681997,
+        "imbalance_ratio": -0.9689678949111387,
+        "reference_hours": 167,
+        "latest_event_time": 1790968593.0,
+        "last_complete_minute_start": 1790968920,
+        "last_complete_minute_short_liq": 0.0,
+        "last_complete_minute_long_liq": 0.0
+      },
+      "evidence": {
+        "count": 3,
+        "minimum": 3,
+        "components": [
+          "body",
+          "volume",
+          "range"
+        ],
+        "allowed": true
+      },
+      "volume_expected_delta15": -0.5545545867155388,
+      "body_delta15": 121.0,
+      "oi_changes": {
+        "15": -0.028656905306068126,
+        "60": 0.037375526691052485
+      },
+      "order_reference_price": 84013.9
+    }
+  ],
+  "week_closed_stats": {
+    "entries": 14,
+    "closed": 14,
+    "open": 0,
+    "wins": 8,
+    "losses": 6,
+    "net": -32.14405600000022,
+    "gross": -23.875600000000222,
+    "fees": 8.268456,
+    "mean_hold_hours": 7.078504947338786
+  },
+  "account_start": {
+    "start_balance": 450.0,
+    "realized_pnl": -122.33742529999948,
+    "unrealized_pnl": 0.0,
+    "equity": 327.6625747000005
+  },
+  "account_end": {
+    "start_balance": 450.0,
+    "realized_pnl": -111.89117969999974,
+    "unrealized_pnl": -5.396299999999959,
+    "equity": 332.71252030000034
+  },
+  "position_end": {
+    "status": "OPEN",
+    "side": "SHORT",
+    "entry": 83994.0,
+    "entry_time": "2026-10-02T19:23:35.399881+00:00",
+    "stop": 87549.625,
+    "unrealized_pnl_pct": -0.9178036526418484,
+    "unrealized_pnl_usdt": -5.396299999999959,
+    "amount": -0.007,
+    "add_count": 0,
+    "trailing_active": false
+  },
+  "open_observation": {
+    "hours": 30.603446209496923,
+    "observed_best_price_pct": -0.023692168488209653,
+    "observed_worst_price_pct": -1.1915136795485504
+  },
+  "market_before": {
+    "rows": 3095,
+    "start": "09-30 02:30",
+    "end": "10-02 06:44",
+    "price_change_pct": 1.5740579283141543,
+    "observed_price_range_pct": 3.121418564238864,
+    "atr_raw_counts": {
+      "1": 1425,
+      "0": 2,
+      "2": 1668
+    }
+  },
+  "market_after": {
+    "rows": 3096,
+    "start": "10-02 06:44",
+    "end": "10-04 10:59",
+    "price_change_pct": 0.36040515980841903,
+    "observed_price_range_pct": 3.7649552157517348,
+    "atr_raw_counts": {
+      "2": 136,
+      "0": 256,
+      "1": 2704
+    }
+  },
+  "market_gaps_over_120s": [],
+  "eligibility_mismatch_count": 0,
+  "blocked_observations": 8,
+  "blocked_episodes": [
+    {
+      "t": 1790901547.522417,
+      "side": "SHORT",
+      "kind": "normal",
+      "score": 10,
+      "count": 2,
+      "price": 84661.9,
+      "last": 1790901789.338481,
+      "observations": 5,
+      "return_15": -0.0940210413421072,
+      "return_60": 0.11079363916943752,
+      "return_240": -2.080156481250728
+    },
+    {
+      "t": 1790904211.660558,
+      "side": "SHORT",
+      "kind": "normal",
+      "score": 10,
+      "count": 2,
+      "price": 84543.9,
+      "last": 1790904273.396049,
+      "observations": 2,
+      "return_15": -0.04293627334437389,
+      "return_60": -0.37944783715915253,
+      "return_240": -2.2212128846670343
+    },
+    {
+      "t": 1790961772.442721,
+      "side": "LONG",
+      "kind": "reversal",
+      "score": 14,
+      "count": 2,
+      "price": 84925.0,
+      "last": 1790961772.442721,
+      "observations": 1,
+      "return_15": -0.31192228436854874,
+      "return_60": -0.44874889608478297,
+      "return_240": -0.5582572858404578
+    }
+  ],
+  "liquidation_gates": {
+    "not_increasing": 180,
+    "not_above_mean": 482,
+    "no_recent_events": 2101,
+    "passed": 314,
+    "balanced": 12,
+    "missing_raw_file": 7
+  },
+  "liquidation_data_status": {
+    "ready": 3089,
+    "missing_raw_file": 7
+  },
+  "missing_speed_rows": 0,
+  "non_ready_records": [
+    {
+      "time": "10-03 00:00",
+      "status": "missing_raw_file"
+    },
+    {
+      "time": "10-03 00:01",
+      "status": "missing_raw_file"
+    },
+    {
+      "time": "10-03 00:02",
+      "status": "missing_raw_file"
+    },
+    {
+      "time": "10-03 00:03",
+      "status": "missing_raw_file"
+    },
+    {
+      "time": "10-03 00:04",
+      "status": "missing_raw_file"
+    },
+    {
+      "time": "10-03 00:05",
+      "status": "missing_raw_file"
+    },
+    {
+      "time": "10-04 00:00",
+      "status": "missing_raw_file"
+    }
+  ],
+  "liquidation_score_counts_both_sides": {
+    "0": 5878,
+    "6": 314
+  },
+  "liquidation_score_logic_mismatches": 0,
+  "positive_liquidation_observations": {
+    "SHORT": 208,
+    "LONG": 106
+  },
+  "one_event_positive_observations": {
+    "SHORT": 43,
+    "LONG": 16
+  },
+  "atr_post_counts": {
+    "2": 136,
+    "0": 256,
+    "1": 2704
+  },
+  "atr_groups": {
+    "market_state_engine_v1:824135c3": {
+      "0": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "1": {
+        "normal": {
+          "entries": 1,
+          "closed": 1,
+          "open": 0,
+          "wins": 1,
+          "losses": 0,
+          "net": 2.4428705000000814,
+          "gross": 3.0254000000000816,
+          "fees": 0.5825295,
+          "mean_hold_hours": 3.0116220466958152
+        },
+        "reversal": {
+          "entries": 3,
+          "closed": 3,
+          "open": 0,
+          "wins": 2,
+          "losses": 1,
+          "net": -2.47186170000002,
+          "gross": -0.6986000000000199,
+          "fees": 1.7732617,
+          "mean_hold_hours": 0.7546506160276907
+        }
+      },
+      "2": {
+        "normal": {
+          "entries": 3,
+          "closed": 3,
+          "open": 0,
+          "wins": 1,
+          "losses": 2,
+          "net": -27.8219686500001,
+          "gross": -26.064500000000102,
+          "fees": 1.7574686500000003,
+          "mean_hold_hours": 18.273455102664453
+        },
+        "reversal": {
+          "entries": 4,
+          "closed": 4,
+          "open": 0,
+          "wins": 1,
+          "losses": 3,
+          "net": -14.739341749999937,
+          "gross": -12.383699999999939,
+          "fees": 2.35564175,
+          "mean_hold_hours": 7.028844530416859
+        }
+      },
+      "3": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "4": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "5": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "6": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      }
+    },
+    "market_state_engine_v2_liquidation_speed_5m:4fa1214d": {
+      "0": {
+        "normal": {
+          "entries": 1,
+          "closed": 1,
+          "open": 0,
+          "wins": 1,
+          "losses": 0,
+          "net": 5.389100499999919,
+          "gross": 5.990599999999919,
+          "fees": 0.6014995000000001,
+          "mean_hold_hours": 0.6740108538998498
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "1": {
+        "normal": {
+          "entries": 3,
+          "closed": 2,
+          "open": 1,
+          "wins": 2,
+          "losses": 0,
+          "net": 5.057145099999837,
+          "gross": 6.255199999999837,
+          "fees": 1.1980549,
+          "mean_hold_hours": 5.106870542201731
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "2": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "3": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "4": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "5": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      },
+      "6": {
+        "normal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        },
+        "reversal": {
+          "entries": 0,
+          "closed": 0,
+          "open": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0,
+          "gross": 0,
+          "fees": 0,
+          "mean_hold_hours": null
+        }
+      }
+    }
+  },
+  "oi": {
+    "rows": 3134,
+    "first": "10-02 06:45",
+    "last": "10-04 10:58",
+    "expected": 3134,
+    "statuses": {
+      "ok": 3134
+    },
+    "missing_minutes": 0,
+    "max_age_sec": 11.641860961914062,
+    "last_age_at_export_sec": 57.67123508453369
+  },
+  "prediction": {
+    "count": 52,
+    "first": "2026-10-01T22:00:01.831783+00:00",
+    "last": "2026-10-04T01:00:01.919503+00:00",
+    "distinct_hours": 52,
+    "sent_count": 8,
+    "evaluation": {
+      "input_count": 52,
+      "excluded": {
+        "no_evaluable_side": 21,
+        "missing_actual": 2,
+        "pending": 3
+      },
+      "all": {
+        "sample_count": 26,
+        "forecast_ids": [
+          541,
+          542,
+          546,
+          551,
+          552,
+          553,
+          554,
+          555,
+          556,
+          557,
+          558,
+          559,
+          560,
+          561,
+          562,
+          563,
+          564,
+          565,
+          566,
+          567,
+          568,
+          569,
+          570,
+          571,
+          572,
+          573
+        ],
+        "sides": {
+          "LONG": {
+            "count": 26,
+            "forecast_mae": 3.3461538461538463,
+            "persistence_mae": 1.4615384615384615,
+            "improvement_pct": -128.94736842105266,
+            "large_changes": {
+              "7": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 26,
+                  "true_positive": 0,
+                  "predicted_count": 6,
+                  "actual_count": 1,
+                  "precision": 0.0,
+                  "recall": 0.0
+                },
+                "down": {
+                  "count": 26,
+                  "true_positive": 2,
+                  "predicted_count": 2,
+                  "actual_count": 2,
+                  "precision": 1.0,
+                  "recall": 1.0
+                },
+                "any_change": {
+                  "count": 26,
+                  "true_positive": 2,
+                  "predicted_count": 8,
+                  "actual_count": 3,
+                  "precision": 0.25,
+                  "recall": 0.6666666666666666
+                }
+              },
+              "10": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 26,
+                  "true_positive": 0,
+                  "predicted_count": 6,
+                  "actual_count": 0,
+                  "precision": 0.0,
+                  "recall": null
+                },
+                "down": {
+                  "count": 26,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 0,
+                  "precision": null,
+                  "recall": null
+                },
+                "any_change": {
+                  "count": 26,
+                  "true_positive": 0,
+                  "predicted_count": 6,
+                  "actual_count": 0,
+                  "precision": 0.0,
+                  "recall": null
+                }
+              }
+            }
+          },
+          "SHORT": {
+            "count": 23,
+            "forecast_mae": 1.173913043478261,
+            "persistence_mae": 1.0869565217391304,
+            "improvement_pct": -8.000000000000016,
+            "large_changes": {
+              "7": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 23,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                },
+                "down": {
+                  "count": 23,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 0,
+                  "precision": null,
+                  "recall": null
+                },
+                "any_change": {
+                  "count": 23,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                }
+              },
+              "10": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 23,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                },
+                "down": {
+                  "count": 23,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 0,
+                  "precision": null,
+                  "recall": null
+                },
+                "any_change": {
+                  "count": 23,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                }
+              }
+            }
+          }
+        }
+      },
+      "non_overlapping": {
+        "sample_count": 7,
+        "forecast_ids": [
+          541,
+          546,
+          551,
+          556,
+          561,
+          565,
+          570
+        ],
+        "sides": {
+          "LONG": {
+            "count": 7,
+            "forecast_mae": 2.2857142857142856,
+            "persistence_mae": 2.0,
+            "improvement_pct": -14.28571428571428,
+            "large_changes": {
+              "7": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 7,
+                  "true_positive": 0,
+                  "predicted_count": 1,
+                  "actual_count": 0,
+                  "precision": 0.0,
+                  "recall": null
+                },
+                "down": {
+                  "count": 7,
+                  "true_positive": 1,
+                  "predicted_count": 1,
+                  "actual_count": 1,
+                  "precision": 1.0,
+                  "recall": 1.0
+                },
+                "any_change": {
+                  "count": 7,
+                  "true_positive": 1,
+                  "predicted_count": 2,
+                  "actual_count": 1,
+                  "precision": 0.5,
+                  "recall": 1.0
+                }
+              },
+              "10": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 7,
+                  "true_positive": 0,
+                  "predicted_count": 1,
+                  "actual_count": 0,
+                  "precision": 0.0,
+                  "recall": null
+                },
+                "down": {
+                  "count": 7,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 0,
+                  "precision": null,
+                  "recall": null
+                },
+                "any_change": {
+                  "count": 7,
+                  "true_positive": 0,
+                  "predicted_count": 1,
+                  "actual_count": 0,
+                  "precision": 0.0,
+                  "recall": null
+                }
+              }
+            }
+          },
+          "SHORT": {
+            "count": 6,
+            "forecast_mae": 2.3333333333333335,
+            "persistence_mae": 2.8333333333333335,
+            "improvement_pct": 17.64705882352941,
+            "large_changes": {
+              "7": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 6,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                },
+                "down": {
+                  "count": 6,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 0,
+                  "precision": null,
+                  "recall": null
+                },
+                "any_change": {
+                  "count": 6,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                }
+              },
+              "10": {
+                "probability_missing_count": 0,
+                "up": {
+                  "count": 6,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                },
+                "down": {
+                  "count": 6,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 0,
+                  "precision": null,
+                  "recall": null
+                },
+                "any_change": {
+                  "count": 6,
+                  "true_positive": 0,
+                  "predicted_count": 0,
+                  "actual_count": 1,
+                  "precision": null,
+                  "recall": 0.0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "latest": {
+      "forecast_version": "per_side_changes_v2",
+      "selection": {
+        "score_tolerance": 1,
+        "min_case_count": 30,
+        "outcomes_known_by_source": true,
+        "side_start_bands": [
+          "0_9",
+          "10_plus"
+        ]
+      },
+      "source_timestamp": "2026-10-04T00:59:02.573130+00:00",
+      "symbol": "BTCUSDT",
+      "price": 84744.1,
+      "long_score": 1,
+      "short_score": 1,
+      "atr_activity_score": 1,
+      "core_score_diff": -1,
+      "strategy_version": "market_state_engine_v2_liquidation_speed_5m",
+      "horizons": {
+        "15m": {
+          "case_count": 516,
+          "ready": true,
+          "long_strengthen_pct": 0.9689922480620154,
+          "short_strengthen_pct": 0.9689922480620154,
+          "stable_pct": 98.06201550387597,
+          "entry_condition_pct": 0.0,
+          "score_changes": {
+            "LONG": {
+              "start_score": 1,
+              "start_band": "0_9",
+              "case_count": 516,
+              "ready": true,
+              "expected_score": 1.065891472868217,
+              "median_score": 1.0,
+              "score_p10": 1.0,
+              "score_p90": 1.0,
+              "median_change": 0.0,
+              "up_7_pct": 0.9689922480620154,
+              "down_7_pct": 0.0,
+              "stable_7_pct": 99.03100775193798,
+              "up_10_pct": 0.0,
+              "down_10_pct": 0.0,
+              "stable_10_pct": 100.0
+            },
+            "SHORT": {
+              "start_score": 1,
+              "start_band": "0_9",
+              "case_count": 516,
+              "ready": true,
+              "expected_score": 1.2810077519379846,
+              "median_score": 1.0,
+              "score_p10": 1.0,
+              "score_p90": 2.0,
+              "median_change": 0.0,
+              "up_7_pct": 0.9689922480620154,
+              "down_7_pct": 0.0,
+              "stable_7_pct": 99.03100775193798,
+              "up_10_pct": 0.0,
+              "down_10_pct": 0.0,
+              "stable_10_pct": 100.0
+            }
+          }
+        },
+        "1h": {
+          "case_count": 490,
+          "ready": true,
+          "long_strengthen_pct": 0.6122448979591837,
+          "short_strengthen_pct": 0.0,
+          "stable_pct": 99.38775510204081,
+          "entry_condition_pct": 0.0,
+          "score_changes": {
+            "LONG": {
+              "start_score": 1,
+              "start_band": "0_9",
+              "case_count": 490,
+              "ready": true,
+              "expected_score": 1.0448979591836736,
+              "median_score": 1.0,
+              "score_p10": 1.0,
+              "score_p90": 1.0,
+              "median_change": 0.0,
+              "up_7_pct": 0.6122448979591837,
+              "down_7_pct": 0.0,
+              "stable_7_pct": 99.38775510204081,
+              "up_10_pct": 0.0,
+              "down_10_pct": 0.0,
+              "stable_10_pct": 100.0
+            },
+            "SHORT": {
+              "start_score": 1,
+              "start_band": "0_9",
+              "case_count": 490,
+              "ready": true,
+              "expected_score": 1.3571428571428572,
+              "median_score": 1.0,
+              "score_p10": 1.0,
+              "score_p90": 2.0,
+              "median_change": 0.0,
+              "up_7_pct": 0.0,
+              "down_7_pct": 0.0,
+              "stable_7_pct": 100.0,
+              "up_10_pct": 0.0,
+              "down_10_pct": 0.0,
+              "stable_10_pct": 100.0
+            }
+          }
+        },
+        "4h": {
+          "case_count": 488,
+          "ready": true,
+          "long_strengthen_pct": 2.459016393442623,
+          "short_strengthen_pct": 1.639344262295082,
+          "stable_pct": 95.90163934426229,
+          "entry_condition_pct": 1.639344262295082,
+          "score_changes": {
+            "LONG": {
+              "start_score": 1,
+              "start_band": "0_9",
+              "case_count": 488,
+              "ready": true,
+              "expected_score": 1.1741803278688525,
+              "median_score": 1.0,
+              "score_p10": 1.0,
+              "score_p90": 1.0,
+              "median_change": 0.0,
+              "up_7_pct": 2.459016393442623,
+              "down_7_pct": 0.0,
+              "stable_7_pct": 97.54098360655738,
+              "up_10_pct": 0.0,
+              "down_10_pct": 0.0,
+              "stable_10_pct": 100.0
+            },
+            "SHORT": {
+              "start_score": 1,
+              "start_band": "0_9",
+              "case_count": 488,
+              "ready": true,
+              "expected_score": 1.6413934426229508,
+              "median_score": 2.0,
+              "score_p10": 1.0,
+              "score_p90": 2.0,
+              "median_change": 1.0,
+              "up_7_pct": 1.639344262295082,
+              "down_7_pct": 0.0,
+              "stable_7_pct": 98.36065573770492,
+              "up_10_pct": 0.0,
+              "down_10_pct": 0.0,
+              "stable_10_pct": 100.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "db_orders_missing_in_log": [],
+  "sha256_valid": true,
+  "source_manifest": {
+    "format_version": 1,
+    "export_id": "ef7b17be17f84495be5976bc2cd72534",
+    "created_at": "2026-10-04T02:00:01.362488+00:00",
+    "since": "2026-10-01T20:31:10.976255+00:00",
+    "overlap_from": "2026-09-30T20:31:10.976255+00:00",
+    "until": "2026-10-04T01:59:47.806235+00:00",
+    "rows": {
+      "market_state": 4591,
+      "market_state_labels": 59276,
+      "prediction_forecast": 578,
+      "prediction_digest": 89,
+      "oi_snapshots": 4647
+    },
+    "delta_sha256": "481f973f29d3863e18ece1c1d82b44d1adf9389a40b8ce8161cc7748bbb96ad8",
+    "previous_export_id": "72da6c6b90014c888b4b8a45184bb1d1"
+  }
+}

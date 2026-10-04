@@ -4,13 +4,14 @@ from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 import sqlite3
+import statistics
 import tempfile
 import unittest
 
 from market_state_engine.config import MarketStateConfig, STRATEGY_VERSION
 from market_state_engine.engine import MarketStateEngine
 from market_state_engine.liquidation_loader import load_liquidation_data
-from market_state_engine.liquidation_speed import _score, _Series, calculate_liquidation_speed
+from market_state_engine.liquidation_speed import _score, _Series, _positive_rank, calculate_liquidation_speed
 from market_state_engine.state_recorder import MarketStateRecorder
 
 
@@ -92,10 +93,72 @@ class LiquidationSpeedTests(unittest.TestCase):
         after=self.calc(self.data(current=1e8))['indicators']['windows']['5']['LONG']
         self.assertEqual(before['reference_mean_speed'],after['reference_mean_speed'])
         self.assertEqual(before['reference_std_speed'],after['reference_std_speed'])
+        self.assertEqual(before['positive_reference_count'],after['positive_reference_count'])
 
     def test_percentile_bands_and_zero(self):
         self.assertEqual([_score(x,1) for x in (29,30,40,50,60,70,80,100)],[0,1,2,3,4,5,6,6])
         self.assertEqual(_score(100,0),0)
+
+    def test_positive_ranking_excludes_only_zero_amounts(self):
+        p, count, ready = _positive_rank(150, [0]*90 + [100,200,500], True, 3)
+        self.assertAlmostEqual(p, 100/3)
+        self.assertEqual(_score(p,150),1)
+        self.assertEqual(count,3)
+        self.assertTrue(ready)
+        # Small positive amounts remain in the reference, even if their score is zero.
+        self.assertEqual(_positive_rank(0.1,[0,0.1,1,10,100],True,4)[0],25)
+        self.assertEqual(_positive_rank(0,[1,2,3],True,3),(None,3,True))
+
+    def test_positive_sample_minimum_and_ties(self):
+        for history, coverage in (([0]*100,True),([1]*19,True),([1]*20,False)):
+            p, _, ready = _positive_rank(10,history,coverage,20)
+            self.assertIsNone(p)
+            self.assertFalse(ready)
+        self.assertEqual(_positive_rank(1,[1]*20,True,20),(100,20,True))
+
+    def sparse_data(self, side="BUY", count=30):
+        return {'symbol':'BTCUSDT','raw_events':
+                [self.event(1500,1,side)] +
+                [self.event(11+5*i,(i+1)*100,side) for i in range(count)] +
+                [self.event(2,1150,side)]}
+
+    def test_sparse_long_and_short_no_longer_receive_automatic_six(self):
+        for side, key, direction in (("BUY","long_score","LONG"),("SELL","short_score","SHORT")):
+            result=self.calc(self.sparse_data(side))
+            self.assertEqual(result['indicators']['gate'],'passed')
+            self.assertEqual(result[key],1)
+            self.assertEqual(result['activity_score'],1)
+            self.assertEqual(result['long_activity_bonus']+result['short_activity_bonus'],0)
+            f=result['indicators']['windows']['5'][direction]
+            self.assertEqual(f['positive_reference_count'],30)
+            self.assertEqual(f['reference_count'],288)
+            self.assertAlmostEqual(f['speed_percentile'],100*11/30)
+
+    def test_insufficient_positive_history_with_enough_clock_time(self):
+        result=self.calc(self.sparse_data(count=19))
+        self.assertEqual(result['indicators']['gate'],'insufficient_positive_history')
+        self.assertEqual(result['long_score'],0)
+        self.assertEqual(result['activity_score'],0)
+        self.assertTrue(result['indicators']['windows']['5']['LONG']['reference_ready'])
+        self.assertFalse(result['indicators']['windows']['5']['LONG']['rank_ready'])
+
+    def test_zero_bins_preserved_in_mean_std_and_acceleration(self):
+        rows=[(datetime.fromisoformat(r['timestamp']).timestamp(),r['usd_size'])
+              for r in self.sparse_data()['raw_events']]
+        f,history=_Series(rows).window(self.now.timestamp(),5,min(t for t,_ in rows),self.config)
+        self.assertEqual(len(history),288)
+        self.assertEqual(history.count(0),258)
+        self.assertAlmostEqual(f['reference_mean_speed'],statistics.mean(history))
+        self.assertAlmostEqual(f['reference_std_speed'],statistics.stdev(history))
+        changes=[b-a for a,b in zip(history,history[1:])]
+        self.assertAlmostEqual(f['speed_change_z'],
+                              (f['speed_change_usd_per_min']-statistics.mean(changes))/statistics.stdev(changes))
+
+    def test_invalid_positive_minimum(self):
+        for minimum in (0,-1,2.5,True):
+            with self.assertRaises(ValueError):
+                calculate_liquidation_speed(self.data(),self.now,
+                    replace(self.config,liquidation_speed_min_positive_windows=minimum))
 
     def test_invalid_events_disable_direction_without_crash(self):
         for bad in ({'symbol':'BTCUSDT','timestamp':'bad'},self.event(1,'nan'),self.event(1,-1)):
@@ -172,6 +235,7 @@ class LiquidationSpeedTests(unittest.TestCase):
             self.assertEqual(version,STRATEGY_VERSION)
             self.assertNotEqual(version,'market_state_engine_v1')
             self.assertEqual(json.loads(raw)['liquidation'],liquidation['indicators'])
+            self.assertEqual(json.loads(raw)['liquidation']['ranking_method'],'positive_windows_v2')
             self.assertEqual(hour,liquidation['indicators']['short_liq_1h'])
 
 

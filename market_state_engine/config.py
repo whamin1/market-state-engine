@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-STRATEGY_VERSION = "market_state_engine_v2_liquidation_speed_5m"
+STRATEGY_VERSION = "market_state_engine_v3_liquidation_positive_rank"
 
 @dataclass(frozen=True)
 class MarketStateConfig:
@@ -26,6 +26,7 @@ class MarketStateConfig:
     liquidation_scoring_mode: str = "speed_5m_v1"
     liquidation_speed_reference_hours: int = 24
     liquidation_speed_min_reference_hours: int = 6
+    liquidation_speed_min_positive_windows: int = 20
     liquidation_min_imbalance_ratio: float = 0.30
     liquidation_activity_bonus_min_score: int = 5
     liquidation_activity_bonus_min_imbalance_ratio: float = 0.60
