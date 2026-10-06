@@ -280,7 +280,8 @@ class MarketStateEngine:
         current_net_liq = current_short_liq - current_long_liq
         imbalance_ratio = current_net_liq / current_total_liq if current_total_liq > 0 else 0.0
         liquidation_activity_score = self._percentile_to_score(current_total_liq, reference_total_liqs)
-        net_liq_score = self._percentile_to_score(abs(current_net_liq), reference_net_liqs)
+        raw_net_liq_score = self._percentile_to_score(abs(current_net_liq), reference_net_liqs)
+        net_liq_score = min(raw_net_liq_score, self.config.liquidation_max_score)
         reference_hours = len(reference_total_liqs)
 
         if current_total_liq <= 0:
@@ -340,14 +341,16 @@ class MarketStateEngine:
             "activity_score": liquidation_activity_score,
             "long_activity_bonus": activity_bonus if direction == "LONG" else 0,
             "short_activity_bonus": activity_bonus if direction == "SHORT" else 0,
-            "indicators": self._liquidation_indicators(
+            "indicators": {"raw_score": raw_net_liq_score,
+                           "score_cap": self.config.liquidation_max_score,
+                           **self._liquidation_indicators(
                 current_short_liq,
                 current_long_liq,
                 current_total_liq,
                 current_net_liq,
                 imbalance_ratio,
                 reference_hours,
-            ),
+            )},
             "reasons": reasons,
         }
 
@@ -893,9 +896,13 @@ class MarketStateEngine:
 
         current_body = abs(current_candle["close"] - current_candle["open"])
         reference_bodies = [abs(candle["close"] - candle["open"]) for candle in reference_candles]
-        score = self._percentile_to_score(current_body, reference_bodies)
+        lower_or_equal_count = sum(value <= current_body for value in reference_bodies)
+        # Integer deciles keep exact band boundaries and cap the 100th percentile at 9.
+        score = min(9, lower_or_equal_count * 10 // len(reference_bodies))
         indicators = {
             "body": current_body,
+            "percentile": lower_or_equal_count / len(reference_bodies) * 100,
+            "scoring_method": "deciles_0_to_9",
             "direction": self._candle_direction(current_candle),
             "reference_count": len(reference_bodies),
         }

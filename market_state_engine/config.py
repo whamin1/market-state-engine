@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-STRATEGY_VERSION = "market_state_engine_v3_liquidation_positive_rank"
+STRATEGY_VERSION = "market_state_engine_v4_body_deciles_liquidation_cap"
 
 @dataclass(frozen=True)
 class MarketStateConfig:
@@ -30,7 +30,8 @@ class MarketStateConfig:
     liquidation_min_imbalance_ratio: float = 0.30
     liquidation_activity_bonus_min_score: int = 5
     liquidation_activity_bonus_min_imbalance_ratio: float = 0.60
-    liquidation_activity_bonus_score: int = 1
+    liquidation_activity_bonus_score: int = 0
+    liquidation_max_score: int = 3
 
     atr_period: int = 14
     atr_max_score: int = 3

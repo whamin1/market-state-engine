@@ -1,0 +1,2158 @@
+{
+  "sources": [
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log.jsonl",
+      "sha256": "c572015f9ffd68e1ef9084131e73073d83db23e3e99310a1575b779ed6d7b191"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (1).jsonl",
+      "sha256": "5a0d2754bcf89237de04ffb7aa1be1231457946a12d65a25b49d4c5b0c6661b4"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (2).jsonl",
+      "sha256": "a0cde7a31e5b3920aa9dfe6c56b848779cf6e1cb59fdaef42d43702dc6f5c06f"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (3).jsonl",
+      "sha256": "6735c4d768da1295b317081ac61b0a1bda1065001fd508f16419dd88548085fa"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (4).jsonl",
+      "sha256": "d4b2e74decfc4a4d5754397e2387b29e0348f80336d61b72f2769078640c0985"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (5).jsonl",
+      "sha256": "4d8529d399aabdc65361c9123905599e11acfb70fee0e4f594ca90e492891bcf"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (6).jsonl",
+      "sha256": "a19693a6c519f936f8cf6edeecdff4c27738c51381002960d7c3769136821488"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (7).jsonl",
+      "sha256": "3f9a03592f5835e81a587ad96f4b20f1551acb38def5ab7bc37eba67c7970425"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (8).jsonl",
+      "sha256": "244c546e5ce63d2ac153ffef97574e24de9ad761417decaf93f102852d9b0b42"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (9).jsonl",
+      "sha256": "e4d5903cc50643442ae2d410e8bd1c36f0339d1c1b60e407a81232362b74128a"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (10).jsonl",
+      "sha256": "77ac1fa4a699e15347d758f746ec4a6bebf31f0f379b9c7989d4cff104658225"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (11).jsonl",
+      "sha256": "601ab3b8025fd70c185ce96422eba3b4a078664f47941d74de0e01acc6707a50"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (12).jsonl",
+      "sha256": "0ecb8d65e2fa7671b42dbc5146b274d5957855604c3b055126b4825c02d2f378"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (13).jsonl",
+      "sha256": "5da79625d9f14d71cf2a02b8e87876e046902c79d0c94ca4a564e1bf3d6e1c81"
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\live_trade_log (14).jsonl",
+      "sha256": "66a15cdd7723d798ccb4e1934428bf35e41900e09578eeab6fefee582532311d"
+    }
+  ],
+  "counts": {
+    "raw_events": 516,
+    "excluded_non_sent": 16,
+    "duplicates": 183
+  },
+  "conflicts": [],
+  "unique_types": {
+    "LIVE_ORDER": 152,
+    "LIVE_CLOSE": 151,
+    "LIVE_ADD": 14
+  },
+  "first_close": "2026-07-01 23:34",
+  "last_close": "2026-10-03 03:53",
+  "closed": 151,
+  "losses": 53,
+  "wins": 98,
+  "flat": 0,
+  "fee_known_loss_count": 49,
+  "fee_known_losses_sum": -413.38395285,
+  "legacy_loss_count": 4,
+  "legacy_losses_sum": -31.80070000000004,
+  "loss_reasons": {
+    "반대 신호": 50,
+    "손절 표시": 3
+  },
+  "loss_peak_recorded": 17,
+  "loss_peak_at_least_06": 0,
+  "loss_followed_opposite_2m": 42,
+  "months": {
+    "2026-07": {
+      "closed": 17,
+      "losses": 4,
+      "fee_recorded_net": 0,
+      "fee_recorded_count": 0,
+      "legacy_reported_pnl": -20.80519999999993,
+      "legacy_count": 17
+    },
+    "2026-08": {
+      "closed": 60,
+      "losses": 23,
+      "fee_recorded_net": -15.232554199999884,
+      "fee_recorded_count": 60,
+      "legacy_reported_pnl": 0,
+      "legacy_count": 0
+    },
+    "2026-09": {
+      "closed": 67,
+      "losses": 23,
+      "fee_recorded_net": -78.31308734999966,
+      "fee_recorded_count": 67,
+      "legacy_reported_pnl": 0,
+      "legacy_count": 0
+    },
+    "2026-10": {
+      "closed": 7,
+      "losses": 3,
+      "fee_recorded_net": -4.293096150000182,
+      "fee_recorded_count": 7,
+      "legacy_reported_pnl": 0,
+      "legacy_count": 0
+    }
+  },
+  "loss_trades": [
+    {
+      "exit_kst": "2026-09-15 23:36",
+      "exit_time": "2026-09-15T14:36:07.162592+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 79077.2,
+      "exit_price": 76077.3,
+      "quantity": "0.008",
+      "entry_notional": 632.6176,
+      "price_return_pct": -3.793634574820548,
+      "reported_pnl_usdt": -24.619817999999956,
+      "fees_known": true,
+      "gross_usdt": -23.999199999999956,
+      "fees_usdt": 0.6206180000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1136838110190,
+      "sources": [
+        {
+          "file": "live_trade_log (10).jsonl",
+          "line": 3
+        }
+      ],
+      "loss_id": "L001"
+    },
+    {
+      "exit_kst": "2026-09-10 21:46",
+      "exit_time": "2026-09-10T12:46:59.466961+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 79535.2,
+      "exit_price": 76926.2,
+      "quantity": "0.008",
+      "entry_notional": 636.2816,
+      "price_return_pct": -3.280308592924894,
+      "reported_pnl_usdt": -21.4978456,
+      "fees_known": true,
+      "gross_usdt": -20.872,
+      "fees_usdt": 0.6258456,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 4,
+      "exit_short_score": 15,
+      "opposite_entry_within_2m": true,
+      "order_id": 1132085597414,
+      "sources": [
+        {
+          "file": "live_trade_log (9).jsonl",
+          "line": 12
+        }
+      ],
+      "loss_id": "L002"
+    },
+    {
+      "exit_kst": "2026-09-21 17:37",
+      "exit_time": "2026-09-21T08:37:34.485561+00:00",
+      "entry_kst": "2026-09-20 11:59",
+      "entry_time": "2026-09-20T02:59:16.156435+00:00",
+      "side": "SHORT",
+      "entry_price": 80261.8,
+      "exit_price": 82831.7,
+      "quantity": "0.007",
+      "entry_notional": 561.8326000000001,
+      "price_return_pct": -3.2018967927457322,
+      "reported_pnl_usdt": -18.56012724999996,
+      "fees_known": true,
+      "gross_usdt": -17.98929999999996,
+      "fees_usdt": 0.57082725,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.14141222848229168,
+      "hold_hours": 29.63842475718922,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 23,
+      "exit_short_score": 0,
+      "opposite_entry_within_2m": true,
+      "order_id": 1141821963887,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 5
+        }
+      ],
+      "loss_id": "L003"
+    },
+    {
+      "exit_kst": "2026-09-30 21:36",
+      "exit_time": "2026-09-30T12:36:13.779739+00:00",
+      "entry_kst": "2026-09-28 18:44",
+      "entry_time": "2026-09-28T09:44:36.689866+00:00",
+      "side": "SHORT",
+      "entry_price": 82606.1,
+      "exit_price": 84676.1,
+      "quantity": "0.007",
+      "entry_notional": 578.2427,
+      "price_return_pct": -2.5058682107011463,
+      "reported_pnl_usdt": -15.0754877,
+      "fees_known": true,
+      "gross_usdt": -14.49,
+      "fees_usdt": 0.5854877,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.020579594000927293,
+      "hold_hours": 50.86030274245474,
+      "entry_long_score": 0,
+      "entry_short_score": 19,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1150387977858,
+      "sources": [
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 29
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 11
+        }
+      ],
+      "loss_id": "L004"
+    },
+    {
+      "exit_kst": "2026-09-30 23:33",
+      "exit_time": "2026-09-30T14:33:38.774106+00:00",
+      "entry_kst": "2026-09-30 22:31",
+      "entry_time": "2026-09-30T13:31:49.941260+00:00",
+      "side": "LONG",
+      "entry_price": 85423.80000000002,
+      "exit_price": 83432.3,
+      "quantity": "0.007",
+      "entry_notional": 597.9666000000001,
+      "price_return_pct": -2.331317501679876,
+      "reported_pnl_usdt": -14.5314963500001,
+      "fees_known": true,
+      "gross_usdt": -13.940500000000101,
+      "fees_usdt": 0.5909963500000002,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.0,
+      "hold_hours": 1.0302313460906347,
+      "entry_long_score": 22,
+      "entry_short_score": 3,
+      "exit_long_score": 0,
+      "exit_short_score": 16,
+      "opposite_entry_within_2m": true,
+      "order_id": 1150497033483,
+      "sources": [
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 33
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 15
+        }
+      ],
+      "loss_id": "L005"
+    },
+    {
+      "exit_kst": "2026-08-22 14:11",
+      "exit_time": "2026-08-22T05:11:14.915311+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 78395.2,
+      "exit_price": 76861.0,
+      "quantity": "0.008",
+      "entry_notional": 627.1616,
+      "price_return_pct": -1.957007571892153,
+      "reported_pnl_usdt": -12.894624799999978,
+      "fees_known": true,
+      "gross_usdt": -12.273599999999977,
+      "fees_usdt": 0.6210248,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 9,
+      "exit_short_score": 17,
+      "opposite_entry_within_2m": true,
+      "order_id": 1111174719372,
+      "sources": [
+        {
+          "file": "live_trade_log (5).jsonl",
+          "line": 31
+        },
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 31
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 4
+        }
+      ],
+      "loss_id": "L006"
+    },
+    {
+      "exit_kst": "2026-09-23 13:23",
+      "exit_time": "2026-09-23T04:23:26.325137+00:00",
+      "entry_kst": "2026-09-22 15:09",
+      "entry_time": "2026-09-22T06:09:11.490283+00:00",
+      "side": "SHORT",
+      "entry_price": 85343.90000000001,
+      "exit_price": 87058.3,
+      "quantity": "0.007",
+      "entry_notional": 597.4073000000001,
+      "price_return_pct": -2.008813752359564,
+      "reported_pnl_usdt": -12.604207699999959,
+      "fees_known": true,
+      "gross_usdt": -12.000799999999959,
+      "fees_usdt": 0.6034077000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.2343459813765419,
+      "hold_hours": 22.23745412607988,
+      "entry_long_score": 3,
+      "entry_short_score": 19,
+      "exit_long_score": 14,
+      "exit_short_score": 0,
+      "opposite_entry_within_2m": true,
+      "order_id": 1143682618709,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 25
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 7
+        }
+      ],
+      "loss_id": "L007"
+    },
+    {
+      "exit_kst": "2026-08-25 21:06",
+      "exit_time": "2026-08-25T12:06:07.436094+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 80535.40000000001,
+      "exit_price": 78837.6,
+      "quantity": "0.007",
+      "entry_notional": 563.7478000000001,
+      "price_return_pct": -2.1081412645867563,
+      "reported_pnl_usdt": -12.44240550000002,
+      "fees_known": true,
+      "gross_usdt": -11.88460000000002,
+      "fees_usdt": 0.5578055000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 13,
+      "opposite_entry_within_2m": true,
+      "order_id": 1115339992975,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 37
+        }
+      ],
+      "loss_id": "L008"
+    },
+    {
+      "exit_kst": "2026-08-20 00:05",
+      "exit_time": "2026-08-19T15:05:54.512987+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 65065.5,
+      "exit_price": 66373.7,
+      "quantity": "0.009",
+      "entry_notional": 585.5894999999999,
+      "price_return_pct": -2.0105893292144024,
+      "reported_pnl_usdt": -12.365276399999972,
+      "fees_known": true,
+      "gross_usdt": -11.773799999999973,
+      "fees_usdt": 0.5914764,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": null,
+      "exit_short_score": null,
+      "opposite_entry_within_2m": true,
+      "order_id": 1107393301487,
+      "sources": [
+        {
+          "file": "live_trade_log (4).jsonl",
+          "line": 4
+        },
+        {
+          "file": "live_trade_log (5).jsonl",
+          "line": 3
+        },
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 3
+        }
+      ],
+      "loss_id": "L009"
+    },
+    {
+      "exit_kst": "2026-07-23 16:12",
+      "exit_time": "2026-07-23T07:12:55.054054+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 66687.27777777778,
+      "exit_price": 65324.6,
+      "quantity": "0.009",
+      "entry_notional": 600.1854999999999,
+      "price_return_pct": -2.04338492016219,
+      "reported_pnl_usdt": -12.264100000000042,
+      "fees_known": false,
+      "gross_usdt": null,
+      "fees_usdt": null,
+      "loss": true,
+      "reason": "stop loss",
+      "reason_group": "손절 표시",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": null,
+      "exit_short_score": null,
+      "opposite_entry_within_2m": false,
+      "order_id": 1080931255192,
+      "sources": [
+        {
+          "file": "live_trade_log (1).jsonl",
+          "line": 37
+        }
+      ],
+      "loss_id": "L010"
+    },
+    {
+      "exit_kst": "2026-09-20 11:59",
+      "exit_time": "2026-09-20T02:59:16.677260+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 81892.1,
+      "exit_price": 80270.3,
+      "quantity": "0.007",
+      "entry_notional": 573.2447000000001,
+      "price_return_pct": -1.9804108088570238,
+      "reported_pnl_usdt": -11.920168400000021,
+      "fees_known": true,
+      "gross_usdt": -11.35260000000002,
+      "fees_usdt": 0.5675684000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1140747977511,
+      "sources": [
+        {
+          "file": "live_trade_log (10).jsonl",
+          "line": 29
+        },
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 3
+        }
+      ],
+      "loss_id": "L011"
+    },
+    {
+      "exit_kst": "2026-08-27 23:37",
+      "exit_time": "2026-08-27T14:37:06.721880+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 79266.76666666668,
+      "exit_price": 80140.0,
+      "quantity": "0.012",
+      "entry_notional": 951.2012000000002,
+      "price_return_pct": -1.1016386438536738,
+      "reported_pnl_usdt": -11.435240599999872,
+      "fees_known": true,
+      "gross_usdt": -10.478799999999872,
+      "fees_usdt": 0.9564406000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 10,
+      "exit_short_score": 0,
+      "opposite_entry_within_2m": false,
+      "order_id": 1118019060916,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 62
+        }
+      ],
+      "loss_id": "L012"
+    },
+    {
+      "exit_kst": "2026-09-24 23:30",
+      "exit_time": "2026-09-24T14:30:39.369219+00:00",
+      "entry_kst": "2026-09-24 18:30",
+      "entry_time": "2026-09-24T09:30:45.593659+00:00",
+      "side": "SHORT",
+      "entry_price": 83184.6,
+      "exit_price": 84670.0,
+      "quantity": "0.007",
+      "entry_notional": 582.2922000000001,
+      "price_return_pct": -1.7856670585661216,
+      "reported_pnl_usdt": -10.985291099999959,
+      "fees_known": true,
+      "gross_usdt": -10.39779999999996,
+      "fees_usdt": 0.5874911,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.33455711754339496,
+      "hold_hours": 4.998270988927947,
+      "entry_long_score": 0,
+      "entry_short_score": 19,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1145071836541,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 35
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 17
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 3
+        }
+      ],
+      "loss_id": "L013"
+    },
+    {
+      "exit_kst": "2026-08-27 06:15",
+      "exit_time": "2026-08-26T21:15:00.871147+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 77961.86666666667,
+      "exit_price": 78746.2,
+      "quantity": "0.012",
+      "entry_notional": 935.5424,
+      "price_return_pct": -1.00604740095157,
+      "reported_pnl_usdt": -10.352248399999942,
+      "fees_known": true,
+      "gross_usdt": -9.411999999999942,
+      "fees_usdt": 0.9402484,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 10,
+      "exit_short_score": 4,
+      "opposite_entry_within_2m": true,
+      "order_id": 1117131425377,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 50
+        }
+      ],
+      "loss_id": "L014"
+    },
+    {
+      "exit_kst": "2026-07-15 22:03",
+      "exit_time": "2026-07-15T13:03:53.872655+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 62007.5,
+      "exit_price": 65361.2,
+      "quantity": "0.003",
+      "entry_notional": 186.0225,
+      "price_return_pct": -5.408539289602059,
+      "reported_pnl_usdt": -10.06109999999999,
+      "fees_known": false,
+      "gross_usdt": null,
+      "fees_usdt": null,
+      "loss": true,
+      "reason": "stop loss",
+      "reason_group": "손절 표시",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": null,
+      "exit_short_score": null,
+      "opposite_entry_within_2m": false,
+      "order_id": 1072542814774,
+      "sources": [
+        {
+          "file": "live_trade_log.jsonl",
+          "line": 30
+        },
+        {
+          "file": "live_trade_log (1).jsonl",
+          "line": 30
+        }
+      ],
+      "loss_id": "L015"
+    },
+    {
+      "exit_kst": "2026-09-03 11:42",
+      "exit_time": "2026-09-03T02:42:21.717347+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 76659.2,
+      "exit_price": 77804.0,
+      "quantity": "0.008",
+      "entry_notional": 613.2736,
+      "price_return_pct": -1.493362831858411,
+      "reported_pnl_usdt": -9.776252800000023,
+      "fees_known": true,
+      "gross_usdt": -9.158400000000023,
+      "fees_usdt": 0.6178528000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1124884553840,
+      "sources": [
+        {
+          "file": "live_trade_log (8).jsonl",
+          "line": 23
+        }
+      ],
+      "loss_id": "L016"
+    },
+    {
+      "exit_kst": "2026-09-28 09:21",
+      "exit_time": "2026-09-28T00:21:36.238348+00:00",
+      "entry_kst": "2026-09-25 23:24",
+      "entry_time": "2026-09-25T14:24:02.387256+00:00",
+      "side": "SHORT",
+      "entry_price": 83647.1,
+      "exit_price": 84927.6,
+      "quantity": "0.007",
+      "entry_notional": 585.5297,
+      "price_return_pct": -1.5308360959315983,
+      "reported_pnl_usdt": -9.55351145,
+      "fees_known": true,
+      "gross_usdt": -8.9635,
+      "fees_usdt": 0.5900114500000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.3635511571829816,
+      "hold_hours": 57.95940308113893,
+      "entry_long_score": 0,
+      "entry_short_score": 16,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1147944482070,
+      "sources": [
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 33
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 19
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 1
+        }
+      ],
+      "loss_id": "L017"
+    },
+    {
+      "exit_kst": "2026-09-23 17:50",
+      "exit_time": "2026-09-23T08:50:03.484045+00:00",
+      "entry_kst": "2026-09-23 13:23",
+      "entry_time": "2026-09-23T04:23:26.325137+00:00",
+      "side": "LONG",
+      "entry_price": 87049.7,
+      "exit_price": 85782.5,
+      "quantity": "0.007",
+      "entry_notional": 609.3479,
+      "price_return_pct": -1.4557201231020866,
+      "reported_pnl_usdt": -9.47531269999998,
+      "fees_known": true,
+      "gross_usdt": -8.87039999999998,
+      "fees_usdt": 0.6049127000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.207237934191627,
+      "hold_hours": 4.443655252257983,
+      "entry_long_score": 14,
+      "entry_short_score": 0,
+      "exit_long_score": 1,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1143839248835,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 27
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 9
+        }
+      ],
+      "loss_id": "L018"
+    },
+    {
+      "exit_kst": "2026-08-25 23:54",
+      "exit_time": "2026-08-25T14:54:11.924718+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 78553.66666666667,
+      "exit_price": 79262.4,
+      "quantity": "0.012",
+      "entry_notional": 942.6440000000001,
+      "price_return_pct": -0.9022282006780791,
+      "reported_pnl_usdt": -9.451696399999872,
+      "fees_known": true,
+      "gross_usdt": -8.504799999999872,
+      "fees_usdt": 0.9468964,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 12,
+      "exit_short_score": 0,
+      "opposite_entry_within_2m": true,
+      "order_id": 1115538441987,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 40
+        }
+      ],
+      "loss_id": "L019"
+    },
+    {
+      "exit_kst": "2026-09-25 20:15",
+      "exit_time": "2026-09-25T11:15:43.761524+00:00",
+      "entry_kst": "2026-09-25 16:51",
+      "entry_time": "2026-09-25T07:51:19.344365+00:00",
+      "side": "SHORT",
+      "entry_price": 83969.40000000001,
+      "exit_price": 85214.1,
+      "quantity": "0.007",
+      "entry_notional": 587.7858000000001,
+      "price_return_pct": -1.482325704363729,
+      "reported_pnl_usdt": -9.30504224999998,
+      "fees_known": true,
+      "gross_usdt": -8.71289999999998,
+      "fees_usdt": 0.59214225,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.023341836430897232,
+      "hold_hours": 3.406782544189029,
+      "entry_long_score": 0,
+      "entry_short_score": 10,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1145913547444,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 45
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 27
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 13
+        }
+      ],
+      "loss_id": "L020"
+    },
+    {
+      "exit_kst": "2026-09-01 17:26",
+      "exit_time": "2026-09-01T08:26:01.500757+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 79048.0,
+      "exit_price": 77980.9,
+      "quantity": "0.008",
+      "entry_notional": 632.384,
+      "price_return_pct": -1.34993927740108,
+      "reported_pnl_usdt": -9.164915600000047,
+      "fees_known": true,
+      "gross_usdt": -8.536800000000047,
+      "fees_usdt": 0.6281156,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1123010510774,
+      "sources": [
+        {
+          "file": "live_trade_log (8).jsonl",
+          "line": 15
+        }
+      ],
+      "loss_id": "L021"
+    },
+    {
+      "exit_kst": "2026-08-30 21:11",
+      "exit_time": "2026-08-30T12:11:32.678871+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 77616.0,
+      "exit_price": 78634.6,
+      "quantity": "0.008",
+      "entry_notional": 620.928,
+      "price_return_pct": -1.3123582766439985,
+      "reported_pnl_usdt": -8.773802400000047,
+      "fees_known": true,
+      "gross_usdt": -8.148800000000048,
+      "fees_usdt": 0.6250024000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 10,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": false,
+      "order_id": 1120865784515,
+      "sources": [
+        {
+          "file": "live_trade_log (8).jsonl",
+          "line": 1
+        }
+      ],
+      "loss_id": "L022"
+    },
+    {
+      "exit_kst": "2026-08-23 20:20",
+      "exit_time": "2026-08-23T11:20:33.623228+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 76160.0,
+      "exit_price": 77170.2,
+      "quantity": "0.008",
+      "entry_notional": 609.28,
+      "price_return_pct": -1.326418067226887,
+      "reported_pnl_usdt": -8.694920799999977,
+      "fees_known": true,
+      "gross_usdt": -8.081599999999977,
+      "fees_usdt": 0.6133208000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 14,
+      "exit_short_score": 4,
+      "opposite_entry_within_2m": true,
+      "order_id": 1112627459464,
+      "sources": [
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 38
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 11
+        }
+      ],
+      "loss_id": "L023"
+    },
+    {
+      "exit_kst": "2026-09-17 03:09",
+      "exit_time": "2026-09-16T18:09:01.452973+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 75362.40000000001,
+      "exit_price": 76371.4,
+      "quantity": "0.008",
+      "entry_notional": 602.8992000000001,
+      "price_return_pct": -1.3388639427618885,
+      "reported_pnl_usdt": -8.678935199999884,
+      "fees_known": true,
+      "gross_usdt": -8.071999999999884,
+      "fees_usdt": 0.6069352,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 14,
+      "exit_short_score": 0,
+      "opposite_entry_within_2m": true,
+      "order_id": 1137945612474,
+      "sources": [
+        {
+          "file": "live_trade_log (10).jsonl",
+          "line": 13
+        }
+      ],
+      "loss_id": "L024"
+    },
+    {
+      "exit_kst": "2026-10-02 01:35",
+      "exit_time": "2026-10-01T16:35:45.472414+00:00",
+      "entry_kst": "2026-10-01 04:17",
+      "entry_time": "2026-09-30T19:17:41.970184+00:00",
+      "side": "SHORT",
+      "entry_price": 83599.8,
+      "exit_price": 84574.6,
+      "quantity": "0.007",
+      "entry_notional": 585.1986,
+      "price_return_pct": -1.1660314976830122,
+      "reported_pnl_usdt": -7.412210400000021,
+      "fees_known": true,
+      "gross_usdt": -6.82360000000002,
+      "fees_usdt": 0.5886104000000002,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.5302644264699232,
+      "hold_hours": 21.300972841646935,
+      "entry_long_score": 0,
+      "entry_short_score": 15,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1151572181571,
+      "sources": [
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 39
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 21
+        }
+      ],
+      "loss_id": "L025"
+    },
+    {
+      "exit_kst": "2026-08-24 09:46",
+      "exit_time": "2026-08-24T00:46:35.508104+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 77694.16666666667,
+      "exit_price": 77169.7,
+      "quantity": "0.012",
+      "entry_notional": 932.33,
+      "price_return_pct": -0.675039953664485,
+      "reported_pnl_usdt": -7.222783200000093,
+      "fees_known": true,
+      "gross_usdt": -6.293600000000093,
+      "fees_usdt": 0.9291832000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 1,
+      "exit_short_score": 10,
+      "opposite_entry_within_2m": false,
+      "order_id": 1113319706964,
+      "sources": [
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 43
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 16
+        }
+      ],
+      "loss_id": "L026"
+    },
+    {
+      "exit_kst": "2026-08-31 23:43",
+      "exit_time": "2026-08-31T14:43:27.198158+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 77760.7,
+      "exit_price": 78576.9,
+      "quantity": "0.008",
+      "entry_notional": 622.0856,
+      "price_return_pct": -1.0496304688615163,
+      "reported_pnl_usdt": -7.1549503999999775,
+      "fees_known": true,
+      "gross_usdt": -6.529599999999977,
+      "fees_usdt": 0.6253504,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1122200370836,
+      "sources": [
+        {
+          "file": "live_trade_log (8).jsonl",
+          "line": 11
+        }
+      ],
+      "loss_id": "L027"
+    },
+    {
+      "exit_kst": "2026-09-28 10:21",
+      "exit_time": "2026-09-28T01:21:28.794961+00:00",
+      "entry_kst": "2026-09-28 09:21",
+      "entry_time": "2026-09-28T00:21:36.238348+00:00",
+      "side": "LONG",
+      "entry_price": 84966.8,
+      "exit_price": 84037.5,
+      "quantity": "0.007",
+      "entry_notional": 594.7676,
+      "price_return_pct": -1.0937213123243466,
+      "reported_pnl_usdt": -7.09661505000002,
+      "fees_known": true,
+      "gross_usdt": -6.50510000000002,
+      "fees_usdt": 0.5915150499999999,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.0,
+      "hold_hours": 0.9979323924912347,
+      "entry_long_score": 14,
+      "entry_short_score": 3,
+      "exit_long_score": 0,
+      "exit_short_score": 16,
+      "opposite_entry_within_2m": true,
+      "order_id": 1147994167025,
+      "sources": [
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 35
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 21
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 3
+        }
+      ],
+      "loss_id": "L028"
+    },
+    {
+      "exit_kst": "2026-08-24 19:22",
+      "exit_time": "2026-08-24T10:22:17.322508+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 77015.1,
+      "exit_price": 77808.7,
+      "quantity": "0.008",
+      "entry_notional": 616.1208,
+      "price_return_pct": -1.030447275923801,
+      "reported_pnl_usdt": -6.96809519999993,
+      "fees_known": true,
+      "gross_usdt": -6.3487999999999305,
+      "fees_usdt": 0.6192952,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 10,
+      "exit_short_score": 4,
+      "opposite_entry_within_2m": true,
+      "order_id": 1113852436495,
+      "sources": [
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 51
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 24
+        }
+      ],
+      "loss_id": "L029"
+    },
+    {
+      "exit_kst": "2026-08-24 16:12",
+      "exit_time": "2026-08-24T07:12:17.824106+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 76968.1,
+      "exit_price": 77756.5,
+      "quantity": "0.008",
+      "entry_notional": 615.7448,
+      "price_return_pct": -1.0243204652316924,
+      "reported_pnl_usdt": -6.926098399999954,
+      "fees_known": true,
+      "gross_usdt": -6.307199999999954,
+      "fees_usdt": 0.6188984000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 10,
+      "exit_short_score": 4,
+      "opposite_entry_within_2m": true,
+      "order_id": 1113696081714,
+      "sources": [
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 47
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 20
+        }
+      ],
+      "loss_id": "L030"
+    },
+    {
+      "exit_kst": "2026-09-25 21:26",
+      "exit_time": "2026-09-25T12:26:41.557321+00:00",
+      "entry_kst": "2026-09-25 20:15",
+      "entry_time": "2026-09-25T11:15:43.761524+00:00",
+      "side": "LONG",
+      "entry_price": 85181.8,
+      "exit_price": 84287.4,
+      "quantity": "0.007",
+      "entry_notional": 596.2726,
+      "price_return_pct": -1.0499895517587192,
+      "reported_pnl_usdt": -6.853942200000061,
+      "fees_known": true,
+      "gross_usdt": -6.260800000000061,
+      "fees_usdt": 0.5931422000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.0,
+      "hold_hours": 1.1827210547526676,
+      "entry_long_score": 14,
+      "entry_short_score": 3,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1145972891951,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 47
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 29
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 15
+        }
+      ],
+      "loss_id": "L031"
+    },
+    {
+      "exit_kst": "2026-08-24 17:23",
+      "exit_time": "2026-08-24T08:23:00.923936+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 77750.1,
+      "exit_price": 77022.3,
+      "quantity": "0.008",
+      "entry_notional": 622.0008,
+      "price_return_pct": -0.9360759664617831,
+      "reported_pnl_usdt": -6.441489600000024,
+      "fees_known": true,
+      "gross_usdt": -5.822400000000023,
+      "fees_usdt": 0.6190896000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 1,
+      "exit_short_score": 10,
+      "opposite_entry_within_2m": true,
+      "order_id": 1113749939207,
+      "sources": [
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 49
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 22
+        }
+      ],
+      "loss_id": "L032"
+    },
+    {
+      "exit_kst": "2026-09-07 16:47",
+      "exit_time": "2026-09-07T07:47:21.701864+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 80110.7,
+      "exit_price": 79280.0,
+      "quantity": "0.007",
+      "entry_notional": 560.7749,
+      "price_return_pct": -1.03694013408945,
+      "reported_pnl_usdt": -6.372767449999979,
+      "fees_known": true,
+      "gross_usdt": -5.814899999999979,
+      "fees_usdt": 0.55786745,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1128930355146,
+      "sources": [
+        {
+          "file": "live_trade_log (9).jsonl",
+          "line": 2
+        }
+      ],
+      "loss_id": "L033"
+    },
+    {
+      "exit_kst": "2026-09-22 09:53",
+      "exit_time": "2026-09-22T00:53:18.307678+00:00",
+      "entry_kst": "2026-09-22 06:01",
+      "entry_time": "2026-09-21T21:01:08.490900+00:00",
+      "side": "LONG",
+      "entry_price": 86880.40000000001,
+      "exit_price": 86070.0,
+      "quantity": "0.007",
+      "entry_notional": 608.1628000000001,
+      "price_return_pct": -0.9327765525941509,
+      "reported_pnl_usdt": -6.278126400000061,
+      "fees_known": true,
+      "gross_usdt": -5.672800000000061,
+      "fees_usdt": 0.6053264000000002,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.0,
+      "hold_hours": 3.869393549429046,
+      "entry_long_score": 27,
+      "entry_short_score": 0,
+      "exit_long_score": 3,
+      "exit_short_score": 15,
+      "opposite_entry_within_2m": true,
+      "order_id": 1142574115945,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 19
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 1
+        }
+      ],
+      "loss_id": "L034"
+    },
+    {
+      "exit_kst": "2026-09-03 14:29",
+      "exit_time": "2026-09-03T05:29:00.502400+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 77817.90000000001,
+      "exit_price": 77143.2,
+      "quantity": "0.008",
+      "entry_notional": 622.5432000000001,
+      "price_return_pct": -0.8670241679613708,
+      "reported_pnl_usdt": -6.017444400000093,
+      "fees_known": true,
+      "gross_usdt": -5.397600000000093,
+      "fees_usdt": 0.6198444000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": false,
+      "order_id": 1125001114905,
+      "sources": [
+        {
+          "file": "live_trade_log (8).jsonl",
+          "line": 25
+        }
+      ],
+      "loss_id": "L035"
+    },
+    {
+      "exit_kst": "2026-08-27 17:08",
+      "exit_time": "2026-08-27T08:08:38.825344+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 78944.1,
+      "exit_price": 79574.1,
+      "quantity": "0.008",
+      "entry_notional": 631.5528,
+      "price_return_pct": -0.7980330385677966,
+      "reported_pnl_usdt": -5.6740728,
+      "fees_known": true,
+      "gross_usdt": -5.04,
+      "fees_usdt": 0.6340728,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 12,
+      "exit_short_score": 0,
+      "opposite_entry_within_2m": true,
+      "order_id": 1117682311206,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 54
+        }
+      ],
+      "loss_id": "L036"
+    },
+    {
+      "exit_kst": "2026-10-01 00:33",
+      "exit_time": "2026-09-30T15:33:22.278073+00:00",
+      "entry_kst": "2026-09-30 23:33",
+      "entry_time": "2026-09-30T14:33:38.774106+00:00",
+      "side": "SHORT",
+      "entry_price": 83420.8,
+      "exit_price": 84118.2,
+      "quantity": "0.007",
+      "entry_notional": 583.9456,
+      "price_return_pct": -0.8360025317426758,
+      "reported_pnl_usdt": -5.468186499999959,
+      "fees_known": true,
+      "gross_usdt": -4.881799999999959,
+      "fees_usdt": 0.5863864999999999,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.04447332080249269,
+      "hold_hours": 0.9954177686240938,
+      "entry_long_score": 0,
+      "entry_short_score": 16,
+      "exit_long_score": 16,
+      "exit_short_score": 2,
+      "opposite_entry_within_2m": true,
+      "order_id": 1150547754026,
+      "sources": [
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 35
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 17
+        }
+      ],
+      "loss_id": "L037"
+    },
+    {
+      "exit_kst": "2026-07-27 07:33",
+      "exit_time": "2026-07-26T22:33:13.086159+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 64036.5,
+      "exit_price": 65367.6,
+      "quantity": "0.004",
+      "entry_notional": 256.146,
+      "price_return_pct": -2.078658265208121,
+      "reported_pnl_usdt": -5.3243999999999945,
+      "fees_known": false,
+      "gross_usdt": null,
+      "fees_usdt": null,
+      "loss": true,
+      "reason": "stop loss",
+      "reason_group": "손절 표시",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": null,
+      "exit_short_score": null,
+      "opposite_entry_within_2m": false,
+      "order_id": 1084317954215,
+      "sources": [
+        {
+          "file": "live_trade_log (1).jsonl",
+          "line": 41
+        }
+      ],
+      "loss_id": "L038"
+    },
+    {
+      "exit_kst": "2026-08-28 11:14",
+      "exit_time": "2026-08-28T02:14:47.386452+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 80852.7,
+      "exit_price": 80197.7,
+      "quantity": "0.007",
+      "entry_notional": 565.9689,
+      "price_return_pct": -0.8101151847742871,
+      "reported_pnl_usdt": -5.1486764,
+      "fees_known": true,
+      "gross_usdt": -4.585,
+      "fees_usdt": 0.5636764,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 4,
+      "exit_short_score": 10,
+      "opposite_entry_within_2m": true,
+      "order_id": 1118599628331,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 69
+        }
+      ],
+      "loss_id": "L039"
+    },
+    {
+      "exit_kst": "2026-08-27 19:37",
+      "exit_time": "2026-08-27T10:37:19.033159+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 80000.0,
+      "exit_price": 79379.6,
+      "quantity": "0.007",
+      "entry_notional": 560.0,
+      "price_return_pct": -0.7754999999999926,
+      "reported_pnl_usdt": -4.900628599999959,
+      "fees_known": true,
+      "gross_usdt": -4.34279999999996,
+      "fees_usdt": 0.5578286,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 6,
+      "exit_short_score": 11,
+      "opposite_entry_within_2m": true,
+      "order_id": 1117821889117,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 59
+        }
+      ],
+      "loss_id": "L040"
+    },
+    {
+      "exit_kst": "2026-09-25 00:29",
+      "exit_time": "2026-09-24T15:29:19.394548+00:00",
+      "entry_kst": "2026-09-24 23:30",
+      "entry_time": "2026-09-24T14:30:39.369219+00:00",
+      "side": "LONG",
+      "entry_price": 84670.7,
+      "exit_price": 84069.0,
+      "quantity": "0.007",
+      "entry_notional": 592.6949,
+      "price_return_pct": -0.7106354382330571,
+      "reported_pnl_usdt": -4.802488949999979,
+      "fees_known": true,
+      "gross_usdt": -4.2118999999999795,
+      "fees_usdt": 0.5905889500000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.15483514368017015,
+      "hold_hours": 0.9777848135762744,
+      "entry_long_score": 14,
+      "entry_short_score": 3,
+      "exit_long_score": 0,
+      "exit_short_score": 17,
+      "opposite_entry_within_2m": true,
+      "order_id": 1145122151678,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 37
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 19
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 5
+        }
+      ],
+      "loss_id": "L041"
+    },
+    {
+      "exit_kst": "2026-09-25 01:16",
+      "exit_time": "2026-09-24T16:16:56.677269+00:00",
+      "entry_kst": "2026-09-25 00:29",
+      "entry_time": "2026-09-24T15:29:19.394548+00:00",
+      "side": "SHORT",
+      "entry_price": 84068.90000000001,
+      "exit_price": 84666.6,
+      "quantity": "0.007",
+      "entry_notional": 588.4823000000001,
+      "price_return_pct": -0.7109644589140538,
+      "reported_pnl_usdt": -4.7744742499999795,
+      "fees_known": true,
+      "gross_usdt": -4.18389999999998,
+      "fees_usdt": 0.59057425,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.056144424394766246,
+      "hold_hours": 0.7936896447340648,
+      "entry_long_score": 0,
+      "entry_short_score": 17,
+      "exit_long_score": 14,
+      "exit_short_score": 3,
+      "opposite_entry_within_2m": true,
+      "order_id": 1145158713397,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 39
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 21
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 7
+        }
+      ],
+      "loss_id": "L042"
+    },
+    {
+      "exit_kst": "2026-08-22 11:28",
+      "exit_time": "2026-08-22T02:28:48.970373+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 77870.90000000001,
+      "exit_price": 78370.1,
+      "quantity": "0.008",
+      "entry_notional": 622.9672,
+      "price_return_pct": -0.641061038205539,
+      "reported_pnl_usdt": -4.618563999999977,
+      "fees_known": true,
+      "gross_usdt": -3.9935999999999767,
+      "fees_usdt": 0.6249640000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 11,
+      "exit_short_score": 5,
+      "opposite_entry_within_2m": true,
+      "order_id": 1110991669537,
+      "sources": [
+        {
+          "file": "live_trade_log (5).jsonl",
+          "line": 29
+        },
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 29
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 2
+        }
+      ],
+      "loss_id": "L043"
+    },
+    {
+      "exit_kst": "2026-08-31 05:50",
+      "exit_time": "2026-08-30T20:50:50.665320+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 79150.1,
+      "exit_price": 78682.4,
+      "quantity": "0.008",
+      "entry_notional": 633.2008000000001,
+      "price_return_pct": -0.5909026015128365,
+      "reported_pnl_usdt": -4.3729300000000935,
+      "fees_known": true,
+      "gross_usdt": -3.7416000000000933,
+      "fees_usdt": 0.6313300000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 3,
+      "exit_short_score": 10,
+      "opposite_entry_within_2m": false,
+      "order_id": 1121243050140,
+      "sources": [
+        {
+          "file": "live_trade_log (8).jsonl",
+          "line": 5
+        }
+      ],
+      "loss_id": "L044"
+    },
+    {
+      "exit_kst": "2026-10-01 04:17",
+      "exit_time": "2026-09-30T19:17:41.970184+00:00",
+      "entry_kst": "2026-10-01 00:33",
+      "entry_time": "2026-09-30T15:33:22.278073+00:00",
+      "side": "LONG",
+      "entry_price": 84126.0,
+      "exit_price": 83599.8,
+      "quantity": "0.007",
+      "entry_notional": 588.8820000000001,
+      "price_return_pct": -0.625490335924681,
+      "reported_pnl_usdt": -4.270440299999979,
+      "fees_known": true,
+      "gross_usdt": -3.68339999999998,
+      "fees_usdt": 0.5870403,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.38145163207568905,
+      "hold_hours": 3.738803364170922,
+      "entry_long_score": 16,
+      "entry_short_score": 2,
+      "exit_long_score": 0,
+      "exit_short_score": 15,
+      "opposite_entry_within_2m": true,
+      "order_id": 1150700823189,
+      "sources": [
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 37
+        },
+        {
+          "file": "live_trade_log (14).jsonl",
+          "line": 19
+        }
+      ],
+      "loss_id": "L045"
+    },
+    {
+      "exit_kst": "2026-08-20 10:46",
+      "exit_time": "2026-08-20T01:46:54.153465+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 69295.19999999998,
+      "exit_price": 69698.9,
+      "quantity": "0.009",
+      "entry_notional": 623.6567999999997,
+      "price_return_pct": -0.5825800344035543,
+      "reported_pnl_usdt": -4.258773450000104,
+      "fees_known": true,
+      "gross_usdt": -3.6333000000001046,
+      "fees_usdt": 0.6254734499999999,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 12,
+      "exit_short_score": 6,
+      "opposite_entry_within_2m": false,
+      "order_id": 1108047886645,
+      "sources": [
+        {
+          "file": "live_trade_log (5).jsonl",
+          "line": 10
+        },
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 10
+        }
+      ],
+      "loss_id": "L046"
+    },
+    {
+      "exit_kst": "2026-07-07 14:13",
+      "exit_time": "2026-07-07T05:13:46.287803+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 64262.100000000006,
+      "exit_price": 62878.4,
+      "quantity": "0.003",
+      "entry_notional": 192.7863,
+      "price_return_pct": -2.153213169193046,
+      "reported_pnl_usdt": -4.151100000000013,
+      "fees_known": false,
+      "gross_usdt": null,
+      "fees_usdt": null,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": null,
+      "exit_short_score": null,
+      "opposite_entry_within_2m": false,
+      "order_id": 1063963111209,
+      "sources": [
+        {
+          "file": "live_trade_log.jsonl",
+          "line": 22
+        },
+        {
+          "file": "live_trade_log (1).jsonl",
+          "line": 22
+        }
+      ],
+      "loss_id": "L047"
+    },
+    {
+      "exit_kst": "2026-09-16 03:38",
+      "exit_time": "2026-09-15T18:38:08.321741+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 76890.2,
+      "exit_price": 76448.9,
+      "quantity": "0.008",
+      "entry_notional": 615.1216,
+      "price_return_pct": -0.5739352999472013,
+      "reported_pnl_usdt": -4.143756400000023,
+      "fees_known": true,
+      "gross_usdt": -3.5304000000000233,
+      "fees_usdt": 0.6133563999999999,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 15,
+      "opposite_entry_within_2m": true,
+      "order_id": 1137015244278,
+      "sources": [
+        {
+          "file": "live_trade_log (10).jsonl",
+          "line": 7
+        }
+      ],
+      "loss_id": "L048"
+    },
+    {
+      "exit_kst": "2026-08-23 23:43",
+      "exit_time": "2026-08-23T14:43:28.418963+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 77250.40000000001,
+      "exit_price": 76821.2,
+      "quantity": "0.008",
+      "entry_notional": 618.0032000000001,
+      "price_return_pct": -0.5555958286300287,
+      "reported_pnl_usdt": -4.049886400000093,
+      "fees_known": true,
+      "gross_usdt": -3.433600000000093,
+      "fees_usdt": 0.6162864000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 2,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": false,
+      "order_id": 1112812094697,
+      "sources": [
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 40
+        },
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 13
+        }
+      ],
+      "loss_id": "L049"
+    },
+    {
+      "exit_kst": "2026-08-26 02:08",
+      "exit_time": "2026-08-25T17:08:53.345072+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "LONG",
+      "entry_price": 79245.8,
+      "exit_price": 78835.9,
+      "quantity": "0.008",
+      "entry_notional": 633.9664,
+      "price_return_pct": -0.5172513874552452,
+      "reported_pnl_usdt": -3.91152680000007,
+      "fees_known": true,
+      "gross_usdt": -3.27920000000007,
+      "fees_usdt": 0.6323268000000001,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 0,
+      "exit_short_score": 13,
+      "opposite_entry_within_2m": true,
+      "order_id": 1115673905470,
+      "sources": [
+        {
+          "file": "live_trade_log (7).jsonl",
+          "line": 42
+        }
+      ],
+      "loss_id": "L050"
+    },
+    {
+      "exit_kst": "2026-09-25 02:20",
+      "exit_time": "2026-09-24T17:20:42.138960+00:00",
+      "entry_kst": "2026-09-25 01:16",
+      "entry_time": "2026-09-24T16:16:56.677269+00:00",
+      "side": "LONG",
+      "entry_price": 84699.90000000001,
+      "exit_price": 84285.3,
+      "quantity": "0.007",
+      "entry_notional": 592.8993,
+      "price_return_pct": -0.48949290376966886,
+      "reported_pnl_usdt": -3.493648200000041,
+      "fees_known": true,
+      "gross_usdt": -2.902200000000041,
+      "fees_usdt": 0.5914482000000001,
+      "loss": true,
+      "reason": "confirmed opposite reversal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": 0.17083845435472425,
+      "hold_hours": 1.062628247472975,
+      "entry_long_score": 14,
+      "entry_short_score": 3,
+      "exit_long_score": 0,
+      "exit_short_score": 14,
+      "opposite_entry_within_2m": true,
+      "order_id": 1145212278915,
+      "sources": [
+        {
+          "file": "live_trade_log (11).jsonl",
+          "line": 41
+        },
+        {
+          "file": "live_trade_log (12).jsonl",
+          "line": 23
+        },
+        {
+          "file": "live_trade_log (13).jsonl",
+          "line": 9
+        }
+      ],
+      "loss_id": "L051"
+    },
+    {
+      "exit_kst": "2026-08-05 23:36",
+      "exit_time": "2026-08-05T14:36:41.938535+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 63996.6,
+      "exit_price": 64325.2,
+      "quantity": "0.004",
+      "entry_notional": 255.9864,
+      "price_return_pct": -0.5134647778163192,
+      "reported_pnl_usdt": -1.571043599999994,
+      "fees_known": true,
+      "gross_usdt": -1.3143999999999942,
+      "fees_usdt": 0.25664359999999997,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": null,
+      "exit_short_score": null,
+      "opposite_entry_within_2m": true,
+      "order_id": 1094713919240,
+      "sources": [
+        {
+          "file": "live_trade_log (2).jsonl",
+          "line": 7
+        }
+      ],
+      "loss_id": "L052"
+    },
+    {
+      "exit_kst": "2026-08-20 13:12",
+      "exit_time": "2026-08-20T04:12:05.301930+00:00",
+      "entry_kst": null,
+      "entry_time": null,
+      "side": "SHORT",
+      "entry_price": 69300.8,
+      "exit_price": 69345.0,
+      "quantity": "0.009",
+      "entry_notional": 623.7072,
+      "price_return_pct": -0.0637799275044402,
+      "reported_pnl_usdt": -1.0217060999999736,
+      "fees_known": true,
+      "gross_usdt": -0.3977999999999738,
+      "fees_usdt": 0.6239060999999999,
+      "loss": true,
+      "reason": "opposite signal",
+      "reason_group": "반대 신호",
+      "peak_profit_pct": null,
+      "hold_hours": null,
+      "entry_long_score": null,
+      "entry_short_score": null,
+      "exit_long_score": 13,
+      "exit_short_score": 5,
+      "opposite_entry_within_2m": true,
+      "order_id": 1108188921321,
+      "sources": [
+        {
+          "file": "live_trade_log (5).jsonl",
+          "line": 12
+        },
+        {
+          "file": "live_trade_log (6).jsonl",
+          "line": 12
+        }
+      ],
+      "loss_id": "L053"
+    }
+  ],
+  "price_loss_ranking": [
+    "L015",
+    "L001",
+    "L002",
+    "L003",
+    "L004",
+    "L005",
+    "L047",
+    "L008",
+    "L038",
+    "L010",
+    "L009",
+    "L007",
+    "L011",
+    "L006",
+    "L013",
+    "L017",
+    "L016",
+    "L020",
+    "L018",
+    "L021",
+    "L024",
+    "L023",
+    "L022",
+    "L025",
+    "L012",
+    "L028",
+    "L031",
+    "L027",
+    "L033",
+    "L029",
+    "L030",
+    "L014",
+    "L032",
+    "L034",
+    "L019",
+    "L035",
+    "L037",
+    "L039",
+    "L036",
+    "L040",
+    "L042",
+    "L041",
+    "L026",
+    "L043",
+    "L045",
+    "L044",
+    "L046",
+    "L048",
+    "L049",
+    "L050",
+    "L052",
+    "L051",
+    "L053"
+  ],
+  "fee_recorded_summary": {
+    "count": 134,
+    "wins": 85,
+    "losses": 49,
+    "win_rate_pct": 63.43283582089552,
+    "mean_win": 3.7122966488235325,
+    "mean_loss": -8.436407201020408,
+    "net": -97.83873769999974
+  }
+}

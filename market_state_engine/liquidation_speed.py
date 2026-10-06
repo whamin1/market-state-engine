@@ -173,7 +173,8 @@ def calculate_liquidation_speed(data, current_time, config):
         gate = "insufficient_positive_history"
     else:
         gate = "passed"
-    score = selected["raw_score"] if gate == "passed" else 0
+    raw_score = selected.get("raw_score", 0)
+    score = min(raw_score, config.liquidation_max_score) if gate == "passed" else 0
     bonus = config.liquidation_activity_bonus_score if (
         gate == "passed" and score > 0 and activity >= config.liquidation_activity_bonus_min_score
         and abs(imbalance) >= config.liquidation_activity_bonus_min_imbalance_ratio
@@ -190,6 +191,7 @@ def calculate_liquidation_speed(data, current_time, config):
     indicators = {
         "scoring_mode": "speed_5m_v1", "window_minutes": 5,
         "ranking_method": "positive_windows_v2",
+        "raw_score": raw_score, "score_cap": config.liquidation_max_score,
         "minimum_positive_windows": minimum,
         "activity_speed_percentile": activity_percentile,
         "activity_positive_reference_count": activity_positive_count,

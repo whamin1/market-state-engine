@@ -36,10 +36,11 @@ class LiquidationSpeedTests(unittest.TestCase):
     def test_increasing_long_and_short(self):
         for side,own,other in (("BUY","long_score","short_score"),("SELL","short_score","long_score")):
             result=self.calc(self.data(side=side))
-            self.assertEqual(result[own],6)
+            self.assertEqual(result[own],3)
+            self.assertEqual(result['indicators']['raw_score'],6)
             self.assertEqual(result[other],0)
             self.assertEqual(result['indicators']['gate'],'passed')
-            self.assertEqual(result['long_activity_bonus']+result['short_activity_bonus'],1)
+            self.assertEqual(result['long_activity_bonus']+result['short_activity_bonus'],0)
 
     def test_decreasing_does_not_keep_high_hour_score(self):
         result=self.calc(self.data(current=1000,previous=100000))

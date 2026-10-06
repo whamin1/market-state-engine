@@ -1,0 +1,5819 @@
+{
+  "sources": [
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_20260920_043441.db",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_1ea9a65d3cde.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_207f42c9e2bd.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_49a2193fdf25.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_72da6c6b9001.zip",
+    "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_ef7b17be17f8.zip",
+    "C:\\Users\\chlgh\\AppData\\Local\\Temp\\delta (3).db"
+  ],
+  "market_start": "08-23 17:56",
+  "market_end": "10-04 10:59",
+  "closed_events": 151,
+  "eligible": 96,
+  "exclusion_counts": {
+    "missing_fee_record": 16,
+    "additional_entry": 14,
+    "missing_boundary_data": 23,
+    "strategy_change": 2
+  },
+  "exclusions": [
+    {
+      "exit": "2026-07-01T14:34:02.923502+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-01T22:28:37.501347+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-02T04:27:06.177254+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-02T10:01:22.797414+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-02T14:18:17.249668+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-03T12:26:44.055658+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-06T13:45:35.994817+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-07T05:13:46.287803+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-08T06:52:07.949025+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-08T08:48:09.039162+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-08T16:06:54.050453+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-15T13:03:53.872655+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-17T02:14:32.373250+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-17T13:48:41.869600+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-23T07:12:55.054054+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-07-23T18:32:12.660450+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-07-26T22:33:13.086159+00:00",
+      "reason": "missing_fee_record"
+    },
+    {
+      "exit": "2026-08-02T08:29:24.129707+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-03T14:35:47.802966+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-04T20:02:25.176128+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-05T14:36:41.938535+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-05T17:13:44.669971+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-07T13:24:59.543933+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-11T09:44:09.071095+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-17T17:12:36.187886+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-19T15:05:54.512987+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-19T15:29:10.636607+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-19T22:27:20.851143+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-20T01:46:54.153465+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-20T04:12:05.301930+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-20T07:18:34.061471+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-20T12:06:58.374308+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-20T17:10:35.773612+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-20T23:45:55.745220+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-21T05:27:52.636038+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-21T09:51:07.448930+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-21T21:37:18.405233+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-22T02:28:48.970373+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-22T05:11:14.915311+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-22T10:29:02.243290+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-23T05:25:04.607083+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-23T11:20:33.623228+00:00",
+      "reason": "missing_boundary_data"
+    },
+    {
+      "exit": "2026-08-24T00:46:35.508104+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-24T11:47:11.742650+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-24T13:32:24.829804+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-25T02:51:20.734551+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-25T14:54:11.924718+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-25T21:13:59.955979+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-26T21:15:00.871147+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-27T09:34:37.717759+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-27T14:37:06.721880+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-27T15:16:41.404246+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-28T14:19:38.480356+00:00",
+      "reason": "additional_entry"
+    },
+    {
+      "exit": "2026-08-30T12:11:32.678871+00:00",
+      "reason": "strategy_change"
+    },
+    {
+      "exit": "2026-09-28T00:21:37.214232+00:00",
+      "reason": "strategy_change"
+    }
+  ],
+  "groups": {
+    "market_state_engine_v1:824135c3": {
+      "A": {
+        "n": 11,
+        "baseline_net": -42.590301599999975,
+        "candidate_net": -30.205347199999917,
+        "delta": 12.384954400000058,
+        "triggered": 4,
+        "improved": 4,
+        "worsened": 0,
+        "loss_savings": 12.384954400000058,
+        "winner_change": 0.0,
+        "winners_turned_loss": 0,
+        "baseline_worst": -15.0754877,
+        "candidate_worst": -14.5314963500001
+      },
+      "B": {
+        "n": 11,
+        "baseline_net": -42.590301599999975,
+        "candidate_net": -30.205347199999917,
+        "delta": 12.384954400000058,
+        "triggered": 4,
+        "improved": 4,
+        "worsened": 0,
+        "loss_savings": 12.384954400000058,
+        "winner_change": 0.0,
+        "winners_turned_loss": 0,
+        "baseline_worst": -15.0754877,
+        "candidate_worst": -14.5314963500001
+      },
+      "C": {
+        "n": 11,
+        "baseline_net": -42.590301599999975,
+        "candidate_net": -30.205347199999917,
+        "delta": 12.384954400000058,
+        "triggered": 4,
+        "improved": 4,
+        "worsened": 0,
+        "loss_savings": 12.384954400000058,
+        "winner_change": 0.0,
+        "winners_turned_loss": 0,
+        "baseline_worst": -15.0754877,
+        "candidate_worst": -14.5314963500001
+      },
+      "time_split": {
+        "earlier": {
+          "A": {
+            "n": 5,
+            "baseline_net": -15.918200899999917,
+            "candidate_net": -9.665511099999899,
+            "delta": 6.252689800000018,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 6.252689800000019,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -15.0754877,
+            "candidate_worst": -8.85778039999998
+          },
+          "B": {
+            "n": 5,
+            "baseline_net": -15.918200899999917,
+            "candidate_net": -9.665511099999899,
+            "delta": 6.252689800000018,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 6.252689800000019,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -15.0754877,
+            "candidate_worst": -8.85778039999998
+          },
+          "C": {
+            "n": 5,
+            "baseline_net": -15.918200899999917,
+            "candidate_net": -9.665511099999899,
+            "delta": 6.252689800000018,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 6.252689800000019,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -15.0754877,
+            "candidate_worst": -8.85778039999998
+          }
+        },
+        "later": {
+          "A": {
+            "n": 6,
+            "baseline_net": -26.67210070000006,
+            "candidate_net": -20.53983610000002,
+            "delta": 6.132264600000038,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 6.13226460000004,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -14.5314963500001,
+            "candidate_worst": -14.5314963500001
+          },
+          "B": {
+            "n": 6,
+            "baseline_net": -26.67210070000006,
+            "candidate_net": -20.53983610000002,
+            "delta": 6.132264600000038,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 6.13226460000004,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -14.5314963500001,
+            "candidate_worst": -14.5314963500001
+          },
+          "C": {
+            "n": 6,
+            "baseline_net": -26.67210070000006,
+            "candidate_net": -20.53983610000002,
+            "delta": 6.132264600000038,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 6.13226460000004,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -14.5314963500001,
+            "candidate_worst": -14.5314963500001
+          }
+        }
+      }
+    },
+    "market_state_engine_v1:90ef0341": {
+      "A": {
+        "n": 64,
+        "baseline_net": -38.647373249999674,
+        "candidate_net": -32.9158281999993,
+        "delta": 5.731545050000378,
+        "triggered": 28,
+        "improved": 18,
+        "worsened": 10,
+        "loss_savings": 67.96310220000031,
+        "winner_change": -62.23155714999992,
+        "winners_turned_loss": 7,
+        "baseline_worst": -24.619817999999956,
+        "candidate_worst": -18.46108
+      },
+      "B": {
+        "n": 64,
+        "baseline_net": -38.647373249999674,
+        "candidate_net": -30.766093599999447,
+        "delta": 7.881279650000227,
+        "triggered": 28,
+        "improved": 18,
+        "worsened": 10,
+        "loss_savings": 67.70283240000022,
+        "winner_change": -59.821552749999995,
+        "winners_turned_loss": 6,
+        "baseline_worst": -24.619817999999956,
+        "candidate_worst": -18.46108
+      },
+      "C": {
+        "n": 64,
+        "baseline_net": -38.647373249999674,
+        "candidate_net": -36.16879359999945,
+        "delta": 2.4785796500002277,
+        "triggered": 28,
+        "improved": 18,
+        "worsened": 10,
+        "loss_savings": 67.70283240000022,
+        "winner_change": -65.22425274999999,
+        "winners_turned_loss": 7,
+        "baseline_worst": -24.619817999999956,
+        "candidate_worst": -18.46108
+      },
+      "time_split": {
+        "earlier": {
+          "A": {
+            "n": 32,
+            "baseline_net": 0.7288773500002155,
+            "candidate_net": -9.027880099999626,
+            "delta": -9.756757449999842,
+            "triggered": 14,
+            "improved": 7,
+            "worsened": 7,
+            "loss_savings": 37.714467000000106,
+            "winner_change": -47.47122444999995,
+            "winners_turned_loss": 5,
+            "baseline_worst": -24.619817999999956,
+            "candidate_worst": -18.46108
+          },
+          "B": {
+            "n": 32,
+            "baseline_net": 0.7288773500002155,
+            "candidate_net": -6.617875699999696,
+            "delta": -7.346753049999911,
+            "triggered": 14,
+            "improved": 7,
+            "worsened": 7,
+            "loss_savings": 37.714467000000106,
+            "winner_change": -45.06122005000002,
+            "winners_turned_loss": 4,
+            "baseline_worst": -24.619817999999956,
+            "candidate_worst": -18.46108
+          },
+          "C": {
+            "n": 32,
+            "baseline_net": 0.7288773500002155,
+            "candidate_net": -12.020575699999696,
+            "delta": -12.749453049999913,
+            "triggered": 14,
+            "improved": 7,
+            "worsened": 7,
+            "loss_savings": 37.714467000000106,
+            "winner_change": -50.46392005000002,
+            "winners_turned_loss": 5,
+            "baseline_worst": -24.619817999999956,
+            "candidate_worst": -18.46108
+          }
+        },
+        "later": {
+          "A": {
+            "n": 32,
+            "baseline_net": -39.37625059999989,
+            "candidate_net": -23.88794809999967,
+            "delta": 15.488302500000223,
+            "triggered": 14,
+            "improved": 11,
+            "worsened": 3,
+            "loss_savings": 30.2486352000002,
+            "winner_change": -14.760332699999978,
+            "winners_turned_loss": 2,
+            "baseline_worst": -18.56012724999996,
+            "candidate_worst": -9.408803249999918
+          },
+          "B": {
+            "n": 32,
+            "baseline_net": -39.37625059999989,
+            "candidate_net": -24.14821789999975,
+            "delta": 15.228032700000142,
+            "triggered": 14,
+            "improved": 11,
+            "worsened": 3,
+            "loss_savings": 29.98836540000012,
+            "winner_change": -14.760332699999978,
+            "winners_turned_loss": 2,
+            "baseline_worst": -18.56012724999996,
+            "candidate_worst": -9.408803249999918
+          },
+          "C": {
+            "n": 32,
+            "baseline_net": -39.37625059999989,
+            "candidate_net": -24.14821789999975,
+            "delta": 15.228032700000142,
+            "triggered": 14,
+            "improved": 11,
+            "worsened": 3,
+            "loss_savings": 29.98836540000012,
+            "winner_change": -14.760332699999978,
+            "winners_turned_loss": 2,
+            "baseline_worst": -18.56012724999996,
+            "candidate_worst": -9.408803249999918
+          }
+        }
+      }
+    },
+    "market_state_engine_v1:b84ae8bd": {
+      "A": {
+        "n": 10,
+        "baseline_net": 10.252904800000163,
+        "candidate_net": 5.107133200000209,
+        "delta": -5.145771599999954,
+        "triggered": 2,
+        "improved": 1,
+        "worsened": 1,
+        "loss_savings": 1.021310400000047,
+        "winner_change": -6.167082000000001,
+        "winners_turned_loss": 1,
+        "baseline_worst": -5.6740728,
+        "candidate_worst": -5.1486764
+      },
+      "B": {
+        "n": 10,
+        "baseline_net": 10.252904800000163,
+        "candidate_net": 5.107133200000209,
+        "delta": -5.145771599999954,
+        "triggered": 2,
+        "improved": 1,
+        "worsened": 1,
+        "loss_savings": 1.021310400000047,
+        "winner_change": -6.167082000000001,
+        "winners_turned_loss": 1,
+        "baseline_worst": -5.6740728,
+        "candidate_worst": -5.1486764
+      },
+      "C": {
+        "n": 10,
+        "baseline_net": 10.252904800000163,
+        "candidate_net": 5.107133200000209,
+        "delta": -5.145771599999954,
+        "triggered": 2,
+        "improved": 1,
+        "worsened": 1,
+        "loss_savings": 1.021310400000047,
+        "winner_change": -6.167082000000001,
+        "winners_turned_loss": 1,
+        "baseline_worst": -5.6740728,
+        "candidate_worst": -5.1486764
+      },
+      "time_split": {
+        "earlier": {
+          "A": {
+            "n": 5,
+            "baseline_net": -4.400165150000017,
+            "candidate_net": -9.54593674999997,
+            "delta": -5.145771599999954,
+            "triggered": 2,
+            "improved": 1,
+            "worsened": 1,
+            "loss_savings": 1.021310400000047,
+            "winner_change": -6.167082000000001,
+            "winners_turned_loss": 1,
+            "baseline_worst": -5.6740728,
+            "candidate_worst": -4.900628599999959
+          },
+          "B": {
+            "n": 5,
+            "baseline_net": -4.400165150000017,
+            "candidate_net": -9.54593674999997,
+            "delta": -5.145771599999954,
+            "triggered": 2,
+            "improved": 1,
+            "worsened": 1,
+            "loss_savings": 1.021310400000047,
+            "winner_change": -6.167082000000001,
+            "winners_turned_loss": 1,
+            "baseline_worst": -5.6740728,
+            "candidate_worst": -4.900628599999959
+          },
+          "C": {
+            "n": 5,
+            "baseline_net": -4.400165150000017,
+            "candidate_net": -9.54593674999997,
+            "delta": -5.145771599999954,
+            "triggered": 2,
+            "improved": 1,
+            "worsened": 1,
+            "loss_savings": 1.021310400000047,
+            "winner_change": -6.167082000000001,
+            "winners_turned_loss": 1,
+            "baseline_worst": -5.6740728,
+            "candidate_worst": -4.900628599999959
+          }
+        },
+        "later": {
+          "A": {
+            "n": 5,
+            "baseline_net": 14.65306995000018,
+            "candidate_net": 14.65306995000018,
+            "delta": 0.0,
+            "triggered": 0,
+            "improved": 0,
+            "worsened": 0,
+            "loss_savings": 0.0,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -5.1486764,
+            "candidate_worst": -5.1486764
+          },
+          "B": {
+            "n": 5,
+            "baseline_net": 14.65306995000018,
+            "candidate_net": 14.65306995000018,
+            "delta": 0.0,
+            "triggered": 0,
+            "improved": 0,
+            "worsened": 0,
+            "loss_savings": 0.0,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -5.1486764,
+            "candidate_worst": -5.1486764
+          },
+          "C": {
+            "n": 5,
+            "baseline_net": 14.65306995000018,
+            "candidate_net": 14.65306995000018,
+            "delta": 0.0,
+            "triggered": 0,
+            "improved": 0,
+            "worsened": 0,
+            "loss_savings": 0.0,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -5.1486764,
+            "candidate_worst": -5.1486764
+          }
+        }
+      }
+    },
+    "market_state_engine_v1:eddf6033": {
+      "A": {
+        "n": 8,
+        "baseline_net": -38.157307500000066,
+        "candidate_net": -36.16253950000002,
+        "delta": 1.9947680000000432,
+        "triggered": 3,
+        "improved": 2,
+        "worsened": 1,
+        "loss_savings": 1.9947680000000458,
+        "winner_change": 0.0,
+        "winners_turned_loss": 0,
+        "baseline_worst": -12.44240550000002,
+        "candidate_worst": -12.44240550000002
+      },
+      "B": {
+        "n": 8,
+        "baseline_net": -38.157307500000066,
+        "candidate_net": -35.713164300000045,
+        "delta": 2.4441432000000205,
+        "triggered": 3,
+        "improved": 2,
+        "worsened": 1,
+        "loss_savings": 2.4441432000000223,
+        "winner_change": 0.0,
+        "winners_turned_loss": 0,
+        "baseline_worst": -12.44240550000002,
+        "candidate_worst": -12.44240550000002
+      },
+      "C": {
+        "n": 8,
+        "baseline_net": -38.157307500000066,
+        "candidate_net": -35.713164300000045,
+        "delta": 2.4441432000000205,
+        "triggered": 3,
+        "improved": 2,
+        "worsened": 1,
+        "loss_savings": 2.4441432000000223,
+        "winner_change": 0.0,
+        "winners_turned_loss": 0,
+        "baseline_worst": -12.44240550000002,
+        "candidate_worst": -12.44240550000002
+      },
+      "time_split": {
+        "earlier": {
+          "A": {
+            "n": 4,
+            "baseline_net": -15.262487599999954,
+            "candidate_net": -12.23360279999993,
+            "delta": 3.0288848000000232,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 3.0288848000000232,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -6.926098399999954,
+            "candidate_worst": -6.926098399999954
+          },
+          "B": {
+            "n": 4,
+            "baseline_net": -15.262487599999954,
+            "candidate_net": -11.784227599999955,
+            "delta": 3.478259999999999,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 3.4782599999999997,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -6.926098399999954,
+            "candidate_worst": -6.926098399999954
+          },
+          "C": {
+            "n": 4,
+            "baseline_net": -15.262487599999954,
+            "candidate_net": -11.784227599999955,
+            "delta": 3.478259999999999,
+            "triggered": 2,
+            "improved": 2,
+            "worsened": 0,
+            "loss_savings": 3.4782599999999997,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -6.926098399999954,
+            "candidate_worst": -6.926098399999954
+          }
+        },
+        "later": {
+          "A": {
+            "n": 4,
+            "baseline_net": -22.894819900000115,
+            "candidate_net": -23.92893670000009,
+            "delta": -1.0341167999999747,
+            "triggered": 1,
+            "improved": 0,
+            "worsened": 1,
+            "loss_savings": -1.0341167999999774,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -12.44240550000002,
+            "candidate_worst": -12.44240550000002
+          },
+          "B": {
+            "n": 4,
+            "baseline_net": -22.894819900000115,
+            "candidate_net": -23.92893670000009,
+            "delta": -1.0341167999999747,
+            "triggered": 1,
+            "improved": 0,
+            "worsened": 1,
+            "loss_savings": -1.0341167999999774,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -12.44240550000002,
+            "candidate_worst": -12.44240550000002
+          },
+          "C": {
+            "n": 4,
+            "baseline_net": -22.894819900000115,
+            "candidate_net": -23.92893670000009,
+            "delta": -1.0341167999999747,
+            "triggered": 1,
+            "improved": 0,
+            "worsened": 1,
+            "loss_savings": -1.0341167999999774,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": -12.44240550000002,
+            "candidate_worst": -12.44240550000002
+          }
+        }
+      }
+    },
+    "market_state_engine_v2_liquidation_speed_5m:4fa1214d": {
+      "A": {
+        "n": 3,
+        "baseline_net": 10.446245599999756,
+        "candidate_net": 5.159303449999797,
+        "delta": -5.286942149999959,
+        "triggered": 1,
+        "improved": 0,
+        "worsened": 1,
+        "loss_savings": 0,
+        "winner_change": -5.286942149999959,
+        "winners_turned_loss": 1,
+        "baseline_worst": 1.5295951999999797,
+        "candidate_worst": -1.759392250000102
+      },
+      "B": {
+        "n": 3,
+        "baseline_net": 10.446245599999756,
+        "candidate_net": 5.159303449999797,
+        "delta": -5.286942149999959,
+        "triggered": 1,
+        "improved": 0,
+        "worsened": 1,
+        "loss_savings": 0,
+        "winner_change": -5.286942149999959,
+        "winners_turned_loss": 1,
+        "baseline_worst": 1.5295951999999797,
+        "candidate_worst": -1.759392250000102
+      },
+      "C": {
+        "n": 3,
+        "baseline_net": 10.446245599999756,
+        "candidate_net": 5.159303449999797,
+        "delta": -5.286942149999959,
+        "triggered": 1,
+        "improved": 0,
+        "worsened": 1,
+        "loss_savings": 0,
+        "winner_change": -5.286942149999959,
+        "winners_turned_loss": 1,
+        "baseline_worst": 1.5295951999999797,
+        "candidate_worst": -1.759392250000102
+      },
+      "time_split": {
+        "earlier": {
+          "A": {
+            "n": 1,
+            "baseline_net": 5.389100499999919,
+            "candidate_net": 5.389100499999919,
+            "delta": 0.0,
+            "triggered": 0,
+            "improved": 0,
+            "worsened": 0,
+            "loss_savings": 0,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": 5.389100499999919,
+            "candidate_worst": 5.389100499999919
+          },
+          "B": {
+            "n": 1,
+            "baseline_net": 5.389100499999919,
+            "candidate_net": 5.389100499999919,
+            "delta": 0.0,
+            "triggered": 0,
+            "improved": 0,
+            "worsened": 0,
+            "loss_savings": 0,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": 5.389100499999919,
+            "candidate_worst": 5.389100499999919
+          },
+          "C": {
+            "n": 1,
+            "baseline_net": 5.389100499999919,
+            "candidate_net": 5.389100499999919,
+            "delta": 0.0,
+            "triggered": 0,
+            "improved": 0,
+            "worsened": 0,
+            "loss_savings": 0,
+            "winner_change": 0.0,
+            "winners_turned_loss": 0,
+            "baseline_worst": 5.389100499999919,
+            "candidate_worst": 5.389100499999919
+          }
+        },
+        "later": {
+          "A": {
+            "n": 2,
+            "baseline_net": 5.057145099999837,
+            "candidate_net": -0.2297970500001223,
+            "delta": -5.286942149999959,
+            "triggered": 1,
+            "improved": 0,
+            "worsened": 1,
+            "loss_savings": 0,
+            "winner_change": -5.286942149999959,
+            "winners_turned_loss": 1,
+            "baseline_worst": 1.5295951999999797,
+            "candidate_worst": -1.759392250000102
+          },
+          "B": {
+            "n": 2,
+            "baseline_net": 5.057145099999837,
+            "candidate_net": -0.2297970500001223,
+            "delta": -5.286942149999959,
+            "triggered": 1,
+            "improved": 0,
+            "worsened": 1,
+            "loss_savings": 0,
+            "winner_change": -5.286942149999959,
+            "winners_turned_loss": 1,
+            "baseline_worst": 1.5295951999999797,
+            "candidate_worst": -1.759392250000102
+          },
+          "C": {
+            "n": 2,
+            "baseline_net": 5.057145099999837,
+            "candidate_net": -0.2297970500001223,
+            "delta": -5.286942149999959,
+            "triggered": 1,
+            "improved": 0,
+            "worsened": 1,
+            "loss_savings": 0,
+            "winner_change": -5.286942149999959,
+            "winners_turned_loss": 1,
+            "baseline_worst": 1.5295951999999797,
+            "candidate_worst": -1.759392250000102
+          }
+        }
+      }
+    }
+  },
+  "trades": [
+    {
+      "entry": "08-23 20:21",
+      "exit": "08-23 23:43",
+      "start_t": 1787484096.335058,
+      "end_t": 1787496208.418963,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77250.40000000001,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": -4.049886400000093,
+      "actual_reason": "opposite signal",
+      "hold_hours": 3.3644677513837813,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -2.43229560000007,
+          "delta": 1.6175908000000234,
+          "exit": "08-23 21:28",
+          "end_t": 1787488096.687342,
+          "hold_hours": 1.1112089677651724,
+          "hours_saved": 2.2532587836186093,
+          "long": 2,
+          "short": 8,
+          "price": 77023.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -1.9829204000000933,
+          "delta": 2.066966,
+          "exit": "08-23 21:26",
+          "end_t": 1787487975.663367,
+          "hold_hours": 1.0775911969608731,
+          "hours_saved": 2.2868765544229084,
+          "long": 4,
+          "short": 8,
+          "price": 77079.7
+        },
+        "C": {
+          "triggered": true,
+          "net": -1.9829204000000933,
+          "delta": 2.066966,
+          "exit": "08-23 21:26",
+          "end_t": 1787487975.663367,
+          "hold_hours": 1.0775911969608731,
+          "hours_saved": 2.2868765544229084,
+          "long": 4,
+          "short": 8,
+          "price": 77079.7
+        }
+      }
+    },
+    {
+      "entry": "08-24 09:49",
+      "exit": "08-24 14:04",
+      "start_t": 1787532579.13545,
+      "end_t": 1787547840.149138,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77299.90000000001,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": 2.1549868000001164,
+      "actual_reason": "profit protection (60% of peak): peak 0.78% -> current 0.45%",
+      "hold_hours": 4.239170468913184,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.1549868000001164,
+          "delta": 0.0,
+          "exit": "08-24 14:04",
+          "end_t": 1787547840.149138,
+          "hold_hours": 4.239170468913184,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 76953.4
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.1549868000001164,
+          "delta": 0.0,
+          "exit": "08-24 14:04",
+          "end_t": 1787547840.149138,
+          "hold_hours": 4.239170468913184,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 76953.4
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.1549868000001164,
+          "delta": 0.0,
+          "exit": "08-24 14:04",
+          "end_t": 1787547840.149138,
+          "hold_hours": 4.239170468913184,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 76953.4
+        }
+      }
+    },
+    {
+      "entry": "08-24 14:34",
+      "exit": "08-24 16:12",
+      "start_t": 1787549658.032628,
+      "end_t": 1787555537.824106,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76968.1,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": -6.926098399999954,
+      "actual_reason": "opposite signal",
+      "hold_hours": 1.6332754105329514,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -6.926098399999954,
+          "delta": 0.0,
+          "exit": "08-24 16:12",
+          "end_t": 1787555537.824106,
+          "hold_hours": 1.6332754105329514,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77756.5
+        },
+        "B": {
+          "triggered": false,
+          "net": -6.926098399999954,
+          "delta": 0.0,
+          "exit": "08-24 16:12",
+          "end_t": 1787555537.824106,
+          "hold_hours": 1.6332754105329514,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77756.5
+        },
+        "C": {
+          "triggered": false,
+          "net": -6.926098399999954,
+          "delta": 0.0,
+          "exit": "08-24 16:12",
+          "end_t": 1787555537.824106,
+          "hold_hours": 1.6332754105329514,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77756.5
+        }
+      }
+    },
+    {
+      "entry": "08-24 16:13",
+      "exit": "08-24 17:23",
+      "start_t": 1787555600.443172,
+      "end_t": 1787559780.923936,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77750.1,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": -6.441489600000024,
+      "actual_reason": "opposite signal",
+      "hold_hours": 1.161244656642278,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -5.030195600000024,
+          "delta": 1.4112939999999998,
+          "exit": "08-24 17:15",
+          "end_t": 1787559356.060646,
+          "hold_hours": 1.0432270761330922,
+          "hours_saved": 0.11801758050918579,
+          "long": 1,
+          "short": 8,
+          "price": 77198.8
+        },
+        "B": {
+          "triggered": true,
+          "net": -5.030195600000024,
+          "delta": 1.4112939999999998,
+          "exit": "08-24 17:15",
+          "end_t": 1787559356.060646,
+          "hold_hours": 1.0432270761330922,
+          "hours_saved": 0.11801758050918579,
+          "long": 1,
+          "short": 8,
+          "price": 77198.8
+        },
+        "C": {
+          "triggered": true,
+          "net": -5.030195600000024,
+          "delta": 1.4112939999999998,
+          "exit": "08-24 17:15",
+          "end_t": 1787559356.060646,
+          "hold_hours": 1.0432270761330922,
+          "hours_saved": 0.11801758050918579,
+          "long": 1,
+          "short": 8,
+          "price": 77198.8
+        }
+      }
+    },
+    {
+      "entry": "08-24 17:24",
+      "exit": "08-24 19:22",
+      "start_t": 1787559843.578848,
+      "end_t": 1787566937.322508,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77015.1,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": -6.96809519999993,
+      "actual_reason": "opposite signal",
+      "hold_hours": 1.9704843500587674,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -8.002211999999908,
+          "delta": -1.0341167999999774,
+          "exit": "08-24 19:20",
+          "end_t": 1787566815.521296,
+          "hold_hours": 1.936650680038664,
+          "hours_saved": 0.03383367002010346,
+          "long": 9,
+          "short": 0,
+          "price": 77937.9
+        },
+        "B": {
+          "triggered": true,
+          "net": -8.002211999999908,
+          "delta": -1.0341167999999774,
+          "exit": "08-24 19:20",
+          "end_t": 1787566815.521296,
+          "hold_hours": 1.936650680038664,
+          "hours_saved": 0.03383367002010346,
+          "long": 9,
+          "short": 0,
+          "price": 77937.9
+        },
+        "C": {
+          "triggered": true,
+          "net": -8.002211999999908,
+          "delta": -1.0341167999999774,
+          "exit": "08-24 19:20",
+          "end_t": 1787566815.521296,
+          "hold_hours": 1.936650680038664,
+          "hours_saved": 0.03383367002010346,
+          "long": 9,
+          "short": 0,
+          "price": 77937.9
+        }
+      }
+    },
+    {
+      "entry": "08-24 23:02",
+      "exit": "08-24 23:25",
+      "start_t": 1787580167.484942,
+      "end_t": 1787581509.093072,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78832.90000000001,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": 0.427207599999907,
+      "actual_reason": "profit protection (60% of peak): peak 0.62% -> current 0.17%",
+      "hold_hours": 0.3726689249939389,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 0.427207599999907,
+          "delta": 0.0,
+          "exit": "08-24 23:25",
+          "end_t": 1787581509.093072,
+          "hold_hours": 0.3726689249939389,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78965.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 0.427207599999907,
+          "delta": 0.0,
+          "exit": "08-24 23:25",
+          "end_t": 1787581509.093072,
+          "hold_hours": 0.3726689249939389,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78965.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 0.427207599999907,
+          "delta": 0.0,
+          "exit": "08-24 23:25",
+          "end_t": 1787581509.093072,
+          "hold_hours": 0.3726689249939389,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78965.2
+        }
+      }
+    },
+    {
+      "entry": "08-25 11:52",
+      "exit": "08-25 21:06",
+      "start_t": 1787626342.203722,
+      "end_t": 1787659567.436094,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80535.40000000001,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": -12.44240550000002,
+      "actual_reason": "opposite signal",
+      "hold_hours": 9.229231214457087,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -12.44240550000002,
+          "delta": 0.0,
+          "exit": "08-25 21:06",
+          "end_t": 1787659567.436094,
+          "hold_hours": 9.229231214457087,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78837.6
+        },
+        "B": {
+          "triggered": false,
+          "net": -12.44240550000002,
+          "delta": 0.0,
+          "exit": "08-25 21:06",
+          "end_t": 1787659567.436094,
+          "hold_hours": 9.229231214457087,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78837.6
+        },
+        "C": {
+          "triggered": false,
+          "net": -12.44240550000002,
+          "delta": 0.0,
+          "exit": "08-25 21:06",
+          "end_t": 1787659567.436094,
+          "hold_hours": 9.229231214457087,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78837.6
+        }
+      }
+    },
+    {
+      "entry": "08-25 23:55",
+      "exit": "08-26 02:08",
+      "start_t": 1787669714.573029,
+      "end_t": 1787677733.345072,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79245.8,
+      "group": "market_state_engine_v1:eddf6033",
+      "actual_net": -3.91152680000007,
+      "actual_reason": "opposite signal",
+      "hold_hours": 2.2274366786082584,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -3.91152680000007,
+          "delta": 0.0,
+          "exit": "08-26 02:08",
+          "end_t": 1787677733.345072,
+          "hold_hours": 2.2274366786082584,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78835.9
+        },
+        "B": {
+          "triggered": false,
+          "net": -3.91152680000007,
+          "delta": 0.0,
+          "exit": "08-26 02:08",
+          "end_t": 1787677733.345072,
+          "hold_hours": 2.2274366786082584,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78835.9
+        },
+        "C": {
+          "triggered": false,
+          "net": -3.91152680000007,
+          "delta": 0.0,
+          "exit": "08-26 02:08",
+          "end_t": 1787677733.345072,
+          "hold_hours": 2.2274366786082584,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78835.9
+        }
+      }
+    },
+    {
+      "entry": "08-26 06:44",
+      "exit": "08-26 22:31",
+      "start_t": 1787694269.728132,
+      "end_t": 1787751067.525967,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78535.0,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 2.1859264000000467,
+      "actual_reason": "profit protection (70% of peak): peak 0.77% -> current 0.45%",
+      "hold_hours": 15.777166065242556,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -3.9811555999999535,
+          "delta": -6.167082000000001,
+          "exit": "08-26 07:16",
+          "end_t": 1787696213.575277,
+          "hold_hours": 0.5399575403001573,
+          "hours_saved": 15.237208524942398,
+          "long": 9,
+          "short": 0,
+          "price": 78953.9
+        },
+        "B": {
+          "triggered": true,
+          "net": -3.9811555999999535,
+          "delta": -6.167082000000001,
+          "exit": "08-26 07:16",
+          "end_t": 1787696213.575277,
+          "hold_hours": 0.5399575403001573,
+          "hours_saved": 15.237208524942398,
+          "long": 9,
+          "short": 0,
+          "price": 78953.9
+        },
+        "C": {
+          "triggered": true,
+          "net": -3.9811555999999535,
+          "delta": -6.167082000000001,
+          "exit": "08-26 07:16",
+          "end_t": 1787696213.575277,
+          "hold_hours": 0.5399575403001573,
+          "hours_saved": 15.237208524942398,
+          "long": 9,
+          "short": 0,
+          "price": 78953.9
+        }
+      }
+    },
+    {
+      "entry": "08-27 06:16",
+      "exit": "08-27 09:00",
+      "start_t": 1787778963.385603,
+      "end_t": 1787788841.004576,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78778.0,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 0.5188011999999766,
+      "actual_reason": "opposite signal",
+      "hold_hours": 2.7437830480602052,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 0.5188011999999766,
+          "delta": 0.0,
+          "exit": "08-27 09:00",
+          "end_t": 1787788841.004576,
+          "hold_hours": 2.7437830480602052,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78921.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 0.5188011999999766,
+          "delta": 0.0,
+          "exit": "08-27 09:00",
+          "end_t": 1787788841.004576,
+          "hold_hours": 2.7437830480602052,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78921.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 0.5188011999999766,
+          "delta": 0.0,
+          "exit": "08-27 09:00",
+          "end_t": 1787788841.004576,
+          "hold_hours": 2.7437830480602052,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78921.7
+        }
+      }
+    },
+    {
+      "entry": "08-27 09:01",
+      "exit": "08-27 17:08",
+      "start_t": 1787788904.158561,
+      "end_t": 1787818118.825344,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78944.1,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": -5.6740728,
+      "actual_reason": "opposite signal",
+      "hold_hours": 8.115185217526223,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -4.652762399999953,
+          "delta": 1.021310400000047,
+          "exit": "08-27 17:04",
+          "end_t": 1787817874.543984,
+          "hold_hours": 8.047329284151395,
+          "hours_saved": 0.06785593337482876,
+          "long": 8,
+          "short": 0,
+          "price": 79446.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -4.652762399999953,
+          "delta": 1.021310400000047,
+          "exit": "08-27 17:04",
+          "end_t": 1787817874.543984,
+          "hold_hours": 8.047329284151395,
+          "hours_saved": 0.06785593337482876,
+          "long": 8,
+          "short": 0,
+          "price": 79446.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -4.652762399999953,
+          "delta": 1.021310400000047,
+          "exit": "08-27 17:04",
+          "end_t": 1787817874.543984,
+          "hold_hours": 8.047329284151395,
+          "hours_saved": 0.06785593337482876,
+          "long": 8,
+          "short": 0,
+          "price": 79446.5
+        }
+      }
+    },
+    {
+      "entry": "08-27 19:04",
+      "exit": "08-27 19:37",
+      "start_t": 1787825095.718793,
+      "end_t": 1787827039.033159,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80000.0,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": -4.900628599999959,
+      "actual_reason": "opposite signal",
+      "hold_hours": 0.5398095461395052,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -4.900628599999959,
+          "delta": 0.0,
+          "exit": "08-27 19:37",
+          "end_t": 1787827039.033159,
+          "hold_hours": 0.5398095461395052,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79379.6
+        },
+        "B": {
+          "triggered": false,
+          "net": -4.900628599999959,
+          "delta": 0.0,
+          "exit": "08-27 19:37",
+          "end_t": 1787827039.033159,
+          "hold_hours": 0.5398095461395052,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79379.6
+        },
+        "C": {
+          "triggered": false,
+          "net": -4.900628599999959,
+          "delta": 0.0,
+          "exit": "08-27 19:37",
+          "end_t": 1787827039.033159,
+          "hold_hours": 0.5398095461395052,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79379.6
+        }
+      }
+    },
+    {
+      "entry": "08-28 00:47",
+      "exit": "08-28 10:38",
+      "start_t": 1787845626.983314,
+      "end_t": 1787881101.775067,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80324.90000000001,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 3.469808649999919,
+      "actual_reason": "profit protection (70% of peak): peak 1.11% -> current 0.72%",
+      "hold_hours": 9.854108820292685,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.469808649999919,
+          "delta": 0.0,
+          "exit": "08-28 10:38",
+          "end_t": 1787881101.775067,
+          "hold_hours": 9.854108820292685,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80901.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.469808649999919,
+          "delta": 0.0,
+          "exit": "08-28 10:38",
+          "end_t": 1787881101.775067,
+          "hold_hours": 9.854108820292685,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80901.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.469808649999919,
+          "delta": 0.0,
+          "exit": "08-28 10:38",
+          "end_t": 1787881101.775067,
+          "hold_hours": 9.854108820292685,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80901.2
+        }
+      }
+    },
+    {
+      "entry": "08-28 10:39",
+      "exit": "08-28 11:14",
+      "start_t": 1787881163.498639,
+      "end_t": 1787883287.386452,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80852.7,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": -5.1486764,
+      "actual_reason": "opposite signal",
+      "hold_hours": 0.589968836903572,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -5.1486764,
+          "delta": 0.0,
+          "exit": "08-28 11:14",
+          "end_t": 1787883287.386452,
+          "hold_hours": 0.589968836903572,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80197.7
+        },
+        "B": {
+          "triggered": false,
+          "net": -5.1486764,
+          "delta": 0.0,
+          "exit": "08-28 11:14",
+          "end_t": 1787883287.386452,
+          "hold_hours": 0.589968836903572,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80197.7
+        },
+        "C": {
+          "triggered": false,
+          "net": -5.1486764,
+          "delta": 0.0,
+          "exit": "08-28 11:14",
+          "end_t": 1787883287.386452,
+          "hold_hours": 0.589968836903572,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80197.7
+        }
+      }
+    },
+    {
+      "entry": "08-28 11:15",
+      "exit": "08-28 13:13",
+      "start_t": 1787883349.866119,
+      "end_t": 1787890383.217333,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80139.8,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 1.8069047500000406,
+      "actual_reason": "profit protection (70% of peak): peak 0.67% -> current 0.42%",
+      "hold_hours": 1.9537086706029043,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.8069047500000406,
+          "delta": 0.0,
+          "exit": "08-28 13:13",
+          "end_t": 1787890383.217333,
+          "hold_hours": 1.9537086706029043,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79801.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.8069047500000406,
+          "delta": 0.0,
+          "exit": "08-28 13:13",
+          "end_t": 1787890383.217333,
+          "hold_hours": 1.9537086706029043,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79801.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.8069047500000406,
+          "delta": 0.0,
+          "exit": "08-28 13:13",
+          "end_t": 1787890383.217333,
+          "hold_hours": 1.9537086706029043,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79801.7
+        }
+      }
+    },
+    {
+      "entry": "08-28 13:43",
+      "exit": "08-28 19:28",
+      "start_t": 1787892201.393437,
+      "end_t": 1787912939.037412,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79683.90000000001,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 3.037965600000093,
+      "actual_reason": "profit protection (70% of peak): peak 0.85% -> current 0.58%",
+      "hold_hours": 5.760456659727627,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.037965600000093,
+          "delta": 0.0,
+          "exit": "08-28 19:28",
+          "end_t": 1787912939.037412,
+          "hold_hours": 5.760456659727627,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79224.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.037965600000093,
+          "delta": 0.0,
+          "exit": "08-28 19:28",
+          "end_t": 1787912939.037412,
+          "hold_hours": 5.760456659727627,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79224.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.037965600000093,
+          "delta": 0.0,
+          "exit": "08-28 19:28",
+          "end_t": 1787912939.037412,
+          "hold_hours": 5.760456659727627,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79224.7
+        }
+      }
+    },
+    {
+      "entry": "08-28 23:49",
+      "exit": "08-29 01:28",
+      "start_t": 1787928599.426377,
+      "end_t": 1787934487.321537,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79144.7,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 12.266889199999977,
+      "actual_reason": "profit protection (80% of peak): peak 2.59% -> current 2.04%",
+      "hold_hours": 1.6355264333221649,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 12.266889199999977,
+          "delta": 0.0,
+          "exit": "08-29 01:28",
+          "end_t": 1787934487.321537,
+          "hold_hours": 1.6355264333221649,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77533.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 12.266889199999977,
+          "delta": 0.0,
+          "exit": "08-29 01:28",
+          "end_t": 1787934487.321537,
+          "hold_hours": 1.6355264333221649,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77533.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 12.266889199999977,
+          "delta": 0.0,
+          "exit": "08-29 01:28",
+          "end_t": 1787934487.321537,
+          "hold_hours": 1.6355264333221649,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77533.0
+        }
+      }
+    },
+    {
+      "entry": "08-29 01:58",
+      "exit": "08-29 03:52",
+      "start_t": 1787936307.641194,
+      "end_t": 1787943155.61462,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77858.6,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "actual_net": 2.68998680000007,
+      "actual_reason": "profit protection (70% of peak): peak 0.79% -> current 0.53%",
+      "hold_hours": 1.9022148405181036,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.68998680000007,
+          "delta": 0.0,
+          "exit": "08-29 03:52",
+          "end_t": 1787943155.61462,
+          "hold_hours": 1.9022148405181036,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77444.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.68998680000007,
+          "delta": 0.0,
+          "exit": "08-29 03:52",
+          "end_t": 1787943155.61462,
+          "hold_hours": 1.9022148405181036,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77444.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.68998680000007,
+          "delta": 0.0,
+          "exit": "08-29 03:52",
+          "end_t": 1787943155.61462,
+          "hold_hours": 1.9022148405181036,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77444.7
+        }
+      }
+    },
+    {
+      "entry": "08-30 21:41",
+      "exit": "08-31 01:21",
+      "start_t": 1788093712.145803,
+      "end_t": 1788106864.613864,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78603.8,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.4768159999999533,
+      "actual_reason": "profit protection (70% of peak): peak 0.72% -> current 0.49%",
+      "hold_hours": 3.6534633502695297,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.4768159999999533,
+          "delta": 0.0,
+          "exit": "08-31 01:21",
+          "end_t": 1788106864.613864,
+          "hold_hours": 3.6534633502695297,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78992.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.4768159999999533,
+          "delta": 0.0,
+          "exit": "08-31 01:21",
+          "end_t": 1788106864.613864,
+          "hold_hours": 3.6534633502695297,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78992.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.4768159999999533,
+          "delta": 0.0,
+          "exit": "08-31 01:21",
+          "end_t": 1788106864.613864,
+          "hold_hours": 3.6534633502695297,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78992.2
+        }
+      }
+    },
+    {
+      "entry": "08-31 01:51",
+      "exit": "08-31 05:50",
+      "start_t": 1788108685.084398,
+      "end_t": 1788123050.66532,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79150.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -4.3729300000000935,
+      "actual_reason": "opposite signal",
+      "hold_hours": 3.9904391449689864,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -5.387622400000046,
+          "delta": -1.0146923999999524,
+          "exit": "08-31 05:45",
+          "end_t": 1788122746.574251,
+          "hold_hours": 3.9059694035847983,
+          "hours_saved": 0.08446974138418833,
+          "long": 3,
+          "short": 9,
+          "price": 78555.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -5.387622400000046,
+          "delta": -1.0146923999999524,
+          "exit": "08-31 05:45",
+          "end_t": 1788122746.574251,
+          "hold_hours": 3.9059694035847983,
+          "hours_saved": 0.08446974138418833,
+          "long": 3,
+          "short": 9,
+          "price": 78555.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -5.387622400000046,
+          "delta": -1.0146923999999524,
+          "exit": "08-31 05:45",
+          "end_t": 1788122746.574251,
+          "hold_hours": 3.9059694035847983,
+          "hours_saved": 0.08446974138418833,
+          "long": 3,
+          "short": 9,
+          "price": 78555.5
+        }
+      }
+    },
+    {
+      "entry": "08-31 06:21",
+      "exit": "08-31 08:52",
+      "start_t": 1788124870.924017,
+      "end_t": 1788133928.082534,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78585.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 8.278165600000023,
+      "actual_reason": "profit protection (80% of peak): peak 1.82% -> current 1.42%",
+      "hold_hours": 2.515877365867297,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 8.278165600000023,
+          "delta": 0.0,
+          "exit": "08-31 08:52",
+          "end_t": 1788133928.082534,
+          "hold_hours": 2.515877365867297,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77472.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 8.278165600000023,
+          "delta": 0.0,
+          "exit": "08-31 08:52",
+          "end_t": 1788133928.082534,
+          "hold_hours": 2.515877365867297,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77472.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 8.278165600000023,
+          "delta": 0.0,
+          "exit": "08-31 08:52",
+          "end_t": 1788133928.082534,
+          "hold_hours": 2.515877365867297,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77472.9
+        }
+      }
+    },
+    {
+      "entry": "08-31 14:26",
+      "exit": "08-31 18:51",
+      "start_t": 1788153968.639336,
+      "end_t": 1788169871.608222,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78103.5,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 3.0341416000000465,
+      "actual_reason": "profit protection (70% of peak): peak 0.85% -> current 0.59%",
+      "hold_hours": 4.417491357194053,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.0341416000000465,
+          "delta": 0.0,
+          "exit": "08-31 18:51",
+          "end_t": 1788169871.608222,
+          "hold_hours": 4.417491357194053,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78561.1
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.0341416000000465,
+          "delta": 0.0,
+          "exit": "08-31 18:51",
+          "end_t": 1788169871.608222,
+          "hold_hours": 4.417491357194053,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78561.1
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.0341416000000465,
+          "delta": 0.0,
+          "exit": "08-31 18:51",
+          "end_t": 1788169871.608222,
+          "hold_hours": 4.417491357194053,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78561.1
+        }
+      }
+    },
+    {
+      "entry": "08-31 21:42",
+      "exit": "08-31 23:43",
+      "start_t": 1788180121.478095,
+      "end_t": 1788187407.198158,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77760.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -7.1549503999999775,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 2.0238111286030875,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -2.1092288000000234,
+          "delta": 5.045721599999954,
+          "exit": "08-31 23:33",
+          "end_t": 1788186796.714527,
+          "hold_hours": 1.8542323421769673,
+          "hours_saved": 0.16957878642612034,
+          "long": 8,
+          "short": 3,
+          "price": 77946.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -2.1092288000000234,
+          "delta": 5.045721599999954,
+          "exit": "08-31 23:33",
+          "end_t": 1788186796.714527,
+          "hold_hours": 1.8542323421769673,
+          "hours_saved": 0.16957878642612034,
+          "long": 8,
+          "short": 3,
+          "price": 77946.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -2.1092288000000234,
+          "delta": 5.045721599999954,
+          "exit": "08-31 23:33",
+          "end_t": 1788186796.714527,
+          "hold_hours": 1.8542323421769673,
+          "hours_saved": 0.16957878642612034,
+          "long": 8,
+          "short": 3,
+          "price": 77946.5
+        }
+      }
+    },
+    {
+      "entry": "08-31 23:43",
+      "exit": "09-01 03:54",
+      "start_t": 1788187407.201231,
+      "end_t": 1788202442.284201,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78595.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.420907199999953,
+      "actual_reason": "profit protection (70% of peak): peak 0.72% -> current 0.49%",
+      "hold_hours": 4.176411936084429,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.420907199999953,
+          "delta": 0.0,
+          "exit": "09-01 03:54",
+          "end_t": 1788202442.284201,
+          "hold_hours": 4.176411936084429,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78977.3
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.420907199999953,
+          "delta": 0.0,
+          "exit": "09-01 03:54",
+          "end_t": 1788202442.284201,
+          "hold_hours": 4.176411936084429,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78977.3
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.420907199999953,
+          "delta": 0.0,
+          "exit": "09-01 03:54",
+          "end_t": 1788202442.284201,
+          "hold_hours": 4.176411936084429,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78977.3
+        }
+      }
+    },
+    {
+      "entry": "09-01 04:24",
+      "exit": "09-01 17:26",
+      "start_t": 1788204262.196534,
+      "end_t": 1788251161.500757,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79048.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -9.164915600000047,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 13.027584506405724,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -5.856170800000023,
+          "delta": 3.3087448000000235,
+          "exit": "09-01 10:30",
+          "end_t": 1788226253.223942,
+          "hold_hours": 6.108618724478616,
+          "hours_saved": 6.918965781927109,
+          "long": 0,
+          "short": 10,
+          "price": 78394.7
+        },
+        "B": {
+          "triggered": true,
+          "net": -5.856170800000023,
+          "delta": 3.3087448000000235,
+          "exit": "09-01 10:30",
+          "end_t": 1788226253.223942,
+          "hold_hours": 6.108618724478616,
+          "hours_saved": 6.918965781927109,
+          "long": 0,
+          "short": 10,
+          "price": 78394.7
+        },
+        "C": {
+          "triggered": true,
+          "net": -5.856170800000023,
+          "delta": 3.3087448000000235,
+          "exit": "09-01 10:30",
+          "end_t": 1788226253.223942,
+          "hold_hours": 6.108618724478616,
+          "hours_saved": 6.918965781927109,
+          "long": 0,
+          "short": 10,
+          "price": 78394.7
+        }
+      }
+    },
+    {
+      "entry": "09-01 17:26",
+      "exit": "09-02 01:47",
+      "start_t": 1788251161.506247,
+      "end_t": 1788281273.064519,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77988.6,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.8466256000000465,
+      "actual_reason": "profit protection (70% of peak): peak 0.81% -> current 0.56%",
+      "hold_hours": 8.364321742190254,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.8466256000000465,
+          "delta": 0.0,
+          "exit": "09-02 01:47",
+          "end_t": 1788281273.064519,
+          "hold_hours": 8.364321742190254,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77555.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.8466256000000465,
+          "delta": 0.0,
+          "exit": "09-02 01:47",
+          "end_t": 1788281273.064519,
+          "hold_hours": 8.364321742190254,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77555.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.8466256000000465,
+          "delta": 0.0,
+          "exit": "09-02 01:47",
+          "end_t": 1788281273.064519,
+          "hold_hours": 8.364321742190254,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77555.0
+        }
+      }
+    },
+    {
+      "entry": "09-02 02:18",
+      "exit": "09-02 03:29",
+      "start_t": 1788283091.468777,
+      "end_t": 1788287398.250519,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77473.5,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 3.0884652000000234,
+      "actual_reason": "profit protection (70% of peak): peak 0.86% -> current 0.60%",
+      "hold_hours": 1.1963282616933186,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.0884652000000234,
+          "delta": 0.0,
+          "exit": "09-02 03:29",
+          "end_t": 1788287398.250519,
+          "hold_hours": 1.1963282616933186,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77010.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.0884652000000234,
+          "delta": 0.0,
+          "exit": "09-02 03:29",
+          "end_t": 1788287398.250519,
+          "hold_hours": 1.1963282616933186,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77010.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.0884652000000234,
+          "delta": 0.0,
+          "exit": "09-02 03:29",
+          "end_t": 1788287398.250519,
+          "hold_hours": 1.1963282616933186,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77010.2
+        }
+      }
+    },
+    {
+      "entry": "09-02 04:00",
+      "exit": "09-02 18:49",
+      "start_t": 1788289221.755382,
+      "end_t": 1788342572.148249,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77124.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.95199080000007,
+      "actual_reason": "profit protection (70% of peak): peak 0.86% -> current 0.58%",
+      "hold_hours": 14.819553574124972,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -3.224695999999907,
+          "delta": -6.1766867999999775,
+          "exit": "09-02 09:00",
+          "end_t": 1788307232.68381,
+          "hold_hours": 5.0030356744262905,
+          "hours_saved": 9.816517899698681,
+          "long": 13,
+          "short": 3,
+          "price": 77449.9
+        },
+        "B": {
+          "triggered": true,
+          "net": -3.224695999999907,
+          "delta": -6.1766867999999775,
+          "exit": "09-02 09:00",
+          "end_t": 1788307232.68381,
+          "hold_hours": 5.0030356744262905,
+          "hours_saved": 9.816517899698681,
+          "long": 13,
+          "short": 3,
+          "price": 77449.9
+        },
+        "C": {
+          "triggered": true,
+          "net": -3.224695999999907,
+          "delta": -6.1766867999999775,
+          "exit": "09-02 09:00",
+          "end_t": 1788307232.68381,
+          "hold_hours": 5.0030356744262905,
+          "hours_saved": 9.816517899698681,
+          "long": 13,
+          "short": 3,
+          "price": 77449.9
+        }
+      }
+    },
+    {
+      "entry": "09-02 19:19",
+      "exit": "09-03 11:42",
+      "start_t": 1788344388.685954,
+      "end_t": 1788403341.717347,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76659.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -9.776252800000023,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 16.37584205355909,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -6.6883096,
+          "delta": 3.087943200000023,
+          "exit": "09-02 22:45",
+          "end_t": 1788356748.292705,
+          "hold_hours": 3.4332240974903105,
+          "hours_saved": 12.94261795606878,
+          "long": 11,
+          "short": 3,
+          "price": 77418.2
+        },
+        "B": {
+          "triggered": true,
+          "net": -6.6883096,
+          "delta": 3.087943200000023,
+          "exit": "09-02 22:45",
+          "end_t": 1788356748.292705,
+          "hold_hours": 3.4332240974903105,
+          "hours_saved": 12.94261795606878,
+          "long": 11,
+          "short": 3,
+          "price": 77418.2
+        },
+        "C": {
+          "triggered": true,
+          "net": -6.6883096,
+          "delta": 3.087943200000023,
+          "exit": "09-02 22:45",
+          "end_t": 1788356748.292705,
+          "hold_hours": 3.4332240974903105,
+          "hours_saved": 12.94261795606878,
+          "long": 11,
+          "short": 3,
+          "price": 77418.2
+        }
+      }
+    },
+    {
+      "entry": "09-03 11:42",
+      "exit": "09-03 14:29",
+      "start_t": 1788403341.719064,
+      "end_t": 1788413340.5024,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77817.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -6.017444400000093,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 2.7774398155344855,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -5.18745960000007,
+          "delta": 0.8299848000000232,
+          "exit": "09-03 14:22",
+          "end_t": 1788412975.019147,
+          "hold_hours": 2.6759166897005504,
+          "hours_saved": 0.1015231258339352,
+          "long": 0,
+          "short": 9,
+          "price": 77247.0
+        },
+        "B": {
+          "triggered": true,
+          "net": -5.18745960000007,
+          "delta": 0.8299848000000232,
+          "exit": "09-03 14:22",
+          "end_t": 1788412975.019147,
+          "hold_hours": 2.6759166897005504,
+          "hours_saved": 0.1015231258339352,
+          "long": 0,
+          "short": 9,
+          "price": 77247.0
+        },
+        "C": {
+          "triggered": true,
+          "net": -5.18745960000007,
+          "delta": 0.8299848000000232,
+          "exit": "09-03 14:22",
+          "end_t": 1788412975.019147,
+          "hold_hours": 2.6759166897005504,
+          "hours_saved": 0.1015231258339352,
+          "long": 0,
+          "short": 9,
+          "price": 77247.0
+        }
+      }
+    },
+    {
+      "entry": "09-03 16:04",
+      "exit": "09-03 22:06",
+      "start_t": 1788419095.197086,
+      "end_t": 1788440789.357295,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78080.5,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.9167843999999534,
+      "actual_reason": "profit protection (70% of peak): peak 0.82% -> current 0.57%",
+      "hold_hours": 6.026155613594585,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.9167843999999534,
+          "delta": 0.0,
+          "exit": "09-03 22:06",
+          "end_t": 1788440789.357295,
+          "hold_hours": 6.026155613594585,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78523.4
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.9167843999999534,
+          "delta": 0.0,
+          "exit": "09-03 22:06",
+          "end_t": 1788440789.357295,
+          "hold_hours": 6.026155613594585,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78523.4
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.9167843999999534,
+          "delta": 0.0,
+          "exit": "09-03 22:06",
+          "end_t": 1788440789.357295,
+          "hold_hours": 6.026155613594585,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78523.4
+        }
+      }
+    },
+    {
+      "entry": "09-03 22:36",
+      "exit": "09-04 00:04",
+      "start_t": 1788442612.182086,
+      "end_t": 1788447885.686588,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78516.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 16.4673144,
+      "actual_reason": "stop loss",
+      "hold_hours": 1.4648623616827858,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 16.4673144,
+          "delta": 0.0,
+          "exit": "09-04 00:04",
+          "end_t": 1788447885.686588,
+          "hold_hours": 1.4648623616827858,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80654.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 16.4673144,
+          "delta": 0.0,
+          "exit": "09-04 00:04",
+          "end_t": 1788447885.686588,
+          "hold_hours": 1.4648623616827858,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80654.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 16.4673144,
+          "delta": 0.0,
+          "exit": "09-04 00:04",
+          "end_t": 1788447885.686588,
+          "hold_hours": 1.4648623616827858,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 80654.7
+        }
+      }
+    },
+    {
+      "entry": "09-04 00:35",
+      "exit": "09-04 04:06",
+      "start_t": 1788449704.634402,
+      "end_t": 1788462369.040063,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80848.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.2158675000000407,
+      "actual_reason": "profit protection (70% of peak): peak 0.72% -> current 0.49%",
+      "hold_hours": 3.5178904613521365,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.2158675000000407,
+          "delta": 0.0,
+          "exit": "09-04 04:06",
+          "end_t": 1788462369.040063,
+          "hold_hours": 3.5178904613521365,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81246.3
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.2158675000000407,
+          "delta": 0.0,
+          "exit": "09-04 04:06",
+          "end_t": 1788462369.040063,
+          "hold_hours": 3.5178904613521365,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81246.3
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.2158675000000407,
+          "delta": 0.0,
+          "exit": "09-04 04:06",
+          "end_t": 1788462369.040063,
+          "hold_hours": 3.5178904613521365,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81246.3
+        }
+      }
+    },
+    {
+      "entry": "09-04 04:36",
+      "exit": "09-04 06:35",
+      "start_t": 1788464185.869699,
+      "end_t": 1788471337.519703,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 81368.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.908383449999939,
+      "actual_reason": "profit protection (70% of peak): peak 0.90% -> current 0.61%",
+      "hold_hours": 1.9865694455305736,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.908383449999939,
+          "delta": 0.0,
+          "exit": "09-04 06:35",
+          "end_t": 1788471337.519703,
+          "hold_hours": 1.9865694455305736,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81865.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.908383449999939,
+          "delta": 0.0,
+          "exit": "09-04 06:35",
+          "end_t": 1788471337.519703,
+          "hold_hours": 1.9865694455305736,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81865.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.908383449999939,
+          "delta": 0.0,
+          "exit": "09-04 06:35",
+          "end_t": 1788471337.519703,
+          "hold_hours": 1.9865694455305736,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81865.2
+        }
+      }
+    },
+    {
+      "entry": "09-04 09:57",
+      "exit": "09-04 21:41",
+      "start_t": 1788483448.636478,
+      "end_t": 1788525695.174522,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80941.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 6.560874250000081,
+      "actual_reason": "profit protection (80% of peak): peak 1.64% -> current 1.26%",
+      "hold_hours": 11.735149456659952,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -2.8175125999999593,
+          "delta": -9.378386850000041,
+          "exit": "09-04 18:17",
+          "end_t": 1788513420.254949,
+          "hold_hours": 8.325449575318231,
+          "hours_saved": 3.409699881341722,
+          "long": 10,
+          "short": 0,
+          "price": 81262.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -2.8175125999999593,
+          "delta": -9.378386850000041,
+          "exit": "09-04 18:17",
+          "end_t": 1788513420.254949,
+          "hold_hours": 8.325449575318231,
+          "hours_saved": 3.409699881341722,
+          "long": 10,
+          "short": 0,
+          "price": 81262.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -2.8175125999999593,
+          "delta": -9.378386850000041,
+          "exit": "09-04 18:17",
+          "end_t": 1788513420.254949,
+          "hold_hours": 8.325449575318231,
+          "hours_saved": 3.409699881341722,
+          "long": 10,
+          "short": 0,
+          "price": 81262.5
+        }
+      }
+    },
+    {
+      "entry": "09-04 22:12",
+      "exit": "09-04 23:51",
+      "start_t": 1788527541.791271,
+      "end_t": 1788533478.427585,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79223.6,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.5413980000000933,
+      "actual_reason": "profit protection (70% of peak): peak 0.76% -> current 0.50%",
+      "hold_hours": 1.649065642754237,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.5413980000000933,
+          "delta": 0.0,
+          "exit": "09-04 23:51",
+          "end_t": 1788533478.427585,
+          "hold_hours": 1.649065642754237,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78826.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.5413980000000933,
+          "delta": 0.0,
+          "exit": "09-04 23:51",
+          "end_t": 1788533478.427585,
+          "hold_hours": 1.649065642754237,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78826.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.5413980000000933,
+          "delta": 0.0,
+          "exit": "09-04 23:51",
+          "end_t": 1788533478.427585,
+          "hold_hours": 1.649065642754237,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78826.9
+        }
+      }
+    },
+    {
+      "entry": "09-06 01:58",
+      "exit": "09-07 16:47",
+      "start_t": 1788627490.80356,
+      "end_t": 1788767241.701864,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80110.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -6.372767449999979,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 38.81969397332933,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -3.68331285000002,
+          "delta": 2.689454599999959,
+          "exit": "09-06 23:17",
+          "end_t": 1788704223.279551,
+          "hold_hours": 21.31457666416963,
+          "hours_saved": 17.505117309159704,
+          "long": 0,
+          "short": 8,
+          "price": 79664.4
+        },
+        "B": {
+          "triggered": true,
+          "net": -3.68331285000002,
+          "delta": 2.689454599999959,
+          "exit": "09-06 23:17",
+          "end_t": 1788704223.279551,
+          "hold_hours": 21.31457666416963,
+          "hours_saved": 17.505117309159704,
+          "long": 0,
+          "short": 8,
+          "price": 79664.4
+        },
+        "C": {
+          "triggered": true,
+          "net": -3.68331285000002,
+          "delta": 2.689454599999959,
+          "exit": "09-06 23:17",
+          "end_t": 1788704223.279551,
+          "hold_hours": 21.31457666416963,
+          "hours_saved": 17.505117309159704,
+          "long": 0,
+          "short": 8,
+          "price": 79664.4
+        }
+      }
+    },
+    {
+      "entry": "09-07 16:47",
+      "exit": "09-08 01:00",
+      "start_t": 1788767241.704246,
+      "end_t": 1788796843.80181,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79293.6,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.8786068000000697,
+      "actual_reason": "profit protection (70% of peak): peak 0.79% -> current 0.55%",
+      "hold_hours": 8.222804878883892,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.8786068000000697,
+          "delta": 0.0,
+          "exit": "09-08 01:00",
+          "end_t": 1788796843.80181,
+          "hold_hours": 8.222804878883892,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78854.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.8786068000000697,
+          "delta": 0.0,
+          "exit": "09-08 01:00",
+          "end_t": 1788796843.80181,
+          "hold_hours": 8.222804878883892,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78854.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.8786068000000697,
+          "delta": 0.0,
+          "exit": "09-08 01:00",
+          "end_t": 1788796843.80181,
+          "hold_hours": 8.222804878883892,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78854.7
+        }
+      }
+    },
+    {
+      "entry": "09-08 01:31",
+      "exit": "09-08 16:22",
+      "start_t": 1788798661.994034,
+      "end_t": 1788852139.027576,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78812.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.4158192000000467,
+      "actual_reason": "profit protection (70% of peak): peak 0.71% -> current 0.48%",
+      "hold_hours": 14.85473153942161,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.4158192000000467,
+          "delta": 0.0,
+          "exit": "09-08 16:22",
+          "end_t": 1788852139.027576,
+          "hold_hours": 14.85473153942161,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78432.3
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.4158192000000467,
+          "delta": 0.0,
+          "exit": "09-08 16:22",
+          "end_t": 1788852139.027576,
+          "hold_hours": 14.85473153942161,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78432.3
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.4158192000000467,
+          "delta": 0.0,
+          "exit": "09-08 16:22",
+          "end_t": 1788852139.027576,
+          "hold_hours": 14.85473153942161,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78432.3
+        }
+      }
+    },
+    {
+      "entry": "09-08 16:52",
+      "exit": "09-08 22:45",
+      "start_t": 1788853953.242874,
+      "end_t": 1788875129.643132,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78192.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.9349379999999534,
+      "actual_reason": "profit protection (70% of peak): peak 0.66% -> current 0.41%",
+      "hold_hours": 5.882333405017853,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -6.030642800000024,
+          "delta": -7.9655807999999775,
+          "exit": "09-08 19:21",
+          "end_t": 1788862905.076149,
+          "hold_hours": 2.486620354188813,
+          "hours_saved": 3.39571305082904,
+          "long": 8,
+          "short": 2,
+          "price": 78868.0
+        },
+        "B": {
+          "triggered": true,
+          "net": -6.030642800000024,
+          "delta": -7.9655807999999775,
+          "exit": "09-08 19:21",
+          "end_t": 1788862905.076149,
+          "hold_hours": 2.486620354188813,
+          "hours_saved": 3.39571305082904,
+          "long": 8,
+          "short": 2,
+          "price": 78868.0
+        },
+        "C": {
+          "triggered": true,
+          "net": -6.030642800000024,
+          "delta": -7.9655807999999775,
+          "exit": "09-08 19:21",
+          "end_t": 1788862905.076149,
+          "hold_hours": 2.486620354188813,
+          "hours_saved": 3.39571305082904,
+          "long": 8,
+          "short": 2,
+          "price": 78868.0
+        }
+      }
+    },
+    {
+      "entry": "09-09 13:51",
+      "exit": "09-09 18:09",
+      "start_t": 1788929480.676003,
+      "end_t": 1788944958.204514,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79141.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.9975551999999999,
+      "actual_reason": "profit protection (70% of peak): peak 0.67% -> current 0.42%",
+      "hold_hours": 4.299313475290934,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.9975551999999999,
+          "delta": 0.0,
+          "exit": "09-09 18:09",
+          "end_t": 1788944958.204514,
+          "hold_hours": 4.299313475290934,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79470.1
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.9975551999999999,
+          "delta": 0.0,
+          "exit": "09-09 18:09",
+          "end_t": 1788944958.204514,
+          "hold_hours": 4.299313475290934,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79470.1
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.9975551999999999,
+          "delta": 0.0,
+          "exit": "09-09 18:09",
+          "end_t": 1788944958.204514,
+          "hold_hours": 4.299313475290934,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79470.1
+        }
+      }
+    },
+    {
+      "entry": "09-09 21:41",
+      "exit": "09-10 21:46",
+      "start_t": 1788957717.937091,
+      "end_t": 1789044419.466961,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79535.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -21.4978456,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 24.083758297165236,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -10.7592176,
+          "delta": 10.738628000000002,
+          "exit": "09-10 00:12",
+          "end_t": 1788966732.489798,
+          "hold_hours": 2.504042418599129,
+          "hours_saved": 21.579715878566105,
+          "long": 2,
+          "short": 11,
+          "price": 78269.2
+        },
+        "B": {
+          "triggered": true,
+          "net": -10.7592176,
+          "delta": 10.738628000000002,
+          "exit": "09-10 00:12",
+          "end_t": 1788966732.489798,
+          "hold_hours": 2.504042418599129,
+          "hours_saved": 21.579715878566105,
+          "long": 2,
+          "short": 11,
+          "price": 78269.2
+        },
+        "C": {
+          "triggered": true,
+          "net": -10.7592176,
+          "delta": 10.738628000000002,
+          "exit": "09-10 00:12",
+          "end_t": 1788966732.489798,
+          "hold_hours": 2.504042418599129,
+          "hours_saved": 21.579715878566105,
+          "long": 2,
+          "short": 11,
+          "price": 78269.2
+        }
+      }
+    },
+    {
+      "entry": "09-10 21:46",
+      "exit": "09-11 21:33",
+      "start_t": 1789044419.470423,
+      "end_t": 1789129987.313729,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76888.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.2802432000000232,
+      "actual_reason": "profit protection (70% of peak): peak 0.67% -> current 0.31%",
+      "hold_hours": 23.768845362795723,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -2.0710315999999533,
+          "delta": -3.3512747999999766,
+          "exit": "09-11 13:38",
+          "end_t": 1789101497.601832,
+          "hold_hours": 15.855036502480507,
+          "hours_saved": 7.913808860315217,
+          "long": 8,
+          "short": 0,
+          "price": 77069.9
+        },
+        "B": {
+          "triggered": true,
+          "net": 0.33897279999997665,
+          "delta": -0.9412704000000466,
+          "exit": "09-11 09:08",
+          "end_t": 1789085294.224787,
+          "hold_hours": 11.354098434448241,
+          "hours_saved": 12.414746928347482,
+          "long": 9,
+          "short": 4,
+          "price": 76768.8
+        },
+        "C": {
+          "triggered": true,
+          "net": -5.063727200000024,
+          "delta": -6.343970400000047,
+          "exit": "09-11 02:35",
+          "end_t": 1789061714.913245,
+          "hold_hours": 4.804289672772089,
+          "hours_saved": 18.964555690023634,
+          "long": 10,
+          "short": 5,
+          "price": 77443.8
+        }
+      }
+    },
+    {
+      "entry": "09-11 22:28",
+      "exit": "09-11 23:07",
+      "start_t": 1789133314.73318,
+      "end_t": 1789135679.399999,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77530.40000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 11.488099599999908,
+      "actual_reason": "profit protection (80% of peak): peak 2.54% -> current 1.95%",
+      "hold_hours": 0.6568518941269981,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 11.488099599999908,
+          "delta": 0.0,
+          "exit": "09-11 23:07",
+          "end_t": 1789135679.399999,
+          "hold_hours": 0.6568518941269981,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79044.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 11.488099599999908,
+          "delta": 0.0,
+          "exit": "09-11 23:07",
+          "end_t": 1789135679.399999,
+          "hold_hours": 0.6568518941269981,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79044.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 11.488099599999908,
+          "delta": 0.0,
+          "exit": "09-11 23:07",
+          "end_t": 1789135679.399999,
+          "hold_hours": 0.6568518941269981,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79044.7
+        }
+      }
+    },
+    {
+      "entry": "09-11 23:38",
+      "exit": "09-15 04:00",
+      "start_t": 1789137494.650764,
+      "end_t": 1789412449.638244,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78750.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.138215199999977,
+      "actual_reason": "profit protection (70% of peak): peak 0.68% -> current 0.44%",
+      "hold_hours": 76.37638541109033,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -18.46108,
+          "delta": -20.599295199999975,
+          "exit": "09-14 09:28",
+          "end_t": 1789345720.812933,
+          "hold_hours": 57.84060060249435,
+          "hours_saved": 18.535784808595974,
+          "long": 0,
+          "short": 9,
+          "price": 76520.0
+        },
+        "B": {
+          "triggered": true,
+          "net": -18.46108,
+          "delta": -20.599295199999975,
+          "exit": "09-14 09:28",
+          "end_t": 1789345720.812933,
+          "hold_hours": 57.84060060249435,
+          "hours_saved": 18.535784808595974,
+          "long": 0,
+          "short": 9,
+          "price": 76520.0
+        },
+        "C": {
+          "triggered": true,
+          "net": -18.46108,
+          "delta": -20.599295199999975,
+          "exit": "09-14 09:28",
+          "end_t": 1789345720.812933,
+          "hold_hours": 57.84060060249435,
+          "hours_saved": 18.535784808595974,
+          "long": 0,
+          "short": 9,
+          "price": 76520.0
+        }
+      }
+    },
+    {
+      "entry": "09-15 04:31",
+      "exit": "09-15 23:36",
+      "start_t": 1789414263.977825,
+      "end_t": 1789482967.162592,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 79077.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -24.619817999999956,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 19.08421799083551,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -11.242509999999953,
+          "delta": 13.377308000000003,
+          "exit": "09-15 12:09",
+          "end_t": 1789441792.690445,
+          "hold_hours": 7.646864616672198,
+          "hours_saved": 11.43735337416331,
+          "long": 2,
+          "short": 8,
+          "price": 77750.3
+        },
+        "B": {
+          "triggered": true,
+          "net": -11.242509999999953,
+          "delta": 13.377308000000003,
+          "exit": "09-15 12:09",
+          "end_t": 1789441792.690445,
+          "hold_hours": 7.646864616672198,
+          "hours_saved": 11.43735337416331,
+          "long": 2,
+          "short": 8,
+          "price": 77750.3
+        },
+        "C": {
+          "triggered": true,
+          "net": -11.242509999999953,
+          "delta": 13.377308000000003,
+          "exit": "09-15 12:09",
+          "end_t": 1789441792.690445,
+          "hold_hours": 7.646864616672198,
+          "hours_saved": 11.43735337416331,
+          "long": 2,
+          "short": 8,
+          "price": 77750.3
+        }
+      }
+    },
+    {
+      "entry": "09-15 23:36",
+      "exit": "09-15 23:54",
+      "start_t": 1789482967.164006,
+      "end_t": 1789484057.94921,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76053.6,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.5222360000000932,
+      "actual_reason": "profit protection (70% of peak): peak 0.63% -> current 0.35%",
+      "hold_hours": 0.3029958899815877,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.5222360000000932,
+          "delta": 0.0,
+          "exit": "09-15 23:54",
+          "end_t": 1789484057.94921,
+          "hold_hours": 0.3029958899815877,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75787.4
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.5222360000000932,
+          "delta": 0.0,
+          "exit": "09-15 23:54",
+          "end_t": 1789484057.94921,
+          "hold_hours": 0.3029958899815877,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75787.4
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.5222360000000932,
+          "delta": 0.0,
+          "exit": "09-15 23:54",
+          "end_t": 1789484057.94921,
+          "hold_hours": 0.3029958899815877,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75787.4
+        }
+      }
+    },
+    {
+      "entry": "09-16 02:34",
+      "exit": "09-16 03:38",
+      "start_t": 1789493674.184843,
+      "end_t": 1789497488.321741,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76890.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -4.143756400000023,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 1.059482471677992,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -4.492381999999953,
+          "delta": -0.3486255999999299,
+          "exit": "09-16 03:37",
+          "end_t": 1789497426.777348,
+          "hold_hours": 1.0423868069383833,
+          "hours_saved": 0.017095664739608763,
+          "long": 0,
+          "short": 8,
+          "price": 76405.3
+        },
+        "B": {
+          "triggered": true,
+          "net": -4.492381999999953,
+          "delta": -0.3486255999999299,
+          "exit": "09-16 03:37",
+          "end_t": 1789497426.777348,
+          "hold_hours": 1.0423868069383833,
+          "hours_saved": 0.017095664739608763,
+          "long": 0,
+          "short": 8,
+          "price": 76405.3
+        },
+        "C": {
+          "triggered": true,
+          "net": -4.492381999999953,
+          "delta": -0.3486255999999299,
+          "exit": "09-16 03:37",
+          "end_t": 1789497426.777348,
+          "hold_hours": 1.0423868069383833,
+          "hours_saved": 0.017095664739608763,
+          "long": 0,
+          "short": 8,
+          "price": 76405.3
+        }
+      }
+    },
+    {
+      "entry": "09-16 03:38",
+      "exit": "09-16 03:51",
+      "start_t": 1789497488.325576,
+      "end_t": 1789498277.6261,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76327.3,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 7.268519200000069,
+      "actual_reason": "profit protection (80% of peak): peak 1.76% -> current 1.29%",
+      "hold_hours": 0.21925014555454253,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 7.268519200000069,
+          "delta": 0.0,
+          "exit": "09-16 03:51",
+          "end_t": 1789498277.6261,
+          "hold_hours": 0.21925014555454253,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75342.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 7.268519200000069,
+          "delta": 0.0,
+          "exit": "09-16 03:51",
+          "end_t": 1789498277.6261,
+          "hold_hours": 0.21925014555454253,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75342.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 7.268519200000069,
+          "delta": 0.0,
+          "exit": "09-16 03:51",
+          "end_t": 1789498277.6261,
+          "hold_hours": 0.21925014555454253,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75342.9
+        }
+      }
+    },
+    {
+      "entry": "09-16 04:21",
+      "exit": "09-16 06:43",
+      "start_t": 1789500092.018514,
+      "end_t": 1789508625.260474,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76077.6,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.2175916000000466,
+      "actual_reason": "profit protection (70% of peak): peak 0.70% -> current 0.46%",
+      "hold_hours": 2.37034498890241,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.2175916000000466,
+          "delta": 0.0,
+          "exit": "09-16 06:43",
+          "end_t": 1789508625.260474,
+          "hold_hours": 2.37034498890241,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75724.5
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.2175916000000466,
+          "delta": 0.0,
+          "exit": "09-16 06:43",
+          "end_t": 1789508625.260474,
+          "hold_hours": 2.37034498890241,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75724.5
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.2175916000000466,
+          "delta": 0.0,
+          "exit": "09-16 06:43",
+          "end_t": 1789508625.260474,
+          "hold_hours": 2.37034498890241,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 75724.5
+        }
+      }
+    },
+    {
+      "entry": "09-16 07:14",
+      "exit": "09-17 03:09",
+      "start_t": 1789510441.439928,
+      "end_t": 1789582141.452973,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 75362.40000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -8.678935199999884,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 19.916670290231703,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -4.7737835999999305,
+          "delta": 3.9051515999999538,
+          "exit": "09-16 11:55",
+          "end_t": 1789527317.932685,
+          "hold_hours": 4.687914654678768,
+          "hours_saved": 15.228755635552936,
+          "long": 8,
+          "short": 0,
+          "price": 75883.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -4.7737835999999305,
+          "delta": 3.9051515999999538,
+          "exit": "09-16 11:55",
+          "end_t": 1789527317.932685,
+          "hold_hours": 4.687914654678768,
+          "hours_saved": 15.228755635552936,
+          "long": 8,
+          "short": 0,
+          "price": 75883.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -4.7737835999999305,
+          "delta": 3.9051515999999538,
+          "exit": "09-16 11:55",
+          "end_t": 1789527317.932685,
+          "hold_hours": 4.687914654678768,
+          "hours_saved": 15.228755635552936,
+          "long": 8,
+          "short": 0,
+          "price": 75883.5
+        }
+      }
+    },
+    {
+      "entry": "09-17 03:09",
+      "exit": "09-17 21:42",
+      "start_t": 1789582141.456124,
+      "end_t": 1789648934.76619,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76400.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 3.08695,
+      "actual_reason": "profit protection (70% of peak): peak 0.88% -> current 0.61%",
+      "hold_hours": 18.553697240551312,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -8.556825199999977,
+          "delta": -11.643775199999977,
+          "exit": "09-17 04:28",
+          "end_t": 1789586924.778403,
+          "hold_hours": 1.3287006330490112,
+          "hours_saved": 17.2249966075023,
+          "long": 0,
+          "short": 8,
+          "price": 75406.3
+        },
+        "B": {
+          "triggered": true,
+          "net": -8.556825199999977,
+          "delta": -11.643775199999977,
+          "exit": "09-17 04:28",
+          "end_t": 1789586924.778403,
+          "hold_hours": 1.3287006330490112,
+          "hours_saved": 17.2249966075023,
+          "long": 0,
+          "short": 8,
+          "price": 75406.3
+        },
+        "C": {
+          "triggered": true,
+          "net": -8.556825199999977,
+          "delta": -11.643775199999977,
+          "exit": "09-17 04:28",
+          "end_t": 1789586924.778403,
+          "hold_hours": 1.3287006330490112,
+          "hours_saved": 17.2249966075023,
+          "long": 0,
+          "short": 8,
+          "price": 75406.3
+        }
+      }
+    },
+    {
+      "entry": "09-17 22:12",
+      "exit": "09-18 13:08",
+      "start_t": 1789650749.005347,
+      "end_t": 1789704482.968778,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 76688.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 3.737917599999977,
+      "actual_reason": "profit protection (70% of peak): peak 1.06% -> current 0.71%",
+      "hold_hours": 14.926100953022639,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.737917599999977,
+          "delta": 0.0,
+          "exit": "09-18 13:08",
+          "end_t": 1789704482.968778,
+          "hold_hours": 14.926100953022639,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77232.4
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.737917599999977,
+          "delta": 0.0,
+          "exit": "09-18 13:08",
+          "end_t": 1789704482.968778,
+          "hold_hours": 14.926100953022639,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77232.4
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.737917599999977,
+          "delta": 0.0,
+          "exit": "09-18 13:08",
+          "end_t": 1789704482.968778,
+          "hold_hours": 14.926100953022639,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77232.4
+        }
+      }
+    },
+    {
+      "entry": "09-18 13:38",
+      "exit": "09-18 17:09",
+      "start_t": 1789706299.473111,
+      "end_t": 1789718943.411421,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77276.8,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.6345584000000235,
+      "actual_reason": "profit protection (70% of peak): peak 0.85% -> current 0.53%",
+      "hold_hours": 3.512205086151759,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.6345584000000235,
+          "delta": 0.0,
+          "exit": "09-18 17:09",
+          "end_t": 1789718943.411421,
+          "hold_hours": 3.512205086151759,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77683.6
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.6345584000000235,
+          "delta": 0.0,
+          "exit": "09-18 17:09",
+          "end_t": 1789718943.411421,
+          "hold_hours": 3.512205086151759,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77683.6
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.6345584000000235,
+          "delta": 0.0,
+          "exit": "09-18 17:09",
+          "end_t": 1789718943.411421,
+          "hold_hours": 3.512205086151759,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 77683.6
+        }
+      }
+    },
+    {
+      "entry": "09-18 17:39",
+      "exit": "09-18 18:25",
+      "start_t": 1789720761.575876,
+      "end_t": 1789723547.426772,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 77890.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.0827255999999537,
+      "actual_reason": "profit protection (70% of peak): peak 0.67% -> current 0.43%",
+      "hold_hours": 0.7738474711444643,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.0827255999999537,
+          "delta": 0.0,
+          "exit": "09-18 18:25",
+          "end_t": 1789723547.426772,
+          "hold_hours": 0.7738474711444643,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78228.5
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.0827255999999537,
+          "delta": 0.0,
+          "exit": "09-18 18:25",
+          "end_t": 1789723547.426772,
+          "hold_hours": 0.7738474711444643,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78228.5
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.0827255999999537,
+          "delta": 0.0,
+          "exit": "09-18 18:25",
+          "end_t": 1789723547.426772,
+          "hold_hours": 0.7738474711444643,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 78228.5
+        }
+      }
+    },
+    {
+      "entry": "09-18 18:56",
+      "exit": "09-18 22:58",
+      "start_t": 1789725362.164329,
+      "end_t": 1789739891.13574,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 78138.8,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 13.561392799999977,
+      "actual_reason": "profit protection (80% of peak): peak 2.86% -> current 2.27%",
+      "hold_hours": 4.0358253919416,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 13.561392799999977,
+          "delta": 0.0,
+          "exit": "09-18 22:58",
+          "end_t": 1789739891.13574,
+          "hold_hours": 4.0358253919416,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79913.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 13.561392799999977,
+          "delta": 0.0,
+          "exit": "09-18 22:58",
+          "end_t": 1789739891.13574,
+          "hold_hours": 4.0358253919416,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79913.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 13.561392799999977,
+          "delta": 0.0,
+          "exit": "09-18 22:58",
+          "end_t": 1789739891.13574,
+          "hold_hours": 4.0358253919416,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 79913.0
+        }
+      }
+    },
+    {
+      "entry": "09-18 23:28",
+      "exit": "09-19 04:24",
+      "start_t": 1789741710.245474,
+      "end_t": 1789759451.335784,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80772.5,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.688165150000041,
+      "actual_reason": "profit protection (70% of peak): peak 0.61% -> current 0.40%",
+      "hold_hours": 4.928080641627312,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.688165150000041,
+          "delta": 0.0,
+          "exit": "09-19 04:24",
+          "end_t": 1789759451.335784,
+          "hold_hours": 4.928080641627312,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81094.6
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.688165150000041,
+          "delta": 0.0,
+          "exit": "09-19 04:24",
+          "end_t": 1789759451.335784,
+          "hold_hours": 4.928080641627312,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81094.6
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.688165150000041,
+          "delta": 0.0,
+          "exit": "09-19 04:24",
+          "end_t": 1789759451.335784,
+          "hold_hours": 4.928080641627312,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81094.6
+        }
+      }
+    },
+    {
+      "entry": "09-19 04:54",
+      "exit": "09-19 10:05",
+      "start_t": 1789761268.295147,
+      "end_t": 1789779921.50407,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 81155.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.7246680499999796,
+      "actual_reason": "profit protection (70% of peak): peak 0.64% -> current 0.40%",
+      "hold_hours": 5.181446923083729,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.7246680499999796,
+          "delta": 0.0,
+          "exit": "09-19 10:05",
+          "end_t": 1789779921.50407,
+          "hold_hours": 5.181446923083729,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81482.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.7246680499999796,
+          "delta": 0.0,
+          "exit": "09-19 10:05",
+          "end_t": 1789779921.50407,
+          "hold_hours": 5.181446923083729,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81482.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.7246680499999796,
+          "delta": 0.0,
+          "exit": "09-19 10:05",
+          "end_t": 1789779921.50407,
+          "hold_hours": 5.181446923083729,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 81482.7
+        }
+      }
+    },
+    {
+      "entry": "09-20 00:42",
+      "exit": "09-20 11:59",
+      "start_t": 1789832574.152537,
+      "end_t": 1789873156.67726,
+      "side": "LONG",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 81892.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -11.920168400000021,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 11.272923534115156,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -7.4375108500000415,
+          "delta": 4.4826575499999795,
+          "exit": "09-20 11:32",
+          "end_t": 1789871520.192814,
+          "hold_hours": 10.818344521390067,
+          "hours_saved": 0.4545790127250883,
+          "long": 0,
+          "short": 10,
+          "price": 80911.0
+        },
+        "B": {
+          "triggered": true,
+          "net": -7.4375108500000415,
+          "delta": 4.4826575499999795,
+          "exit": "09-20 11:32",
+          "end_t": 1789871520.192814,
+          "hold_hours": 10.818344521390067,
+          "hours_saved": 0.4545790127250883,
+          "long": 0,
+          "short": 10,
+          "price": 80911.0
+        },
+        "C": {
+          "triggered": true,
+          "net": -7.4375108500000415,
+          "delta": 4.4826575499999795,
+          "exit": "09-20 11:32",
+          "end_t": 1789871520.192814,
+          "hold_hours": 10.818344521390067,
+          "hours_saved": 0.4545790127250883,
+          "long": 0,
+          "short": 10,
+          "price": 80911.0
+        }
+      }
+    },
+    {
+      "entry": "09-20 11:59",
+      "exit": "09-21 17:37",
+      "start_t": 1789873156.681057,
+      "end_t": 1789979854.485561,
+      "side": "SHORT",
+      "entry_time_basis": "entry_event_logged_at",
+      "entry_price": 80261.8,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -18.56012724999996,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 29.638279028866027,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -8.618658999999958,
+          "delta": 9.941468250000003,
+          "exit": "09-21 09:06",
+          "end_t": 1789949183.734279,
+          "hold_hours": 21.11862589498361,
+          "hours_saved": 8.519653133882416,
+          "long": 8,
+          "short": 0,
+          "price": 81412.2
+        },
+        "B": {
+          "triggered": true,
+          "net": -8.618658999999958,
+          "delta": 9.941468250000003,
+          "exit": "09-21 09:06",
+          "end_t": 1789949183.734279,
+          "hold_hours": 21.11862589498361,
+          "hours_saved": 8.519653133882416,
+          "long": 8,
+          "short": 0,
+          "price": 81412.2
+        },
+        "C": {
+          "triggered": true,
+          "net": -8.618658999999958,
+          "delta": 9.941468250000003,
+          "exit": "09-21 09:06",
+          "end_t": 1789949183.734279,
+          "hold_hours": 21.11862589498361,
+          "hours_saved": 8.519653133882416,
+          "long": 8,
+          "short": 0,
+          "price": 81412.2
+        }
+      }
+    },
+    {
+      "entry": "09-21 17:37",
+      "exit": "09-21 17:45",
+      "start_t": 1789979854.485561,
+      "end_t": 1789980343.257629,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 82850.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.7657762999999793,
+      "actual_reason": "profit protection (70% of peak): peak 1.14% -> current 0.58%",
+      "hold_hours": 0.1357700188954671,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.7657762999999793,
+          "delta": 0.0,
+          "exit": "09-21 17:45",
+          "end_t": 1789980343.257629,
+          "hold_hours": 0.1357700188954671,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83328.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.7657762999999793,
+          "delta": 0.0,
+          "exit": "09-21 17:45",
+          "end_t": 1789980343.257629,
+          "hold_hours": 0.1357700188954671,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83328.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.7657762999999793,
+          "delta": 0.0,
+          "exit": "09-21 17:45",
+          "end_t": 1789980343.257629,
+          "hold_hours": 0.1357700188954671,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83328.2
+        }
+      }
+    },
+    {
+      "entry": "09-21 18:16",
+      "exit": "09-21 18:52",
+      "start_t": 1789982168.892456,
+      "end_t": 1789984351.763358,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84008.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 4.078609500000001,
+      "actual_reason": "profit protection (70% of peak): peak 1.23% -> current 0.79%",
+      "hold_hours": 0.6063530283504063,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 4.078609500000001,
+          "delta": 0.0,
+          "exit": "09-21 18:52",
+          "end_t": 1789984351.763358,
+          "hold_hours": 0.6063530283504063,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84675.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 4.078609500000001,
+          "delta": 0.0,
+          "exit": "09-21 18:52",
+          "end_t": 1789984351.763358,
+          "hold_hours": 0.6063530283504063,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84675.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 4.078609500000001,
+          "delta": 0.0,
+          "exit": "09-21 18:52",
+          "end_t": 1789984351.763358,
+          "hold_hours": 0.6063530283504063,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84675.0
+        }
+      }
+    },
+    {
+      "entry": "09-21 19:22",
+      "exit": "09-21 21:10",
+      "start_t": 1789986169.123756,
+      "end_t": 1789992649.914815,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84505.3,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.21056115,
+      "actual_reason": "profit protection (70% of peak): peak 0.71% -> current 0.47%",
+      "hold_hours": 1.8002197386158838,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.21056115,
+          "delta": 0.0,
+          "exit": "09-21 21:10",
+          "end_t": 1789992649.914815,
+          "hold_hours": 1.8002197386158838,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84905.8
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.21056115,
+          "delta": 0.0,
+          "exit": "09-21 21:10",
+          "end_t": 1789992649.914815,
+          "hold_hours": 1.8002197386158838,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84905.8
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.21056115,
+          "delta": 0.0,
+          "exit": "09-21 21:10",
+          "end_t": 1789992649.914815,
+          "hold_hours": 1.8002197386158838,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84905.8
+        }
+      }
+    },
+    {
+      "entry": "09-21 21:41",
+      "exit": "09-21 23:40",
+      "start_t": 1789994466.840179,
+      "end_t": 1790001623.34741,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 85264.5,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.2740125999999592,
+      "actual_reason": "profit protection (70% of peak): peak 0.80% -> current 0.31%",
+      "hold_hours": 1.9879186752769682,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.2740125999999592,
+          "delta": 0.0,
+          "exit": "09-21 23:40",
+          "end_t": 1790001623.34741,
+          "hold_hours": 1.9879186752769682,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85531.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.2740125999999592,
+          "delta": 0.0,
+          "exit": "09-21 23:40",
+          "end_t": 1790001623.34741,
+          "hold_hours": 1.9879186752769682,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85531.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.2740125999999592,
+          "delta": 0.0,
+          "exit": "09-21 23:40",
+          "end_t": 1790001623.34741,
+          "hold_hours": 1.9879186752769682,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85531.9
+        }
+      }
+    },
+    {
+      "entry": "09-22 00:10",
+      "exit": "09-22 04:36",
+      "start_t": 1790003445.015409,
+      "end_t": 1790019376.891287,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 86235.0,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.9500775000000001,
+      "actual_reason": "profit protection (70% of peak): peak 0.67% -> current 0.42%",
+      "hold_hours": 4.425521077248785,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.9500775000000001,
+          "delta": 0.0,
+          "exit": "09-22 04:36",
+          "end_t": 1790019376.891287,
+          "hold_hours": 4.425521077248785,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86600.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.9500775000000001,
+          "delta": 0.0,
+          "exit": "09-22 04:36",
+          "end_t": 1790019376.891287,
+          "hold_hours": 4.425521077248785,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86600.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.9500775000000001,
+          "delta": 0.0,
+          "exit": "09-22 04:36",
+          "end_t": 1790019376.891287,
+          "hold_hours": 4.425521077248785,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86600.0
+        }
+      }
+    },
+    {
+      "entry": "09-22 05:06",
+      "exit": "09-22 05:30",
+      "start_t": 1790021196.11148,
+      "end_t": 1790022650.433106,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 86612.5,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.6414877999999797,
+      "actual_reason": "profit protection (70% of peak): peak 0.85% -> current 0.54%",
+      "hold_hours": 0.40397822942998673,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.6414877999999797,
+          "delta": 0.0,
+          "exit": "09-22 05:30",
+          "end_t": 1790022650.433106,
+          "hold_hours": 0.40397822942998673,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 87076.7
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.6414877999999797,
+          "delta": 0.0,
+          "exit": "09-22 05:30",
+          "end_t": 1790022650.433106,
+          "hold_hours": 0.40397822942998673,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 87076.7
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.6414877999999797,
+          "delta": 0.0,
+          "exit": "09-22 05:30",
+          "end_t": 1790022650.433106,
+          "hold_hours": 0.40397822942998673,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 87076.7
+        }
+      }
+    },
+    {
+      "entry": "09-22 06:01",
+      "exit": "09-22 09:53",
+      "start_t": 1790024468.4909,
+      "end_t": 1790038398.307678,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 86880.40000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -6.278126400000061,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 3.869393549429046,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -5.86463325000002,
+          "delta": 0.4134931500000407,
+          "exit": "09-22 09:51",
+          "end_t": 1790038275.695295,
+          "hold_hours": 3.8353345541821584,
+          "hours_saved": 0.03405899524688721,
+          "long": 3,
+          "short": 13,
+          "price": 86129.1
+        },
+        "B": {
+          "triggered": true,
+          "net": -5.86463325000002,
+          "delta": 0.4134931500000407,
+          "exit": "09-22 09:51",
+          "end_t": 1790038275.695295,
+          "hold_hours": 3.8353345541821584,
+          "hours_saved": 0.03405899524688721,
+          "long": 3,
+          "short": 13,
+          "price": 86129.1
+        },
+        "C": {
+          "triggered": true,
+          "net": -5.86463325000002,
+          "delta": 0.4134931500000407,
+          "exit": "09-22 09:51",
+          "end_t": 1790038275.695295,
+          "hold_hours": 3.8353345541821584,
+          "hours_saved": 0.03405899524688721,
+          "long": 3,
+          "short": 13,
+          "price": 86129.1
+        }
+      }
+    },
+    {
+      "entry": "09-22 09:53",
+      "exit": "09-22 10:25",
+      "start_t": 1790038398.307678,
+      "end_t": 1790040337.578489,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 86072.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.3375604000000205,
+      "actual_reason": "profit protection (70% of peak): peak 0.71% -> current 0.49%",
+      "hold_hours": 0.5386863364113702,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.3375604000000205,
+          "delta": 0.0,
+          "exit": "09-22 10:25",
+          "end_t": 1790040337.578489,
+          "hold_hours": 0.5386863364113702,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85652.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.3375604000000205,
+          "delta": 0.0,
+          "exit": "09-22 10:25",
+          "end_t": 1790040337.578489,
+          "hold_hours": 0.5386863364113702,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85652.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.3375604000000205,
+          "delta": 0.0,
+          "exit": "09-22 10:25",
+          "end_t": 1790040337.578489,
+          "hold_hours": 0.5386863364113702,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85652.9
+        }
+      }
+    },
+    {
+      "entry": "09-22 10:55",
+      "exit": "09-22 14:38",
+      "start_t": 1790042156.35428,
+      "end_t": 1790055533.113993,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 85638.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.9547055499999797,
+      "actual_reason": "profit protection (70% of peak): peak 0.63% -> current 0.43%",
+      "hold_hours": 3.7157665869262484,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.9547055499999797,
+          "delta": 0.0,
+          "exit": "09-22 14:38",
+          "end_t": 1790055533.113993,
+          "hold_hours": 3.7157665869262484,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85274.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.9547055499999797,
+          "delta": 0.0,
+          "exit": "09-22 14:38",
+          "end_t": 1790055533.113993,
+          "hold_hours": 3.7157665869262484,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85274.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.9547055499999797,
+          "delta": 0.0,
+          "exit": "09-22 14:38",
+          "end_t": 1790055533.113993,
+          "hold_hours": 3.7157665869262484,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85274.0
+        }
+      }
+    },
+    {
+      "entry": "09-22 15:09",
+      "exit": "09-23 13:23",
+      "start_t": 1790057351.490283,
+      "end_t": 1790137406.325137,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 85343.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -12.604207699999959,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 22.23745412607988,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -9.26563924999998,
+          "delta": 3.338568449999979,
+          "exit": "09-23 02:57",
+          "end_t": 1790099820.487724,
+          "hold_hours": 11.796943733625941,
+          "hours_saved": 10.440510392453936,
+          "long": 12,
+          "short": 0,
+          "price": 86581.6
+        },
+        "B": {
+          "triggered": true,
+          "net": -9.26563924999998,
+          "delta": 3.338568449999979,
+          "exit": "09-23 02:57",
+          "end_t": 1790099820.487724,
+          "hold_hours": 11.796943733625941,
+          "hours_saved": 10.440510392453936,
+          "long": 12,
+          "short": 0,
+          "price": 86581.6
+        },
+        "C": {
+          "triggered": true,
+          "net": -9.26563924999998,
+          "delta": 3.338568449999979,
+          "exit": "09-23 02:57",
+          "end_t": 1790099820.487724,
+          "hold_hours": 11.796943733625941,
+          "hours_saved": 10.440510392453936,
+          "long": 12,
+          "short": 0,
+          "price": 86581.6
+        }
+      }
+    },
+    {
+      "entry": "09-23 13:23",
+      "exit": "09-23 17:50",
+      "start_t": 1790137406.325137,
+      "end_t": 1790153403.484045,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 87049.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -9.47531269999998,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 4.443655252257983,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -6.84462869999998,
+          "delta": 2.6306840000000005,
+          "exit": "09-23 16:40",
+          "end_t": 1790149220.417608,
+          "hold_hours": 3.2816923530896505,
+          "hours_saved": 1.1619628991683324,
+          "long": 2,
+          "short": 8,
+          "price": 86158.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -6.84462869999998,
+          "delta": 2.6306840000000005,
+          "exit": "09-23 16:40",
+          "end_t": 1790149220.417608,
+          "hold_hours": 3.2816923530896505,
+          "hours_saved": 1.1619628991683324,
+          "long": 2,
+          "short": 8,
+          "price": 86158.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -6.84462869999998,
+          "delta": 2.6306840000000005,
+          "exit": "09-23 16:40",
+          "end_t": 1790149220.417608,
+          "hold_hours": 3.2816923530896505,
+          "hours_saved": 1.1619628991683324,
+          "long": 2,
+          "short": 8,
+          "price": 86158.5
+        }
+      }
+    },
+    {
+      "entry": "09-23 17:50",
+      "exit": "09-23 23:34",
+      "start_t": 1790153403.484045,
+      "end_t": 1790174091.103886,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 85758.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 9.1345576,
+      "actual_reason": "profit protection (80% of peak): peak 2.11% -> current 1.62%",
+      "hold_hours": 5.746561066905658,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 9.1345576,
+          "delta": 0.0,
+          "exit": "09-23 23:34",
+          "end_t": 1790174091.103886,
+          "hold_hours": 5.746561066905658,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84368.2
+        },
+        "B": {
+          "triggered": false,
+          "net": 9.1345576,
+          "delta": 0.0,
+          "exit": "09-23 23:34",
+          "end_t": 1790174091.103886,
+          "hold_hours": 5.746561066905658,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84368.2
+        },
+        "C": {
+          "triggered": false,
+          "net": 9.1345576,
+          "delta": 0.0,
+          "exit": "09-23 23:34",
+          "end_t": 1790174091.103886,
+          "hold_hours": 5.746561066905658,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 84368.2
+        }
+      }
+    },
+    {
+      "entry": "09-24 00:05",
+      "exit": "09-24 01:05",
+      "start_t": 1790175913.402088,
+      "end_t": 1790179501.912859,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84512.8,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 3.9060580999999797,
+      "actual_reason": "profit protection (70% of peak): peak 1.11% -> current 0.76%",
+      "hold_hours": 0.9968085475100411,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.9060580999999797,
+          "delta": 0.0,
+          "exit": "09-24 01:05",
+          "end_t": 1790179501.912859,
+          "hold_hours": 0.9968085475100411,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83870.6
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.9060580999999797,
+          "delta": 0.0,
+          "exit": "09-24 01:05",
+          "end_t": 1790179501.912859,
+          "hold_hours": 0.9968085475100411,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83870.6
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.9060580999999797,
+          "delta": 0.0,
+          "exit": "09-24 01:05",
+          "end_t": 1790179501.912859,
+          "hold_hours": 0.9968085475100411,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83870.6
+        }
+      }
+    },
+    {
+      "entry": "09-24 01:35",
+      "exit": "09-24 18:00",
+      "start_t": 1790181319.720302,
+      "end_t": 1790240419.995862,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84187.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 3.0882225500000406,
+      "actual_reason": "profit protection (70% of peak): peak 1.02% -> current 0.62%",
+      "hold_hours": 16.416743211083944,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 3.0882225500000406,
+          "delta": 0.0,
+          "exit": "09-24 18:00",
+          "end_t": 1790240419.995862,
+          "hold_hours": 16.416743211083944,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83662.8
+        },
+        "B": {
+          "triggered": false,
+          "net": 3.0882225500000406,
+          "delta": 0.0,
+          "exit": "09-24 18:00",
+          "end_t": 1790240419.995862,
+          "hold_hours": 16.416743211083944,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83662.8
+        },
+        "C": {
+          "triggered": false,
+          "net": 3.0882225500000406,
+          "delta": 0.0,
+          "exit": "09-24 18:00",
+          "end_t": 1790240419.995862,
+          "hold_hours": 16.416743211083944,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83662.8
+        }
+      }
+    },
+    {
+      "entry": "09-24 18:30",
+      "exit": "09-24 23:30",
+      "start_t": 1790242245.593659,
+      "end_t": 1790260239.369219,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 83184.6,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -10.985291099999959,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 4.998270988927947,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -9.408803249999918,
+          "delta": 1.5764878500000403,
+          "exit": "09-24 23:25",
+          "end_t": 1790259936.016044,
+          "hold_hours": 4.914006218049261,
+          "hours_saved": 0.08426477087868585,
+          "long": 13,
+          "short": 3,
+          "price": 84444.9
+        },
+        "B": {
+          "triggered": true,
+          "net": -9.408803249999918,
+          "delta": 1.5764878500000403,
+          "exit": "09-24 23:25",
+          "end_t": 1790259936.016044,
+          "hold_hours": 4.914006218049261,
+          "hours_saved": 0.08426477087868585,
+          "long": 13,
+          "short": 3,
+          "price": 84444.9
+        },
+        "C": {
+          "triggered": true,
+          "net": -9.408803249999918,
+          "delta": 1.5764878500000403,
+          "exit": "09-24 23:25",
+          "end_t": 1790259936.016044,
+          "hold_hours": 4.914006218049261,
+          "hours_saved": 0.08426477087868585,
+          "long": 13,
+          "short": 3,
+          "price": 84444.9
+        }
+      }
+    },
+    {
+      "entry": "09-24 23:30",
+      "exit": "09-25 00:29",
+      "start_t": 1790260239.369219,
+      "end_t": 1790263759.394548,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84670.7,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -4.802488949999979,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 0.9777848135762744,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -4.413483549999939,
+          "delta": 0.38900540000004025,
+          "exit": "09-25 00:26",
+          "end_t": 1790263577.820759,
+          "hold_hours": 0.927347649998135,
+          "hours_saved": 0.05043716357813941,
+          "long": 0,
+          "short": 10,
+          "price": 84124.6
+        },
+        "B": {
+          "triggered": true,
+          "net": -4.413483549999939,
+          "delta": 0.38900540000004025,
+          "exit": "09-25 00:26",
+          "end_t": 1790263577.820759,
+          "hold_hours": 0.927347649998135,
+          "hours_saved": 0.05043716357813941,
+          "long": 0,
+          "short": 10,
+          "price": 84124.6
+        },
+        "C": {
+          "triggered": true,
+          "net": -4.413483549999939,
+          "delta": 0.38900540000004025,
+          "exit": "09-25 00:26",
+          "end_t": 1790263577.820759,
+          "hold_hours": 0.927347649998135,
+          "hours_saved": 0.05043716357813941,
+          "long": 0,
+          "short": 10,
+          "price": 84124.6
+        }
+      }
+    },
+    {
+      "entry": "09-25 00:29",
+      "exit": "09-25 01:16",
+      "start_t": 1790263759.394548,
+      "end_t": 1790266616.677269,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84068.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -4.7744742499999795,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 0.7936896447340648,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -2.6867308999999393,
+          "delta": 2.08774335000004,
+          "exit": "09-25 00:54",
+          "end_t": 1790265281.81879,
+          "hold_hours": 0.42289562278323706,
+          "hours_saved": 0.3707940219508277,
+          "long": 10,
+          "short": 3,
+          "price": 84368.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -2.6867308999999393,
+          "delta": 2.08774335000004,
+          "exit": "09-25 00:54",
+          "end_t": 1790265281.81879,
+          "hold_hours": 0.42289562278323706,
+          "hours_saved": 0.3707940219508277,
+          "long": 10,
+          "short": 3,
+          "price": 84368.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -2.6867308999999393,
+          "delta": 2.08774335000004,
+          "exit": "09-25 00:54",
+          "end_t": 1790265281.81879,
+          "hold_hours": 0.42289562278323706,
+          "hours_saved": 0.3707940219508277,
+          "long": 10,
+          "short": 3,
+          "price": 84368.5
+        }
+      }
+    },
+    {
+      "entry": "09-25 01:16",
+      "exit": "09-25 02:20",
+      "start_t": 1790266616.677269,
+      "end_t": 1790270442.13896,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84699.90000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -3.493648200000041,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 1.062628247472975,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -3.0122890000000204,
+          "delta": 0.4813592000000204,
+          "exit": "09-25 02:19",
+          "end_t": 1790270380.878823,
+          "hold_hours": 1.0456115427944395,
+          "hours_saved": 0.01701670467853546,
+          "long": 0,
+          "short": 13,
+          "price": 84354.1
+        },
+        "B": {
+          "triggered": true,
+          "net": -3.272558800000102,
+          "delta": 0.22108939999993904,
+          "exit": "09-25 02:00",
+          "end_t": 1790269228.311175,
+          "hold_hours": 0.725453862812784,
+          "hours_saved": 0.337174384660191,
+          "long": 4,
+          "short": 11,
+          "price": 84316.9
+        },
+        "C": {
+          "triggered": true,
+          "net": -3.272558800000102,
+          "delta": 0.22108939999993904,
+          "exit": "09-25 02:00",
+          "end_t": 1790269228.311175,
+          "hold_hours": 0.725453862812784,
+          "hours_saved": 0.337174384660191,
+          "long": 4,
+          "short": 11,
+          "price": 84316.9
+        }
+      }
+    },
+    {
+      "entry": "09-25 02:20",
+      "exit": "09-25 16:21",
+      "start_t": 1790270442.13896,
+      "end_t": 1790320861.680755,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84314.1,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 1.9688802000000611,
+      "actual_reason": "profit protection (70% of peak): peak 0.70% -> current 0.43%",
+      "hold_hours": 14.005428276393149,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -1.147677299999939,
+          "delta": -3.1165575,
+          "exit": "09-25 04:07",
+          "end_t": 1790276875.667019,
+          "hold_hours": 1.7870911275015937,
+          "hours_saved": 12.218337148891555,
+          "long": 8,
+          "short": 3,
+          "price": 84393.7
+        },
+        "B": {
+          "triggered": true,
+          "net": -1.147677299999939,
+          "delta": -3.1165575,
+          "exit": "09-25 04:07",
+          "end_t": 1790276875.667019,
+          "hold_hours": 1.7870911275015937,
+          "hours_saved": 12.218337148891555,
+          "long": 8,
+          "short": 3,
+          "price": 84393.7
+        },
+        "C": {
+          "triggered": true,
+          "net": -1.147677299999939,
+          "delta": -3.1165575,
+          "exit": "09-25 04:07",
+          "end_t": 1790276875.667019,
+          "hold_hours": 1.7870911275015937,
+          "hours_saved": 12.218337148891555,
+          "long": 8,
+          "short": 3,
+          "price": 84393.7
+        }
+      }
+    },
+    {
+      "entry": "09-25 16:51",
+      "exit": "09-25 20:15",
+      "start_t": 1790322679.344365,
+      "end_t": 1790334943.761524,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 83969.40000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -9.30504224999998,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 3.406782544189029,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -7.7873837999998985,
+          "delta": 1.5176584500000816,
+          "exit": "09-25 20:07",
+          "end_t": 1790334457.321411,
+          "hold_hours": 3.271660290559133,
+          "hours_saved": 0.13512225362989638,
+          "long": 11,
+          "short": 3,
+          "price": 84997.4
+        },
+        "B": {
+          "triggered": true,
+          "net": -7.7873837999998985,
+          "delta": 1.5176584500000816,
+          "exit": "09-25 20:07",
+          "end_t": 1790334457.321411,
+          "hold_hours": 3.271660290559133,
+          "hours_saved": 0.13512225362989638,
+          "long": 11,
+          "short": 3,
+          "price": 84997.4
+        },
+        "C": {
+          "triggered": true,
+          "net": -7.7873837999998985,
+          "delta": 1.5176584500000816,
+          "exit": "09-25 20:07",
+          "end_t": 1790334457.321411,
+          "hold_hours": 3.271660290559133,
+          "hours_saved": 0.13512225362989638,
+          "long": 11,
+          "short": 3,
+          "price": 84997.4
+        }
+      }
+    },
+    {
+      "entry": "09-25 20:15",
+      "exit": "09-25 21:26",
+      "start_t": 1790334943.761524,
+      "end_t": 1790339201.557321,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 85181.8,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": -6.853942200000061,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 1.1827210547526676,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -7.369584250000041,
+          "delta": -0.5156420499999799,
+          "exit": "09-25 21:15",
+          "end_t": 1790338534.723352,
+          "hold_hours": 0.9974893966648314,
+          "hours_saved": 0.18523165808783637,
+          "long": 0,
+          "short": 9,
+          "price": 84213.7
+        },
+        "B": {
+          "triggered": true,
+          "net": -7.369584250000041,
+          "delta": -0.5156420499999799,
+          "exit": "09-25 21:15",
+          "end_t": 1790338534.723352,
+          "hold_hours": 0.9974893966648314,
+          "hours_saved": 0.18523165808783637,
+          "long": 0,
+          "short": 9,
+          "price": 84213.7
+        },
+        "C": {
+          "triggered": true,
+          "net": -7.369584250000041,
+          "delta": -0.5156420499999799,
+          "exit": "09-25 21:15",
+          "end_t": 1790338534.723352,
+          "hold_hours": 0.9974893966648314,
+          "hours_saved": 0.18523165808783637,
+          "long": 0,
+          "short": 9,
+          "price": 84213.7
+        }
+      }
+    },
+    {
+      "entry": "09-25 21:26",
+      "exit": "09-25 22:53",
+      "start_t": 1790339201.557321,
+      "end_t": 1790344420.281063,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84290.2,
+      "group": "market_state_engine_v1:90ef0341",
+      "actual_net": 2.5286271500000206,
+      "actual_reason": "profit protection (70% of peak): peak 0.78% -> current 0.53%",
+      "hold_hours": 1.4496454838911692,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.5286271500000206,
+          "delta": 0.0,
+          "exit": "09-25 22:53",
+          "end_t": 1790344420.281063,
+          "hold_hours": 1.4496454838911692,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83844.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.5286271500000206,
+          "delta": 0.0,
+          "exit": "09-25 22:53",
+          "end_t": 1790344420.281063,
+          "hold_hours": 1.4496454838911692,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83844.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.5286271500000206,
+          "delta": 0.0,
+          "exit": "09-25 22:53",
+          "end_t": 1790344420.281063,
+          "hold_hours": 1.4496454838911692,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83844.9
+        }
+      }
+    },
+    {
+      "entry": "09-28 09:21",
+      "exit": "09-28 10:21",
+      "start_t": 1790554896.238348,
+      "end_t": 1790558488.794961,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84966.8,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": -7.09661505000002,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 0.9979323924912347,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -7.061632550000021,
+          "delta": 0.03498249999999903,
+          "exit": "09-28 10:07",
+          "end_t": 1790557637.125072,
+          "hold_hours": 0.7613574233320024,
+          "hours_saved": 0.23657496915923223,
+          "long": 0,
+          "short": 9,
+          "price": 84042.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -7.061632550000021,
+          "delta": 0.03498249999999903,
+          "exit": "09-28 10:07",
+          "end_t": 1790557637.125072,
+          "hold_hours": 0.7613574233320024,
+          "hours_saved": 0.23657496915923223,
+          "long": 0,
+          "short": 9,
+          "price": 84042.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -7.061632550000021,
+          "delta": 0.03498249999999903,
+          "exit": "09-28 10:07",
+          "end_t": 1790557637.125072,
+          "hold_hours": 0.7613574233320024,
+          "hours_saved": 0.23657496915923223,
+          "long": 0,
+          "short": 9,
+          "price": 84042.5
+        }
+      }
+    },
+    {
+      "entry": "09-28 10:21",
+      "exit": "09-28 11:12",
+      "start_t": 1790558488.794961,
+      "end_t": 1790561529.425736,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84055.8,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": 2.0260159500000205,
+      "actual_reason": "profit protection (70% of peak): peak 0.66% -> current 0.44%",
+      "hold_hours": 0.8446196597152286,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.0260159500000205,
+          "delta": 0.0,
+          "exit": "09-28 11:12",
+          "end_t": 1790561529.425736,
+          "hold_hours": 0.8446196597152286,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83682.5
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.0260159500000205,
+          "delta": 0.0,
+          "exit": "09-28 11:12",
+          "end_t": 1790561529.425736,
+          "hold_hours": 0.8446196597152286,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83682.5
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.0260159500000205,
+          "delta": 0.0,
+          "exit": "09-28 11:12",
+          "end_t": 1790561529.425736,
+          "hold_hours": 0.8446196597152286,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83682.5
+        }
+      }
+    },
+    {
+      "entry": "09-28 11:42",
+      "exit": "09-28 14:43",
+      "start_t": 1790563346.555959,
+      "end_t": 1790574188.395327,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 83434.6,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": 2.4428705000000814,
+      "actual_reason": "profit protection (70% of peak): peak 0.84% -> current 0.52%",
+      "hold_hours": 3.0116220466958152,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.4428705000000814,
+          "delta": 0.0,
+          "exit": "09-28 14:43",
+          "end_t": 1790574188.395327,
+          "hold_hours": 3.0116220466958152,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83002.4
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.4428705000000814,
+          "delta": 0.0,
+          "exit": "09-28 14:43",
+          "end_t": 1790574188.395327,
+          "hold_hours": 3.0116220466958152,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83002.4
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.4428705000000814,
+          "delta": 0.0,
+          "exit": "09-28 14:43",
+          "end_t": 1790574188.395327,
+          "hold_hours": 3.0116220466958152,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83002.4
+        }
+      }
+    },
+    {
+      "entry": "09-28 15:18",
+      "exit": "09-28 18:14",
+      "start_t": 1790576310.304386,
+      "end_t": 1790586857.696776,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 83166.8,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": 1.7850154000000003,
+      "actual_reason": "profit protection (70% of peak): peak 0.67% -> current 0.41%",
+      "hold_hours": 2.9298312194479834,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.7850154000000003,
+          "delta": 0.0,
+          "exit": "09-28 18:14",
+          "end_t": 1790586857.696776,
+          "hold_hours": 2.9298312194479834,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 82828.8
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.7850154000000003,
+          "delta": 0.0,
+          "exit": "09-28 18:14",
+          "end_t": 1790586857.696776,
+          "hold_hours": 2.9298312194479834,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 82828.8
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.7850154000000003,
+          "delta": 0.0,
+          "exit": "09-28 18:14",
+          "end_t": 1790586857.696776,
+          "hold_hours": 2.9298312194479834,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 82828.8
+        }
+      }
+    },
+    {
+      "entry": "09-28 18:44",
+      "exit": "09-30 21:36",
+      "start_t": 1790588676.689866,
+      "end_t": 1790771773.779739,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 82606.1,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": -15.0754877,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 50.86030274245474,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -8.85778039999998,
+          "delta": 6.21770730000002,
+          "exit": "09-29 15:12",
+          "end_t": 1790662350.388141,
+          "hold_hours": 20.464916187458567,
+          "hours_saved": 30.395386554996172,
+          "long": 8,
+          "short": 2,
+          "price": 83788.3
+        },
+        "B": {
+          "triggered": true,
+          "net": -8.85778039999998,
+          "delta": 6.21770730000002,
+          "exit": "09-29 15:12",
+          "end_t": 1790662350.388141,
+          "hold_hours": 20.464916187458567,
+          "hours_saved": 30.395386554996172,
+          "long": 8,
+          "short": 2,
+          "price": 83788.3
+        },
+        "C": {
+          "triggered": true,
+          "net": -8.85778039999998,
+          "delta": 6.21770730000002,
+          "exit": "09-29 15:12",
+          "end_t": 1790662350.388141,
+          "hold_hours": 20.464916187458567,
+          "hours_saved": 30.395386554996172,
+          "long": 8,
+          "short": 2,
+          "price": 83788.3
+        }
+      }
+    },
+    {
+      "entry": "09-30 21:36",
+      "exit": "09-30 22:01",
+      "start_t": 1790771773.779739,
+      "end_t": 1790773290.819004,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84723.7,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": 2.5987373999999797,
+      "actual_reason": "profit protection (70% of peak): peak 0.86% -> current 0.54%",
+      "hold_hours": 0.421399795876609,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.5987373999999797,
+          "delta": 0.0,
+          "exit": "09-30 22:01",
+          "end_t": 1790773290.819004,
+          "hold_hours": 0.421399795876609,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85179.9
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.5987373999999797,
+          "delta": 0.0,
+          "exit": "09-30 22:01",
+          "end_t": 1790773290.819004,
+          "hold_hours": 0.421399795876609,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85179.9
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.5987373999999797,
+          "delta": 0.0,
+          "exit": "09-30 22:01",
+          "end_t": 1790773290.819004,
+          "hold_hours": 0.421399795876609,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85179.9
+        }
+      }
+    },
+    {
+      "entry": "09-30 22:31",
+      "exit": "09-30 23:33",
+      "start_t": 1790775109.94126,
+      "end_t": 1790778818.774106,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 85423.80000000002,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": -14.5314963500001,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 1.0302313460906347,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -14.5314963500001,
+          "delta": 0.0,
+          "exit": "09-30 23:33",
+          "end_t": 1790778818.774106,
+          "hold_hours": 1.0302313460906347,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83432.3
+        },
+        "B": {
+          "triggered": false,
+          "net": -14.5314963500001,
+          "delta": 0.0,
+          "exit": "09-30 23:33",
+          "end_t": 1790778818.774106,
+          "hold_hours": 1.0302313460906347,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83432.3
+        },
+        "C": {
+          "triggered": false,
+          "net": -14.5314963500001,
+          "delta": 0.0,
+          "exit": "09-30 23:33",
+          "end_t": 1790778818.774106,
+          "hold_hours": 1.0302313460906347,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83432.3
+        }
+      }
+    },
+    {
+      "entry": "09-30 23:33",
+      "exit": "10-01 00:33",
+      "start_t": 1790778818.774106,
+      "end_t": 1790782402.278073,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 83420.8,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": -5.468186499999959,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 0.9954177686240938,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -4.77694104999998,
+          "delta": 0.691245449999979,
+          "exit": "10-01 00:31",
+          "end_t": 1790782281.276998,
+          "hold_hours": 0.9618063588937124,
+          "hours_saved": 0.03361140973038144,
+          "long": 8,
+          "short": 2,
+          "price": 84019.5
+        },
+        "B": {
+          "triggered": true,
+          "net": -4.77694104999998,
+          "delta": 0.691245449999979,
+          "exit": "10-01 00:31",
+          "end_t": 1790782281.276998,
+          "hold_hours": 0.9618063588937124,
+          "hours_saved": 0.03361140973038144,
+          "long": 8,
+          "short": 2,
+          "price": 84019.5
+        },
+        "C": {
+          "triggered": true,
+          "net": -4.77694104999998,
+          "delta": 0.691245449999979,
+          "exit": "10-01 00:31",
+          "end_t": 1790782281.276998,
+          "hold_hours": 0.9618063588937124,
+          "hours_saved": 0.03361140973038144,
+          "long": 8,
+          "short": 2,
+          "price": 84019.5
+        }
+      }
+    },
+    {
+      "entry": "10-01 00:33",
+      "exit": "10-01 04:17",
+      "start_t": 1790782402.278073,
+      "end_t": 1790795861.970184,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84126.0,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": -4.270440299999979,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 3.738803364170922,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": -4.270440299999979,
+          "delta": 0.0,
+          "exit": "10-01 04:17",
+          "end_t": 1790795861.970184,
+          "hold_hours": 3.738803364170922,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83599.8
+        },
+        "B": {
+          "triggered": false,
+          "net": -4.270440299999979,
+          "delta": 0.0,
+          "exit": "10-01 04:17",
+          "end_t": 1790795861.970184,
+          "hold_hours": 3.738803364170922,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83599.8
+        },
+        "C": {
+          "triggered": false,
+          "net": -4.270440299999979,
+          "delta": 0.0,
+          "exit": "10-01 04:17",
+          "end_t": 1790795861.970184,
+          "hold_hours": 3.738803364170922,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 83599.8
+        }
+      }
+    },
+    {
+      "entry": "10-01 04:17",
+      "exit": "10-02 01:35",
+      "start_t": 1790795861.970184,
+      "end_t": 1790872545.472414,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 83599.8,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": -7.412210400000021,
+      "actual_reason": "confirmed opposite reversal",
+      "hold_hours": 21.300972841646935,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -1.9711912499999593,
+          "delta": 5.441019150000061,
+          "exit": "10-01 07:42",
+          "end_t": 1790808159.297064,
+          "hold_hours": 3.4159241333272723,
+          "hours_saved": 17.885048708319665,
+          "long": 9,
+          "short": 2,
+          "price": 83797.7
+        },
+        "B": {
+          "triggered": true,
+          "net": -1.9711912499999593,
+          "delta": 5.441019150000061,
+          "exit": "10-01 07:42",
+          "end_t": 1790808159.297064,
+          "hold_hours": 3.4159241333272723,
+          "hours_saved": 17.885048708319665,
+          "long": 9,
+          "short": 2,
+          "price": 83797.7
+        },
+        "C": {
+          "triggered": true,
+          "net": -1.9711912499999593,
+          "delta": 5.441019150000061,
+          "exit": "10-01 07:42",
+          "end_t": 1790808159.297064,
+          "hold_hours": 3.4159241333272723,
+          "hours_saved": 17.885048708319665,
+          "long": 9,
+          "short": 2,
+          "price": 83797.7
+        }
+      }
+    },
+    {
+      "entry": "10-02 01:35",
+      "exit": "10-02 03:40",
+      "start_t": 1790872545.472414,
+      "end_t": 1790880034.135344,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 84586.0,
+      "group": "market_state_engine_v1:824135c3",
+      "actual_net": 2.4114954500000207,
+      "actual_reason": "profit protection (70% of peak): peak 0.73% -> current 0.51%",
+      "hold_hours": 2.080184147225486,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 2.4114954500000207,
+          "delta": 0.0,
+          "exit": "10-02 03:40",
+          "end_t": 1790880034.135344,
+          "hold_hours": 2.080184147225486,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85015.3
+        },
+        "B": {
+          "triggered": false,
+          "net": 2.4114954500000207,
+          "delta": 0.0,
+          "exit": "10-02 03:40",
+          "end_t": 1790880034.135344,
+          "hold_hours": 2.080184147225486,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85015.3
+        },
+        "C": {
+          "triggered": false,
+          "net": 2.4114954500000207,
+          "delta": 0.0,
+          "exit": "10-02 03:40",
+          "end_t": 1790880034.135344,
+          "hold_hours": 2.080184147225486,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 85015.3
+        }
+      }
+    },
+    {
+      "entry": "10-02 12:55",
+      "exit": "10-02 13:36",
+      "start_t": 1790913341.201107,
+      "end_t": 1790915767.640181,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 85500.6,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "actual_net": 5.389100499999919,
+      "actual_reason": "profit protection (70% of peak): peak 1.50% -> current 1.00%",
+      "hold_hours": 0.6740108538998498,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 5.389100499999919,
+          "delta": 0.0,
+          "exit": "10-02 13:36",
+          "end_t": 1790915767.640181,
+          "hold_hours": 0.6740108538998498,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86356.4
+        },
+        "B": {
+          "triggered": false,
+          "net": 5.389100499999919,
+          "delta": 0.0,
+          "exit": "10-02 13:36",
+          "end_t": 1790915767.640181,
+          "hold_hours": 0.6740108538998498,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86356.4
+        },
+        "C": {
+          "triggered": false,
+          "net": 5.389100499999919,
+          "delta": 0.0,
+          "exit": "10-02 13:36",
+          "end_t": 1790915767.640181,
+          "hold_hours": 0.6740108538998498,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86356.4
+        }
+      }
+    },
+    {
+      "entry": "10-02 14:06",
+      "exit": "10-02 22:42",
+      "start_t": 1790917590.228156,
+      "end_t": 1790948578.598333,
+      "side": "LONG",
+      "entry_time_basis": "recorded",
+      "entry_price": 86533.8,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "actual_net": 1.5295951999999797,
+      "actual_reason": "profit protection (70% of peak): peak 0.62% -> current 0.35%",
+      "hold_hours": 8.607880604664485,
+      "variants": {
+        "A": {
+          "triggered": false,
+          "net": 1.5295951999999797,
+          "delta": 0.0,
+          "exit": "10-02 22:42",
+          "end_t": 1790948578.598333,
+          "hold_hours": 8.607880604664485,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86839.0
+        },
+        "B": {
+          "triggered": false,
+          "net": 1.5295951999999797,
+          "delta": 0.0,
+          "exit": "10-02 22:42",
+          "end_t": 1790948578.598333,
+          "hold_hours": 8.607880604664485,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86839.0
+        },
+        "C": {
+          "triggered": false,
+          "net": 1.5295951999999797,
+          "delta": 0.0,
+          "exit": "10-02 22:42",
+          "end_t": 1790948578.598333,
+          "hold_hours": 8.607880604664485,
+          "hours_saved": 0.0,
+          "long": null,
+          "short": null,
+          "price": 86839.0
+        }
+      }
+    },
+    {
+      "entry": "10-03 02:16",
+      "exit": "10-03 03:53",
+      "start_t": 1790961406.536929,
+      "end_t": 1790967187.634656,
+      "side": "SHORT",
+      "entry_time_basis": "recorded",
+      "entry_price": 84758.49999999999,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "actual_net": 3.5275498999998574,
+      "actual_reason": "profit protection (70% of peak): peak 1.02% -> current 0.69%",
+      "hold_hours": 1.6058604797389773,
+      "variants": {
+        "A": {
+          "triggered": true,
+          "net": -1.759392250000102,
+          "delta": -5.286942149999959,
+          "exit": "10-03 02:22",
+          "end_t": 1790961772.442721,
+          "hold_hours": 0.1016404977771971,
+          "hours_saved": 1.50421998196178,
+          "long": 14,
+          "short": 3,
+          "price": 84925.0
+        },
+        "B": {
+          "triggered": true,
+          "net": -1.759392250000102,
+          "delta": -5.286942149999959,
+          "exit": "10-03 02:22",
+          "end_t": 1790961772.442721,
+          "hold_hours": 0.1016404977771971,
+          "hours_saved": 1.50421998196178,
+          "long": 14,
+          "short": 3,
+          "price": 84925.0
+        },
+        "C": {
+          "triggered": true,
+          "net": -1.759392250000102,
+          "delta": -5.286942149999959,
+          "exit": "10-03 02:22",
+          "end_t": 1790961772.442721,
+          "hold_hours": 0.1016404977771971,
+          "hours_saved": 1.50421998196178,
+          "long": 14,
+          "short": 3,
+          "price": 84925.0
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Frozen actual entries; no counterfactual re-entry or portfolio simulation.",
+    "Historical observed average entry and minute prices, no funding or extra slippage.",
+    "Versions and configurations separated, but undocumented historical code changes may remain.",
+    "Time splits are descriptive, not an untouched out-of-sample test."
+  ]
+}

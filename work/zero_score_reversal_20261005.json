@@ -1,0 +1,3418 @@
+{
+  "eligible": 96,
+  "groups": {
+    "market_state_engine_v1:824135c3": {
+      "n": 11,
+      "matched_n": 11,
+      "baseline": -42.590301599999975,
+      "thresholds": {
+        "7": {
+          "triggered": 1,
+          "same_horizon_net": -43.10859909999998,
+          "same_horizon_delta": -0.518297500000001,
+          "improved": 0,
+          "worsened": 1,
+          "reverse_closed": 1,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 1.9329625,
+          "old_leg_net_closed": -7.061632550000021,
+          "two_leg_net_closed": -5.1286700500000215
+        },
+        "8": {
+          "triggered": 1,
+          "same_horizon_net": -43.10859909999998,
+          "same_horizon_delta": -0.518297500000001,
+          "improved": 0,
+          "worsened": 1,
+          "reverse_closed": 1,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 1.9329625,
+          "old_leg_net_closed": -7.061632550000021,
+          "two_leg_net_closed": -5.1286700500000215
+        },
+        "9": {
+          "triggered": 1,
+          "same_horizon_net": -43.10859909999998,
+          "same_horizon_delta": -0.518297500000001,
+          "improved": 0,
+          "worsened": 1,
+          "reverse_closed": 1,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 1.9329625,
+          "old_leg_net_closed": -7.061632550000021,
+          "two_leg_net_closed": -5.1286700500000215
+        }
+      }
+    },
+    "market_state_engine_v1:90ef0341": {
+      "n": 64,
+      "matched_n": 64,
+      "baseline": -38.647373249999674,
+      "thresholds": {
+        "7": {
+          "triggered": 16,
+          "same_horizon_net": -49.629463999999416,
+          "same_horizon_delta": -10.982090749999736,
+          "improved": 10,
+          "worsened": 6,
+          "reverse_closed": 16,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": -6.717843499999931,
+          "old_leg_net_closed": -112.3197591999998,
+          "two_leg_net_closed": -119.03760269999974
+        },
+        "8": {
+          "triggered": 16,
+          "same_horizon_net": -63.39726349999938,
+          "same_horizon_delta": -24.7498902499997,
+          "improved": 9,
+          "worsened": 7,
+          "reverse_closed": 16,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": -9.852073849999849,
+          "old_leg_net_closed": -117.0999113499998,
+          "two_leg_net_closed": -126.95198519999964
+        },
+        "9": {
+          "triggered": 14,
+          "same_horizon_net": -56.16581609999977,
+          "same_horizon_delta": -17.5184428500001,
+          "improved": 9,
+          "worsened": 5,
+          "reverse_closed": 14,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": -12.203172800000166,
+          "old_leg_net_closed": -109.64301899999992,
+          "two_leg_net_closed": -121.84619180000008
+        }
+      }
+    },
+    "market_state_engine_v1:b84ae8bd": {
+      "n": 10,
+      "matched_n": 10,
+      "baseline": 10.252904800000163,
+      "thresholds": {
+        "7": {
+          "triggered": 2,
+          "same_horizon_net": -0.4827075999997221,
+          "same_horizon_delta": -10.735612399999885,
+          "improved": 1,
+          "worsened": 1,
+          "reverse_closed": 2,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": -4.116977599999954,
+          "old_leg_net_closed": -8.633917999999907,
+          "two_leg_net_closed": -12.750895599999861
+        },
+        "8": {
+          "triggered": 2,
+          "same_horizon_net": -0.4827075999997221,
+          "same_horizon_delta": -10.735612399999885,
+          "improved": 1,
+          "worsened": 1,
+          "reverse_closed": 2,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": -4.116977599999954,
+          "old_leg_net_closed": -8.633917999999907,
+          "two_leg_net_closed": -12.750895599999861
+        },
+        "9": {
+          "triggered": 2,
+          "same_horizon_net": -0.4298811999996752,
+          "same_horizon_delta": -10.682785999999838,
+          "improved": 1,
+          "worsened": 1,
+          "reverse_closed": 2,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": -4.090564399999931,
+          "old_leg_net_closed": -8.607504799999884,
+          "two_leg_net_closed": -12.698069199999814
+        }
+      }
+    },
+    "market_state_engine_v1:eddf6033": {
+      "n": 8,
+      "matched_n": 8,
+      "baseline": -38.157307500000066,
+      "thresholds": {
+        "7": {
+          "triggered": 1,
+          "same_horizon_net": -39.624999500000115,
+          "same_horizon_delta": -1.4676920000000466,
+          "improved": 0,
+          "worsened": 1,
+          "reverse_closed": 1,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 2.9001456000000463,
+          "old_leg_net_closed": -7.390706399999953,
+          "two_leg_net_closed": -4.490560799999907
+        },
+        "8": {
+          "triggered": 1,
+          "same_horizon_net": -40.848010700000025,
+          "same_horizon_delta": -2.6907031999999544,
+          "improved": 0,
+          "worsened": 1,
+          "reverse_closed": 1,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 2.9930876000000235,
+          "old_leg_net_closed": -8.002211999999908,
+          "two_leg_net_closed": -5.009124399999884
+        },
+        "9": {
+          "triggered": 1,
+          "same_horizon_net": -40.848010700000025,
+          "same_horizon_delta": -2.6907031999999544,
+          "improved": 0,
+          "worsened": 1,
+          "reverse_closed": 1,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 2.9930876000000235,
+          "old_leg_net_closed": -8.002211999999908,
+          "two_leg_net_closed": -5.009124399999884
+        }
+      }
+    },
+    "market_state_engine_v2_liquidation_speed_5m:4fa1214d": {
+      "n": 3,
+      "matched_n": 3,
+      "baseline": 10.446245599999756,
+      "thresholds": {
+        "7": {
+          "triggered": 0,
+          "same_horizon_net": 10.446245599999756,
+          "same_horizon_delta": 0.0,
+          "improved": 0,
+          "worsened": 0,
+          "reverse_closed": 0,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 0,
+          "old_leg_net_closed": 0,
+          "two_leg_net_closed": 0
+        },
+        "8": {
+          "triggered": 0,
+          "same_horizon_net": 10.446245599999756,
+          "same_horizon_delta": 0.0,
+          "improved": 0,
+          "worsened": 0,
+          "reverse_closed": 0,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 0,
+          "old_leg_net_closed": 0,
+          "two_leg_net_closed": 0
+        },
+        "9": {
+          "triggered": 0,
+          "same_horizon_net": 10.446245599999756,
+          "same_horizon_delta": 0.0,
+          "improved": 0,
+          "worsened": 0,
+          "reverse_closed": 0,
+          "reverse_unfinished": 0,
+          "reverse_net_closed": 0,
+          "old_leg_net_closed": 0,
+          "two_leg_net_closed": 0
+        }
+      }
+    }
+  },
+  "trades": [
+    {
+      "entry": "08-23 20:21",
+      "exit": "08-23 23:43",
+      "side": "LONG",
+      "actual_net": -4.049886400000093,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787484096.335058,
+      "end_t": 1787496208.418963,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -4.049886400000093
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -4.049886400000093
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -4.049886400000093
+        }
+      }
+    },
+    {
+      "entry": "08-24 09:49",
+      "exit": "08-24 14:04",
+      "side": "SHORT",
+      "actual_net": 2.1549868000001164,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787532579.13545,
+      "end_t": 1787547840.149138,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.1549868000001164
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.1549868000001164
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.1549868000001164
+        }
+      }
+    },
+    {
+      "entry": "08-24 14:34",
+      "exit": "08-24 16:12",
+      "side": "SHORT",
+      "actual_net": -6.926098399999954,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787549658.032628,
+      "end_t": 1787555537.824106,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -6.926098399999954
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -6.926098399999954
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -6.926098399999954
+        }
+      }
+    },
+    {
+      "entry": "08-24 16:13",
+      "exit": "08-24 17:23",
+      "side": "LONG",
+      "actual_net": -6.441489600000024,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787555600.443172,
+      "end_t": 1787559780.923936,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -6.441489600000024
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -6.441489600000024
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -6.441489600000024
+        }
+      }
+    },
+    {
+      "entry": "08-24 17:24",
+      "exit": "08-24 19:22",
+      "side": "SHORT",
+      "actual_net": -6.96809519999993,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787559843.578848,
+      "end_t": 1787566937.322508,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "08-24 19:19",
+          "long": 7,
+          "short": 0,
+          "old_position_net": -7.390706399999953,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-24 20:47",
+            "net": 2.9001456000000463,
+            "reason": "profit protection (70% of peak): peak 0.93% -> current 0.57%",
+            "hours": 1.4656827702787187,
+            "common": {
+              "net": -1.0450808000000236,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -8.435787199999977,
+          "two_leg_net": -4.490560799999907
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "08-24 19:20",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -8.002211999999908,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-24 20:46",
+            "net": 2.9930876000000235,
+            "reason": "profit protection (70% of peak): peak 0.84% -> current 0.58%",
+            "hours": 1.4318826560841666,
+            "common": {
+              "net": -1.6565863999999766,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -9.658798399999885,
+          "two_leg_net": -5.009124399999884
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "08-24 19:20",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -8.002211999999908,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-24 20:46",
+            "net": 2.9930876000000235,
+            "reason": "profit protection (70% of peak): peak 0.84% -> current 0.58%",
+            "hours": 1.4318826560841666,
+            "common": {
+              "net": -1.6565863999999766,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -9.658798399999885,
+          "two_leg_net": -5.009124399999884
+        }
+      }
+    },
+    {
+      "entry": "08-24 23:02",
+      "exit": "08-24 23:25",
+      "side": "LONG",
+      "actual_net": 0.427207599999907,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787580167.484942,
+      "end_t": 1787581509.093072,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 0.427207599999907
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 0.427207599999907
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 0.427207599999907
+        }
+      }
+    },
+    {
+      "entry": "08-25 11:52",
+      "exit": "08-25 21:06",
+      "side": "LONG",
+      "actual_net": -12.44240550000002,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787626342.203722,
+      "end_t": 1787659567.436094,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -12.44240550000002
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -12.44240550000002
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -12.44240550000002
+        }
+      }
+    },
+    {
+      "entry": "08-25 23:55",
+      "exit": "08-26 02:08",
+      "side": "LONG",
+      "actual_net": -3.91152680000007,
+      "group": "market_state_engine_v1:eddf6033",
+      "start_t": 1787669714.573029,
+      "end_t": 1787677733.345072,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -3.91152680000007
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -3.91152680000007
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -3.91152680000007
+        }
+      }
+    },
+    {
+      "entry": "08-26 06:44",
+      "exit": "08-26 22:31",
+      "side": "SHORT",
+      "actual_net": 2.1859264000000467,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787694269.728132,
+      "end_t": 1787751067.525967,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "08-26 07:16",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -3.9811555999999535,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-26 09:10",
+            "net": -5.974558399999977,
+            "reason": "confirmed opposite reversal",
+            "hours": 1.887325607471996,
+            "common": {
+              "net": -5.974558399999977,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -9.955713999999931,
+          "two_leg_net": -9.955713999999931
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "08-26 07:16",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -3.9811555999999535,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-26 09:10",
+            "net": -5.974558399999977,
+            "reason": "confirmed opposite reversal",
+            "hours": 1.887325607471996,
+            "common": {
+              "net": -5.974558399999977,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -9.955713999999931,
+          "two_leg_net": -9.955713999999931
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "08-26 07:16",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -3.9811555999999535,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-26 09:10",
+            "net": -5.974558399999977,
+            "reason": "confirmed opposite reversal",
+            "hours": 1.887325607471996,
+            "common": {
+              "net": -5.974558399999977,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -9.955713999999931,
+          "two_leg_net": -9.955713999999931
+        }
+      }
+    },
+    {
+      "entry": "08-27 06:16",
+      "exit": "08-27 09:00",
+      "side": "LONG",
+      "actual_net": 0.5188011999999766,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787778963.385603,
+      "end_t": 1787788841.004576,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 0.5188011999999766
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 0.5188011999999766
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 0.5188011999999766
+        }
+      }
+    },
+    {
+      "entry": "08-27 09:01",
+      "exit": "08-27 17:08",
+      "side": "SHORT",
+      "actual_net": -5.6740728,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787788904.158561,
+      "end_t": 1787818118.825344,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "08-27 17:04",
+          "long": 8,
+          "short": 0,
+          "old_position_net": -4.652762399999953,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-27 17:50",
+            "net": 1.8575808000000231,
+            "reason": "profit protection (70% of peak): peak 0.64% -> current 0.39%",
+            "hours": 0.7583744527896246,
+            "common": {
+              "net": 0.3847176000000465,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.268044799999907,
+          "two_leg_net": -2.79518159999993
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "08-27 17:04",
+          "long": 8,
+          "short": 0,
+          "old_position_net": -4.652762399999953,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-27 17:50",
+            "net": 1.8575808000000231,
+            "reason": "profit protection (70% of peak): peak 0.64% -> current 0.39%",
+            "hours": 0.7583744527896246,
+            "common": {
+              "net": 0.3847176000000465,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.268044799999907,
+          "two_leg_net": -2.79518159999993
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "08-27 17:07",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -4.62634919999993,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "08-27 17:50",
+            "net": 1.8839940000000466,
+            "reason": "profit protection (70% of peak): peak 0.65% -> current 0.40%",
+            "hours": 0.7074515252643161,
+            "common": {
+              "net": 0.41113080000006985,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.21521839999986,
+          "two_leg_net": -2.742355199999883
+        }
+      }
+    },
+    {
+      "entry": "08-27 19:04",
+      "exit": "08-27 19:37",
+      "side": "LONG",
+      "actual_net": -4.900628599999959,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787825095.718793,
+      "end_t": 1787827039.033159,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -4.900628599999959
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -4.900628599999959
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -4.900628599999959
+        }
+      }
+    },
+    {
+      "entry": "08-28 00:47",
+      "exit": "08-28 10:38",
+      "side": "LONG",
+      "actual_net": 3.469808649999919,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787845626.983314,
+      "end_t": 1787881101.775067,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.469808649999919
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.469808649999919
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.469808649999919
+        }
+      }
+    },
+    {
+      "entry": "08-28 10:39",
+      "exit": "08-28 11:14",
+      "side": "LONG",
+      "actual_net": -5.1486764,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787881163.498639,
+      "end_t": 1787883287.386452,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -5.1486764
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -5.1486764
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -5.1486764
+        }
+      }
+    },
+    {
+      "entry": "08-28 11:15",
+      "exit": "08-28 13:13",
+      "side": "SHORT",
+      "actual_net": 1.8069047500000406,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787883349.866119,
+      "end_t": 1787890383.217333,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.8069047500000406
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.8069047500000406
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.8069047500000406
+        }
+      }
+    },
+    {
+      "entry": "08-28 13:43",
+      "exit": "08-28 19:28",
+      "side": "SHORT",
+      "actual_net": 3.037965600000093,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787892201.393437,
+      "end_t": 1787912939.037412,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.037965600000093
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.037965600000093
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.037965600000093
+        }
+      }
+    },
+    {
+      "entry": "08-28 23:49",
+      "exit": "08-29 01:28",
+      "side": "SHORT",
+      "actual_net": 12.266889199999977,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787928599.426377,
+      "end_t": 1787934487.321537,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 12.266889199999977
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 12.266889199999977
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 12.266889199999977
+        }
+      }
+    },
+    {
+      "entry": "08-29 01:58",
+      "exit": "08-29 03:52",
+      "side": "SHORT",
+      "actual_net": 2.68998680000007,
+      "group": "market_state_engine_v1:b84ae8bd",
+      "start_t": 1787936307.641194,
+      "end_t": 1787943155.61462,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.68998680000007
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.68998680000007
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.68998680000007
+        }
+      }
+    },
+    {
+      "entry": "08-30 21:41",
+      "exit": "08-31 01:21",
+      "side": "LONG",
+      "actual_net": 2.4768159999999533,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788093712.145803,
+      "end_t": 1788106864.613864,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.4768159999999533
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.4768159999999533
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.4768159999999533
+        }
+      }
+    },
+    {
+      "entry": "08-31 01:51",
+      "exit": "08-31 05:50",
+      "side": "LONG",
+      "actual_net": -4.3729300000000935,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788108685.084398,
+      "end_t": 1788123050.66532,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -4.3729300000000935
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -4.3729300000000935
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -4.3729300000000935
+        }
+      }
+    },
+    {
+      "entry": "08-31 06:21",
+      "exit": "08-31 08:52",
+      "side": "SHORT",
+      "actual_net": 8.278165600000023,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788124870.924017,
+      "end_t": 1788133928.082534,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 8.278165600000023
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 8.278165600000023
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 8.278165600000023
+        }
+      }
+    },
+    {
+      "entry": "08-31 14:26",
+      "exit": "08-31 18:51",
+      "side": "LONG",
+      "actual_net": 3.0341416000000465,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788153968.639336,
+      "end_t": 1788169871.608222,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.0341416000000465
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.0341416000000465
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.0341416000000465
+        }
+      }
+    },
+    {
+      "entry": "08-31 21:42",
+      "exit": "08-31 23:43",
+      "side": "SHORT",
+      "actual_net": -7.1549503999999775,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788180121.478095,
+      "end_t": 1788187407.198158,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -7.1549503999999775
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -7.1549503999999775
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -7.1549503999999775
+        }
+      }
+    },
+    {
+      "entry": "08-31 23:43",
+      "exit": "09-01 03:54",
+      "side": "LONG",
+      "actual_net": 2.420907199999953,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788187407.201231,
+      "end_t": 1788202442.284201,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.420907199999953
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.420907199999953
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.420907199999953
+        }
+      }
+    },
+    {
+      "entry": "09-01 04:24",
+      "exit": "09-01 17:26",
+      "side": "LONG",
+      "actual_net": -9.164915600000047,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788204262.196534,
+      "end_t": 1788251161.500757,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-01 09:00",
+          "long": 0,
+          "short": 7,
+          "old_position_net": -4.675161600000046,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-01 19:25",
+            "net": 3.777062399999954,
+            "reason": "profit protection (70% of peak): peak 1.03% -> current 0.70%",
+            "hours": 10.420031511916054,
+            "common": {
+              "net": 3.8659068,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -0.8092548000000463,
+          "two_leg_net": -0.8980992000000922
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-01 10:30",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -5.856170800000023,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-01 18:43",
+            "net": 2.6504804,
+            "reason": "profit protection (70% of peak): peak 0.80% -> current 0.52%",
+            "hours": 8.21568417025937,
+            "common": {
+              "net": 2.6848976000000233,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.1712732,
+          "two_leg_net": -3.205690400000023
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-01 10:30",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -5.856170800000023,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-01 18:43",
+            "net": 2.6504804,
+            "reason": "profit protection (70% of peak): peak 0.80% -> current 0.52%",
+            "hours": 8.21568417025937,
+            "common": {
+              "net": 2.6848976000000233,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.1712732,
+          "two_leg_net": -3.205690400000023
+        }
+      }
+    },
+    {
+      "entry": "09-01 17:26",
+      "exit": "09-02 01:47",
+      "side": "SHORT",
+      "actual_net": 2.8466256000000465,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788251161.506247,
+      "end_t": 1788281273.064519,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.8466256000000465
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.8466256000000465
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.8466256000000465
+        }
+      }
+    },
+    {
+      "entry": "09-02 02:18",
+      "exit": "09-02 03:29",
+      "side": "SHORT",
+      "actual_net": 3.0884652000000234,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788283091.468777,
+      "end_t": 1788287398.250519,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.0884652000000234
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.0884652000000234
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.0884652000000234
+        }
+      }
+    },
+    {
+      "entry": "09-02 04:00",
+      "exit": "09-02 18:49",
+      "side": "SHORT",
+      "actual_net": 2.95199080000007,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788289221.755382,
+      "end_t": 1788342572.148249,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.95199080000007
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.95199080000007
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.95199080000007
+        }
+      }
+    },
+    {
+      "entry": "09-02 19:19",
+      "exit": "09-03 11:42",
+      "side": "SHORT",
+      "actual_net": -9.776252800000023,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788344388.685954,
+      "end_t": 1788403341.717347,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -9.776252800000023
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -9.776252800000023
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -9.776252800000023
+        }
+      }
+    },
+    {
+      "entry": "09-03 11:42",
+      "exit": "09-03 14:29",
+      "side": "LONG",
+      "actual_net": -6.017444400000093,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788403341.719064,
+      "end_t": 1788413340.5024,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-03 14:22",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -5.18745960000007,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-03 21:34",
+            "net": -8.699614799999978,
+            "reason": "confirmed opposite reversal",
+            "hours": 7.187110453049342,
+            "common": {
+              "net": 0.2128392000000232,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.974620400000046,
+          "two_leg_net": -13.887074400000047
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-03 14:22",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -5.18745960000007,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-03 21:34",
+            "net": -8.699614799999978,
+            "reason": "confirmed opposite reversal",
+            "hours": 7.187110453049342,
+            "common": {
+              "net": 0.2128392000000232,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.974620400000046,
+          "two_leg_net": -13.887074400000047
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-03 14:22",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -5.18745960000007,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-03 21:34",
+            "net": -8.699614799999978,
+            "reason": "confirmed opposite reversal",
+            "hours": 7.187110453049342,
+            "common": {
+              "net": 0.2128392000000232,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.974620400000046,
+          "two_leg_net": -13.887074400000047
+        }
+      }
+    },
+    {
+      "entry": "09-03 16:04",
+      "exit": "09-03 22:06",
+      "side": "LONG",
+      "actual_net": 2.9167843999999534,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788419095.197086,
+      "end_t": 1788440789.357295,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.9167843999999534
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.9167843999999534
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.9167843999999534
+        }
+      }
+    },
+    {
+      "entry": "09-03 22:36",
+      "exit": "09-04 00:04",
+      "side": "LONG",
+      "actual_net": 16.4673144,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788442612.182086,
+      "end_t": 1788447885.686588,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 16.4673144
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 16.4673144
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 16.4673144
+        }
+      }
+    },
+    {
+      "entry": "09-04 00:35",
+      "exit": "09-04 04:06",
+      "side": "LONG",
+      "actual_net": 2.2158675000000407,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788449704.634402,
+      "end_t": 1788462369.040063,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.2158675000000407
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.2158675000000407
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.2158675000000407
+        }
+      }
+    },
+    {
+      "entry": "09-04 04:36",
+      "exit": "09-04 06:35",
+      "side": "LONG",
+      "actual_net": 2.908383449999939,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788464185.869699,
+      "end_t": 1788471337.519703,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.908383449999939
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.908383449999939
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.908383449999939
+        }
+      }
+    },
+    {
+      "entry": "09-04 09:57",
+      "exit": "09-04 21:41",
+      "side": "SHORT",
+      "actual_net": 6.560874250000081,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788483448.636478,
+      "end_t": 1788525695.174522,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-04 18:17",
+          "long": 10,
+          "short": 0,
+          "old_position_net": -2.8175125999999593,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-04 21:30",
+            "net": -5.851894650000041,
+            "reason": "confirmed opposite reversal",
+            "hours": 3.224356157183647,
+            "common": {
+              "net": -5.851894650000041,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -8.66940725,
+          "two_leg_net": -8.66940725
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-04 18:17",
+          "long": 10,
+          "short": 0,
+          "old_position_net": -2.8175125999999593,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-04 21:30",
+            "net": -5.851894650000041,
+            "reason": "confirmed opposite reversal",
+            "hours": 3.224356157183647,
+            "common": {
+              "net": -5.851894650000041,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -8.66940725,
+          "two_leg_net": -8.66940725
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-04 18:17",
+          "long": 10,
+          "short": 0,
+          "old_position_net": -2.8175125999999593,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-04 21:30",
+            "net": -5.851894650000041,
+            "reason": "confirmed opposite reversal",
+            "hours": 3.224356157183647,
+            "common": {
+              "net": -5.851894650000041,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -8.66940725,
+          "two_leg_net": -8.66940725
+        }
+      }
+    },
+    {
+      "entry": "09-04 22:12",
+      "exit": "09-04 23:51",
+      "side": "SHORT",
+      "actual_net": 2.5413980000000933,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788527541.791271,
+      "end_t": 1788533478.427585,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.5413980000000933
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.5413980000000933
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.5413980000000933
+        }
+      }
+    },
+    {
+      "entry": "09-06 01:58",
+      "exit": "09-07 16:47",
+      "side": "LONG",
+      "actual_net": -6.372767449999979,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788627490.80356,
+      "end_t": 1788767241.701864,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-06 23:17",
+          "long": 0,
+          "short": 8,
+          "old_position_net": -3.68331285000002,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-07 16:44",
+            "net": 2.4468507,
+            "reason": "profit protection (70% of peak): peak 0.80% -> current 0.54%",
+            "hours": 17.45469626446565,
+            "common": {
+              "net": 2.4468507,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -1.23646215000002,
+          "two_leg_net": -1.23646215000002
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-06 23:17",
+          "long": 0,
+          "short": 8,
+          "old_position_net": -3.68331285000002,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-07 16:44",
+            "net": 2.4468507,
+            "reason": "profit protection (70% of peak): peak 0.80% -> current 0.54%",
+            "hours": 17.45469626446565,
+            "common": {
+              "net": 2.4468507,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -1.23646215000002,
+          "two_leg_net": -1.23646215000002
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-06 23:21",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -4.063222799999939,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-07 16:43",
+            "net": 2.2203174000000407,
+            "reason": "profit protection (70% of peak): peak 0.73% -> current 0.50%",
+            "hours": 17.370478984183734,
+            "common": {
+              "net": 2.2203174000000407,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -1.842905399999898,
+          "two_leg_net": -1.842905399999898
+        }
+      }
+    },
+    {
+      "entry": "09-07 16:47",
+      "exit": "09-08 01:00",
+      "side": "SHORT",
+      "actual_net": 2.8786068000000697,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788767241.704246,
+      "end_t": 1788796843.80181,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.8786068000000697
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.8786068000000697
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.8786068000000697
+        }
+      }
+    },
+    {
+      "entry": "09-08 01:31",
+      "exit": "09-08 16:22",
+      "side": "SHORT",
+      "actual_net": 2.4158192000000467,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788798661.994034,
+      "end_t": 1788852139.027576,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.4158192000000467
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.4158192000000467
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.4158192000000467
+        }
+      }
+    },
+    {
+      "entry": "09-08 16:52",
+      "exit": "09-08 22:45",
+      "side": "SHORT",
+      "actual_net": 1.9349379999999534,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788853953.242874,
+      "end_t": 1788875129.643132,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.9349379999999534
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.9349379999999534
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.9349379999999534
+        }
+      }
+    },
+    {
+      "entry": "09-09 13:51",
+      "exit": "09-09 18:09",
+      "side": "LONG",
+      "actual_net": 1.9975551999999999,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788929480.676003,
+      "end_t": 1788944958.204514,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.9975551999999999
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.9975551999999999
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.9975551999999999
+        }
+      }
+    },
+    {
+      "entry": "09-09 21:41",
+      "exit": "09-10 21:46",
+      "side": "LONG",
+      "actual_net": -21.4978456,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1788957717.937091,
+      "end_t": 1789044419.466961,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -21.4978456
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -21.4978456
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -21.4978456
+        }
+      }
+    },
+    {
+      "entry": "09-10 21:46",
+      "exit": "09-11 21:33",
+      "side": "SHORT",
+      "actual_net": 1.2802432000000232,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789044419.470423,
+      "end_t": 1789129987.313729,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-11 09:15",
+          "long": 7,
+          "short": 0,
+          "old_position_net": 0.1436752000000232,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-11 15:33",
+            "net": 2.457717599999977,
+            "reason": "profit protection (70% of peak): peak 0.75% -> current 0.50%",
+            "hours": 6.298400398029221,
+            "common": {
+              "net": 2.457717599999977,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": 2.6013928,
+          "two_leg_net": 2.6013928
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-11 13:38",
+          "long": 8,
+          "short": 0,
+          "old_position_net": -2.0710315999999533,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-11 21:41",
+            "net": 1.943760000000093,
+            "reason": "profit protection (70% of peak): peak 0.70% -> current 0.42%",
+            "hours": 8.04824470003446,
+            "common": {
+              "net": -3.964484399999977,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -6.03551599999993,
+          "two_leg_net": -0.12727159999986037
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-11 15:14",
+          "long": 10,
+          "short": 0,
+          "old_position_net": -4.325758400000047,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-11 22:01",
+            "net": 2.9202167999999302,
+            "reason": "profit protection (70% of peak): peak 0.87% -> current 0.57%",
+            "hours": 6.789147028591898,
+            "common": {
+              "net": -6.21921120000007,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -10.544969600000117,
+          "two_leg_net": -1.4055416000001166
+        }
+      }
+    },
+    {
+      "entry": "09-11 22:28",
+      "exit": "09-11 23:07",
+      "side": "LONG",
+      "actual_net": 11.488099599999908,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789133314.73318,
+      "end_t": 1789135679.399999,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 11.488099599999908
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 11.488099599999908
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 11.488099599999908
+        }
+      }
+    },
+    {
+      "entry": "09-11 23:38",
+      "exit": "09-15 04:00",
+      "side": "LONG",
+      "actual_net": 2.138215199999977,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789137494.650764,
+      "end_t": 1789412449.638244,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-14 09:28",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -18.46108,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-14 11:12",
+            "net": -7.318711599999954,
+            "reason": "confirmed opposite reversal",
+            "hours": 1.730594588054551,
+            "common": {
+              "net": -7.318711599999954,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -25.779791599999953,
+          "two_leg_net": -25.779791599999953
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-14 09:28",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -18.46108,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-14 11:12",
+            "net": -7.318711599999954,
+            "reason": "confirmed opposite reversal",
+            "hours": 1.730594588054551,
+            "common": {
+              "net": -7.318711599999954,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -25.779791599999953,
+          "two_leg_net": -25.779791599999953
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-14 09:28",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -18.46108,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-14 11:12",
+            "net": -7.318711599999954,
+            "reason": "confirmed opposite reversal",
+            "hours": 1.730594588054551,
+            "common": {
+              "net": -7.318711599999954,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -25.779791599999953,
+          "two_leg_net": -25.779791599999953
+        }
+      }
+    },
+    {
+      "entry": "09-15 04:31",
+      "exit": "09-15 23:36",
+      "side": "LONG",
+      "actual_net": -24.619817999999956,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789414263.977825,
+      "end_t": 1789482967.162592,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-15 22:37",
+          "long": 0,
+          "short": 11,
+          "old_position_net": -21.08318719999993,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-15 23:55",
+            "net": 4.0581772,
+            "reason": "profit protection (70% of peak): peak 1.23% -> current 0.76%",
+            "hours": 1.2943856358528136,
+            "common": {
+              "net": 2.928012400000023,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -18.155174799999905,
+          "two_leg_net": -17.02500999999993
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-15 22:37",
+          "long": 0,
+          "short": 11,
+          "old_position_net": -21.08318719999993,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-15 23:55",
+            "net": 4.0581772,
+            "reason": "profit protection (70% of peak): peak 1.23% -> current 0.76%",
+            "hours": 1.2943856358528136,
+            "common": {
+              "net": 2.928012400000023,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -18.155174799999905,
+          "two_leg_net": -17.02500999999993
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-15 22:37",
+          "long": 0,
+          "short": 11,
+          "old_position_net": -21.08318719999993,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-15 23:55",
+            "net": 4.0581772,
+            "reason": "profit protection (70% of peak): peak 1.23% -> current 0.76%",
+            "hours": 1.2943856358528136,
+            "common": {
+              "net": 2.928012400000023,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -18.155174799999905,
+          "two_leg_net": -17.02500999999993
+        }
+      }
+    },
+    {
+      "entry": "09-15 23:36",
+      "exit": "09-15 23:54",
+      "side": "SHORT",
+      "actual_net": 1.5222360000000932,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789482967.164006,
+      "end_t": 1789484057.94921,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.5222360000000932
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.5222360000000932
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.5222360000000932
+        }
+      }
+    },
+    {
+      "entry": "09-16 02:34",
+      "exit": "09-16 03:38",
+      "side": "LONG",
+      "actual_net": -4.143756400000023,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789493674.184843,
+      "end_t": 1789497488.321741,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-16 03:37",
+          "long": 0,
+          "short": 8,
+          "old_position_net": -4.492381999999953,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-16 03:51",
+            "net": 7.892207200000069,
+            "reason": "profit protection (80% of peak): peak 1.86% -> current 1.39%",
+            "hours": 0.2361698408259286,
+            "common": {
+              "net": -0.9602167999999303,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -5.452598799999883,
+          "two_leg_net": 3.399825200000116
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-16 03:37",
+          "long": 0,
+          "short": 8,
+          "old_position_net": -4.492381999999953,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-16 03:51",
+            "net": 7.892207200000069,
+            "reason": "profit protection (80% of peak): peak 1.86% -> current 1.39%",
+            "hours": 0.2361698408259286,
+            "common": {
+              "net": -0.9602167999999303,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -5.452598799999883,
+          "two_leg_net": 3.399825200000116
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -4.143756400000023
+        }
+      }
+    },
+    {
+      "entry": "09-16 03:38",
+      "exit": "09-16 03:51",
+      "side": "SHORT",
+      "actual_net": 7.268519200000069,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789497488.325576,
+      "end_t": 1789498277.6261,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 7.268519200000069
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 7.268519200000069
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 7.268519200000069
+        }
+      }
+    },
+    {
+      "entry": "09-16 04:21",
+      "exit": "09-16 06:43",
+      "side": "SHORT",
+      "actual_net": 2.2175916000000466,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789500092.018514,
+      "end_t": 1789508625.260474,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.2175916000000466
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.2175916000000466
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.2175916000000466
+        }
+      }
+    },
+    {
+      "entry": "09-16 07:14",
+      "exit": "09-17 03:09",
+      "side": "SHORT",
+      "actual_net": -8.678935199999884,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789510441.439928,
+      "end_t": 1789582141.452973,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-16 11:54",
+          "long": 7,
+          "short": 0,
+          "old_position_net": -4.9298615999999305,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-17 03:10",
+            "net": 1.8691371999999766,
+            "reason": "profit protection (70% of peak): peak 0.62% -> current 0.41%",
+            "hours": 15.262622590263685,
+            "common": {
+              "net": 3.1381023999999536,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -1.791759199999977,
+          "two_leg_net": -3.0607243999999536
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-16 11:55",
+          "long": 8,
+          "short": 0,
+          "old_position_net": -4.7737835999999305,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-17 03:10",
+            "net": 2.025215199999977,
+            "reason": "profit protection (70% of peak): peak 0.65% -> current 0.43%",
+            "hours": 15.245850905312432,
+            "common": {
+              "net": 3.2941803999999535,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -1.479603199999977,
+          "two_leg_net": -2.7485683999999537
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-16 20:43",
+          "long": 10,
+          "short": 0,
+          "old_position_net": -7.30704959999993,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-17 10:40",
+            "net": 1.9307291999999767,
+            "reason": "profit protection (70% of peak): peak 0.71% -> current 0.42%",
+            "hours": 13.948087265292804,
+            "common": {
+              "net": 0.7609143999999535,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -6.546135199999976,
+          "two_leg_net": -5.376320399999953
+        }
+      }
+    },
+    {
+      "entry": "09-17 03:09",
+      "exit": "09-17 21:42",
+      "side": "LONG",
+      "actual_net": 3.08695,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789582141.456124,
+      "end_t": 1789648934.76619,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-17 04:21",
+          "long": 0,
+          "short": 7,
+          "old_position_net": -7.409399199999976,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-17 04:38",
+            "net": -2.3428671999999766,
+            "reason": "confirmed opposite reversal",
+            "hours": 0.27930883361233605,
+            "common": {
+              "net": -2.3428671999999766,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -9.752266399999954,
+          "two_leg_net": -9.752266399999954
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-17 04:28",
+          "long": 0,
+          "short": 8,
+          "old_position_net": -8.556825199999977,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-17 04:38",
+            "net": -3.4902931999999764,
+            "reason": "confirmed opposite reversal",
+            "hours": 0.16170254912641313,
+            "common": {
+              "net": -3.4902931999999764,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -12.047118399999954,
+          "two_leg_net": -12.047118399999954
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.08695
+        }
+      }
+    },
+    {
+      "entry": "09-17 22:12",
+      "exit": "09-18 13:08",
+      "side": "LONG",
+      "actual_net": 3.737917599999977,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789650749.005347,
+      "end_t": 1789704482.968778,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.737917599999977
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.737917599999977
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.737917599999977
+        }
+      }
+    },
+    {
+      "entry": "09-18 13:38",
+      "exit": "09-18 17:09",
+      "side": "LONG",
+      "actual_net": 2.6345584000000235,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789706299.473111,
+      "end_t": 1789718943.411421,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.6345584000000235
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.6345584000000235
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.6345584000000235
+        }
+      }
+    },
+    {
+      "entry": "09-18 17:39",
+      "exit": "09-18 18:25",
+      "side": "LONG",
+      "actual_net": 2.0827255999999537,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789720761.575876,
+      "end_t": 1789723547.426772,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.0827255999999537
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.0827255999999537
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.0827255999999537
+        }
+      }
+    },
+    {
+      "entry": "09-18 18:56",
+      "exit": "09-18 22:58",
+      "side": "LONG",
+      "actual_net": 13.561392799999977,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789725362.164329,
+      "end_t": 1789739891.13574,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 13.561392799999977
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 13.561392799999977
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 13.561392799999977
+        }
+      }
+    },
+    {
+      "entry": "09-18 23:28",
+      "exit": "09-19 04:24",
+      "side": "LONG",
+      "actual_net": 1.688165150000041,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789741710.245474,
+      "end_t": 1789759451.335784,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.688165150000041
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.688165150000041
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.688165150000041
+        }
+      }
+    },
+    {
+      "entry": "09-19 04:54",
+      "exit": "09-19 10:05",
+      "side": "LONG",
+      "actual_net": 1.7246680499999796,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789761268.295147,
+      "end_t": 1789779921.50407,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.7246680499999796
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.7246680499999796
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.7246680499999796
+        }
+      }
+    },
+    {
+      "entry": "09-20 00:42",
+      "exit": "09-20 11:59",
+      "side": "LONG",
+      "actual_net": -11.920168400000021,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789832574.152537,
+      "end_t": 1789873156.67726,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-20 06:22",
+          "long": 0,
+          "short": 7,
+          "old_position_net": -7.62921495,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-20 12:06",
+            "net": 2.530062150000041,
+            "reason": "profit protection (70% of peak): peak 0.79% -> current 0.55%",
+            "hours": 5.736221715874142,
+            "common": {
+              "net": 3.7290613500000203,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.9001535999999795,
+          "two_leg_net": -5.099152799999959
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-20 11:32",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -7.4375108500000415,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-20 12:07",
+            "net": 2.612511649999959,
+            "reason": "profit protection (70% of peak): peak 0.82% -> current 0.56%",
+            "hours": 0.5893025602234735,
+            "common": {
+              "net": 3.9207654499999802,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.5167454000000613,
+          "two_leg_net": -4.824999200000082
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-20 11:32",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -7.4375108500000415,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-20 12:07",
+            "net": 2.612511649999959,
+            "reason": "profit protection (70% of peak): peak 0.82% -> current 0.56%",
+            "hours": 0.5893025602234735,
+            "common": {
+              "net": 3.9207654499999802,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.5167454000000613,
+          "two_leg_net": -4.824999200000082
+        }
+      }
+    },
+    {
+      "entry": "09-20 11:59",
+      "exit": "09-21 17:37",
+      "side": "SHORT",
+      "actual_net": -18.56012724999996,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789873156.681057,
+      "end_t": 1789979854.485561,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-21 09:02",
+          "long": 7,
+          "short": 0,
+          "old_position_net": -8.033866749999959,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-21 10:27",
+            "net": 0.9916182500000407,
+            "reason": "profit protection (70% of peak): peak 0.79% -> current 0.27%",
+            "hours": 1.4114850293927723,
+            "common": {
+              "net": 0.9916182500000407,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -7.042248499999918,
+          "two_leg_net": -7.042248499999918
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-21 09:06",
+          "long": 8,
+          "short": 0,
+          "old_position_net": -8.618658999999958,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-21 10:27",
+            "net": 0.40682600000004077,
+            "reason": "profit protection (70% of peak): peak 0.69% -> current 0.17%",
+            "hours": 1.3443289424975713,
+            "common": {
+              "net": 0.40682600000004077,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -8.211832999999917,
+          "two_leg_net": -8.211832999999917
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-21 09:07",
+          "long": 9,
+          "short": 0,
+          "old_position_net": -9.0430711,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-21 10:25",
+            "net": 1.802203549999939,
+            "reason": "profit protection (70% of peak): peak 0.61% -> current 0.42%",
+            "hours": 1.2937123135725657,
+            "common": {
+              "net": 1.802203549999939,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -7.240867550000061,
+          "two_leg_net": -7.240867550000061
+        }
+      }
+    },
+    {
+      "entry": "09-21 17:37",
+      "exit": "09-21 17:45",
+      "side": "LONG",
+      "actual_net": 2.7657762999999793,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789979854.485561,
+      "end_t": 1789980343.257629,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.7657762999999793
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.7657762999999793
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.7657762999999793
+        }
+      }
+    },
+    {
+      "entry": "09-21 18:16",
+      "exit": "09-21 18:52",
+      "side": "LONG",
+      "actual_net": 4.078609500000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789982168.892456,
+      "end_t": 1789984351.763358,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 4.078609500000001
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 4.078609500000001
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 4.078609500000001
+        }
+      }
+    },
+    {
+      "entry": "09-21 19:22",
+      "exit": "09-21 21:10",
+      "side": "LONG",
+      "actual_net": 2.21056115,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789986169.123756,
+      "end_t": 1789992649.914815,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.21056115
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.21056115
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.21056115
+        }
+      }
+    },
+    {
+      "entry": "09-21 21:41",
+      "exit": "09-21 23:40",
+      "side": "LONG",
+      "actual_net": 1.2740125999999592,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1789994466.840179,
+      "end_t": 1790001623.34741,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.2740125999999592
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.2740125999999592
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.2740125999999592
+        }
+      }
+    },
+    {
+      "entry": "09-22 00:10",
+      "exit": "09-22 04:36",
+      "side": "LONG",
+      "actual_net": 1.9500775000000001,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790003445.015409,
+      "end_t": 1790019376.891287,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.9500775000000001
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.9500775000000001
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.9500775000000001
+        }
+      }
+    },
+    {
+      "entry": "09-22 05:06",
+      "exit": "09-22 05:30",
+      "side": "LONG",
+      "actual_net": 2.6414877999999797,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790021196.11148,
+      "end_t": 1790022650.433106,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.6414877999999797
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.6414877999999797
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.6414877999999797
+        }
+      }
+    },
+    {
+      "entry": "09-22 06:01",
+      "exit": "09-22 09:53",
+      "side": "LONG",
+      "actual_net": -6.278126400000061,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790024468.4909,
+      "end_t": 1790038398.307678,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -6.278126400000061
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -6.278126400000061
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -6.278126400000061
+        }
+      }
+    },
+    {
+      "entry": "09-22 09:53",
+      "exit": "09-22 10:25",
+      "side": "SHORT",
+      "actual_net": 2.3375604000000205,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790038398.307678,
+      "end_t": 1790040337.578489,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.3375604000000205
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.3375604000000205
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.3375604000000205
+        }
+      }
+    },
+    {
+      "entry": "09-22 10:55",
+      "exit": "09-22 14:38",
+      "side": "SHORT",
+      "actual_net": 1.9547055499999797,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790042156.35428,
+      "end_t": 1790055533.113993,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.9547055499999797
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.9547055499999797
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.9547055499999797
+        }
+      }
+    },
+    {
+      "entry": "09-22 15:09",
+      "exit": "09-23 13:23",
+      "side": "SHORT",
+      "actual_net": -12.604207699999959,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790057351.490283,
+      "end_t": 1790137406.325137,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-23 02:57",
+          "long": 12,
+          "short": 0,
+          "old_position_net": -9.26563924999998,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-23 07:13",
+            "net": -4.710917750000081,
+            "reason": "confirmed opposite reversal",
+            "hours": 4.275575249989828,
+            "common": {
+              "net": -4.710917750000081,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -13.97655700000006,
+          "two_leg_net": -13.97655700000006
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-23 02:57",
+          "long": 12,
+          "short": 0,
+          "old_position_net": -9.26563924999998,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-23 07:13",
+            "net": -4.710917750000081,
+            "reason": "confirmed opposite reversal",
+            "hours": 4.275575249989828,
+            "common": {
+              "net": -4.710917750000081,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -13.97655700000006,
+          "two_leg_net": -13.97655700000006
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-23 02:57",
+          "long": 12,
+          "short": 0,
+          "old_position_net": -9.26563924999998,
+          "reverse_side": "LONG",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-23 07:13",
+            "net": -4.710917750000081,
+            "reason": "confirmed opposite reversal",
+            "hours": 4.275575249989828,
+            "common": {
+              "net": -4.710917750000081,
+              "basis": "closed_before_original_exit"
+            }
+          },
+          "same_horizon_net": -13.97655700000006,
+          "two_leg_net": -13.97655700000006
+        }
+      }
+    },
+    {
+      "entry": "09-23 13:23",
+      "exit": "09-23 17:50",
+      "side": "LONG",
+      "actual_net": -9.47531269999998,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790137406.325137,
+      "end_t": 1790153403.484045,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -9.47531269999998
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -9.47531269999998
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -9.47531269999998
+        }
+      }
+    },
+    {
+      "entry": "09-23 17:50",
+      "exit": "09-23 23:34",
+      "side": "SHORT",
+      "actual_net": 9.1345576,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790153403.484045,
+      "end_t": 1790174091.103886,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 9.1345576
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 9.1345576
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 9.1345576
+        }
+      }
+    },
+    {
+      "entry": "09-24 00:05",
+      "exit": "09-24 01:05",
+      "side": "SHORT",
+      "actual_net": 3.9060580999999797,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790175913.402088,
+      "end_t": 1790179501.912859,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.9060580999999797
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.9060580999999797
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.9060580999999797
+        }
+      }
+    },
+    {
+      "entry": "09-24 01:35",
+      "exit": "09-24 18:00",
+      "side": "SHORT",
+      "actual_net": 3.0882225500000406,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790181319.720302,
+      "end_t": 1790240419.995862,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.0882225500000406
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.0882225500000406
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.0882225500000406
+        }
+      }
+    },
+    {
+      "entry": "09-24 18:30",
+      "exit": "09-24 23:30",
+      "side": "SHORT",
+      "actual_net": -10.985291099999959,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790242245.593659,
+      "end_t": 1790260239.369219,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -10.985291099999959
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -10.985291099999959
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -10.985291099999959
+        }
+      }
+    },
+    {
+      "entry": "09-24 23:30",
+      "exit": "09-25 00:29",
+      "side": "LONG",
+      "actual_net": -4.802488949999979,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790260239.369219,
+      "end_t": 1790263759.394548,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-25 00:26",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -4.413483549999939,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 20:15",
+            "net": -8.21918545,
+            "reason": "confirmed opposite reversal",
+            "hours": 19.823872434695563,
+            "common": {
+              "net": -0.1994775999999593,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.612961149999898,
+          "two_leg_net": -12.63266899999994
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-25 00:26",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -4.413483549999939,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 20:15",
+            "net": -8.21918545,
+            "reason": "confirmed opposite reversal",
+            "hours": 19.823872434695563,
+            "common": {
+              "net": -0.1994775999999593,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.612961149999898,
+          "two_leg_net": -12.63266899999994
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-25 00:26",
+          "long": 0,
+          "short": 10,
+          "old_position_net": -4.413483549999939,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 20:15",
+            "net": -8.21918545,
+            "reason": "confirmed opposite reversal",
+            "hours": 19.823872434695563,
+            "common": {
+              "net": -0.1994775999999593,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -4.612961149999898,
+          "two_leg_net": -12.63266899999994
+        }
+      }
+    },
+    {
+      "entry": "09-25 00:29",
+      "exit": "09-25 01:16",
+      "side": "SHORT",
+      "actual_net": -4.7744742499999795,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790263759.394548,
+      "end_t": 1790266616.677269,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -4.7744742499999795
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -4.7744742499999795
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -4.7744742499999795
+        }
+      }
+    },
+    {
+      "entry": "09-25 01:16",
+      "exit": "09-25 02:20",
+      "side": "LONG",
+      "actual_net": -3.493648200000041,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790266616.677269,
+      "end_t": 1790270442.13896,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-25 02:19",
+          "long": 0,
+          "short": 13,
+          "old_position_net": -3.0122890000000204,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 16:21",
+            "net": 2.2487402000000616,
+            "reason": "profit protection (70% of peak): peak 0.74% -> current 0.48%",
+            "hours": 14.022444981071684,
+            "common": {
+              "net": -0.10863789999997969,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.1209269,
+          "two_leg_net": -0.7635487999999588
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-25 02:19",
+          "long": 0,
+          "short": 13,
+          "old_position_net": -3.0122890000000204,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 16:21",
+            "net": 2.2487402000000616,
+            "reason": "profit protection (70% of peak): peak 0.74% -> current 0.48%",
+            "hours": 14.022444981071684,
+            "common": {
+              "net": -0.10863789999997969,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.1209269,
+          "two_leg_net": -0.7635487999999588
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-25 02:19",
+          "long": 0,
+          "short": 13,
+          "old_position_net": -3.0122890000000204,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 16:21",
+            "net": 2.2487402000000616,
+            "reason": "profit protection (70% of peak): peak 0.74% -> current 0.48%",
+            "hours": 14.022444981071684,
+            "common": {
+              "net": -0.10863789999997969,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -3.1209269,
+          "two_leg_net": -0.7635487999999588
+        }
+      }
+    },
+    {
+      "entry": "09-25 02:20",
+      "exit": "09-25 16:21",
+      "side": "SHORT",
+      "actual_net": 1.9688802000000611,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790270442.13896,
+      "end_t": 1790320861.680755,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.9688802000000611
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.9688802000000611
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.9688802000000611
+        }
+      }
+    },
+    {
+      "entry": "09-25 16:51",
+      "exit": "09-25 20:15",
+      "side": "SHORT",
+      "actual_net": -9.30504224999998,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790322679.344365,
+      "end_t": 1790334943.761524,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -9.30504224999998
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -9.30504224999998
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -9.30504224999998
+        }
+      }
+    },
+    {
+      "entry": "09-25 20:15",
+      "exit": "09-25 21:26",
+      "side": "LONG",
+      "actual_net": -6.853942200000061,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790334943.761524,
+      "end_t": 1790339201.557321,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-25 21:15",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -7.369584250000041,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 22:52",
+            "net": 2.1537750499999797,
+            "reason": "profit protection (70% of peak): peak 0.69% -> current 0.47%",
+            "hours": 1.6180586536063088,
+            "common": {
+              "net": -1.1056538499999795,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -8.47523810000002,
+          "two_leg_net": -5.215809200000061
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-25 21:15",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -7.369584250000041,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 22:52",
+            "net": 2.1537750499999797,
+            "reason": "profit protection (70% of peak): peak 0.69% -> current 0.47%",
+            "hours": 1.6180586536063088,
+            "common": {
+              "net": -1.1056538499999795,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -8.47523810000002,
+          "two_leg_net": -5.215809200000061
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-25 21:15",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -7.369584250000041,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-25 22:52",
+            "net": 2.1537750499999797,
+            "reason": "profit protection (70% of peak): peak 0.69% -> current 0.47%",
+            "hours": 1.6180586536063088,
+            "common": {
+              "net": -1.1056538499999795,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -8.47523810000002,
+          "two_leg_net": -5.215809200000061
+        }
+      }
+    },
+    {
+      "entry": "09-25 21:26",
+      "exit": "09-25 22:53",
+      "side": "SHORT",
+      "actual_net": 2.5286271500000206,
+      "group": "market_state_engine_v1:90ef0341",
+      "start_t": 1790339201.557321,
+      "end_t": 1790344420.281063,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.5286271500000206
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.5286271500000206
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.5286271500000206
+        }
+      }
+    },
+    {
+      "entry": "09-28 09:21",
+      "exit": "09-28 10:21",
+      "side": "LONG",
+      "actual_net": -7.09661505000002,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790554896.238348,
+      "end_t": 1790558488.794961,
+      "variants": {
+        "7": {
+          "triggered": true,
+          "switch_time": "09-28 10:07",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -7.061632550000021,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-28 11:12",
+            "net": 1.9329625,
+            "reason": "profit protection (70% of peak): peak 0.65% -> current 0.43%",
+            "hours": 1.081194628874461,
+            "common": {
+              "net": -0.55328,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -7.614912550000021,
+          "two_leg_net": -5.1286700500000215
+        },
+        "8": {
+          "triggered": true,
+          "switch_time": "09-28 10:07",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -7.061632550000021,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-28 11:12",
+            "net": 1.9329625,
+            "reason": "profit protection (70% of peak): peak 0.65% -> current 0.43%",
+            "hours": 1.081194628874461,
+            "common": {
+              "net": -0.55328,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -7.614912550000021,
+          "two_leg_net": -5.1286700500000215
+        },
+        "9": {
+          "triggered": true,
+          "switch_time": "09-28 10:07",
+          "long": 0,
+          "short": 9,
+          "old_position_net": -7.061632550000021,
+          "reverse_side": "SHORT",
+          "reverse": {
+            "status": "closed",
+            "exit": "09-28 11:12",
+            "net": 1.9329625,
+            "reason": "profit protection (70% of peak): peak 0.65% -> current 0.43%",
+            "hours": 1.081194628874461,
+            "common": {
+              "net": -0.55328,
+              "basis": "hypothetical_close_at_original_exit"
+            }
+          },
+          "same_horizon_net": -7.614912550000021,
+          "two_leg_net": -5.1286700500000215
+        }
+      }
+    },
+    {
+      "entry": "09-28 10:21",
+      "exit": "09-28 11:12",
+      "side": "SHORT",
+      "actual_net": 2.0260159500000205,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790558488.794961,
+      "end_t": 1790561529.425736,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.0260159500000205
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.0260159500000205
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.0260159500000205
+        }
+      }
+    },
+    {
+      "entry": "09-28 11:42",
+      "exit": "09-28 14:43",
+      "side": "SHORT",
+      "actual_net": 2.4428705000000814,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790563346.555959,
+      "end_t": 1790574188.395327,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.4428705000000814
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.4428705000000814
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.4428705000000814
+        }
+      }
+    },
+    {
+      "entry": "09-28 15:18",
+      "exit": "09-28 18:14",
+      "side": "SHORT",
+      "actual_net": 1.7850154000000003,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790576310.304386,
+      "end_t": 1790586857.696776,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.7850154000000003
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.7850154000000003
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.7850154000000003
+        }
+      }
+    },
+    {
+      "entry": "09-28 18:44",
+      "exit": "09-30 21:36",
+      "side": "SHORT",
+      "actual_net": -15.0754877,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790588676.689866,
+      "end_t": 1790771773.779739,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -15.0754877
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -15.0754877
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -15.0754877
+        }
+      }
+    },
+    {
+      "entry": "09-30 21:36",
+      "exit": "09-30 22:01",
+      "side": "LONG",
+      "actual_net": 2.5987373999999797,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790771773.779739,
+      "end_t": 1790773290.819004,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.5987373999999797
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.5987373999999797
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.5987373999999797
+        }
+      }
+    },
+    {
+      "entry": "09-30 22:31",
+      "exit": "09-30 23:33",
+      "side": "LONG",
+      "actual_net": -14.5314963500001,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790775109.94126,
+      "end_t": 1790778818.774106,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -14.5314963500001
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -14.5314963500001
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -14.5314963500001
+        }
+      }
+    },
+    {
+      "entry": "09-30 23:33",
+      "exit": "10-01 00:33",
+      "side": "SHORT",
+      "actual_net": -5.468186499999959,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790778818.774106,
+      "end_t": 1790782402.278073,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -5.468186499999959
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -5.468186499999959
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -5.468186499999959
+        }
+      }
+    },
+    {
+      "entry": "10-01 00:33",
+      "exit": "10-01 04:17",
+      "side": "LONG",
+      "actual_net": -4.270440299999979,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790782402.278073,
+      "end_t": 1790795861.970184,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -4.270440299999979
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -4.270440299999979
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -4.270440299999979
+        }
+      }
+    },
+    {
+      "entry": "10-01 04:17",
+      "exit": "10-02 01:35",
+      "side": "SHORT",
+      "actual_net": -7.412210400000021,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790795861.970184,
+      "end_t": 1790872545.472414,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": -7.412210400000021
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": -7.412210400000021
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": -7.412210400000021
+        }
+      }
+    },
+    {
+      "entry": "10-02 01:35",
+      "exit": "10-02 03:40",
+      "side": "LONG",
+      "actual_net": 2.4114954500000207,
+      "group": "market_state_engine_v1:824135c3",
+      "start_t": 1790872545.472414,
+      "end_t": 1790880034.135344,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 2.4114954500000207
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 2.4114954500000207
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 2.4114954500000207
+        }
+      }
+    },
+    {
+      "entry": "10-02 12:55",
+      "exit": "10-02 13:36",
+      "side": "LONG",
+      "actual_net": 5.389100499999919,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "start_t": 1790913341.201107,
+      "end_t": 1790915767.640181,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 5.389100499999919
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 5.389100499999919
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 5.389100499999919
+        }
+      }
+    },
+    {
+      "entry": "10-02 14:06",
+      "exit": "10-02 22:42",
+      "side": "LONG",
+      "actual_net": 1.5295951999999797,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "start_t": 1790917590.228156,
+      "end_t": 1790948578.598333,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 1.5295951999999797
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 1.5295951999999797
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 1.5295951999999797
+        }
+      }
+    },
+    {
+      "entry": "10-03 02:16",
+      "exit": "10-03 03:53",
+      "side": "SHORT",
+      "actual_net": 3.5275498999998574,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "start_t": 1790961406.536929,
+      "end_t": 1790967187.634656,
+      "variants": {
+        "7": {
+          "triggered": false,
+          "same_horizon_net": 3.5275498999998574
+        },
+        "8": {
+          "triggered": false,
+          "same_horizon_net": 3.5275498999998574
+        },
+        "9": {
+          "triggered": false,
+          "same_horizon_net": 3.5275498999998574
+        }
+      }
+    }
+  ],
+  "method": "First own score == 0 and opposite >= 7/8/9; single reversal, same BTC quantity. New leg uses existing local exit code with recorded config and scores. No further entries. Primary comparison marks or closes new leg by original actual exit time; natural exits reported separately.",
+  "limitations": "No tick fills, funding or slippage. Frozen historical entries; overlapping independent episodes, not portfolio profit. No actual v3 score history. Current exit implementation with stored settings does not reconstruct undocumented historical source changes."
+}

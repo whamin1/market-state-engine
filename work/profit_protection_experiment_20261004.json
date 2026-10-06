@@ -1,0 +1,760 @@
+{
+  "start_kst": "09-28 00:00",
+  "end_kst": "10-04 10:59",
+  "actual_closes": 15,
+  "eligible_closes": 8,
+  "exclusions": [],
+  "sources": [
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_207f42c9e2bd.zip",
+      "sha256_verified": true
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_1ea9a65d3cde.zip",
+      "sha256_verified": true
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_49a2193fdf25.zip",
+      "sha256_verified": true
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_72da6c6b9001.zip",
+      "sha256_verified": true
+    },
+    {
+      "path": "C:\\Users\\chlgh\\Downloads\\btc_market_state_delta_ef7b17be17f8.zip",
+      "sha256_verified": true
+    },
+    {
+      "path": "C:\\Users\\chlgh\\AppData\\Local\\Temp\\delta (3).db",
+      "sha256_verified": true
+    }
+  ],
+  "rows": 9187,
+  "groups": {
+    "market_state_engine_v1:824135c3": {
+      "eligible": 5,
+      "closed": 4,
+      "censored": 1,
+      "paired_actual_net": 8.852639250000081,
+      "paired_counterfactual_net": -23.27068729999992,
+      "better": 1,
+      "worse": 3,
+      "became_loss": 3,
+      "median_extra_hours": 27.440979521407023,
+      "horizons": {
+        "0.5": {
+          "n": 5,
+          "better": 3,
+          "net_sum": 13.199501700000162,
+          "actual_net_sum": 11.264134700000103
+        },
+        "1": {
+          "n": 5,
+          "better": 2,
+          "net_sum": 4.496879450000102,
+          "actual_net_sum": 11.264134700000103
+        },
+        "2": {
+          "n": 5,
+          "better": 2,
+          "net_sum": 1.1865493500000202,
+          "actual_net_sum": 11.264134700000103
+        },
+        "4": {
+          "n": 4,
+          "better": 2,
+          "net_sum": 4.5166341500000815,
+          "actual_net_sum": 8.852639250000081
+        },
+        "8": {
+          "n": 4,
+          "better": 1,
+          "net_sum": -9.46493834999992,
+          "actual_net_sum": 8.852639250000081
+        },
+        "24": {
+          "n": 4,
+          "better": 1,
+          "net_sum": -4.480588699999836,
+          "actual_net_sum": 8.852639250000081
+        }
+      }
+    },
+    "market_state_engine_v2_liquidation_speed_5m:4fa1214d": {
+      "eligible": 3,
+      "closed": 2,
+      "censored": 1,
+      "paired_actual_net": 6.9186956999998985,
+      "paired_counterfactual_net": -5.4000418500000835,
+      "better": 1,
+      "worse": 1,
+      "became_loss": 1,
+      "median_extra_hours": 5.765263471239143,
+      "horizons": {
+        "0.5": {
+          "n": 3,
+          "better": 2,
+          "net_sum": 9.675625049999837,
+          "actual_net_sum": 10.446245599999756
+        },
+        "1": {
+          "n": 3,
+          "better": 1,
+          "net_sum": 3.016830949999898,
+          "actual_net_sum": 10.446245599999756
+        },
+        "2": {
+          "n": 3,
+          "better": 0,
+          "net_sum": -4.870160750000204,
+          "actual_net_sum": 10.446245599999756
+        },
+        "4": {
+          "n": 3,
+          "better": 0,
+          "net_sum": -8.445158400000164,
+          "actual_net_sum": 10.446245599999756
+        },
+        "8": {
+          "n": 3,
+          "better": 1,
+          "net_sum": -6.1286435000001855,
+          "actual_net_sum": 10.446245599999756
+        },
+        "24": {
+          "n": 3,
+          "better": 0,
+          "net_sum": -21.522269650000244,
+          "actual_net_sum": 10.446245599999756
+        }
+      }
+    }
+  },
+  "trades": [
+    {
+      "entry": "09-28 10:21",
+      "entry_time": "2026-09-28T01:21:28.794961+00:00",
+      "exit": "09-28 11:12",
+      "exit_t": 1790561529.425736,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "actual_net": 2.0260159500000205,
+      "actual_pct": 0.4441097461448263,
+      "actual_peak": 0.6624171086349816,
+      "actual_hours": 0.8446196597152286,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "closed",
+        "event": {
+          "type": "LIVE_CLOSE",
+          "logged_at": "2026-10-04T02:43:53.273490+00:00",
+          "symbol": "BTCUSDT",
+          "side": "SHORT",
+          "entry_price": 84055.8,
+          "exit_price": 83002.4,
+          "quantity": "0.007",
+          "pnl_pct": 1.2532151261424063,
+          "gross_realized_pnl": 7.373800000000061,
+          "estimated_fees": 0.5847037,
+          "estimated_realized_pnl": 6.789096300000061,
+          "reason": "profit protection (80% of peak): peak 1.57% -> current 1.25%",
+          "score_context": {
+            "long_score": 0,
+            "short_score": 19,
+            "activity_score": null,
+            "liquidation_activity_score": null,
+            "liquidation_activity_bonus": null,
+            "state": null,
+            "signal": "ENTER_SHORT",
+            "atr": 2422.7071428571435,
+            "range": null,
+            "reasons": [],
+            "entry_eligibility": null
+          },
+          "status": "DRY_RUN_CLOSE",
+          "entry_time": "2026-09-28T01:21:28.794961+00:00",
+          "entry_long_score": null,
+          "entry_short_score": null,
+          "peak_profit_pct": 1.573716507367728,
+          "exit_time": "2026-09-28T05:43:08.395327+00:00",
+          "exit_time_basis": "bot_observation"
+        },
+        "end_t": 1790574188.395327,
+        "end": "09-28 14:43",
+        "net": 6.789096300000061,
+        "pnl_pct": 1.2532151261424063,
+        "extra_hours": 3.5163804419835407,
+        "total_hours": 4.361000101698769,
+        "best_observed_pct": 1.5737165073677284,
+        "worst_observed_pct": 0.3884324460655897,
+        "touches": {
+          "1.5": "09-28 14:39"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 3.7628839500000204,
+          "pnl_pct": 0.7391518491287941
+        },
+        "1": {
+          "net_if_held": 4.372188450000021,
+          "pnl_pct": 0.8426545223530146
+        },
+        "2": {
+          "net_if_held": 4.522063349999979,
+          "pnl_pct": 0.8681138005943612
+        },
+        "4": {
+          "net_if_held": 5.072538450000021,
+          "pnl_pct": 0.961623112265908
+        },
+        "8": {
+          "net_if_held": 9.06173205000006,
+          "pnl_pct": 1.639268200409738
+        },
+        "24": {
+          "net_if_held": 6.8465250000000415,
+          "pnl_pct": 1.2629705505152633
+        }
+      },
+      "overlapping_actual_entries": 1
+    },
+    {
+      "entry": "09-28 11:42",
+      "entry_time": "2026-09-28T02:42:26.555959+00:00",
+      "exit": "09-28 14:43",
+      "exit_t": 1790574188.395327,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "actual_net": 2.4428705000000814,
+      "actual_pct": 0.5180105136238582,
+      "actual_peak": 0.8408981405795747,
+      "actual_hours": 3.0116220466958152,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "closed",
+        "event": {
+          "type": "LIVE_CLOSE",
+          "logged_at": "2026-10-04T02:43:53.284381+00:00",
+          "symbol": "BTCUSDT",
+          "side": "SHORT",
+          "entry_price": 83434.6,
+          "exit_price": 84676.1,
+          "quantity": "0.007",
+          "pnl_pct": -1.487991792373907,
+          "gross_realized_pnl": -8.6905,
+          "estimated_fees": 0.58838745,
+          "estimated_realized_pnl": -9.278887450000001,
+          "reason": "confirmed opposite reversal",
+          "score_context": {
+            "long_score": 14,
+            "short_score": 3,
+            "activity_score": null,
+            "liquidation_activity_score": null,
+            "liquidation_activity_bonus": null,
+            "state": null,
+            "signal": "ENTER_LONG",
+            "atr": 2355.0642857142843,
+            "range": null,
+            "reasons": [],
+            "entry_eligibility": null
+          },
+          "status": "DRY_RUN_CLOSE",
+          "entry_time": "2026-09-28T02:42:26.555959+00:00",
+          "entry_long_score": null,
+          "entry_short_score": null,
+          "peak_profit_pct": 1.013368554532532,
+          "exit_time": "2026-09-30T12:36:13.779739+00:00",
+          "exit_time_basis": "bot_observation",
+          "reversal_side": "LONG"
+        },
+        "end_t": 1790771773.779739,
+        "end": "09-30 21:36",
+        "net": -9.278887450000001,
+        "pnl_pct": -1.487991792373907,
+        "extra_hours": 54.88482900328106,
+        "total_hours": 57.89645104997688,
+        "best_observed_pct": 1.0133685545325344,
+        "worst_observed_pct": -1.4879917923739105,
+        "touches": {
+          "0": "09-28 21:54"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 0.6856923500000202,
+          "pnl_pct": 0.2172959419713183
+        },
+        "1": {
+          "net_if_held": 1.1920454000000407,
+          "pnl_pct": 0.30395063918327025
+        },
+        "2": {
+          "net_if_held": 3.15232505,
+          "pnl_pct": 0.6394229732029633
+        },
+        "4": {
+          "net_if_held": 4.980938900000041,
+          "pnl_pct": 0.9523626888605086
+        },
+        "8": {
+          "net_if_held": -2.82306114999998,
+          "pnl_pct": -0.38317436650980863
+        },
+        "24": {
+          "net_if_held": 1.290094400000041,
+          "pnl_pct": 0.32073024860190813
+        }
+      },
+      "overlapping_actual_entries": 3
+    },
+    {
+      "entry": "09-28 15:18",
+      "entry_time": "2026-09-28T06:18:30.304386+00:00",
+      "exit": "09-28 18:14",
+      "exit_t": 1790586857.696776,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "SHORT",
+      "actual_net": 1.7850154000000003,
+      "actual_pct": 0.40641217408869884,
+      "actual_peak": 0.6744277764685052,
+      "actual_hours": 2.9298312194479834,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "closed",
+        "event": {
+          "type": "LIVE_CLOSE",
+          "logged_at": "2026-10-04T02:43:53.309403+00:00",
+          "symbol": "BTCUSDT",
+          "side": "SHORT",
+          "entry_price": 83166.8,
+          "exit_price": 84676.1,
+          "quantity": "0.007",
+          "pnl_pct": -1.8147866696806934,
+          "gross_realized_pnl": -10.56510000000002,
+          "estimated_fees": 0.5874501500000001,
+          "estimated_realized_pnl": -11.152550150000021,
+          "reason": "confirmed opposite reversal",
+          "score_context": {
+            "long_score": 14,
+            "short_score": 3,
+            "activity_score": null,
+            "liquidation_activity_score": null,
+            "liquidation_activity_bonus": null,
+            "state": null,
+            "signal": "ENTER_LONG",
+            "atr": 2355.0642857142843,
+            "range": null,
+            "reasons": [],
+            "entry_eligibility": null
+          },
+          "status": "DRY_RUN_CLOSE",
+          "entry_time": "2026-09-28T06:18:30.304386+00:00",
+          "entry_long_score": null,
+          "entry_short_score": null,
+          "peak_profit_pct": 0.6946281448847341,
+          "exit_time": "2026-09-30T12:36:13.779739+00:00",
+          "exit_time_basis": "bot_observation",
+          "reversal_side": "LONG"
+        },
+        "end_t": 1790771773.779739,
+        "end": "09-30 21:36",
+        "net": -11.152550150000021,
+        "pnl_pct": -1.8147866696806934,
+        "extra_hours": 51.3655786008305,
+        "total_hours": 54.295409820278486,
+        "best_observed_pct": 0.6946281448847347,
+        "worst_observed_pct": -1.8147866696806902,
+        "touches": {
+          "0": "09-28 21:05"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 3.340492750000041,
+          "pnl_pct": 0.673465854162969
+        },
+        "1": {
+          "net_if_held": 2.549097250000041,
+          "pnl_pct": 0.5375943285060969
+        },
+        "2": {
+          "net_if_held": 0.8528495500000611,
+          "pnl_pct": 0.24637235050526396
+        },
+        "4": {
+          "net_if_held": -1.9737630499999796,
+          "pnl_pct": -0.23891745263735498
+        },
+        "8": {
+          "net_if_held": -7.7257376,
+          "pnl_pct": -1.2264509395576217
+        },
+        "24": {
+          "net_if_held": -4.68061579999998,
+          "pnl_pct": -0.7036461664991389
+        }
+      },
+      "overlapping_actual_entries": 2
+    },
+    {
+      "entry": "09-30 21:36",
+      "entry_time": "2026-09-30T12:36:13.779739+00:00",
+      "exit": "09-30 22:01",
+      "exit_t": 1790773290.819004,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "LONG",
+      "actual_net": 2.5987373999999797,
+      "actual_pct": 0.5384561816823358,
+      "actual_peak": 0.8629226532835627,
+      "actual_hours": 0.421399795876609,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "closed",
+        "event": {
+          "type": "LIVE_CLOSE",
+          "logged_at": "2026-10-04T02:43:53.309403+00:00",
+          "symbol": "BTCUSDT",
+          "side": "LONG",
+          "entry_price": 84723.7,
+          "exit_price": 83432.3,
+          "quantity": "0.007",
+          "pnl_pct": -1.524248822938557,
+          "gross_realized_pnl": -9.039799999999959,
+          "estimated_fees": 0.588546,
+          "estimated_realized_pnl": -9.628345999999958,
+          "reason": "confirmed opposite reversal",
+          "score_context": {
+            "long_score": 0,
+            "short_score": 16,
+            "activity_score": null,
+            "liquidation_activity_score": null,
+            "liquidation_activity_bonus": null,
+            "state": null,
+            "signal": "ENTER_SHORT",
+            "atr": 2412.049999999999,
+            "range": null,
+            "reasons": [],
+            "entry_eligibility": null
+          },
+          "status": "DRY_RUN_CLOSE",
+          "entry_time": "2026-09-30T12:36:13.779739+00:00",
+          "entry_long_score": null,
+          "entry_short_score": null,
+          "peak_profit_pct": 0.9364557969021757,
+          "exit_time": "2026-09-30T14:33:38.774106+00:00",
+          "exit_time_basis": "bot_observation",
+          "reversal_side": "SHORT"
+        },
+        "end_t": 1790778818.774106,
+        "end": "09-30 23:33",
+        "net": -9.628345999999958,
+        "pnl_pct": -1.524248822938557,
+        "extra_hours": 1.5355430838796829,
+        "total_hours": 1.9569428797562918,
+        "best_observed_pct": 0.9364557969021803,
+        "worst_observed_pct": -1.5242488229385565,
+        "touches": {
+          "0": "09-30 22:36"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 4.277197750000041,
+          "pnl_pct": 0.8216118984416543
+        },
+        "1": {
+          "net_if_held": -3.38257044999998,
+          "pnl_pct": -0.47058851301347016
+        },
+        "2": {
+          "net_if_held": -7.05643260000002,
+          "pnl_pct": -1.0903678663703342
+        },
+        "4": {
+          "net_if_held": -3.5630801500000002,
+          "pnl_pct": -0.5010404408683722
+        },
+        "8": {
+          "net_if_held": -7.977871650000001,
+          "pnl_pct": -1.2458143353040518
+        },
+        "24": {
+          "net_if_held": -7.936592299999939,
+          "pnl_pct": -1.2388505223449808
+        }
+      },
+      "overlapping_actual_entries": 2
+    },
+    {
+      "entry": "10-02 01:35",
+      "entry_time": "2026-10-01T16:35:45.472414+00:00",
+      "exit": "10-02 03:40",
+      "exit_t": 1790880034.135344,
+      "group": "market_state_engine_v1:824135c3",
+      "side": "LONG",
+      "actual_net": 2.4114954500000207,
+      "actual_pct": 0.5075307970586184,
+      "actual_peak": 0.7323907029532074,
+      "actual_hours": 2.080184147225486,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "strategy_change",
+        "end_t": 1790891043.701131,
+        "end": "10-02 06:44",
+        "net_if_closed_at_last": -1.4498729000000408,
+        "extra_hours": 3.058212718632486,
+        "best_observed_pct": 0.5075307970586085,
+        "worst_observed_pct": -0.1512070555411027,
+        "touches": {
+          "0": "10-02 04:23"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 1.1332349000000408,
+          "pnl_pct": 0.29153760669615725
+        },
+        "1": {
+          "net_if_held": -0.23388120000002044,
+          "pnl_pct": 0.06053011136595288
+        },
+        "2": {
+          "net_if_held": -0.284256,
+          "pnl_pct": 0.05201806445511714
+        }
+      },
+      "overlapping_actual_entries": 0
+    },
+    {
+      "entry": "10-02 12:55",
+      "entry_time": "2026-10-02T03:55:41.201107+00:00",
+      "exit": "10-02 13:36",
+      "exit_t": 1790915767.640181,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "side": "LONG",
+      "actual_net": 5.389100499999919,
+      "actual_pct": 1.0009286484539153,
+      "actual_peak": 1.4997555572709294,
+      "actual_hours": 0.6740108538998498,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "closed",
+        "event": {
+          "type": "LIVE_CLOSE",
+          "logged_at": "2026-10-04T02:43:53.317779+00:00",
+          "symbol": "BTCUSDT",
+          "side": "LONG",
+          "entry_price": 85500.6,
+          "exit_price": 86677.4,
+          "quantity": "0.007",
+          "pnl_pct": 1.3763646103068146,
+          "gross_realized_pnl": 8.237599999999919,
+          "estimated_fees": 0.602623,
+          "estimated_realized_pnl": 7.634976999999918,
+          "reason": "profit protection (80% of peak): peak 1.78% -> current 1.38%",
+          "score_context": {
+            "long_score": 20,
+            "short_score": 0,
+            "activity_score": null,
+            "liquidation_activity_score": null,
+            "liquidation_activity_bonus": null,
+            "state": null,
+            "signal": "ENTER_LONG",
+            "atr": 2312.1071428571418,
+            "range": null,
+            "reasons": [],
+            "entry_eligibility": null
+          },
+          "status": "DRY_RUN_CLOSE",
+          "entry_time": "2026-10-02T03:55:41.201107+00:00",
+          "entry_long_score": null,
+          "entry_short_score": null,
+          "peak_profit_pct": 1.7819757990002305,
+          "exit_time": "2026-10-02T12:34:09.598578+00:00",
+          "exit_time_basis": "bot_observation"
+        },
+        "end_t": 1790944449.598578,
+        "end": "10-02 21:34",
+        "net": 7.634976999999918,
+        "pnl_pct": 1.3763646103068146,
+        "extra_hours": 7.967210665808784,
+        "total_hours": 8.641221519708633,
+        "best_observed_pct": 1.781975799000235,
+        "worst_observed_pct": 0.2916938594582863,
+        "touches": {
+          "1.5": "10-02 21:31"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 6.680654399999959,
+          "pnl_pct": 1.216833566080222
+        },
+        "1": {
+          "net_if_held": 3.9716095999999794,
+          "pnl_pct": 0.7639712469853954
+        },
+        "2": {
+          "net_if_held": 2.116837449999939,
+          "pnl_pct": 0.45391494328694826
+        },
+        "4": {
+          "net_if_held": 5.091749249999919,
+          "pnl_pct": 0.9512213949375736
+        },
+        "8": {
+          "net_if_held": 8.163912399999958,
+          "pnl_pct": 1.4647850424441389
+        },
+        "24": {
+          "net_if_held": -7.620191600000041,
+          "pnl_pct": -1.1737929324472596
+        }
+      },
+      "overlapping_actual_entries": 1
+    },
+    {
+      "entry": "10-02 14:06",
+      "entry_time": "2026-10-02T05:06:30.228156+00:00",
+      "exit": "10-02 22:42",
+      "exit_t": 1790948578.598333,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "side": "LONG",
+      "actual_net": 1.5295951999999797,
+      "actual_pct": 0.3526945540355296,
+      "actual_peak": 0.6239180528302168,
+      "actual_hours": 8.607880604664485,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "closed",
+        "event": {
+          "type": "LIVE_CLOSE",
+          "logged_at": "2026-10-04T02:43:53.317779+00:00",
+          "symbol": "BTCUSDT",
+          "side": "LONG",
+          "entry_price": 86533.8,
+          "exit_price": 84757.3,
+          "quantity": "0.007",
+          "pnl_pct": -2.052955030288743,
+          "gross_realized_pnl": -12.435500000000001,
+          "estimated_fees": 0.59951885,
+          "estimated_realized_pnl": -13.035018850000002,
+          "reason": "confirmed opposite reversal",
+          "score_context": {
+            "long_score": 0,
+            "short_score": 17,
+            "activity_score": null,
+            "liquidation_activity_score": null,
+            "liquidation_activity_bonus": null,
+            "state": null,
+            "signal": "ENTER_SHORT",
+            "atr": 2312.1071428571418,
+            "range": null,
+            "reasons": [],
+            "entry_eligibility": null
+          },
+          "status": "DRY_RUN_CLOSE",
+          "entry_time": "2026-10-02T05:06:30.228156+00:00",
+          "entry_long_score": null,
+          "entry_short_score": null,
+          "peak_profit_pct": 0.6239180528302168,
+          "exit_time": "2026-10-02T17:16:46.536929+00:00",
+          "exit_time_basis": "bot_observation",
+          "reversal_side": "SHORT"
+        },
+        "end_t": 1790961406.536929,
+        "end": "10-03 02:16",
+        "net": -13.035018850000002,
+        "pnl_pct": -2.052955030288743,
+        "extra_hours": 3.5633162766695023,
+        "total_hours": 12.171196881333987,
+        "best_observed_pct": 0.4555445386658086,
+        "worst_observed_pct": -2.052955030288739,
+        "touches": {
+          "0": "10-02 23:00"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": -1.6265259500000613,
+          "pnl_pct": -0.16860463772538914
+        },
+        "1": {
+          "net_if_held": -4.65111289999998,
+          "pnl_pct": -0.6681782147553883
+        },
+        "2": {
+          "net_if_held": -8.74616435,
+          "pnl_pct": -1.344561315925108
+        },
+        "4": {
+          "net_if_held": -14.81003089999998,
+          "pnl_pct": -2.3461352673752933
+        },
+        "8": {
+          "net_if_held": -14.839416200000063,
+          "pnl_pct": -2.350988862155612
+        },
+        "24": {
+          "net_if_held": -12.422125450000062,
+          "pnl_pct": -1.9517229105852407
+        }
+      },
+      "overlapping_actual_entries": 1
+    },
+    {
+      "entry": "10-03 02:16",
+      "entry_time": "2026-10-02T17:16:46.536929+00:00",
+      "exit": "10-03 03:53",
+      "exit_t": 1790967187.634656,
+      "group": "market_state_engine_v2_liquidation_speed_5m:4fa1214d",
+      "side": "SHORT",
+      "actual_net": 3.5275498999998574,
+      "actual_pct": 0.6942076605885896,
+      "actual_peak": 1.0201926650424238,
+      "actual_hours": 1.6058604797389773,
+      "baseline_reproduced": true,
+      "counterfactual": {
+        "status": "data_end",
+        "end_t": 1791079187.806235,
+        "end": "10-04 10:59",
+        "net_if_closed_at_last": -0.638131900000061,
+        "extra_hours": 31.111158771978484,
+        "best_observed_pct": 0.9322958759298228,
+        "worst_observed_pct": -0.27879209754775314,
+        "touches": {
+          "0": "10-03 21:21"
+        }
+      },
+      "horizons": {
+        "0.5": {
+          "net_if_held": 4.621496599999939,
+          "pnl_pct": 0.8784959620568911
+        },
+        "1": {
+          "net_if_held": 3.6963342499998983,
+          "pnl_pct": 0.7226413869995119
+        },
+        "2": {
+          "net_if_held": 1.7591661499998577,
+          "pnl_pct": 0.39630243574387825
+        },
+        "4": {
+          "net_if_held": 1.2731232499998981,
+          "pnl_pct": 0.31442274226182176
+        },
+        "8": {
+          "net_if_held": 0.5468602999999185,
+          "pnl_pct": 0.19207513110778285
+        },
+        "24": {
+          "net_if_held": -1.4799526000001426,
+          "pnl_pct": -0.14936555035780508
+        }
+      },
+      "overlapping_actual_entries": 1
+    }
+  ]
+}
