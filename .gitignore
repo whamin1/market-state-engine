@@ -9,3 +9,15 @@ work/exports/
 outputs/
 
 liquda/liquidation_*.csv
+
+# Regenerable research outputs retired during cleanup (reports remain).
+/work/activity_results.json
+/work/entry_paths_results.json
+/work/exit_confirmation_experiment_20261005.json
+/work/liquidation_speed_results.json
+/work/midweek_20260929.json
+/work/profit_protection_experiment_20261004.json
+/work/review_20261004.json
+/work/trade_losses_20261005.json
+/work/weekly_oi_20261002.json
+/work/zero_score_reversal_20261005.json
