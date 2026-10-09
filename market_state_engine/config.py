@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-STRATEGY_VERSION = "market_state_engine_v4_body_deciles_liquidation_cap"
+STRATEGY_VERSION = "market_state_engine_v5_exit_score_reentry"
 
 @dataclass(frozen=True)
 class MarketStateConfig:
@@ -49,7 +49,9 @@ class MarketStateConfig:
     small_profit_protection_low_peak_retain_ratio: float = 0.70
     small_profit_protection_mid_peak_retain_ratio: float = 0.80
     profit_reentry_cooldown_minutes: int = 30
-    profit_reentry_score_increase: int = 3
+    profit_reentry_score_increase: int = 2
+    profit_reentry_reset_below_score: int = 8
+    # Legacy configuration compatibility only; price no longer bypasses re-entry limits.
     profit_reentry_price_breakout_pct: float = 0.30
     opposite_reentry_extra_score: int = 4
     opposite_reentry_window_minutes: int = 30

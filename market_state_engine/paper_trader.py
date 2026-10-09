@@ -20,6 +20,7 @@ class PaperTrader:
         self._load_state()
 
     def update(self, result, current_candle, current_time=None, symbol=None):
+        self._update_profit_reentry_reset(result)
         current_price = current_candle["close"]
         atr = result.get("atr")
 
@@ -249,13 +250,12 @@ class PaperTrader:
         exit_score = None
         if result:
             exit_score = result["long_score"] if side == "LONG" else result["short_score"]
-        if exit_score is None:
-            exit_score = position.get("last_add_score") or position.get("entry_score")
-
         self.last_profit_exit = {
             "side": side,
             "exit_time": exit_at.isoformat(),
             "reentry_block_until": reentry_block_until.isoformat(),
+            "exit_score": exit_score,
+            "score_reset": exit_score is not None and exit_score < self.config.profit_reentry_reset_below_score,
             "entry_score": position.get("entry_score", exit_score),
             "entry_price": position.get("entry_price"),
             "entry_candle_key": position.get("entry_candle_key") or self._daily_candle_key(event.get("exit_time")),
@@ -263,7 +263,17 @@ class PaperTrader:
             "reason": event.get("exit_reason"),
         }
 
+    def _update_profit_reentry_reset(self, result):
+        previous = self.last_profit_exit
+        if not previous or previous.get("score_reset"):
+            return
+        current_score = result.get(str(previous.get("side", "")).lower() + "_score")
+        if current_score is not None and current_score < self.config.profit_reentry_reset_below_score:
+            previous["score_reset"] = True
+            self._save_state()
+
     def _is_entry_blocked_by_profit_reentry(self, side, result, current_price, current_time):
+        self._update_profit_reentry_reset(result)
         if not self.last_profit_exit or self.last_profit_exit.get("side") != side:
             return False
 
@@ -273,18 +283,14 @@ class PaperTrader:
             if now < block_until:
                 return True
 
-        entry_score = self.last_profit_exit.get("entry_score")
-        entry_price = self.last_profit_exit.get("entry_price")
-        if entry_score is None or entry_price is None:
+        if self.last_profit_exit.get("score_reset"):
             return False
-
+        exit_score = self.last_profit_exit.get("exit_score")
+        # Old saved states must observe a reset before resuming same-side entries.
+        if exit_score is None:
+            return True
         current_score = result["long_score"] if side == "LONG" else result["short_score"]
-        stronger_score = current_score >= entry_score + self.config.profit_reentry_score_increase
-        if side == "LONG":
-            new_price_breakout = current_price >= entry_price * (1 + self.config.profit_reentry_price_breakout_pct / 100)
-        else:
-            new_price_breakout = current_price <= entry_price * (1 - self.config.profit_reentry_price_breakout_pct / 100)
-        return not (stronger_score or new_price_breakout)
+        return current_score < exit_score + self.config.profit_reentry_score_increase
 
     def _get_profit_reentry_block_until(self, profit_exit):
         block_until = profit_exit.get("reentry_block_until")

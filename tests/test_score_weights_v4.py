@@ -75,7 +75,7 @@ class ScoreWeightsV4Tests(unittest.TestCase):
             self.assertEqual(result['long_activity_bonus']+result['short_activity_bonus'],0)
 
     def test_strategy_version_and_entry_thresholds(self):
-        self.assertEqual(STRATEGY_VERSION,'market_state_engine_v4_body_deciles_liquidation_cap')
+        self.assertEqual(STRATEGY_VERSION,'market_state_engine_v5_exit_score_reentry')
         c = MarketStateConfig()
         self.assertEqual((c.entry_long_score,c.entry_short_score,c.entry_score_gap), (10,10,5))
         self.assertEqual(c.entry_min_positive_components,3)
